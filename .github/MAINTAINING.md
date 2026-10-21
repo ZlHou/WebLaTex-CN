@@ -4,29 +4,29 @@
 
 ## 本地构建
 
-在环境源码根目录执行：
+构建配置、白名单和检查脚本集中在 `.devcontainer/`；构建上下文也是该目录，不包含工作区的论文文件。在仓库根目录执行：
 
 ```bash
-docker build --pull -t weblatex-cn:local .
+docker build --pull -t weblatex-cn:local .devcontainer
 docker run --rm weblatex-cn:local check-latex-environment
 ```
 
 基础环境为官方 `node:24-trixie-slim`（Debian 13）。TeX Live、Biber 和字体统一通过 APT 安装，不混用 `tlmgr install/update`。TeX Live 使用 Debian 提供的版本；学校模板若要求更新版本，应先检查兼容性。
 
-Dockerfile 会以非 root 用户实际编译 XeLaTeX / LuaLaTeX 中文文档，检查数学公式、字体、算法、绘图及 GB/T 7714 Biber 文献，并验证 PDF 可提取的中文正文和文献题名。测试在临时目录中生成并清理，不调用 OpenAI 服务，也不需要 API key。
+[`.devcontainer/Dockerfile`](../.devcontainer/Dockerfile) 会以非 root 用户实际编译 XeLaTeX / LuaLaTeX 中文文档，检查数学公式、字体、算法、绘图及 GB/T 7714 Biber 文献，并验证 PDF 可提取的中文正文和文献题名。测试在临时目录中生成并清理，不调用 OpenAI 服务，也不需要 API key。
 
 ## 定制与版本固定
 
 ```bash
 # 跳过 Codex CLI，保留 Node.js 和 npm
-docker build --build-arg INSTALL_CODEX=false -t weblatex-cn:base .
+docker build --build-arg INSTALL_CODEX=false -t weblatex-cn:base .devcontainer
 
 # 固定 CLI 版本：将占位符替换为实际 npm 版本号
-docker build --build-arg CODEX_VERSION=<版本号> -t weblatex-cn:pinned .
+docker build --build-arg CODEX_VERSION=<版本号> -t weblatex-cn:pinned .devcontainer
 
 # 固定基础镜像：将占位符替换为实际 digest
 docker build --build-arg NODE_IMAGE=node:24-trixie-slim@sha256:<digest> \
-  -t weblatex-cn:pinned .
+  -t weblatex-cn:pinned .devcontainer
 ```
 
 默认基础镜像补丁、APT 包和 Codex CLI 会随重建更新，不保证逐字节可复现。CI 发布以下标签：
@@ -43,7 +43,7 @@ docker build --build-arg NODE_IMAGE=node:24-trixie-slim@sha256:<digest> \
 HTTPS 检查代理环境中，可为 npm 通过 BuildKit secret 注入 CA：
 
 ```bash
-docker build --secret id=proxy_ca,src=/path/to/proxy-ca.pem -t weblatex-cn:local .
+docker build --secret id=proxy_ca,src=/path/to/proxy-ca.pem -t weblatex-cn:local .devcontainer
 ```
 
 CA 不写入镜像。APT 等工具如也需要代理 CA，应按平台配置受信证书，保留 TLS 和软件源签名校验。
@@ -66,8 +66,22 @@ Dev Containers 可在 `runArgs` 数组中设置这些参数，然后重建容器
 
 ## 发布镜像
 
-工作流 [container.yml](../.github/workflows/container.yml) 对 `main` 分支的 push、PR 和手动执行进行构建与验证。PR 只检查；本分支 push 或在本分支手动执行通过后，使用 GitHub 自动提供的 `GITHUB_TOKEN` 发布 GHCR，无需额外 registry secret。
+工作流 [container.yml](workflows/container.yml) 对 `main` 分支的 push、PR 和手动执行进行构建与验证。PR 只检查；本分支 push 或在本分支手动执行通过后，使用 GitHub 自动提供的 `GITHUB_TOKEN` 发布 GHCR，无需额外 registry secret。
 
 仓库或组织需要允许 Actions 运行及写入 Packages。若已有同名包，需要授予本仓库 Actions 写入权限。需要匿名拉取时，在 **GitHub Packages → weblatex-cn → Package settings** 中将可见性设为 **Public**。
 
-在仓库的 **Actions → Build, test and publish WebLaTeX CN → Run workflow** 中可手动触发发布，选择 `main` 分支。环境更新提交并普通推送到本仓库的 `origin/main`，也会自动触发构建。仓库仅维护构建配置、文档与检查脚本，不加入论文正文或业务代码。
+在仓库的 **Actions → Build, test and publish WebLaTeX CN → Run workflow** 中可手动触发发布，选择 `main` 分支。环境更新提交并普通推送到本仓库的 `origin/main`，也会自动触发构建。仓库维护构建配置、文档、检查脚本和独立的 `example.tex` 演示文件，不加入实际论文正文或业务代码。工作约定见 [AGENTS.md](AGENTS.md)。
+
+
+## 迁移已有镜像的关联仓库
+
+镜像地址 `ghcr.io/zlhou/weblatex-cn` 属于用户账户；迁移源码仓库时可保留该地址与现有标签。
+
+在 GitHub 个人主页的 **Packages → weblatex-cn → Package settings** 中完成：
+
+1. 在 **Repository source** 中解除旧的仓库关联。
+2. 回到包页面，选择 **Connect repository**，关联 `ZlHou/WebLaTex-CN`。
+3. 在 **Manage Actions access** 中确认 `WebLaTex-CN` 有 **Write** 权限。
+4. 在新仓库的 Actions 中执行构建发布，确认成功后再按需撤销旧仓库的 Actions 访问权限。
+
+Dockerfile 已将 `org.opencontainers.image.source` 设置为新仓库 URL，CI 会在发布前检查该标签。修改镜像标签不会自动完成已有包的仓库关联迁移；关联操作见 [GitHub 官方说明](https://docs.github.com/en/packages/learn-github-packages/connecting-a-repository-to-a-package#migrating-a-package-to-another-repository)。

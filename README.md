@@ -4,7 +4,7 @@
 
 中文字体、公式、参考文献和编译工具已经配好，无需在自己的电脑上安装 TeX Live。支持保存后自动编译、PDF 预览和 Live Share 协作，也预装了 Node.js 与 Codex CLI。
 
-[快速开始](#快速开始) · [编译第一份中文文档](#编译第一份中文文档) · [使用已有论文](#使用已有论文) · [常见问题](#常见问题) · [构建与维护](docs/MAINTAINING.md)
+[快速开始](#快速开始) · [编译第一份中文文档](#编译第一份中文文档) · [使用已有论文](#使用已有论文) · [常见问题](#常见问题) · [构建与维护](.github/MAINTAINING.md)
 
 ## 快速开始
 
@@ -15,7 +15,7 @@
 1. 登录 GitHub，打开 [WebLaTeX CN 仓库](https://github.com/ZlHou/WebLaTex-CN)，使用默认的 **`main`** 分支。
 2. 点击 **Code → Codespaces → Create codespace on main**。
 3. 等待环境准备完成，浏览器会打开 VS Code，LaTeX Workshop 扩展会自动安装。
-4. 按下方示例创建 `main.tex`，开始写作。
+4. 打开自带的 [`example.tex`](example.tex)，保存并查看 PDF。
 
 第一次启动需要下载依赖并构建环境，请耐心等待。Codespaces 的可用额度和费用以你的 GitHub 账户为准。
 
@@ -26,37 +26,23 @@
 1. 打开 [WebLaTeX CN 仓库](https://github.com/ZlHou/WebLaTex-CN)，通过 **Code → Download ZIP** 下载默认的 `main` 分支并解压。
 2. 用 VS Code 打开解压后的文件夹。
 3. 按 `F1`，执行 **Dev Containers: Reopen in Container**。
-4. 等待环境准备完成，按下方示例创建 `main.tex`。
+4. 等待环境准备完成，打开 [`example.tex`](example.tex) 并保存。
 
 这两种方式都会使用仓库自带的开发容器配置。首次创建会从源码构建；希望直接使用预构建镜像，可按[使用已有论文](#使用已有论文)中的方法配置。
 
 ## 编译第一份中文文档
 
-在工作区根目录新建 `main.tex`，粘贴以下内容：
+仓库自带 [`example.tex`](example.tex)，涵盖中文摘要、数学公式、科学单位、表格和参考文献，无需额外文件。
 
-```tex
-\documentclass[UTF8,fontset=fandol]{ctexart}
-\usepackage{amsmath}
-\usepackage{siunitx}
+1. 打开 `example.tex`。
+2. **保存文件**（`Ctrl+S` / `⌘S`），自动使用 XeLaTeX 编译。
+3. 完成后，打开 `PDF/example.pdf` 查看结果。
 
-\title{我的第一份中文科技文档}
-\author{作者}
-\date{\today}
+可以直接修改示例开始写作，也可以复制为 `main.tex` 作为自己的入口。在容器终端手动编译示例：
 
-\begin{document}
-\maketitle
-
-\section{开始写作}
-中文、English、数学公式和科学单位可以一起使用。
-\[
-  E = mc^2, \qquad \int_0^1 x^2\,\mathrm{d}x = \frac{1}{3}.
-\]
-实验温度为 \qty{300}{\kelvin}。
-
-\end{document}
+```bash
+latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=PDF example.tex
 ```
-
-**保存文件**（`Ctrl+S` / `⌘S`）即可自动编译。完成后，打开 `PDF/main.pdf` 查看结果。
 
 | 想做什么 | 操作 |
 | --- | --- |
@@ -67,6 +53,18 @@
 | 邀请协作 | 点击 **Live Share**，登录并分享会话链接 |
 
 默认使用 **XeLaTeX**。PDF 保存在入口 `.tex` 文件旁的 `PDF/` 文件夹中；例如 `chapters/main.tex` 对应 `chapters/PDF/main.pdf`。
+
+## 目录结构
+
+```text
+.
+├── example.tex          # 打开、保存，即可编译的中文示例
+├── README.md            # 使用指南
+├── LICENSE              # MIT 许可证
+├── .devcontainer/       # 开发容器、Dockerfile、构建白名单和检查脚本
+├── .github/             # Actions、维护文档和工作约定
+└── .gitignore           # 忽略 PDF 和编译中间文件
+```
 
 ## 使用已有论文
 
@@ -143,7 +141,7 @@ docker run --rm -it \
 
 **Codex 提示无法创建 namespace？**
 
-这是宿主机的沙箱权限限制，处理方法见[构建与维护](docs/MAINTAINING.md#codex-沙箱)。
+这是宿主机的沙箱权限限制，处理方法见[构建与维护](.github/MAINTAINING.md#codex-沙箱)。
 
 ## 致谢与许可
 

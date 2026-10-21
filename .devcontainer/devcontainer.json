@@ -1,8 +1,8 @@
 {
   "name": "WebLaTeX CN + Node.js",
   "build": {
-    "dockerfile": "../Dockerfile",
-    "context": ".."
+    "dockerfile": "Dockerfile",
+    "context": "."
   },
   "remoteUser": "node",
   "updateRemoteUserUID": true,
