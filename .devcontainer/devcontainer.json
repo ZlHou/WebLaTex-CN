@@ -1,0 +1,41 @@
+{
+  "name": "WebLaTeX CN + Node.js",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "node",
+  "updateRemoteUserUID": true,
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "James-Yu.latex-workshop",
+        "ms-vsliveshare.vsliveshare"
+      ],
+      "settings": {
+        "files.encoding": "utf8",
+        "files.eol": "\n",
+        "latex-workshop.latex.autoBuild.run": "onSave",
+        "latex-workshop.latex.outDir": "%DIR%/PDF",
+        "latex-workshop.view.pdf.viewer": "tab",
+        "latex-workshop.latex.recipe.default": "first",
+        "latex-workshop.latex.recipes": [
+          { "name": "latexmk (XeLaTeX)", "tools": ["latexmk-xelatex"] },
+          { "name": "latexmk (LuaLaTeX)", "tools": ["latexmk-lualatex"] }
+        ],
+        "latex-workshop.latex.tools": [
+          {
+            "name": "latexmk-xelatex",
+            "command": "latexmk",
+            "args": ["-xelatex", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "-halt-on-error", "-outdir=%OUTDIR%", "%DOC%"]
+          },
+          {
+            "name": "latexmk-lualatex",
+            "command": "latexmk",
+            "args": ["-lualatex", "-synctex=1", "-interaction=nonstopmode", "-file-line-error", "-halt-on-error", "-outdir=%OUTDIR%", "%DOC%"]
+          }
+        ]
+      }
+    }
+  }
+}

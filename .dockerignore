@@ -1,0 +1,4 @@
+**
+!Dockerfile
+!scripts/
+!scripts/check-environment.sh
