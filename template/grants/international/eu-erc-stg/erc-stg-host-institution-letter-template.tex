@@ -1,0 +1,250 @@
+\documentclass[12pt,a4paper]{article}
+
+% {{{ packages
+
+\usepackage{iftex}
+\usepackage{xparse}
+\usepackage{geometry}
+\usepackage[hypertexnames=false,breaklinks=true]{hyperref}
+\usepackage[table]{xcolor}
+
+% better environments
+\usepackage[nameinlink, noabbrev]{cleveref}
+\usepackage[shortlabels]{enumitem}
+
+% better typography
+\usepackage{microtype}
+\usepackage[multiple]{footmisc}
+
+\ifPDFTeX
+    \usepackage[T1]{fontenc}
+    \usepackage{tgtermes}
+\else
+    \usepackage{fontspec}
+    \IfFontExistsTF{Times New Roman}{
+        \setmainfont[Ligatures=Rare]{Times New Roman}}{
+        \IfFontExistsTF{TeX Gyre Termes}{
+            \setmainfont{TeX Gyre Termes}
+        }{\PackageWarning{erc-stg}{No Times New Roman-type font could be found}}}
+\fi
+
+% }}}
+
+% {{{ formatting
+
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue,
+    citecolor=black,
+    linkcolor=black
+}
+
+% NOTE: use a decent parskip
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5\baselineskip plus 0.5\baselineskip minus 0.25\baselineskip}
+
+\geometry{top=2.25cm, bottom=2.25cm, left=2.35cm, right=2.35cm}
+
+% NOTE: color used for comments
+\definecolor{ERCGray}{RGB}{140, 140, 140}
+
+\NewDocumentCommand \erccomment { m } {\textcolor{ERCGray}{#1}}
+\NewDocumentCommand \ercentry { sm } {%
+\noindent\begin{tabular}{@{}l}
+\textit{#2} \\[1em]
+\IfBooleanTF#1{\makebox[0.8\textwidth]{\dotfill}}{\makebox[0.4\textwidth]{\dotfill};\makebox[0.4\textwidth]{\dotfill}}
+\end{tabular}%
+}
+
+% }}}
+
+\begin{document}
+
+{
+\large
+
+\textbf{Commitment of the Host Institution for ERC Calls 2027}
+\footnotemark[1]$^{,}$\footnotemark[2]$^{,}$\footnotemark[3]
+}
+
+\bigskip
+
+\footnotetext[1]{A scanned copy of the signed statement should be uploaded
+electronically via the
+\href{https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home}{
+Funding \& Tenders Portal} Submission Service in PDF format.}
+
+\footnotetext[2]{The statement of commitment of the Host Institution refers to most
+obligations of the Host Institution, which are stated in the Model Grant Agreement used
+for ERC actions (MGA). The
+\href{https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/common/agr-contr/general-mga_horizon-euratom_en.pdf}{MGA}
+is available on the Funding \& Tenders
+Portal. The reference to the time commitment of the Principal Investigator is stated in
+the ERC Work Programme 2027.}
+
+\footnotetext[3]{This statement (on letterhead paper) shall be signed with a legally
+binding signature (e.g.\ blue ink or digital signature) by the institution's legal
+representative indicating their name, function, email address and, in case of blue ink
+signature, along with the stamp of the institution.}
+
+\textbf{The \erccomment{<<please fill in here the name of the legal entity that is
+associated to the proposal and may host the principal investigator and the project
+(action) in case the application is successful>>}, which is the applicant legal entity,}
+
+\textbf{confirms its intention to sign a supplementary agreement with
+\erccomment{<<please fill in here the name of the principal investigator>>}}
+
+\textbf{in which the obligations listed below will be addressed should the proposal be retained.}
+
+\textbf{Performance obligations of the applicant legal entity (Host Institution)
+that will become the coordinator of the HE ERC Grant Agreement (hereafter referred
+to as the Agreement), should the proposal be retained and the preparation of
+the Agreement be successfully concluded:}
+
+The applicant legal entity (Host Institution) commits itself to ensure that the
+action tasks described in Annex 1 of the Agreement are performed under the
+guidance of the principal investigator who is expected to devote:
+\begin{itemize}
+    \item in the case of a Starting Grant at least 50\% of her/his working time to
+    the ERC-funded project (action) and spend at least 50\% of her/his working
+    time in an EU Member State or Associated Country;
+
+    \item in the case of a Consolidator Grant at least 40\% of her/his working
+    time to the ERC-funded project (action) and spend at least 50\% of her/his
+    working time in an EU Member State or Associated Country;
+
+    \item in the case of an Advanced Grant at least 30\% of her/his working time
+    to the ERC-funded project (action) and spend at least 50\% of her/his
+    working time in an EU Member State or Associated Country.
+
+    \item in the case of an ERC Plus Grant at least 30\% of her/his working time to the
+    ERC-funded project (action) and spend at least 50\% of her/his working time in an EU
+    Member State or Associated Country.
+\end{itemize}
+
+The applicant legal entity (Host Institution) commits itself to respect the
+following conditions for the principal investigator and their team:
+\begin{enumerate}[a), itemsep=-2pt]
+    \item host and engage the principal investigator for the whole duration of
+    the action;
+
+    \item take all measures to implement the principles set out in the Commission
+    recommendation on the European Charter for Researchers and the Code of
+    Conduct for the Recruitment of Researchers\footnotemark[4] --- in particular
+    regarding working conditions, transparent recruitment processes based on
+    merit and career development --- and ensure that the principal investigator,
+    researchers and third parties involved in the action are aware of them;
+
+    \footnotetext[4]{
+    \href{https://euraxess.ec.europa.eu/sites/default/files/am509774cee_en_e4.pdf}{
+    Commission Recommendation 2005/251/EC of 11 March 2005} on the
+    European Charter for Researchers and on a Code of Conduct for the Recruitment of
+    Researchers (OJ L 75, 22.3.2005, p. 67).}
+
+    \item enter — before grant signature— into a Supplementary Agreement with
+    the principal investigator, that specifies the obligation of the applicant
+    legal entity to meet its obligations under the Agreement;
+
+    \item provide the principal investigator with a copy of the signed Agreement;
+
+    \item guarantee the principal investigator scientific independence, in
+    particular for the:
+
+    \begin{enumerate}[i),itemsep=-5pt,partopsep=-5pt]
+        \item use of the budget to achieve the scientific objectives;
+        \item authority to publish as senior author and invite as co-authors
+        those who have contributed substantially to the work;
+        \item preparation of scientific reports for the action;
+        \item selection and supervision of the other team members, in line with
+        the profiles needed to conduct the research and in accordance with the
+        beneficiary's usual management practices;
+        \item possibility to apply independently for funding;
+        \item access to appropriate space and facilities for conducting the research;
+    \end{enumerate}
+
+    \item provide --- during the implementation of the action --- research
+    support to the principal investigator and the team members (regarding
+    infrastructure, equipment, access rights, products and other services
+    necessary for conducting the research);
+
+    \item support the principal investigator and provide administrative assistance,
+    in particular for the:
+
+    \begin{enumerate}[i),itemsep=-5pt,partopsep=-5pt]
+        \item general management of the work and their team;
+        \item scientific reporting, especially ensuring that the team members send
+        their scientific results to the principal investigator;
+        \item financial reporting, especially providing timely and clear financial
+        information;
+        \item application of the beneficiary's usual management practices;
+        \item general logistics of the action;
+        \item access to the electronic exchange system;
+    \end{enumerate}
+
+    \item inform the principal investigator immediately (in writing) of any
+    events or circumstances likely to affect the Agreement;
+
+    \item ensure that the principal investigator enjoys adequate:
+
+    \begin{enumerate}[i),itemsep=-5pt,partopsep=-5pt]
+        \item conditions for annual, sickness and parental leave;
+        \item occupational health and safety standards;
+        \item insurance under the general social security scheme, such as
+        pension rights;
+    \end{enumerate}
+
+    \item allow the transfer of the Agreement to a new beneficiary, if
+    requested by the principal investigator and provided that the objectives of
+    the action remain achievable (portability; see Article 41 of the Agreement);
+
+    \item \textbf{respect the fundamental principle of research integrity and ensure
+    that persons carrying out research tasks under the action follow the good
+    research practices and refrain from the research integrity violations
+    described in the European Code of Conduct for Research Integrity\footnotemark[5].
+    If any such violations or allegations occur, verify and pursue them and bring
+    them to the attention of the Agency.}
+
+    \footnotetext[5]{
+    \href{https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/horizon/guidance/european-code-of-conduct-for-research-integrity_horizon_en.pdf}{
+    The European Code of Conduct for Research Integrity} --
+    Revised Edition 2023. All European Academies, Berlin.
+    DOI \href{https://doi.org/10.26356/ECOC}{10.26356/ECOC}.}
+\end{enumerate}
+
+\newpage
+
+\textbf{For the applicant legal entity (Host Institution):}
+
+\bigskip
+
+\ercentry*{Date}
+
+\bigskip
+
+\ercentry{Name and Function}
+
+\bigskip
+
+\ercentry{Email and legally binding signature of legal representative}
+
+\bigskip
+
+\textit{Stamp of the applicant legal entity (Host Institution)\footnotemark[6]}
+
+\footnotetext[6]{No need to stamp this letter of support when it is digitally signed.}
+
+\bigskip
+
+\noindent\fbox{\parbox{0.987\textwidth}{
+\textbf{IMPORTANT NOTE:} \\
+
+\textbf{In order to be complete, all the above mentioned items are mandatory
+and shall be included in the commitment of the Host Institution.} \\
+
+\textbf{\textcolor{red}{If the letter is digitally signed, please do NOT lock it. Locked
+files cannot be uploaded to the submission portal}}
+}}
+
+\end{document}
+
+% kate: default-dictionary en_GB;

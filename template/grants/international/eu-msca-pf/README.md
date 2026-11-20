@@ -1,0 +1,191 @@
+# MSCA-PF: LaTeX Template
+
+[![GitHub Actions Workflow Status](https://github.com/alexfikl/msca-pf/actions/workflows/ci.yml/badge.svg)](https://github.com/alexfikl/msca-pf/actions/workflows/ci.yml)
+[![veraPDF Compliance](https://img.shields.io/badge/PDF%2FUA--2-Verified_with_veraPDF-blue)](https://verapdf.org/home)
+[![Open in Overleaf](https://img.shields.io/static/v1?label=LaTeX&message=Open-in-Overleaf&color=47a141&style=flat&logo=overleaf)](https://www.overleaf.com/docs?snip_uri=https://github.com/alexfikl/msca-pf/archive/refs/heads/main.zip)
+
+> [!NOTE]
+> This is an **unofficial template** based on the templates provided by the MSCA-PF
+> program (originally in the RTF format). Proposals based on this template have
+> been successfully submitted in 2022 and 2024 (to my knowledge). Newer
+> versions of this template are available and reporting any discrepancies is
+> highly appreciated!
+
+LaTeX class and template for Marie Skłodowska-Curie Actions Postdoctoral Fellow
+grant applications.
+
+- Details and original template is provided
+  [here](https://rea.ec.europa.eu/funding-and-grants/horizon-europe-marie-sklodowska-curie-actions/msca-postdoctoral-fellowships_en)
+  (calls are updated each year).
+
+- For the official editable version of the template, you must start the submission
+  process. The template will then be available on the left-hand side in a section
+  named "Download Part B templates".
+
+- For a similar template for the Doctoral Network see
+  [msca-dn](https://github.com/pgarner/msca-dn).
+
+## Usage
+
+To use this template, you essentially just need 3 files: `msca-pf.cls`,
+`msca-pf-part-b1-template.tex` and `msca-pf-part-b2-template.tex`.
+
+- The `msca-pf.cls` file contains the required formatting and some helpful options
+  (described below).
+
+- The other two files contain the actual sections and documentation text from
+  the MSCA program. These could be renamed to whatever you prefer, e.g.
+  `project-acronym-b1.tex`.
+
+The two templates for Part B1 and B2 contain a lot of text used to describe
+what the various sections should present. This should, of course, not be part
+of the final proposal and is automatically removed when removing the
+`draftproposal` option. However, the sections themselves (and some tables)
+should stay in the given format and location.
+
+**Warning**: We do not follow the minimal requirements from the MSCA manual
+exactly. They require a page size of A4, margins of at least 15mm and a font size
+of at least 11pt. In this template, we use **12pt** fonts to match the official
+template and the margins are more towards **20mm** (using KOMA Script's `DIV=15`
+setting). To force the minimal requirements, set the `minimal` option as below
+
+```tex
+\documentclass[minimal,draftproposal]{msca-pf}
+```
+
+Finally, as the documents themselves mention at the start: when in doubt,
+always consult (and prefer) the official documentation!
+
+## Accessibility (PDF/UA-2 Compliance)
+
+> [!NOTE]
+> Accessibility support (PDF/UA-2) is enabled automatically whenever
+> `\DocumentMetadata` is provided before `\documentclass` in the templates.
+>
+> The EU is pushing for some accessibility improvements (through the
+> [EAA](https://commission.europa.eu/strategy-and-policy/policies/justice-and-fundamental-rights/disability/european-accessibility-act-eaa_en),
+> for example), that do not directly apply to MSCA grants. However, enabling these
+> features can improve accessibility for reviewers and program officers, so it's
+> generally encouraged!
+
+By default, the current templates use the new [LaTeX
+Tagging](https://latex3.github.io/tagging-project/) infrastructure to produce
+more accessible PDFs (using the PDF/UA-2 standard for Universal Accessibility).
+We currently pass the checks from [veraPDF](https://verapdf.org/), but this is
+not sufficient for full compliance (i.e. some aspects cannot be checked
+automatically, such as image contrast). The accessible build requires a pretty
+modern LaTeX toolchain:
+
+- **TeXLive 2025+**, the newer the better (Overleaf has TeXLive 2026).
+- **LuaLaTeX**. PDFLaTeX and XeLaTeX cannot produce the required tagged PDFs. Note
+  that PDFLaTeX can produce PDF/UA-2 documents, they do not pass the veraPDF checks
+  at this point.
+
+Other things to keep in mind when using tagged PDFs:
+
+- Many common packages do not work with tagging. See the
+  [official Tagging Status page](https://latex3.github.io/tagging-project/tagging-status/)
+  for the compatibility status for most packages. Note that incompatible
+  packages will still work most of the time, but they will not produce PDFs that
+  can actually be used by screen readers or other accessibility software.
+- There are strict requirements around figures and tables that need to be followed.
+  See the [official documentation](https://latex3.github.io/tagging-project/documentation/usage-instructions)
+  and [Overleaf's documentation](https://docs.overleaf.com/writing-and-editing/creating-accessible-pdfs)
+  for more information on the various problems.
+
+The tagged build should be easy to disable. You only need to delete or
+comment out the `\DocumentMetadata` command at the top of the template files.
+
+## Compilation
+
+> [!NOTE]
+> To build with PDFLaTeX or XeLaTeX, the accessibility setup must be turned
+> off. We recommend using LuaLaTeX whenever possible for this reason.
+
+The resulting PDF files are included for easy viewing. The template is compatible
+with both PDFLaTeX and LuaLaTeX/XeLaTeX. It can be easily build with e.g. `latexmk`
+
+```sh
+latexmk -pdflua msca-pf-part-b1-template.tex
+latexmk -pdflua msca-pf-part-b2-template.tex
+```
+
+## Documentation
+
+This packages provides the `msca-pf` class that is based on the
+KOMA-script `scrartcl` class and accepts any options meant for it. It can
+be used as
+
+```tex
+\documentclass[12pt,layoutgrid,draftproposal]{msca-pf}
+
+% ... preamble ...
+
+\begin{document}
+
+% ... content ...
+
+\end{document}
+```
+
+The class has several options to control its behavior:
+
+- `minimal`: use minimal MSCA formatting requirements (11pt fonts, 15mm margins),
+  instead of the larger defaults.
+- `draftproposal`: adds helpful drafting options, such as line numbers,
+  time stamps, section documentation, etc.
+- `layoutgrid`: overlays a grid on top of each page to check margins and
+  other alignment issues.
+
+It also provides a few useful commands that can be used in the proposal. The
+following commands are mandatory:
+
+- `mscaidentifier`: the call identifier, e.g. `HORIZON-MSCA-2022-PF-01`. This
+  should be set to the appropriate version by default.
+- `mscaproject`: the acronym for the project.
+
+Additionally, there are also some commands to help constructing the CV and other
+little tables in the submission. The CV, in particular, has no recommended
+structure, so you are welcome to use these or set up your own preferred formatting.
+
+- `mscaorgoverview`: an environment (wrapper around `tabular`) that defines
+  the table template from Section 5.1 for participating organisations. This is a
+  fixed 6 column table.
+- `mscaorgcapacity`: an environment (wrapper around `longtable`) that defines
+  the table template from Section 5.2 for participating organisations. This is a
+  fixed 2 column table.
+- `cvitem`: an environment to define a nicely aligned CV item.
+- `\cventry{dates}{name}{details}{location}`: a generic entry in the CV. Use
+  `\cventryitem` to get one already wrapped in the `cvitem` environment.
+- `\cvpub{date}{authors}{title}{journal}`: a publication. Use
+  `\cvpubitem` to get one already wrapped in the `cvitem` environment.
+- `\cvdetail{name}{description}`: a additional description for an entry. This
+  must be added in the same `cvitem` environment as the entry itself to use the
+  same alignment.
+
+A Gantt chart must also be provided in the proposal. There are some LaTeX packages,
+e.g. [pgfgantt](https://ctan.org/pkg/pgfgantt?lang=en), that can be used to
+create such charts. However, you can also just use a third party application,
+export the chart as a PNG or PDF, and include it like that.
+
+## Fonts
+
+The official MSCA guidelines require the Times New Roman font on Windows or
+macOS and the Nimbus Roman font on Linux. When using PDFLaTeX this package
+uses the `newtx` fonts. When using XeLaTeX or LuaLaTeX, we try to load
+the Times New Roman font and, if it is not available, the Nimbus Roman font.
+
+If these do not work for you, you can load fonts yourself using e.g.
+
+```tex
+% on PDFLaTeX
+\usepackage{newtxtext}
+\usepackage{newtxmath}
+
+% on XeLaTeX / LuaLaTeX
+\setmainfont{Times New Roman}
+```
+
+## License
+
+[Creative Commons Zero v1.0 Universal](https://creativecommons.org/public-domain/cc0/) (CC0-1.0).

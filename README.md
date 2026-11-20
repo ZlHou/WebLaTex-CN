@@ -59,9 +59,10 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=PDF example.tex
 ```text
 .
 ├── example.tex          # 打开、保存，即可编译的中文示例
-├── template/            # 中文期刊与各高校学位论文 LaTeX 模板汇总
+├── template/            # 中文期刊、基金项目与各高校学位论文 LaTeX 模板汇总
 │   ├── README.md        # 模板目录索引与使用说明
 │   ├── journals/        # 中文期刊与通用期刊框架模板
+│   ├── grants/          # 中国及国际可申请基金项目模板（china/、international/）
 │   └── universities/    # 各高校本科/硕士/博士学位论文模板
 ├── README.md            # 使用指南与模板来源致谢
 ├── LICENSE              # MIT 许可证
@@ -72,7 +73,9 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=PDF example.tex
 
 ## 模板汇总
 
-[`template/`](template/README.md) 目录汇总了 **11 个中文期刊 / 通用框架模板** 以及 **45 所高校的 53 个学位论文模板**（均直接存放精简后的模板源码并保留各自原始 `LICENSE`，已移除商业/大体积字体文件与非 LaTeX 办公附件）。
+[`template/`](template/README.md) 目录汇总了 **11 个中文期刊 / 通用框架模板**、**19 个基金项目模板**（中国基金 9 个 + 国际可申请基金 10 个）以及 **45 所高校的 53 个学位论文模板**（均直接存放精简后的模板源码并保留各自原始 `LICENSE`，已移除商业/大体积字体文件与非 LaTeX 办公附件）。
+
+- 基金项目分为 `template/grants/china/`（中国内地及香港基金）与 `template/grants/international/`（中国学者/学生可申请的国际基金）。
 
 - 同一高校若单个模板已覆盖 **本科 / 硕士 / 博士** 全部学位层次，直接置于 `template/universities/<高校简称>/`。
 - 若模板仅覆盖部分学位层次，则在学校目录下按 `bachelor/`、`master/`、`doctor/`、`master-doctor/` 分设子目录。
@@ -93,6 +96,37 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=PDF example.tex
 | 北京航空航天大学学报 | Journal of Beijing University of Aeronautics and Astronautics | [`template/journals/jbuaa`](template/journals/jbuaa) | [Htallone/JBUAA](https://github.com/Htallone/JBUAA) | 2018-08-21 | 未声明 |
 | 中国电机工程学报 | Proceedings of the CSEE | [`template/journals/csee`](template/journals/csee) | [SUEPaper/CSEE-LaTeX-template](https://github.com/SUEPaper/CSEE-LaTeX-template) | 2026-10-08 | 未声明 |
 | 中文期刊通用模板框架 | General Chinese Journal LaTeX Framework | [`template/journals/chinesejournal`](template/journals/chinesejournal) | [latexstudio/chinesejournal](https://github.com/latexstudio/chinesejournal) | 2019-05-15 | LPPL-1.3c |
+
+### 基金项目模板（19 个）
+
+#### 中国基金项目（9 个）
+
+| 基金项目 | 适用范围 / 资助机构 | 模板目录 | 来源仓库 | 更新时间 | 许可证 |
+| --- | --- | --- | --- | --- | --- |
+| 国家自然科学基金（面地青 A/B/C 类） | 中国内地 · NSFC | [`template/grants/china/nsfc-general`](template/grants/china/nsfc-general) | [fylimas/nsfc](https://github.com/fylimas/nsfc) | 2026-03-05 | 未声明 |
+| 国家自然科学基金（面上项目正文） | 中国内地 · NSFC | [`template/grants/china/nsfc-surface`](template/grants/china/nsfc-surface) | [Ruzim/NSFC-application-template-latex](https://github.com/Ruzim/NSFC-application-template-latex) | 2026-01-24 | MIT |
+| 国家自然科学基金（青年科学基金 A 类） | 中国内地 · NSFC | [`template/grants/china/nsfc-youth-a`](template/grants/china/nsfc-youth-a) | [Ruzim/NSFC-QA-template-latex](https://github.com/Ruzim/NSFC-QA-template-latex) | 2026-01-25 | MIT |
+| 国家自然科学基金（iNSFC 模板） | 中国内地 · NSFC | [`template/grants/china/nsfc-insfc`](template/grants/china/nsfc-insfc) | [YimianDai/iNSFC](https://github.com/YimianDai/iNSFC) | 2026-03-16 | 未声明 |
+| 国家自然科学基金（2026 模块化模板） | 中国内地 · NSFC | [`template/grants/china/nsfc-2026`](template/grants/china/nsfc-2026) | [tsingke/NSFC-LaTeX-2026](https://github.com/tsingke/NSFC-LaTeX-2026) | 2026-05-05 | MIT |
+| 国家自然科学基金（MCG-NKU 版） | 中国内地 · NSFC | [`template/grants/china/nsfc-nku`](template/grants/china/nsfc-nku) | [MCG-NKU/NSFC-LaTex](https://github.com/MCG-NKU/NSFC-LaTex) | 2026-03-19 | 未声明 |
+| 中国科研常用模板集（含国自然等） | 中国内地 · 综合科研基金 | [`template/grants/china/chinese-research-latex`](template/grants/china/chinese-research-latex) | [huangwb8/ChineseResearchLaTeX](https://github.com/huangwb8/ChineseResearchLaTeX) | 2026-11-15 | MIT |
+| 博士后研究工作报告（北京大学版） | 中国内地 · 博士后 | [`template/grants/china/postdoc-pku`](template/grants/china/postdoc-pku) | [Jiayin-Gu/PKUreport](https://github.com/Jiayin-Gu/PKUreport) | 2023-03-14 | GPL-3.0 |
+| 香港研究资助局 RGC（GRF / ECS） | 中国香港 · RGC | [`template/grants/china/hk-rgc-grf`](template/grants/china/hk-rgc-grf) | [zhiyzuo/HK-RGC-Grant-Proposal-Template](https://github.com/zhiyzuo/HK-RGC-Grant-Proposal-Template) | 2020-10-29 | 未声明 |
+
+#### 国际基金项目（中国学者 / 学生可申请，10 个）
+
+| 基金项目 | 适用范围 / 资助机构 | 模板目录 | 来源仓库 | 更新时间 | 许可证 |
+| --- | --- | --- | --- | --- | --- |
+| 欧盟玛丽·居里博士后基金（MSCA-PF） | 欧盟 · 全球无国籍限制 | [`template/grants/international/eu-msca-pf`](template/grants/international/eu-msca-pf) | [alexfikl/msca-pf](https://github.com/alexfikl/msca-pf) | 2026-11-09 | CC-BY-4.0 |
+| 欧盟玛丽·居里博士生网络（MSCA-DN） | 欧盟 · 全球无国籍限制 | [`template/grants/international/eu-msca-dn`](template/grants/international/eu-msca-dn) | [pgarner/msca-dn](https://github.com/pgarner/msca-dn) | 2022-08-01 | 未声明 |
+| 欧洲研究理事会启动基金（ERC StG） | 欧盟 · 全球无国籍限制 | [`template/grants/international/eu-erc-stg`](template/grants/international/eu-erc-stg) | [alexfikl/erc-stg](https://github.com/alexfikl/erc-stg) | 2026-11-16 | CC-BY-4.0 |
+| 欧盟地平线计划（Horizon Europe RIA/IA） | 欧盟 · 国际合作可申请 | [`template/grants/international/eu-horizon-heria`](template/grants/international/eu-horizon-heria) | [logological/heria](https://github.com/logological/heria) | 2026-08-16 | 未声明 |
+| 德国科学基金会项目（DFG Proposal） | 德国 · 赴德/在德学者可申请 | [`template/grants/international/de-dfg`](template/grants/international/de-dfg) | [emtpb/proposal_dfg](https://github.com/emtpb/proposal_dfg) | 2026-02-26 | See LICENSE |
+| 美国国家科学基金会（NSF Proposal） | 美国 · 在美机构/合作可申请 | [`template/grants/international/us-nsf`](template/grants/international/us-nsf) | [nsf-open/nsf-proposal-latex-samples](https://github.com/nsf-open/nsf-proposal-latex-samples) | 2026-07-28 | See LICENSE |
+| 美国国立卫生研究院（NIH Grant） | 美国 · 在美机构/合作可申请 | [`template/grants/international/us-nih`](template/grants/international/us-nih) | [Noble-Lab/nih-latex](https://github.com/Noble-Lab/nih-latex) | 2023-02-07 | MIT |
+| 美国 NIH 博士后奖学金（NIH F32） | 美国 · 博士后项目 | [`template/grants/international/us-nih-f32`](template/grants/international/us-nih-f32) | [c-bun/latex-F32](https://github.com/c-bun/latex-F32) | 2019-02-27 | GPL-3.0 |
+| 英国工程与物理科学研究理事会（UKRI/EPSRC） | 英国 · 在英机构/合作可申请 | [`template/grants/international/uk-epsrc`](template/grants/international/uk-epsrc) | [DilhanM/epsrc_latex](https://github.com/DilhanM/epsrc_latex) | 2024-10-25 | MIT |
+| 加拿大自然科学与工程研究理事会（NSERC DG） | 加拿大 · 在加机构学者可申请 | [`template/grants/international/ca-nserc`](template/grants/international/ca-nserc) | [aasgreen/NSERC-Application-Latex-Template](https://github.com/aasgreen/NSERC-Application-Latex-Template) | 2011-10-03 | 未声明 |
 
 ### 各高校学位论文模板（45 所高校 / 53 个模板）
 
@@ -233,7 +267,7 @@ docker run --rm -it \
 
 写作体验参考 [WebLaTeX](https://github.com/sanjib-sen/WebLaTex)，结合 VS Code、Codespaces 和 LaTeX Workshop，为中文科技写作提供预配置环境。
 
-衷心感谢[模板汇总](#模板汇总)中收录的所有中文期刊与高校学位论文 LaTeX 模板的原作者、各高校 TeX 用户组（TUG）及开源社区维护者，各模板的来源仓库均已在上表逐一标注。模板清单整理亦参考了以下开源索引项目：
+衷心感谢[模板汇总](#模板汇总)中收录的所有中文期刊、科研基金与高校学位论文 LaTeX 模板的原作者、各高校 TeX 用户组（TUG）及开源社区维护者，各模板的来源仓库均已在上表逐一标注。模板清单整理亦参考了以下开源索引项目：
 
 - [1195343015/cn-university-latex-thesis-templates](https://github.com/1195343015/cn-university-latex-thesis-templates)
 - [hantang/latex-templates](https://github.com/hantang/latex-templates)

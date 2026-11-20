@@ -1,0 +1,52 @@
+%!TEX program = xelatex
+
+\documentclass[UTF8,12pt,a4paper,oneside,openany,fontset=none,AutoFakeBold]{ctexbook}
+
+\input{extraTex/@config.tex}
+\input{extraTex/meta.tex}
+
+% 可选值：
+%   thesis  -> 正文页眉显示“本科毕业论文”
+%   design  -> 正文页眉显示“本科毕业设计”
+% 封面按官方附件 6 的通用题名保留“本科毕业论文(设计)”。
+\jxustSetWorkType{thesis}
+
+\begin{document}
+
+\pagestyle{jxust-empty}
+\jxustMakeCover
+\clearpage
+\jxustMakeOriginalityStatement
+\clearpage
+
+\input{extraTex/front/abstract_zh.tex}
+\clearpage
+\input{extraTex/front/abstract_en.tex}
+\clearpage
+
+\jxustFrontMatterPageNumbering
+\setcounter{page}{1}
+\pagestyle{jxust-front}
+\jxustMakeToc
+\clearpage
+
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\pagestyle{jxust-main}
+
+\input{extraTex/body/chapter-01.tex}
+\input{extraTex/body/chapter-02.tex}
+\input{extraTex/body/chapter-03.tex}
+\input{extraTex/body/chapter-04.tex}
+
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{参考文献}
+\input{extraTex/back/references.tex}
+
+\clearpage
+\chapter*{致\quad 谢}
+\addcontentsline{toc}{chapter}{致谢}
+\input{extraTex/back/thanks.tex}
+
+\end{document}

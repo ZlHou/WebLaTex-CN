@@ -1,0 +1,161 @@
+\documentclass[12pt,notitlepage]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{blindtext}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[a4paper,margin=2.5cm]{geometry}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{setspace}
+\singlespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{minted}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titling}
+%\pretitle{\large\bfseries}
+%\posttitle{\vskip 0pt}
+%\posttitle{}
+%\preauthor{}
+%\postauthor{}
+\predate{}
+\postdate{}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[perpage,symbol*]{footmisc}
+%\renewcommand{\thefootnote}{\alph{footnote}}
+%\newcommand{\numfootnote}{\fnsymbol{footnote}}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\setenumerate{nolistsep} % kills all vertical spacing
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\needcite}{\textcolor{red}{[CITE]}}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%\title{\vskip -10ex Background of Research}
+\title{\vskip -5ex \large \textbf{Something Interesting and Exciting}}
+\date{\vskip -3ex}
+\author{Zhiya Zuo\\\textit{Prepared for Early-Career Scheme 21/22}}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{titlesec}
+\titlespacing{\title}{0pt}{0.2ex}{0ex}
+\titleformat{\title}
+{\centering\normalfont\bfseries}
+{}{0pt}{}
+%
+\titlespacing{\section}{0pt}{0.2ex}{0ex}
+\titleformat{\section}
+{\centering\normalfont\bfseries}
+{}{0pt}{}
+%
+\titlespacing{\subsection}{0pt}{0.2ex}{0ex}
+\titleformat{\subsection}
+{\normalfont\bfseries\itshape}
+{}{0pt}{}
+%
+\titlespacing{\subsubsection}{0pt}{0.2ex}{0ex}
+\titleformat{\subsubsection}
+{\normalfont}
+{}{0pt}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lipsum}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+%\pagenumbering{gobble}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{csquotes}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[american]{babel}
+\usepackage[sortcites=true,
+			sorting=nyt,
+			style=apa,
+			doi=false,
+			isbn=false,
+			maxcitenames=3,
+			mincitenames=1,
+			maxbibnames=3,
+			minbibnames=1,
+			backend=biber,
+			eprint=false]{biblatex}
+\DeclareLanguageMapping{american}{american-apa}
+\DeclareDelimFormat[textcite]{finalnamedelim}{%
+  \ifnumgreater{\value{liststop}}{2}{\finalandcomma}{}%
+  \addspace\bibstring{and}\space}
+%\DeclareDelimFormat[parencite]{finalnamedelim}{\addspace\&\space}
+\addbibresource{references.bib}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlingpage}
+    \maketitle
+    \input{0_keywords}
+\end{titlingpage}
+\pagenumbering{gobble}
+
+
+\clearpage
+\input{0_1_abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\input{0_2_objectives_bullet_point}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\input{0_3_pathway}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\input{0_4_education}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+%Thanks to the information and communication technologies (ICTs),
+%Along with the increasingly specialized knowledge body,
+%it is more difficult, if not impossible,
+%for individuals to possess all expected skills %and abilities due to the growing task complexity and competitiveness.
+%Organizations, as a result, have become increasingly relying on teams
+%\footnote{While some scholars consider members of a team hold specific roles while those of a group do not, such subtle difference is of little importance in this proposal. Following previous studies~\parencite[e.g.,][]{webber2001impact,mathieu2017century,park2020understanding}, we use teams and groups interchangeably.} 
+%as their basic operation units~\parencite{van2016past,mathieu2019embracing}.
+
+%Indeed, crowdsourcing contests have shown great successes across various areas. In May 2011, NASA, European Space Agency, and Royal Astronomical Society cohosted an open challenge on mapping dark matter, a great unifying problem of the universe we are living in over the past decades (Rhodes, 2011). Within a week, surprisingly, a then-PhD student, Martin O’Leary, came up with an algorithm based on his domain knowledge in glaciology that outperformed the state-of-the-art solution in astronomy.
+%Martin, however, was unable to have the last laugh. The final winner was a team of two researchers from the University of California, Irvine. In fact, two out of the top three were teams, while only one attended as an individual. 
+
+%%%%%%%%%%
+%%%%%%%%%%
+\section{Related Work}
+\smallskip
+\input{1_related}
+%%%%%%%%%%
+\bigskip
+\section{Research Plan and Methodology}
+\smallskip
+\input{2_plan}
+
+
+%%%%%%%%%%%% END MAIN TEXT %%%%%%%%%%%%
+%%%%%%%%%%%% fig and tab %%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\section{Figures and Tables}
+\input{3_Figures}
+\input{4_Tables}
+
+
+%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\section{References}
+\printbibliography[heading=none]
+
+\end{document}

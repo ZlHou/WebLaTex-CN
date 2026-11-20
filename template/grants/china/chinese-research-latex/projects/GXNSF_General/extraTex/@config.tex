@@ -1,0 +1,198 @@
+% 广西自然科学基金面上项目报告正文项目级配置。
+% 项目层保留广西模板自己的字体、页边距与提纲装配；正文标题复用
+% bensz-nsfc 的公共 titlesec 实现，避免在各项目重复维护标题样式。
+
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{ragged2e}
+\usepackage{indentfirst}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+% Word 基线：A4，上下 1440 twips（2.54 cm），左右 1800 twips（3.175 cm）。
+\geometry{a4paper,left=3.175cm,right=3.175cm,top=2.54cm,bottom=2.54cm}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=black,
+  linkcolor=black,
+  anchorcolor=black,
+  citecolor=black,
+  CJKbookmarks=true
+}
+
+\newcommand{\GXNSFSetupFonts}{%
+  \IfFileExists{bensz-fonts.sty}{%
+    \usepackage{bensz-fonts}%
+  }{%
+    \IfFileExists{styles/bensz-fonts.sty}{%
+      \makeatletter\input{styles/bensz-fonts.sty}\makeatother
+      \BenszFontsSetPackageDir{styles/}%
+    }{%
+      \PackageError{GXNSF}{Missing required package bensz-fonts}{%
+        Install bensz-fonts with the repository-level scripts/install.py before compiling the standard package.\MessageBreak
+        The Overleaf release already embeds the required fonts.%
+      }%
+    }%
+  }%
+  \BenszFontsSetMainTimesFallback%
+  \GXNSFPreferOriginalFonts
+  \xeCJKsetup{PunctStyle=plain,CJKecglue={}}%
+}
+
+% 原 DOCX 指定“方正仿宋_GBK / 方正楷体_GBK”。优先使用系统已安装的
+% 对应方正字体。若系统中没有原始字体，则由 bensz-fonts 先使用包内的
+% 同款方正字体，再按 DOCX 的 Microsoft YaHei 替代记录和跨平台字体回退。
+\newcommand{\GXNSFSetSystemFangsong}[1]{%
+  \setCJKmainfont[AutoFakeBold=5]{#1}%
+  \setCJKfamilyfont{gxnsffangsong}[AutoFakeBold=5]{#1}%
+}
+
+\newcommand{\GXNSFSetSystemKai}[1]{%
+  \setCJKfamilyfont{gxnsfkai}[AutoFakeBold=5]{#1}%
+}
+
+\newcommand{\GXNSFSetFallbackFangsong}{\BenszFontsGXNSFSetupFangsongFallback}
+
+\newcommand{\GXNSFSetFallbackKai}{\BenszFontsGXNSFSetupKaiFallback}
+
+\newcommand{\GXNSFPreferOriginalFonts}{%
+  \IfFontExistsTF{方正仿宋_GBK}{%
+    \GXNSFSetSystemFangsong{方正仿宋_GBK}%
+  }{%
+    \IfFontExistsTF{方正仿宋简体}{%
+      \GXNSFSetSystemFangsong{方正仿宋简体}%
+    }{%
+      \IfFontExistsTF{Microsoft YaHei}{%
+        \GXNSFSetSystemFangsong{Microsoft YaHei}%
+      }{\GXNSFSetFallbackFangsong}%
+    }%
+  }%
+  \IfFontExistsTF{方正楷体_GBK}{%
+    \GXNSFSetSystemKai{方正楷体_GBK}%
+  }{%
+    \IfFontExistsTF{方正楷体简体}{%
+      \GXNSFSetSystemKai{方正楷体简体}%
+    }{%
+      \IfFontExistsTF{Microsoft YaHei}{%
+        \GXNSFSetSystemKai{Microsoft YaHei}%
+      }{\GXNSFSetFallbackKai}%
+    }%
+  }%
+}
+
+\GXNSFSetupFonts
+
+\newcommand{\gxnsffangsong}{\CJKfamily{gxnsffangsong}}
+\newcommand{\gxnsfkai}{\CJKfamily{gxnsfkai}}
+% bensz-nsfc-headings.sty 的公共接口：只映射字体和标题参数，不引入
+% bensz-nsfc-common，避免覆盖本项目独立的字号、页边距和提纲宏。
+\newcommand{\templatefont}{\gxnsffangsong}
+\definecolor{MsBlue}{RGB}{0,113,192}
+\newcommand{\NSFCSectionBefore}{2pt plus 0pt minus 0pt}
+\newcommand{\NSFCSectionAfter}{1.5pt}
+\newcommand{\NSFCSubsectionIndent}{0pt}
+\newcommand{\NSFCSubsectionBefore}{1.5pt plus 0pt minus 0pt}
+\newcommand{\NSFCSubsectionAfter}{5pt}
+\newcommand{\NSFCSubsubsectionBefore}{3pt plus 0pt minus 0pt}
+\newcommand{\NSFCSubsubsectionAfter}{2pt plus 0pt minus 0pt}
+\newcommand{\GXNSFFontSize}{\fontsize{16pt}{28.3pt}\selectfont}
+\newcommand{\GXNSFSubheadingFontSize}{\fontsize{15pt}{26pt}\selectfont}
+
+% 复用公共 NSFC 标题层级。每个官方提纲条目建立一个隐含的 subsection
+% 编号上下文，正文一级标题沿用 Young 示例的“1.1”编号，二级标题沿用
+% “（1）”编号；编号不会重复写入官方提纲文字。
+\IfFileExists{bensz-nsfc-headings.sty}{%
+  \RequirePackage{bensz-nsfc-headings}%
+}{%
+  \IfFileExists{styles/bensz-nsfc-headings.sty}{%
+    \makeatletter\input{styles/bensz-nsfc-headings.sty}\makeatother
+  }{%
+    \PackageError{GXNSF}{Missing required package bensz-nsfc-headings}{%
+      Install bensz-nsfc with the repository-level scripts/install.py before compiling.\MessageBreak
+      The Overleaf release embeds this small shared headings module.%
+    }%
+  }%
+}
+\renewcommand{\subsubsectionzihao}{\GXNSFFontSize}
+\newcommand{\GXNSFHeading}[1]{\subsubsection{#1}}
+\newcommand{\GXNSFSubheading}[1]{\subsubsubsection{#1}}
+\titleformat{\subsubsubsection}
+  {\gxnsffangsong\GXNSFSubheadingFontSize\bfseries}
+  {\hspace{1em} （\arabic{subsubsubsection}）}
+  {0.5pt}
+  {}
+
+\pagestyle{empty}
+\renewcommand{\baselinestretch}{1.0}
+\setlength{\parindent}{32pt}
+\setlength{\parskip}{0pt}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip=0pt plus 1pt
+\AtBeginDocument{\GXNSFFontSize}
+
+\captionsetup{font={small},labelsep=period,labelfont=bf}
+\setlist{nosep,leftmargin=2em}
+
+\newcommand{\GXNSFTemplateParagraph}[2][]{%
+  \par
+  \begingroup
+    \justifying
+    \setlength{\parindent}{32pt}%
+    \setlength{\parskip}{0pt}%
+    \GXNSFFontSize
+    #1#2\par
+  \endgroup
+}
+
+\newcommand{\GXNSFReportTitle}{%
+  % 锚定首页 top skip，使标题可见上边界与 Word 导出 PDF 的约 2.85 cm 对齐。
+  \hrule height 0pt width 0pt\relax
+  \vskip -2pt\relax
+  \GXNSFTemplateParagraph[\centering\setlength{\parindent}{0pt}\gxnsffangsong\bfseries]{报告正文}%
+}
+
+\newcommand{\GXNSFPart}[1]{%
+  \stepcounter{section}%
+  \setcounter{subsection}{0}%
+  \setcounter{subsubsection}{0}%
+  \GXNSFTemplateParagraph[\gxnsfkai\raggedright\setlength{\parindent}{32pt}]{#1}%
+}
+
+% 官方提纲按 Word 基线给出固定断点；略放宽右侧可用宽度，避免加粗标题
+% 增加字面宽度后把断点前的最后一个汉字挤到下一行。
+\newcommand{\GXNSFItem}[2]{%
+  \stepcounter{subsection}%
+  \setcounter{subsubsection}{0}%
+  \GXNSFTemplateParagraph[\gxnsffangsong\raggedright\setlength{\parindent}{32pt}\emergencystretch=12pt\rightskip=-12pt]{{\bfseries #1}#2}%
+}
+
+\newcommand{\GXNSFItemMixed}[3]{%
+  \stepcounter{subsection}%
+  \setcounter{subsubsection}{0}%
+  \GXNSFTemplateParagraph[\gxnsffangsong\raggedright\setlength{\parindent}{32pt}\emergencystretch=12pt\rightskip=-12pt]{{\bfseries #1}#2{\bfseries #3}}%
+}
+
+\newcommand{\GXNSFBodyText}{%
+  \setlength{\parindent}{32pt}%
+  \setlength{\parskip}{0pt}%
+  \GXNSFFontSize
+  \gxnsffangsong
+}
+
+\pdfstringdefDisableCommands{%
+  \def\gxnsffangsong{}%
+  \def\gxnsfkai{}%
+}

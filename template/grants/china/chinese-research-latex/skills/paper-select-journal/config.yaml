@@ -1,0 +1,74 @@
+skill_info:
+  name: "paper-select-journal"
+  version: "0.3.1"
+  description: "根据 manuscript 与用户需求筛选合适的 SCI 投稿期刊，并输出带证据的排序报告。"
+  author: "Bensz Conan"
+  category: "academic-writing"
+
+workspace:
+  task_root_dir: ".bensz-api"
+  task_prefix: "task"
+  task_label: "paper-select-journal"
+  workspace_contract: "bensz-api-task-v1"
+  run_prefix: ""
+  timestamp_format: "%Y%m%d-%H%M"
+  latest_run_pointer: "latest-run.txt"
+  keep_intermediates_inside_hidden_dir: true
+  subdirs:
+    - "input"
+    - "output"
+    - "log"
+    - "inputs"
+    - "analysis"
+    - "candidates"
+    - "pubmed"
+    - "reports"
+    - "logs"
+
+directories:
+  plans: "plans"
+  tests: "tests"
+  default_test_dir: "tests/paper-select-journal"
+
+assets:
+  catalog_xlsx: "assets/journal_catalog/2023IF.xlsx"
+  source_catalog_xlsx: "/Volumes/2T01/winE/RCloud/RFactory/easySCI/raw/2023IF.xlsx"
+
+screening:
+  min_impact_factor: 3.0
+  default_set1_limit: 40
+  default_set2_limit: 20
+  default_set3_limit: 10
+  manual_exception_key: "manual_exceptions"
+  require_quality_screening_after_set1: true
+  prefer_verified_cas_data_in_final: true
+  open_access_gold_threshold: 40.0
+
+pubmed:
+  lookback_days: 90
+  max_results_per_journal: 12
+  top_articles_per_journal: 5
+  retmax: 20
+  timeout_seconds: 30
+  delay_seconds_between_requests: 0.34
+  esearch_url: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+  efetch_url: "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+  tool_name: "paper-select-journal"
+
+reports:
+  run_manifest: "run-manifest.json"
+  manuscript_profile: "analysis/manuscript_profile.json"
+  set1_json: "candidates/set1_candidates.json"
+  set1_markdown: "candidates/set1_candidates.md"
+  scope_review: "analysis/set2_scope_review.json"
+  pubmed_json: "pubmed/recent_articles.json"
+  pubmed_markdown: "pubmed/recent_articles.md"
+  set3_similarity_review: "analysis/set3_similarity_review.json"
+  final_json: "analysis/final_recommendations.json"
+  final_report: "reports/paper-select-journal-report.md"
+
+scripts:
+  init_workspace: "scripts/init_workspace.py"
+  shortlist_journals: "scripts/shortlist_journals.py"
+  fetch_pubmed_recent: "scripts/fetch_pubmed_recent.py"
+  render_report: "scripts/render_report.py"

@@ -1,0 +1,63 @@
+{
+  "protocol": "bensz-pack-index-v1",
+  "package_kind": "verifier",
+  "entries": [
+    {
+      "directory": "stage-readiness",
+      "id": "bensz.research.stage-readiness",
+      "version": "4.1.0",
+      "classification": "semantic",
+      "tags": [
+        "research",
+        "evidence",
+        "stage"
+      ],
+      "aliases": [],
+      "contract": "VERIFIER.md",
+      "mode": "prompt",
+      "assurance_tier": "llm_judge",
+      "components": [
+        {
+          "id": "evidence-consistency",
+          "type": "script",
+          "entrypoint": "scripts/evidence_consistency.py",
+          "required": true,
+          "assurance": "deterministic",
+          "side_effects": "none"
+        },
+        {
+          "id": "scientific-review",
+          "type": "agent",
+          "required": true,
+          "assurance": "llm_judge",
+          "side_effects": "none"
+        }
+      ]
+    },
+    {
+      "directory": "hypothesis-merit",
+      "id": "bensz.research.hypothesis-merit",
+      "version": "1.1.0",
+      "classification": "semantic",
+      "tags": [
+        "research",
+        "hypothesis",
+        "merit",
+        "novelty"
+      ],
+      "aliases": [],
+      "contract": "VERIFIER.md",
+      "mode": "prompt",
+      "assurance_tier": "llm_judge",
+      "components": [
+        {
+          "id": "merit-review",
+          "type": "agent",
+          "required": true,
+          "assurance": "llm_judge",
+          "side_effects": "none"
+        }
+      ]
+    }
+  ]
+}

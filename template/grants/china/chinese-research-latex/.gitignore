@@ -1,0 +1,236 @@
+# =============================================================================
+# LaTeX 编译辅助文件
+# =============================================================================
+
+# LaTeX 缓存目录
+.latex-cache/
+
+# 通用辅助文件
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Latexmk
+*.latexmk
+*.latexmkrc
+
+# =============================================================================
+# 系统文件
+# =============================================================================
+
+# pr review
+.git-pr-review/
+
+# macOS
+.DS_Store
+
+# Skill workspaces (runtime artifacts)
+.bensz-api/
+skills/transfer_old_latex_to_new/runs/
+skills/complete_example/runs/
+skills/nsfc-justification-writer/.cache/
+skills/nsfc-justification-writer/**/__pycache__/
+
+# complete_example 项目级工作空间（每个项目的隐藏目录）
+projects/**/.complete_example/
+
+# nsfc-qc 项目级工作空间（只读 QC 中间文件与报告）
+projects/**/.nsfc-qc/
+**/.nsfc-ref-alignment/
+
+# complete_example / format guard runtime artifacts
+.format_hashes.json
+projects/**/.format_hashes.json
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.directory
+
+# =============================================================================
+# 编辑器/IDE 临时文件
+# =============================================================================
+
+# Vim
+*.swp
+*.swo
+*.swn
+.*.sw*
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+
+# =============================================================================
+# Python 相关
+# =============================================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =============================================================================
+# 日志和临时文件
+# =============================================================================
+
+*.tmp
+*.temp
+latex-helper.log
+
+# Microsoft Office 临时文件
+~$*.doc
+~$*.docx
+~$*.xls
+~$*.xlsx
+~$*.ppt
+~$*.pptx
+
+# =============================================================================
+# 项目特定
+# =============================================================================
+
+# 保留 workspace 配置（移除原有忽略规则）
+# *.code-workspace  <-- 已删除此行
+
+# 备份文件
+*.bak
+*.backup
+*.orig
+
+# =============================================================================
+# Python 虚拟环境（补充）
+# =============================================================================
+venv/
+env/
+ENV/
+.venv
+
+# =============================================================================
+# make_latex_model 技能特定
+# =============================================================================
+
+# 项目级工作空间（中间文件）
+.make_latex_model/
+
+# 技能输出目录（保留 README）
+skills/make_latex_model/output/*.json
+skills/make_latex_model/output/*.log
+!skills/make_latex_model/output/README.md
+
+# 测试工作空间
+skills/make_latex_model/tests/*/workspace/
+skills/make_latex_model/tests/*/.test_summary.txt
+
+# PDF 分析临时文件
+skills/make_latex_model/scripts/*_analysis.json
+
+# 旧的技能级工作空间（逐步弃用；已跟踪的文件不受影响）
+skills/make_latex_model/workspace/
+
+# =============================================================================
+# 环境变量和密钥（安全）
+# =============================================================================
+.env
+.env.local
+.env.*.local
+
+# =============================================================================
+# macOS 补充（增强）
+# =============================================================================
+._*
+projects/NSFC_General/template/~$26年最新word模板-1.面上项目-正文.doc
+test.md
+
+# =============================================================================
+# 计划与测试文档
+# =============================================================================
+# 可选：忽略会话中的中间产物目录（不影响 TEST_PLAN/TEST_REPORT 等主文档）
+**/tests/**/_artifacts/
+**/tests/**/_scripts/
+# `tests/baselines/` 下的基线文件默认不纳入版本控制
+# 默认忽略各 skill 的 auto-test-skill 会话 plans/tests（避免污染仓库）；需要纳入版本控制的 skill 再显式放行
+skills/*/plans/
+skills/*/tests/
+/tests/*
+!/tests/test_review_quality_regression.py
+!/tests/nsfc-justification-writer/
+/tests/nsfc-justification-writer/*
+!/tests/nsfc-justification-writer/*.py
+!/tests/nsfc-research-content-writer/
+/tests/nsfc-research-content-writer/*
+!/tests/nsfc-research-content-writer/*.py
+!/tests/research-idea/
+/tests/research-idea/*
+!/tests/research-idea/*.py
+!/tests/research-literature-radar/
+/tests/research-literature-radar/*
+!/tests/research-literature-radar/*.py
+!/tests/research-literature-review/
+/tests/research-literature-review/*
+!/tests/research-literature-review/*.py
+!/tests/bensz-thesis/
+!/tests/bensz-thesis/**
+/tests/bensz-thesis/.DS_Store
+/tests/bensz-thesis/**/__pycache__/
+/tests/bensz-thesis/**/*.pyc
+.parallel_vibe/
+.compact-bensz-skills/
+.draw-plot
+/tmp

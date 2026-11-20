@@ -1,0 +1,58 @@
+%% bml-bibliography.sty
+%% BenszManuscriptLaTeX — Bibliography (biblatex / biber)
+%%
+%% Reads: \bml@bibstyle, \bml@bibmaxnames, \bml@bibminnames,
+%%        \bml@bibitemsep, \bml@bibhang,
+%%        \bml@bibfontsize, \bml@bibledaing
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{bml-bibliography}
+  [2026/03/12 v1.0.0 BenszManuscriptLaTeX Bibliography]
+
+% Build biblatex option string with expanded macros so that
+% profile values are correctly substituted at load time.
+\edef\bml@bib@pkgoptsbase{%
+  backend=biber,%
+  style=\bml@bibstyle,%
+  url=true,%
+  doi=true,%
+  maxbibnames=\bml@bibmaxnames,%
+  minbibnames=\bml@bibminnames%
+}
+\ifdefstring{\bml@bibstyle}{gb7714-2015}{%
+  \edef\bml@bib@pkgopts{%
+    \bml@bib@pkgoptsbase,%
+    gbpub=false,%
+    gbtype=true,%
+    gbpunctin=true,%
+    gbnamefmt=lowercase,%
+    gbbiblabel=bracket%
+  }%
+}{%
+  \edef\bml@bib@pkgopts{%
+    \bml@bib@pkgoptsbase,%
+    sorting=none%
+  }%
+}
+\expandafter\RequirePackage\expandafter[\bml@bib@pkgopts]{biblatex}
+
+% Prefer DOI as the canonical resolver and only fall back to URLs when needed.
+\AtEveryBibitem{%
+  \iffieldundef{doi}
+    {}
+    {\clearfield{url}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}%
+}
+
+\ifdefstring{\bml@bibstyle}{vancouver}{%
+  \DeclareFieldFormat{doi}{doi:\space\href{https://doi.org/#1}{\nolinkurl{#1}}}
+}{}
+
+% Spacing and font
+\setlength{\bibitemsep}{\bml@bibitemsep}
+\setlength{\bibhang}{\bml@bibhang}
+\renewcommand*{\bibfont}{%
+  \fontsize{\bml@bibfontsize}{\bml@bibledaing}\selectfont%
+}
+
+% Section title string
+\DefineBibliographyStrings{english}{bibliography = {References}}

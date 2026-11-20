@@ -1,0 +1,17 @@
+{
+  "journals": [
+    {
+      "journal_name": "示例期刊",
+      "include_in_set3": true,
+      "similarity_assessment": "该刊近 3 个月发表了 2 篇与稿件主题和方法都较接近的论文，可作为进入最终推荐的重要证据。",
+      "relevant_articles": [
+        {
+          "pmid": "12345678",
+          "relevance": "研究问题与稿件接近，且使用了相似的实验策略。"
+        }
+      ],
+      "irrelevant_articles_count": 3,
+      "overall_relevance_level": "high"
+    }
+  ]
+}

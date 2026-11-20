@@ -1,0 +1,321 @@
+# make-latex-model 默认配置
+#
+# 说明：
+# 1. 当前仓库的权威工作流是各产品线官方构建脚本。
+# 2. 本文件既服务于 skill 元信息，也兼容保留的辅助脚本。
+# 3. 如脚本能力与当前 packages/ + projects/ 真实结构冲突，以真实结构为准。
+
+skill_info:
+  name: make-latex-model
+  version: 3.1.2
+  description: ChineseResearchLaTeX 模板落地与高保真对齐 skill，适配 NSFC / paper / thesis / cv 四条产品线；优先使用 make-latex-model 触发，也兼容旧写法 make_latex_model；先按 packages/ 与 projects/ 的真实分层判断修改范围，再依据官方构建入口完成样式对齐、基线比对和验收；若必须修改 packages 下公共包，需先生成受影响模板回归计划并完成相关回归；NSFC 专项工具仅在明确属于 NSFC 参数对齐场景时按需使用。
+  author: "Bensz Conan"
+  category: normal
+
+parameters:
+  project:
+    type: string
+    required: true
+    description: 项目名称或路径（如 projects/NSFC_Young、projects/paper-sci-01、projects/thesis-nju-master）
+    default: null
+
+  product_line:
+    type: string
+    required: false
+    description: 产品线类型；默认 auto，根据项目路径和真实入口自动判断
+    allowed_values:
+      - auto
+      - nsfc
+      - paper
+      - thesis
+      - cv
+    default: auto
+
+  target_scope:
+    type: string
+    required: false
+    description: 修改层级；默认 auto，优先选最小正确层
+    allowed_values:
+      - auto
+      - project_only
+      - package_only
+      - mixed
+    default: auto
+
+  baseline_pdf:
+    type: string
+    required: false
+    description: 验收基线 PDF 的路径；可为空
+    default: null
+
+  baseline_kind:
+    type: string
+    required: false
+    description: 基线来源说明
+    allowed_values:
+      - auto
+      - official_pdf
+      - word_export_pdf
+      - rendered_pdf
+      - none
+    default: auto
+
+  template:
+    type: string
+    required: false
+    description: 模板标识；主要供专项脚本选择内置结构默认值与项目级 `.template.yaml` 覆盖，留空则自动检测
+    default: null
+
+  word_template_year:
+    type: string
+    required: false
+    description: NSFC Word 基线年份提示；仅供专项参数脚本参考，不作为默认决策依据
+    pattern: "^\\d{4}$"
+    default: null
+
+  optimization_level:
+    type: string
+    required: false
+    description: 优化级别
+    allowed_values:
+      - minimal
+      - moderate
+      - thorough
+    default: moderate
+
+  acceptance_mode:
+    type: string
+    required: false
+    description: 验收强度
+    allowed_values:
+      - build_only
+      - compare_if_available
+      - require_compare
+    default: compare_if_available
+
+  dry_run:
+    type: boolean
+    required: false
+    description: 预览模式，不实际修改文件
+    default: false
+
+optimization_strategies:
+  minimal:
+    description: "最小改动：仅修复明显错误或阻塞构建的问题"
+    actions:
+      - fix_critical_layout_issues
+      - keep_existing_structure
+
+  moderate:
+    description: "中等优化：按当前仓库分层完成样式和结构对齐（默认）"
+    actions:
+      - align_layout_parameters
+      - choose_correct_layer
+      - verify_with_official_tool
+
+  thorough:
+    description: "彻底重构：允许必要的包层/项目层联动调整，以达到稳定交付"
+    actions:
+      - refactor_shared_styles
+      - adjust_project_wrappers
+      - perform_regression_checks
+
+style_reference:
+  colors:
+    MsBlue: "RGB 0,112,192"
+    header_color: "RGB 0,0,0"
+    footer_color: "RGB 0,0,0"
+    text_color: "RGB 0,0,0"
+
+compile_config:
+  engine: xelatex
+  interaction_mode: nonstopmode
+  max_runs: 4
+  sequence:
+    - xelatex
+    - bibtex
+    - xelatex
+    - xelatex
+
+official_build_commands:
+  nsfc: "python packages/bensz-nsfc/scripts/nsfc_project_tool.py build --project-dir <project>"
+  paper: "python packages/bensz-paper/scripts/paper_project_tool.py build --project-dir <project>"
+  thesis: "python packages/bensz-thesis/scripts/thesis_project_tool.py build --project-dir <project>"
+  cv: "python packages/bensz-cv/scripts/cv_project_tool.py build --project-dir <project> --variant all"
+
+official_compare_commands:
+  thesis: "python packages/bensz-thesis/scripts/thesis_project_tool.py compare --project-dir <project> --baseline-pdf <baseline>"
+
+product_line_rules:
+  nsfc:
+    display_name: "NSFC"
+    detect_patterns:
+      - "NSFC_"
+      - "nsfc_"
+    required_markers:
+      - "main.tex"
+      - "extraTex/@config.tex"
+    official_build_key: nsfc
+  paper:
+    display_name: "Paper"
+    detect_patterns:
+      - "paper-"
+    required_markers:
+      - "main.tex"
+      - "extraTex"
+    official_build_key: paper
+  thesis:
+    display_name: "Thesis"
+    detect_patterns:
+      - "thesis-"
+    required_markers:
+      - "main.tex"
+      - "template.json"
+    official_build_key: thesis
+    official_compare_key: thesis
+  cv:
+    display_name: "CV"
+    detect_patterns:
+      - "cv-"
+    required_markers:
+      - "main-zh.tex"
+      - "main-en.tex"
+    official_build_key: cv
+
+package_change_policy:
+  require_regression_plan_before_edit: true
+  project_layer_bias: true
+  escalation_rules:
+    - "仅当问题确属共享样式、共享字体、profile 或统一构建逻辑时，才从项目层升级到包层。"
+    - "若项目层修复只会复制共享逻辑，应改包层；但要先缩小到最具体的 style / profile / template 文件，而不是直接改共享核心入口。"
+    - "若无法精确判断影响范围，默认扩大回归范围，而不是假设只影响当前模板。"
+  preferred_isolation_order:
+    - "新增或调整模板专属 profile / style 文件。"
+    - "在共享包中增加仅对目标模板生效的条件分支。"
+    - "最后才修改共享核心入口、跨模板通用宏或字体 API。"
+  verification_rules:
+    - "先验证当前目标项目，确认改动确实解决了本次问题。"
+    - "再回归该公共包直接覆盖的全部现有项目。"
+    - "若某个项目已有 baseline，优先补跑官方 compare；没有 compare 入口时至少完成官方 build。"
+    - "未完成相关回归前，不得宣称包层改动安全。"
+  forbidden_actions:
+    - "在没有回归计划的情况下直接修改 packages 下的共享实现。"
+    - "为了赶进度而把共享逻辑复制回单个项目。"
+    - "在未验证其它现有模板前宣称不会产生副作用。"
+  shared_packages:
+    bensz-fonts:
+      project_globs:
+        - "projects/NSFC_*"
+        - "projects/paper-*"
+        - "projects/thesis-*"
+        - "projects/cv-*"
+      prefer_paths:
+        - "packages/bensz-fonts/"
+      rationale: "字体 API 与字体资源会跨 NSFC / paper / thesis / cv 多条产品线生效；若影响范围无法再缩小，默认回归全部现有项目。"
+    bensz-nsfc:
+      project_globs:
+        - "projects/NSFC_*"
+      prefer_paths:
+        - "packages/bensz-nsfc/profiles/"
+        - "packages/bensz-nsfc/templates/"
+      rationale: "NSFC 公共包直接服务三套 NSFC 项目；包层改动默认回归全部现有 NSFC 项目。"
+    bensz-paper:
+      project_globs:
+        - "projects/paper-*"
+      prefer_paths:
+        - "packages/bensz-paper/profiles/"
+        - "packages/bensz-paper/"
+      rationale: "论文公共包负责 PDF / DOCX 共享样式与导出链路；回归时至少验证全部现有 paper 项目。"
+    bensz-thesis:
+      project_globs:
+        - "projects/thesis-*"
+      prefer_paths:
+        - "packages/bensz-thesis/profiles/"
+        - "packages/bensz-thesis/styles/"
+      rationale: "毕业论文公共包同时服务多所学校模板；优先把改动收敛到模板专属 profile / style，再回归全部现有 thesis 项目。"
+    bensz-cv:
+      project_globs:
+        - "projects/cv-*"
+      prefer_paths:
+        - "packages/bensz-cv/profiles/"
+        - "packages/bensz-cv/"
+      rationale: "简历公共包影响中英文双入口与共享样式；包层改动后需回归所有现有 cv 项目。"
+
+validation:
+  max_iterations: 3
+  required_checks:
+    - official_build_success
+    - no_new_unexplained_warnings
+    - correct_layer_selection
+    - baseline_alignment_if_requested
+
+  tolerance:
+    font_size_diff: 0.5
+    color_diff: 2
+    spacing_diff: 0.05
+    margin_diff: 0.5
+    line_height_diff: 0.1
+    chars_per_line_diff: 1
+    line_position_diff: 2
+    pixel_changed_ratio: 0.01
+
+output:
+  format: markdown
+  language: zh-CN
+  include_diff: true
+  include_validation_report: true
+  backup_before_modification: false
+
+compatibility:
+  preserve_old_commands: true
+  preserve_if_conditions: true
+  support_os:
+    - windows
+    - macos
+    - linux
+
+workspace:
+  root: ".make_latex_model"
+  location: project_level
+  auto_cleanup: true
+  cache_max_age_hours: 24
+  keep_iterations: true
+  max_iterations_kept: 30
+  auto_migrate_legacy: true
+  verbose_migration: true
+
+iteration:
+  max_iterations: 30
+  convergence_threshold: 0.01
+  no_improvement_limit: 5
+  adjustment_granularity:
+    font_size_pt: 0.1
+    line_spacing: 0.05
+    margin_cm: 0.05
+    color_rgb: 1
+  rollback_on_worsening: true
+  save_best_config: true
+  pixel_comparison:
+    dpi: 150
+    tolerance: 2
+    mode: paragraph
+    min_similarity: 0.85
+    focus_areas:
+      - title_area
+      - body_area
+      - page_margins
+
+baseline:
+  preferred_candidates:
+    - "template/baseline.pdf"
+    - ".make_latex_model/baselines/baseline.pdf"
+    - ".make_latex_model/baselines/word.pdf"
+  analysis_command: "python skills/make-latex-model/scripts/analyze_pdf.py <baseline.pdf>"
+  converter_priority:
+    - word
+    - libreoffice
+    - quicklook
+
+nsfc_specialized_tools:
+  enabled: true
+  note: "validate.sh、core/template_catalog.py、config_loader、optimize.py 等入口主要服务 NSFC 参数对齐与专项分析；其中内置模板目录只保留稳定结构信息，不再固化年度标题文案。"

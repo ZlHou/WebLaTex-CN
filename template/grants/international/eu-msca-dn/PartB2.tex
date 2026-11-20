@@ -1,0 +1,33 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+
+% Generic DN style
+\usepackage[ACRONYM]{msca-dn}
+
+% Common between all documents
+\input{common}
+
+\begin{document}
+
+% These depend on PartB1
+\setcounter{section}{3}
+\setcounter{page}{34}
+
+% \mscpage{START PAGE}
+\tableofcontents
+
+% Part B2 sections
+\include{network}
+\include{organisations}
+\include{letters}
+
+\mscpage{END PAGE}
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% TeX-PDF-mode: t
+%%% End:

@@ -1,0 +1,136 @@
+\documentclass{epsrc}
+
+
+%----These packages are only needed for drafts-----%
+\usepackage{lipsum} % used for dummy text
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}%to do list and comments
+\usepackage{soul}%highlighting etc
+%--------------------------------------%
+
+
+%I use these routinely but may not be needed
+\usepackage{chemstyle}
+\usepackage[version=3]{mhchem}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+%required for wrapping text around figures
+\usepackage{wrapfig}
+
+%set up different captions
+\usepackage{caption}
+\captionsetup[figure]{labelfont={it,bf},textfont=it}
+
+%set up two bibliographies for parts 1 and 2
+\usepackage[resetlabels]{multibib}
+\newcites{A,B}{References,%
+References}
+
+\usepackage[british]{babel}
+
+%%%Fancy header settings. Remove draft parts for final
+\usepackage{fancyhdr}
+\setlength{\headheight}{20pt}
+\pagestyle{fancy}
+\rhead[A. N. Other]{A. N. Other}
+\lhead[Short Title, Acronym, or other Ref]%
+{Short Title, Acronym, or other Ref}
+\chead[]{}
+\rfoot[\textbf{Draft: \today}]{\textbf{Draft: \today}}%remove in final
+\cfoot[\thepage]{\thepage}
+
+\begin{document}
+\section{Notes}
+References cited with \verb|\citeA{}| will appear in the first bibliography.\citeA{test2014}
+References cited with \verb|\citeB{}| will appear in the second bibliography (at the end).\citeB{test2014}
+You can \hl{highlight} or add comments \todo{like this} by using \verb|\hl{}| and \verb|\todo{}| respectively.
+Comments will then be listed below.
+
+
+\listoftodos%remove from final
+\newpage% remove from final
+\title{A brilliant proposal for the EPSRC prepared in \LaTeXe}
+\author{A. N. Other}
+\maketitle
+
+\part{Previous track record}
+
+
+\lipsum[1-14]
+\bibliographystyleA{angew}
+\bibliographyA{refs}
+
+\newpage
+
+\part{Description of proposed research and context}
+
+\section{Vision, Aims and Context of the fellowship}
+
+\lipsum[15-16]
+
+\section{Adventure and potential impact}
+
+\lipsum[17-18]
+
+\begin{enumerate}[label=\roman*.]
+	\item A
+	\item B
+	\item B
+\end{enumerate}
+
+\section{Research Concept}
+
+\begin{figure}[!htbp]
+	\begin{center}
+		\includegraphics{img/placeholder_image}
+		\vspace{-30pt}
+		\caption{some caption}
+		\label{fig:full}
+	\end{center}
+\end{figure}
+
+\lipsum[19-20]
+
+\begin{itemize}
+	\item[-]A
+	\item[-]B
+	\item[-]C
+\end{itemize}
+
+\section{Background and Context}
+
+\lipsum[21-22]
+
+\begin{enumerate}[label=\bfseries \arabic*:, align=left]
+	\item A
+	\item B
+	\item C
+\end{enumerate}
+
+\lipsum[23-24]
+
+\begin{enumerate}[label=\bfseries Objective \arabic*:, align=left]
+	\item A
+	\item B
+	\item B
+	\item C
+\end{enumerate}
+
+\lipsum[25-26]
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+\vspace{-11pt}
+	\begin{center}
+		\includegraphics[width=8.5cm]{img/placeholder_image}
+			\vspace{-30pt}
+		\caption{A half width figure}
+		\label{fig:half}
+	\end{center}
+\end{wrapfigure}
+
+\lipsum[27-30]
+
+\bibliographystyleB{angew}
+\bibliographyB{refs} %your .bib file
+\end{document}

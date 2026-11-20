@@ -1,0 +1,564 @@
+\ProvidesFile{bthesis-style-thesis-nju-master.tex}
+  [2026/06/06 v1.1.6 Thesis style: thesis-nju-master]
+
+\RequirePackage{geometry}
+\RequirePackage{setspace}
+\RequirePackage{fontspec}
+\RequirePackage{xeCJK}
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{booktabs}
+\RequirePackage{longtable}
+\RequirePackage{tabularx}
+\RequirePackage{multirow}
+\RequirePackage{array}
+\RequirePackage{caption}
+\RequirePackage{amsmath,amssymb,bm}
+\RequirePackage{titlesec}
+\RequirePackage{titletoc}
+\RequirePackage{enumitem}
+\RequirePackage{hyperref}
+\RequirePackage{fancyhdr}
+\RequirePackage{etoolbox}
+\RequirePackage{indentfirst}
+\RequirePackage{xcolor}
+
+\geometry{
+  a4paper,
+  left=3.175cm,
+  right=3.175cm,
+  top=2.54cm,
+  bottom=2.54cm,
+  headheight=16pt,
+  headsep=0.8cm,
+  footskip=1.2cm
+}
+
+\IfFontExistsTF{Times New Roman}{%
+  \setmainfont{Times New Roman}
+}{%
+  \setmainfont{TeX Gyre Termes}
+}
+
+\IfFontExistsTF{Songti SC}{%
+  \setCJKmainfont{Songti SC}
+  \newCJKfontfamily\njuSong{Songti SC}
+}{%
+  \setCJKmainfont{FandolSong-Regular}
+  \newCJKfontfamily\njuSong{FandolSong-Regular}
+}
+
+\IfFontExistsTF{Heiti SC}{%
+  \newCJKfontfamily\njuHei{Heiti SC}
+}{%
+  \newCJKfontfamily\njuHei{FandolHei-Regular}
+}
+
+\IfFontExistsTF{Kaiti SC}{%
+  \newCJKfontfamily\njuKai[AutoFakeBold=3.5]{Kaiti SC}
+}{%
+  \IfFontExistsTF{KaiTi}{%
+    \newCJKfontfamily\njuKai[AutoFakeBold=3.5]{KaiTi}
+  }{%
+    \newCJKfontfamily\njuKai[AutoFakeBold=3.5]{FandolKai-Regular}
+  }%
+}
+
+\IfFontExistsTF{STFangsong}{%
+  \newCJKfontfamily\njuFangSong[AutoFakeBold=3.5]{STFangsong}
+}{%
+  \newCJKfontfamily\njuFangSong[AutoFakeBold=3.5]{FandolFang-Regular}
+}
+
+\xeCJKsetup{PunctStyle=plain}
+\setstretch{1.45}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\AtBeginDocument{%
+  \njuFangSong
+  \fontsize{12bp}{20bp}\selectfont
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  hypertexnames=false,
+  CJKbookmarks=true
+}
+
+\newcommand{\njuBodyFont}{\njuFangSong\fontsize{12bp}{20bp}\selectfont}
+\newcommand{\njuCoverTitleFont}{\njuFangSong\bfseries\fontsize{24bp}{32bp}\selectfont}
+\newcommand{\njuCoverDegreeFont}{\njuFangSong\bfseries\fontsize{22bp}{30bp}\selectfont}
+\newcommand{\njuCoverLabelFont}{\njuFangSong\bfseries\fontsize{15.4bp}{19bp}\selectfont}
+\newcommand{\njuCoverValueFont}{\njuFangSong\fontsize{15.4bp}{19bp}\selectfont}
+\newcommand{\njuCoverFieldLabelFont}{\njuFangSong\bfseries\fontsize{15.4bp}{18bp}\selectfont}
+\newcommand{\njuCoverFieldValueFont}{\njuFangSong\fontsize{15.4bp}{18bp}\selectfont}
+\newcommand{\njuFrontHeadingFont}{\njuFangSong\bfseries\fontsize{15bp}{20bp}\selectfont}
+\newcommand{\njuChapterFont}{\njuFangSong\bfseries\fontsize{15bp}{20bp}\selectfont}
+\newcommand{\njuSectionFont}{\njuFangSong\bfseries\fontsize{14bp}{18bp}\selectfont}
+\newcommand{\njuSubsectionFont}{\njuFangSong\fontsize{12bp}{18bp}\selectfont}
+\newcommand{\njuHeaderFont}{\njuSong\fontsize{9bp}{11bp}\selectfont}
+\newcommand{\njuCaptionFont}{\njuFangSong\fontsize{10.5bp}{15bp}\selectfont}
+\newcommand{\njuTableFont}{\njuFangSong\fontsize{10.5bp}{15bp}\selectfont}
+
+\ctexset{
+  chapter = {
+    name = {第,章},
+    number = \arabic{chapter},
+    format = \centering\njuChapterFont,
+    aftername = \quad,
+    beforeskip = 0pt,
+    afterskip = 28bp
+  },
+  section = {
+    format = \njuSectionFont,
+    beforeskip = 24bp,
+    afterskip = 14bp
+  },
+  subsection = {
+    format = \njuSubsectionFont,
+    beforeskip = 18bp,
+    afterskip = 12bp
+  }
+}
+
+\newcommand{\njuTocFont}{\njuFangSong\fontsize{12bp}{21bp}\selectfont}
+\newcommand{\njuTocChapterFont}{\njuFangSong\bfseries\fontsize{12bp}{21bp}\selectfont}
+\newcommand{\njuTocLeader}{\titlerule*[0.66pc]{.}}
+\newcommand{\njuTocPage}[1]{\makebox[1.6em][r]{#1}}
+
+\titlecontents{chapter}[4.2em]
+  {\addvspace{3bp}\njuTocChapterFont}
+  {\thecontentslabel\quad}
+  {}
+  {\hspace{0.35em}\njuTocLeader\njuTocPage{\contentspage}}
+
+\titlecontents{section}[8.4em]
+  {\njuTocFont}
+  {\contentslabel{2.35em}}
+  {}
+  {\hspace{0.35em}\njuTocLeader\njuTocPage{\contentspage}}
+
+\titlecontents{subsection}[12.6em]
+  {\njuTocFont}
+  {\contentslabel{3.0em}}
+  {}
+  {\hspace{0.35em}\njuTocLeader\njuTocPage{\contentspage}}
+
+\setcounter{tocdepth}{2}
+\renewcommand{\contentsname}{目\quad 录}
+
+\captionsetup{
+  font={stretch=1.0},
+  labelfont=normalfont,
+  textfont=normalfont,
+  singlelinecheck=false,
+  justification=centering,
+  skip=6bp
+}
+\DeclareCaptionFont{nju}{\njuCaptionFont}
+\captionsetup[figure]{font={nju,stretch=1.0},labelfont=nju,textfont=nju}
+\captionsetup[table]{font={nju,stretch=1.0},labelfont=nju,textfont=nju}
+
+\AtBeginEnvironment{tabular}{\njuTableFont}
+\AtBeginEnvironment{tabularx}{\njuTableFont}
+\AtBeginEnvironment{longtable}{\njuTableFont}
+
+\setlist[itemize]{leftmargin=2.4em,itemsep=0.2em,topsep=0.2em}
+\setlist[enumerate]{leftmargin=2.4em,itemsep=0.2em,topsep=0.2em}
+
+\renewcommand{\chaptermark}[1]{\markboth{第\arabic{chapter}章\ #1}{}}
+\renewcommand{\sectionmark}[1]{}
+
+\fancypagestyle{nju-main}{
+  \fancyhf{}
+  \fancyhead[L]{\njuHeaderFont 南京大学硕士学位论文}
+  \fancyhead[R]{\njuHeaderFont \leftmark}
+  \fancyfoot[C]{\njuHeaderFont \thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{nju-empty}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{nju-front-numbered}{
+  \fancyhf{}
+  \fancyfoot[C]{\njuHeaderFont \thepage}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{njuempty}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[L]{\njuHeaderFont 南京大学硕士学位论文}
+  \fancyhead[R]{\njuHeaderFont \leftmark}
+  \fancyfoot[C]{\njuHeaderFont \thepage}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+
+\newif\ifnjuProfessionalDegree
+\njuProfessionalDegreetrue
+
+\newcommand{\njuTitleValue}{论文题目}
+\newcommand{\njuAuthorValue}{作者姓名}
+\newcommand{\njuMajorValue}{工业工程}
+\newcommand{\njuResearchValue}{研究方向}
+\newcommand{\njuSupervisorValue}{指导教师}
+\newcommand{\njuDateValue}{2026 年 3 月 30 日}
+\newcommand{\njuEnglishTitleValue}{A Dissertation Submitted to Nanjing University}
+\newcommand{\njuEnglishDisciplineValue}{Industrial Engineering}
+\newcommand{\njuEnglishAuthorValue}{Firstname Lastname}
+\newcommand{\njuEnglishSupervisorValue}{Professor Name}
+\newcommand{\njuSchoolValue}{School of Management \& Engineering}
+\newcommand{\njuStudentIdValue}{MF0000000}
+\newcommand{\njuDefenseDateValue}{2026 年 3 月 30 日}
+\newcommand{\njuEnrollmentYearValue}{2026}
+\newcommand{\njuKeywordsZhValue}{关键词 1；关键词 2；关键词 3；关键词 4}
+\newcommand{\njuKeywordsEnValue}{keyword 1; keyword 2; keyword 3; keyword 4}
+\newcommand{\njuCoverTitleLinesValue}{}
+
+\newcommand{\njuSetDegreeType}[1]{%
+  \edef\njuDegreeTypeValue{#1}%
+  \ifdefstring{\njuDegreeTypeValue}{academic}{\njuProfessionalDegreefalse}{\njuProfessionalDegreetrue}%
+}
+\newcommand{\njuDegreeSubtitle}{%
+  \ifnjuProfessionalDegree
+    （申请硕士专业学位）%
+  \else
+    （申请硕士学位）%
+  \fi
+}
+\newcommand{\njuMajorLabel}{%
+  \ifnjuProfessionalDegree
+    专业学位类别（领域）%
+  \else
+    学科、专业名称%
+  \fi
+}
+\newcommand{\njuTitle}[1]{\gdef\njuTitleValue{#1}}
+\newcommand{\njuAuthor}[1]{\gdef\njuAuthorValue{#1}}
+\newcommand{\njuMajor}[1]{\gdef\njuMajorValue{#1}}
+\newcommand{\njuResearchDirection}[1]{\gdef\njuResearchValue{#1}}
+\newcommand{\njuSupervisor}[1]{\gdef\njuSupervisorValue{#1}}
+\newcommand{\njuDate}[1]{\gdef\njuDateValue{#1}}
+\newcommand{\njuEnglishTitle}[1]{\gdef\njuEnglishTitleValue{#1}}
+\newcommand{\njuEnglishDiscipline}[1]{\gdef\njuEnglishDisciplineValue{#1}}
+\newcommand{\njuEnglishAuthor}[1]{\gdef\njuEnglishAuthorValue{#1}}
+\newcommand{\njuEnglishSupervisor}[1]{\gdef\njuEnglishSupervisorValue{#1}}
+\newcommand{\njuSchool}[1]{\gdef\njuSchoolValue{#1}}
+\newcommand{\njuStudentId}[1]{\gdef\njuStudentIdValue{#1}}
+\newcommand{\njuDefenseDate}[1]{\gdef\njuDefenseDateValue{#1}}
+\newcommand{\njuEnrollmentYear}[1]{\gdef\njuEnrollmentYearValue{#1}}
+\newcommand{\njuKeywordsZh}[1]{\gdef\njuKeywordsZhValue{#1}}
+\newcommand{\njuKeywordsEn}[1]{\gdef\njuKeywordsEnValue{#1}}
+\newcommand{\njuTitleLines}[1]{\gdef\njuCoverTitleLinesValue{#1}}
+
+\ExplSyntaxOn
+\seq_new:N \l__nju_cover_title_lines_seq
+\tl_new:N \l__nju_cover_title_text_tl
+\newcommand{\njuCoverTitleLineGap}{0.38em}
+\newsavebox{\njuCoverTitleLineBox}
+\newcommand{\njuCoverTitleLine}[2]{%
+  \sbox{\njuCoverTitleLineBox}{\njuCoverValueFont \strut #2}%
+  \underline{%
+    \makebox[#1][c]{%
+      \ifdim\wd\njuCoverTitleLineBox>#1\relax
+        \resizebox{#1}{!}{\usebox{\njuCoverTitleLineBox}}%
+      \else
+        \usebox{\njuCoverTitleLineBox}%
+      \fi
+    }%
+  }%
+}
+\cs_new_protected:Npn \nju_render_cover_title_lines:nn #1#2
+  {
+    \tl_set:Nx \l__nju_cover_title_text_tl {#2}
+    \regex_split:nVN { [|] } \l__nju_cover_title_text_tl \l__nju_cover_title_lines_seq
+    \begingroup
+    \vbox{%
+      \seq_map_indexed_inline:Nn \l__nju_cover_title_lines_seq
+        {
+          \hbox{%
+            \njuCoverTitleLine{#1}{##2}%
+          }%
+          \int_compare:nNnT {##1} < { \seq_count:N \l__nju_cover_title_lines_seq }
+            {
+              \kern\njuCoverTitleLineGap
+            }
+        }
+    }
+    \endgroup
+  }
+\cs_new_protected:Npn \njuRenderCoverTitleLines #1#2
+  {
+    \nju_render_cover_title_lines:nn {#1} {#2}
+  }
+\ExplSyntaxOff
+
+\newcommand{\njuCoverFieldLabelWidth}{2.2cm}
+\newcommand{\njuCoverTitleWidth}{8.6cm}
+\newcommand{\njuCoverWideFieldLabelWidth}{3.65cm}
+\newcommand{\njuCoverWideFieldValueWidth}{7.15cm}
+\newcommand{\njuCoverFieldLabelGap}{0.9em}
+\newcommand{\njuCoverTitleVerticalShift}{4.40em}
+\newcommand{\njuCoverFieldRowGap}{-0.55em}
+\newcommand{\njuCoverFieldRuleGap}{0.05em}
+\newcommand{\njuCoverFieldContentHeight}{0.55\baselineskip}
+\newdimen\njuCoverFieldMeasuredHeight
+
+\newcommand{\njuCoverTitleBlock}[1]{%
+  \begingroup
+  \setlength{\tabcolsep}{0pt}%
+  \begin{tabular}[t]{@{}>{\centering\arraybackslash}m{\njuCoverFieldLabelWidth}@{\hspace{\njuCoverFieldLabelGap}}>{\centering\arraybackslash}m{\njuCoverTitleWidth}@{}}
+    \njuCoverLabelFont \strut 论文题目 &
+    \vbox{%
+      \kern\njuCoverTitleVerticalShift
+      \njuRenderCoverTitleLines{\njuCoverTitleWidth}{#1}%
+    }
+  \end{tabular}%
+  \endgroup
+}
+
+\newcommand{\njuCoverFieldWithHeight}[3]{%
+  \par\vspace*{\njuCoverFieldRowGap}%
+  \makebox[\njuCoverFieldLabelWidth][s]{\njuCoverFieldLabelFont \strut #1}%
+  \hspace{\njuCoverFieldLabelGap}%
+  \parbox[t]{\njuCoverTitleWidth}{%
+    \centering
+    \begingroup
+    \setbox0=\vbox{%
+      \hsize=\linewidth
+      \centering
+      \njuCoverFieldValueFont \strut #3\par
+    }%
+    \njuCoverFieldMeasuredHeight=\dimexpr\ht0+\dp0\relax
+    \ifdim\njuCoverFieldMeasuredHeight<#2\relax
+      \njuCoverFieldMeasuredHeight=#2\relax
+    \fi
+    \vbox{%
+      \begin{minipage}[b][\njuCoverFieldMeasuredHeight][b]{\linewidth}%
+        \centering
+        \njuCoverFieldValueFont \strut #3\par
+      \end{minipage}%
+      \kern\njuCoverFieldRuleGap
+      \hrule height 0.35pt
+    }%
+    \endgroup
+  }%
+}
+
+\newcommand{\njuCoverField}[2]{%
+  \njuCoverFieldWithHeight{#1}{\njuCoverFieldContentHeight}{#2}%
+}
+
+\newcommand{\njuCoverWideLabelField}[2]{%
+  \par\vspace*{\njuCoverFieldRowGap}%
+  \parbox[t]{\njuCoverWideFieldLabelWidth}{%
+    \raggedright\njuCoverFieldLabelFont \strut #1%
+  }%
+  \hspace{\njuCoverFieldLabelGap}%
+  \parbox[t]{\njuCoverWideFieldValueWidth}{%
+    \centering
+    \njuCoverFieldValueFont
+    \underline{\makebox[\linewidth][c]{\strut #2}}%
+  }%
+}
+
+\newcommand{\njuMakeCover}{%
+  \begin{titlepage}
+    \thispagestyle{empty}
+    \centering
+    \vspace*{0.8cm}
+    \IfFileExists{assets/demo/nju_logo_calligraphy.jpeg}{%
+      \includegraphics[width=0.28\textwidth]{assets/demo/nju_logo_calligraphy.jpeg}\par
+      \vspace{0.7cm}
+    }{}
+    {\njuCoverTitleFont 研\hspace{0.55em}究\hspace{0.55em}生\hspace{0.55em}毕\hspace{0.55em}业\hspace{0.55em}论\hspace{0.55em}文\par}
+    \vspace{0.15cm}
+    {\njuCoverDegreeFont \njuDegreeSubtitle\par}
+    \vspace{0.55cm}
+    \begin{center}
+    \begin{minipage}{11.35cm}
+      \par\vspace*{0.12em}%
+      \ifstrempty{\njuCoverTitleLinesValue}{%
+        \njuCoverTitleBlock{\njuTitleValue}%
+      }{%
+        \njuCoverTitleBlock{\njuCoverTitleLinesValue}%
+      }%
+      \njuCoverField{作者姓名}{\njuAuthorValue}
+      \njuCoverWideLabelField{\njuMajorLabel}{\njuMajorValue}
+      \njuCoverField{研究方向}{\njuResearchValue}
+      \njuCoverField{指导教师}{\njuSupervisorValue}
+    \end{minipage}
+    \end{center}
+    \par
+    \vspace{0.8cm}
+    \centering
+    {\njuCoverValueFont \njuDateValue\par}
+  \end{titlepage}
+}
+
+\newcommand{\njuMakeInfoPage}{%
+  \clearpage
+  \thispagestyle{empty}
+  \null\vfill
+  \hspace*{2.75cm}%
+  \begin{minipage}{10.5cm}
+    {\njuCoverValueFont
+      学\quad 号：\njuStudentIdValue\par
+      \vspace{1.1em}
+      论文答辩日期：\njuDefenseDateValue\par
+      \vspace{1.1em}
+      指 导 教 师：\rule{3.6cm}{0.4pt}\hspace{0.8em}（签字）\par
+    }%
+  \end{minipage}
+  \clearpage
+}
+
+\newcommand{\njuDeclarationParagraph}[1]{%
+  \par\noindent\hspace{2em}#1\par
+}
+
+\newcommand{\njuMakeDeclarationPage}{%
+  \clearpage
+  \begingroup
+  \pagestyle{nju-front-numbered}
+  \thispagestyle{nju-front-numbered}
+  \njuBodyFont
+  \begin{center}
+    {\njuFrontHeadingFont 南京大学研究生学位论文原创性声明\par}
+  \end{center}
+  \vspace{1.2em}
+  \njuDeclarationParagraph{本人郑重声明：所呈交的学位论文是本人在导师指导下独立进行的研究工作所取得的成果。尽我所知，除了文中特别加以标注引用的内容外，论文中不包含任何其他个人或集体已经发表或撰写过的研究成果。对本文的研究做出重要贡献的个人和集体，均已在文中作了明确的说明并表示了谢意。}
+  \vspace{2.2em}
+  \noindent 研究生签名：\hspace{4.0cm} 日期：\qquad 年\qquad 月\qquad 日
+  \vspace{3.0em}
+  \begin{center}
+    {\njuFrontHeadingFont 南京大学学位论文使用授权声明\par}
+  \end{center}
+  \vspace{1.2em}
+  \njuDeclarationParagraph{本学位论文作者同意学校保留并向国家有关部门或机构送交学位论文的复印件和电子文档，可以采用影印、缩印或扫描等复制手段保存论文。本人电子文档的内容和纸质论文的内容相一致。除在保密期内的保密论文外，允许论文被查阅和借阅，可以公布（包括刊登）论文的全部或部分内容。论文的公布（包括刊登）授权南京大学研究生院办理。}
+  \vspace{2.2em}
+  \noindent 学位论文作者签名：\hspace{3.0cm} 导师签名：\par
+  \vspace{1.2em}
+  \noindent 签字日期：\qquad 年\quad 月\quad 日\hspace{2.0cm} 签字日期：\qquad 年\quad 月\quad 日
+  \clearpage
+  \endgroup
+}
+
+\newcommand{\njuPublicationField}[2]{%
+  \noindent\makebox[4.0cm][l]{#1}%
+  \underline{\makebox[\dimexpr\linewidth-4.0cm\relax][l]{#2}}\par
+  \vspace{0.45em}
+}
+
+\newcommand{\njuMakePublicationAuthorization}{%
+  \clearpage
+  \begingroup
+  \pagestyle{nju-front-numbered}
+  \thispagestyle{nju-front-numbered}
+  \njuFangSong\fontsize{11bp}{16bp}\selectfont
+  \sloppy
+  \setlength{\emergencystretch}{2em}%
+  \begin{center}
+    {\njuFrontHeadingFont 《学位论文出版授权书》\par}
+  \end{center}
+  \vspace{0.8em}
+  \njuDeclarationParagraph{本人完全同意《中国优秀博硕士学位论文全文数据库出版章程》（以下简称“章程”），愿意将本人的学位论文提交“中国学术期刊（光盘版）电子杂志社”在《中国博士学位论文全文数据库》、《中国优秀硕士学位论文全文数据库》中全文发表。《中国博士学位论文全文数据库》、《中国优秀硕士学位论文全文数据库》可以以电子、网络及其他数字媒体形式公开出版，并同意编入《中国知识资源总库》，在《中国博硕士学位论文评价数据库》中使用和在互联网上传播，同意按“章程”规定享受相关权益。}
+  \vspace{1.4em}
+  \begin{flushright}
+    作者签名：\underline{\makebox[4.0cm]{}}\par
+    \vspace{0.5em}
+    \qquad 年\qquad 月\qquad 日
+  \end{flushright}
+  \vspace{0.7em}
+  \njuPublicationField{论文题名}{\njuTitleValue}
+  \njuPublicationField{研究生学号}{\njuStudentIdValue}
+  \njuPublicationField{所在院系}{工程管理学院}
+  \njuPublicationField{学位年度}{\njuEnrollmentYearValue}
+  \noindent\makebox[4.0cm][l]{论文级别}%
+  \parbox[t]{\dimexpr\linewidth-4.0cm\relax}{%
+    $\square$学术学位硕士\quad
+    \ifnjuProfessionalDegree $\boxtimes$专业学位硕士\else $\square$专业学位硕士\fi\par
+    $\square$学术学位博士\quad $\square$专业学位博士%
+  }\par
+  \vspace{0.5em}
+  \njuPublicationField{作者 Email}{}
+  \njuPublicationField{导师姓名}{\njuSupervisorValue}
+  \vspace{0.3em}
+  \noindent 论文涉密情况：\quad $\boxtimes$不保密\quad $\square$保密，保密期（\qquad 年\quad 月\quad 日 至 \qquad 年\quad 月\quad 日）\par
+  \vfill
+  \noindent 注：请将该授权书填写后装订在学位论文最后一页（南大封面）。
+  \clearpage
+  \endgroup
+}
+
+\newcommand{\njuMakeEnglishTitle}{%
+  \clearpage
+  \thispagestyle{empty}
+  \null\vspace*{0.9cm}
+  \begin{center}
+    {\bfseries\fontsize{16bp}{24bp}\selectfont \njuEnglishTitleValue\par}
+    \vspace{1.4cm}
+    {A Dissertation Submitted to Nanjing University\par}
+    \vspace{0.35cm}
+    {For the \ifnjuProfessionalDegree Professional\else Academic\fi{} Degree of Master\par}
+    \vspace{0.35cm}
+    {of \njuEnglishDisciplineValue\par}
+    \vspace{3.3cm}
+    {\bfseries BY\par}
+    \vspace{0.55cm}
+    {\bfseries \njuEnglishAuthorValue\par}
+    \vspace{1.9cm}
+    {Supervised by\par}
+    \vspace{0.55cm}
+    {\njuEnglishSupervisorValue\par}
+    \vfill
+    {\njuSchoolValue\par}
+    \vspace{0.55cm}
+    {Nanjing University\par}
+    \vspace{1.2cm}
+    {\njuDateValue\par}
+  \end{center}
+  \clearpage
+}
+
+\newcommand{\njuMakeBlankPage}{%
+  \clearpage
+  \thispagestyle{empty}
+  \null
+  \clearpage
+}
+
+\newcommand{\njuUseFrontmatterStyle}[1]{%
+  \pagestyle{nju-empty}%
+  \markboth{#1}{#1}%
+}
+
+\newcommand{\njuUseMainmatterStyle}{%
+  \pagestyle{nju-main}%
+}
+
+\newcommand{\njuAbstractTitle}[1]{%
+  \begin{center}
+    {\njuFrontHeadingFont #1\par}
+  \end{center}
+  \vspace{1.1em}
+}
+
+\newcommand{\njuMetaLabel}[1]{%
+  {\njuBodyFont #1}%
+}

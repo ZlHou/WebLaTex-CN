@@ -1,0 +1,22 @@
+{
+  "journals": [
+    {
+      "journal_name": "示例期刊",
+      "include_in_set2": true,
+      "official_website": "https://example.org/journal",
+      "scope_fit_summary": "说明该刊 scope 为什么与论文匹配。",
+      "recognition": "说明业内认可度，例如主流领域认可、编辑部稳定、非预警。",
+      "cas_small_category_quartile": "例如：医学 2 区 / 肿瘤学 2 区",
+      "quality_check": {
+        "warning_screening_result": "已查，无预警信号",
+        "predatory_screening_result": "已查，无垃圾期刊信号"
+      },
+      "sources": [
+        {
+          "label": "官方 scope",
+          "url": "https://example.org/aims-and-scope"
+        }
+      ]
+    }
+  ]
+}

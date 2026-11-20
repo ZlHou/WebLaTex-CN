@@ -1,0 +1,8 @@
+*.synctex(busy)
+QA-temp.aux
+QA-temp.bbl
+QA-temp.blg
+QA-temp.log
+QA-temp.out
+QA-temp.pdf
+QA-temp.synctex.gz

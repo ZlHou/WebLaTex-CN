@@ -1,0 +1,66 @@
+\section{Results}
+Greenhalgh et al. reported that structural-variation burden varied by
+roughly two orders of magnitude across pediatric cancer types,
+underscoring that rearrangement biology is highly disease-specific
+rather than uniform across childhood malignancies \supercite{Greenhalgh_2026}.
+Compared with adult brain and solid tumors, most pediatric solid cancers
+carried substantially fewer structural variants, whereas hematological
+malignancies showed a much closer burden profile.
+
+To make formula support easier to review by eye, the demo manuscript now
+includes a compact set of representative expressions. Let $\rho$ denote
+a rank-based association summary, let $\Delta$ denote a between-group
+burden shift, let $\hat{\lambda}$ denote an estimated scaling factor,
+and let $n_{\mathrm{SV},i}$ denote the structural-variation count for
+sample $i$. A log-scaled burden summary can then be written as
+\[
+B_i = \log_{10}\!\left(n_{\mathrm{SV},i} + 1\right).
+\]
+Using cohort-level mean $\mu_B$ and standard deviation $\sigma_B$, the
+standardized burden score is
+\[
+z_i = \frac{B_i - \mu_B}{\sigma_B}.
+\]
+If multiple signature-derived components are combined into a single
+review score, one convenient weighted summary is
+\[
+S_i = \sum_{k=1}^{K} w_k x_{ik},
+\qquad
+\sum_{k=1}^{K} w_k = 1.
+\]
+For a simple threshold-based flag, the indicator variable can be
+expressed as
+\[
+I_i =
+\left\{
+\begin{array}{ll}
+1, & z_i \geq 2, \\
+0, & \mathrm{otherwise}.
+\end{array}
+\right.
+\]
+Together, these examples cover inline Greek letters, subscripts,
+superscripts, fractions, summation, delimiters, and a piecewise
+definition in both PDF and DOCX export.
+
+The same analysis ranked genes disrupted by structural variants and
+found that the highest-priority events aligned with recognized pediatric
+cancer drivers, while adult cohorts were enriched for disruptions
+involving fragile genomic regions \supercite{Greenhalgh_2026}. This contrast suggested
+that pediatric structural variation more often tracks direct driver
+selection, whereas adult rearrangement landscapes carry a larger imprint
+of accumulated genomic instability.
+
+A second notable result concerned hotspot architecture near RAG
+recombination signal sequences. In pediatric acute lymphoblastic
+leukemias, recurrent hotspots affected both immune loci and oncogenic
+driver genes, while adult lymphoid cancers were described as showing
+disruption of immune loci without the same degree of pediatric driver
+involvement \supercite{Greenhalgh_2026}.
+
+Finally, signature extraction and longitudinal clustering added an
+evolutionary perspective. The authors described ten structural-variation
+signatures, implicated RAG-mediated mutagenesis in the etiology of
+COSMIC SV7 within lymphoid cancers, and used multiple samples from 13
+patients to illustrate that structural variants continue to shape
+intra-tumor heterogeneity over time \supercite{Greenhalgh_2026}.

@@ -1,0 +1,39 @@
+"""research-idea 的 Kernel 最低版本与原生声明加载回归。"""
+from pathlib import Path
+
+import yaml
+from bensz_skill_kernel.states import SkillStateDeclaration
+
+
+ROOT = Path(__file__).resolve().parents[2]
+SKILL_ROOT = ROOT / "skills/research-idea"
+
+
+def load_config():
+    return yaml.safe_load((SKILL_ROOT / "config.yaml").read_text(encoding="utf-8"))
+
+
+def test_kernel_dependency_uses_latest_without_version_pin():
+    config = load_config()
+    assert "kernel" not in config["dependencies"]
+    assert config["runtime"]["kernel"] == {"name": "bensz-skill-kernel"}
+    assert config["runtime"]["identity_policy"] == "state-identity-v2"
+    assert "required_capabilities" not in config["runtime"]
+    assert config["runtime"]["phase_entry"]["identity_mode"] == "state-visit-v2"
+
+
+def test_kernel_can_load_native_runtime_declaration():
+    declaration = SkillStateDeclaration.from_skill_root(SKILL_ROOT)
+    assert declaration.initial_state == "bensz.research-ideation.literature"
+    assert declaration.verifier_requirements() == (
+        {
+            "id": "bensz.research.stage-readiness",
+            "version": "4.1.0",
+            "required": True,
+        },
+        {
+            "id": "bensz.research.hypothesis-merit",
+            "version": "1.1.0",
+            "required": True,
+        },
+    )

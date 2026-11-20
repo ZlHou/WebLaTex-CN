@@ -1,0 +1,58 @@
+\jlauChapterAfterPart{研究设计与材料编码}
+
+\section{研究材料与样本范围}
+
+本示例把佐佐木希公开可见的杂志封面、影视角色介绍、品牌活动报道与社交平台内容作为材料类型。正式研究应明确检索时间、纳入标准、材料出处与版权边界；此处使用模拟计数，仅用于说明研究设计和模板排版。
+
+\section{跨媒介材料编码流程}
+
+编码过程依次完成材料归档、媒介分类、视觉与文本特征标注、阶段比较和解释性复核。图~\ref{fig:jlau-coding-flow} 展示各步骤之间的关系。
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    node distance=0.58cm,
+    box/.style={draw=black!70,rounded corners=2pt,minimum width=2.35cm,minimum height=1.05cm,align=center,fill=black!4},
+    arrow/.style={-{Stealth[length=2.2mm]},thick,draw=black!65}
+  ]
+    \node[box] (collect) {公开材料\\归档};
+    \node[box,right=of collect] (classify) {媒介类型\\分类};
+    \node[box,right=of classify] (code) {视觉与文本\\特征编码};
+    \node[box,right=of code] (compare) {阶段比较\\与复核};
+    \draw[arrow] (collect) -- (classify);
+    \draw[arrow] (classify) -- (code);
+    \draw[arrow] (code) -- (compare);
+  \end{tikzpicture}
+  \caption{佐佐木希跨媒介公开材料的示例编码流程}
+  \label{fig:jlau-coding-flow}
+\end{figure}
+
+\section{变量与评价维度}
+
+表~\ref{tab:jlau-codebook} 给出一组适合教学演示的编码维度。真实研究可以增加编码员一致性、缺失材料处理和敏感信息排除规则。
+
+\begin{table}[htbp]
+  \centering
+  \caption{跨媒介公众形象的示例编码表}
+  \label{tab:jlau-codebook}
+  \begin{tabularx}{0.92\textwidth}{>{\centering\arraybackslash}p{2.4cm}XX}
+    \toprule
+    维度 & 观察内容 & 示例取值 \\
+    \midrule
+    媒介场域 & 内容出现的主要渠道 & 杂志、影视、广告、社交平台 \\
+    角色定位 & 内容突出的人物功能 & 模特、演员、品牌合作者、生活叙述者 \\
+    表达方式 & 画面与文字的组织特征 & 专业化、角色化、日常化、互动化 \\
+    传播节奏 & 单位时间内的公开更新状况 & 集中曝光、稳定更新、事件驱动 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{分析方法}
+
+研究先统计各阶段材料类型的构成，再结合代表性文本解释形象变化。为提示模板使用者区分事实与演示数据，本文将模拟指标统一记为标准化指数：
+
+\begin{equation}
+  I_{kt}=\frac{x_{kt}-\min(x_k)}{\max(x_k)-\min(x_k)}\times 100,
+\end{equation}
+
+其中，$I_{kt}$ 表示维度 $k$ 在阶段 $t$ 的示例指数，$x_{kt}$ 为对应的模拟编码值。

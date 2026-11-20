@@ -1,0 +1,16 @@
+{
+  "title": "请填写论文题目",
+  "abstract": "请填写论文摘要或 AI 对全文的精炼摘要",
+  "keywords": [
+    "关键词1",
+    "关键词2"
+  ],
+  "manuscript_summary": "用 2-4 句总结稿件的核心问题、主要方法和目标读者。",
+  "target_journal_brief": "如果用户有明确偏好，可简述期刊方向、风格、读者群或投稿策略；没有可留空。",
+  "excluded_journals": [
+    "明确不想投的期刊"
+  ],
+  "prefer_open_access": false,
+  "target_if_min": 3.0,
+  "notes": "用户的额外偏好，例如审稿速度、是否接受 OA、是否回避版面费过高期刊，以及 AI 对选刊策略的自由规划说明。"
+}

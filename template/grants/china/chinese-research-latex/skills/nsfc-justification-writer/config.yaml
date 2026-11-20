@@ -1,0 +1,71 @@
+skill_info:
+  name: nsfc-justification-writer
+  version: 1.10.1
+  description: "撰写、重构、审查和润色 NSFC/科研基金申请书立项依据，保留可核验事实与 LaTeX 结构并通过安全写入链落盘。"
+  category: writing
+  author: "Bensz Conan"
+
+# 只影响措辞和证据重心，不作为结构通过条件。
+style:
+  mode: theoretical
+
+# 仅为宿主 AI 的默认软建议，包括 max_* 与标题字段；不改变解析语义，也不作为结构通过条件。
+# 用户篇幅要求优先；必要证据、限定、引用与已有合理结构优先于段数、比例和标题建议。
+structure:
+  canonical_status_title: "国内外研究现状"
+  research_significance:
+    preferred_paragraphs: 2
+    max_paragraphs: 3
+    max_body_ratio: 0.25
+  thematic_subsection:
+    preferred_paragraphs: 1
+    max_paragraphs: 2
+  summary:
+    preferred_paragraphs: 1
+
+parameters:
+  project_root:
+    type: string
+    required: true
+    description: 项目根目录
+
+targets:
+  # 可由项目配置或 CLI 显式指定；为空时由自动候选发现决定。
+  justification_tex: ""
+  bib_globs:
+    - references/*.bib
+    - references/**/*.bib
+
+workspace:
+  runs_dir: .bensz-api/task-{yyyymmdd-hhmm}-{简短描述}/nsfc-justification-writer
+
+references:
+  # 缺失 bibkey 仍阻止默认写入；宿主 AI 不得为了通过检查删除必要引用或暗换科学主张。
+  # 先核实来源并保真修复；无法解决时保留原文件、提案和待核验项。
+  allow_missing_citations: false
+
+guardrails:
+  # 自动写入仍受白名单、禁写路径和备份保护；自定义目标必须同步声明白名单。
+  allowed_write_files:
+    - extraTex/1.1.立项依据.tex
+  forbidden_write_files:
+    - main.tex
+    - extraTex/@config.tex
+  forbidden_write_globs:
+    - "**/*.cls"
+    - "**/*.sty"
+  output_mode: auto_apply
+  require_explicit_confirmation: false
+  auto_select_target: true
+  auto_create_target: true
+  auto_retry_body_only: true
+
+quality:
+  # 夸大或绝对化表述由宿主 AI 按 references/quality_control.md 语义复核；
+  # Python 不维护固定短语表，也不对正文措辞做硬编码判定。
+  # 结构命令由 preview 的变更范围检查比较前后差异；不对现有正文中的命令逐字报警。
+  avoid_commands: []
+
+# 仅定义统计口径；本 Skill 不设默认目标字数或容差。
+word_count:
+  mode: cjk_only

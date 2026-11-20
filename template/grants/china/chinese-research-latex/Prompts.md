@@ -1,0 +1,1484 @@
+# 通用
+
+- 更新commit
+
+```
+用 git-commit skill 上传； 仅1个commit； 把改动点罗列清楚。不调用 bensz-router skill。
+```
+
+- 更新版本
+
+```
+github项目：huangwb8/ChineseResearchLaTeX
+version=4.1.3
+git-commit skill保存变更; 最后一个commit要新增 tag 为 v{version}，并且该commit信息要提到更新版本（写commit信息的时候，不能仅根据最近1次commit； 而是版本间所有commit的总结的综合形成版本特异性commit信息）； git-publish-release skill 发布为一个release到github仓库。项目zip文件记得同步生成。
+```
+
+- 万能写代码优化
+
+```
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+```
+
+- 其它
+
+将 ./packages 里的latex包安装到本地设备。
+
+- 简单的测试
+
+```
+version=17
+
+请结合 /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/v{version}.md 及对应的中间文件夹里留下的痕迹，评估一下 research-idea skill 的实际工作状态； 特别是和bsk、verifier、state 、gate 等是否按预期工作。
+
+你根据这次调查，写2个文件名带  bac-v{version} 字符的优化计划， 分别用于优化 research-idea skill 和 bsk 。
+```
+
+# 日常
+
+---
+
+你搞一下 https://github.com/huangwb8/ChineseResearchLaTeX/issues/56 。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+基于 /Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2027/docs/plans/2026-10-17-nsfc-justification-writer-章节边界优化.md 优化 skills/nsfc-justification-writer
+
+---
+
+你搞一下 https://github.com/huangwb8/ChineseResearchLaTeX/issues/54 。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+根据 docs/plans/2026-09-25-research-idea-研究脉络叙事优化计划.md 优化 skill 
+
+---
+
+优化 research-idea : /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas 里的多个 `v*.md` ，我看了一下 `## 研究脉络 map 摘要`  这个小节。 我感觉这个小节写得不好。 我希望它应该像是这样：
+
+- 一个非常资深的科学家准备向一个对该领域完全陌生的研究生介绍一些东西
+- 资深科学家的脑子有一个map， 它掌握了大量关于现有研究的现状、局限的相关latent space
+- 资深科学家根据他的map写一个深入浅出的介绍。我觉得表现形式上，应该有点像 Nsfc Justification Writer skill里所定义的那样。
+
+你有什么意见？
+
+---
+
+根据 /Volumes/2T01/Github/ChineseResearchLaTeX/docs/plans/2026-09-20-research-idea-v19-bsk-证据闭环优化计划.md 优化 research-idea skill。
+
+---
+
+请结合 /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/v19.md 及对应的中间文件夹（/Volumes/2T01/Github/bensz-auto-contribution/.bensz-api/task-20260920-0655-bac-研究课题）里留下的痕迹，评估一下 research-idea skill 的实际工作状态； 特别是和bsk、verifier、state 、gate 等是否按预期工作。如果你觉得有需要改进的点，你可以写一个优化计划，计划里要分别说明 bsk / research-idea skill 怎么改进。
+
+---
+
+请结合 /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/v18.md 及对应的中间文件夹里留下的痕迹，评估一下 research-idea skill 的实际工作状态； 特别是和bsk、verifier、state 、gate 等是否按预期工作。
+
+---
+
+根据 docs/plans/2026-09-15-research-idea-文献景观与证据门禁计划.md docs/plans/2026-09-15-research-literature-radar-核心辅助文献分层计划.md 和 docs/plans/2026-09-15-research-literature-review-相关性驱动选文计划.md 优化本项目的部分skills。
+
+---
+
+你根据这次调查，写3个文件名带  bac-v14 字符的优化计划， 分别用于优化 research-idea skill 、bsk 和 其它问题的计划。
+
+---
+
+请结合 /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/v14.md 及对应的中间文件夹里留下的痕迹，评估一下 research-idea skill 的实际工作状态； 特别是和bsk、verifier、state 、gate 等是否按预期工作。
+
+---
+
+基于 docs/plans/2026-09-12-bac-v13-research-idea-阶段编排优化计划.md 优化 skill。
+
+---
+
+你根据这次调查，写3个文件名带  bac-v13 字符的优化计划， 分别用于优化 research-idea skill 、bsk 和 其它问题的计划。
+
+---
+
+请结合 /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/v13.md 及对应的中间文件夹里留下的痕迹，评估一下 research-idea skill 的实际工作状态； 特别是和bsk、verifier、state 、gate 等是否按预期工作。
+
+---
+
+请结合 /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/v12.md 及对应的中间文件夹里留下的痕迹，评估一下 research-idea skill 的实际工作状态； 特别是和bsk、verifier、state 、gate 等是否按预期工作。
+
+---
+
+/Volumes/2T01/Github/bensz-auto-contribution/.bensz-api/task-20260911-0109-research-idea-bac 是一个 skills/research-idea 的实例的过程； /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/v11.md 这是结果 。 你调查一下。从这些中间过程、结果来说，你评价一下 skills/research-idea 的工作如何？skills/research-idea 把什么按预期做好了？ 是否暴露了 skills/research-idea 的某些可修正的缺陷（如果确实有，请在 docs/plans 里写个该skill的优化计划）？
+
+---
+
+/Volumes/2T01/Github/bensz-auto-contribution/.bensz-api/task-20260909-2257-bac-research-v9 是某一次idea推断的中间过程； /Volumes/2T01/Github/bensz-auto-contribution/docs/ideas/BAC_科研战略_v9_从证据边界到干预价值.md 是它的成品。 我个人感觉这个科研idea的推断不太行； 这个idea 给人一种很low的感觉； 而且研究map也非常的粗糙。 你觉得这次实战里暴露出 skills/research-idea 的哪些问题？
+
+---
+
+我觉得 生成初始候选 这个步骤不太对。 人类有句老话“没有调查就没有发言权”。所以， 文献的调查应该放在idea之前。 我觉得更合理的步骤是这样：
+
+- 根据 research-literature-radar skill 先获取领域内的重要/前沿的文献，一般来说会获得PDF正文（如果没有PDF正文，仅有题目和摘要也可以）
+- 通过 research-literature-interpretation skill 解读这些文献
+- 基于解读和你的思考，推理出领域的研究脉络。其实，一些资深的人类专家脑子里就有这种“研究脉络map”，这让他们对领域内的历史和发展了如指掌。它是一个高度概括、有时间顺序、逻辑严密、动态演化的有机网络，是人类科学家有研究品味、提出新思考、提出新问题的基础。 总之，大致就是这样的东西； 这是重要的步骤之一。
+- 然后，开始 brain storm。 现在的harness工具（比如 codex）基本上都支持多agent系统。 你直接开多个agent，基于研究脉络map的背景，创新新地、有洞见地提出一些初始候选（这个和目前 research idea里的定义一样）。
+- 后续的步骤基本是一样的，比如
+  - 逐个候选进行 Premium 查新
+  - 等等
+
+总之，生成初始候选的过程优化了一下； 之前是相当于ai自己脑补了几个； 现在就相当于是先进行有价值的文献调研，在摸清楚状况后再提出猜想。 请优化这个skill的源代码。 
+
+---
+
+我认为，`research-topic-extractor` 和 `research-idea` 这2个skill要协同进化，以让它们可以更像顶级人类科学家那样思考问题和寻找有价值的科研创新点。 顶级人类科学家大概应该这样工作：
+
+- 用户有一些需求； ai充分理解它们的需求
+- 顶级人类科学家的文献调研
+  - 定位到：这是什么领域（大/中/小）。分层一下，联网找一下，立刻就知道大同行和小同行是谁。先找到靠谱的人，然后以他们的研究轨迹、网络为基础构建与用户需求相关的研究领域进展的脉络。 
+  - 先找和用户需求相关的领域里的大牛的工作或者一些经典的工作，这个你可以自由地探索（毕竟ai有很多知识，我相信ai知道对于某个领域而言，哪些大佬/经典论文是值得关注的）。
+  - 还要找一下那些大佬最近的一些工作，也许是有一些相关的
+  - 可以利用 research-literature-search （很快会被研发出来； 虽然还不存在）进行查全； 该skill支持ai使用一些检索词进行广泛的探索。有一些不是大牛工作、但是显然与用户需求特别相关的工作也十分有价值
+- 顶级人类科学家的文献库
+  - 这样你肯定是可以获得一堆文献； 可以适当地主动筛选一下（依赖ai的智能。 想象ai是一个科学家，找到文献后就筛选一些好用的）。判断依据是题目、摘要就足够了，毕竟人类科学家靠这2个基本上都可以知道自己是否应该阅读某些文献。
+  - 顶级人类科学家还会通过社交媒体、会议、私人交流等各种奇怪的非官方渠道进行交流，甚至有很多brain storming和思维碰撞。这种资源ai可能很难获取，但ai可以开多agent做一下brain storming，然后总结一些为一些“本地文献”（写作时用得上； 但显然不能正式地引用）
+  - 这样，你就得到了一个最相关的文献库。然后，根据时间顺序，理顺它们之间是如何相互作用的（这看一下引用的相互性就知道），然后重建出“这个小领域是怎么一步步发展到现在这个样子的”的科研网络拓扑
+- 顶级人类科学家通过攻击科研网络拓扑获得研究灵感
+  - ai可以开多agent对目前这个科研网络拓扑进行全方位的攻击
+  - 目标：寻找目前的研究空白/不足/疑难等等。这里往往就是最具创造力的一步——获得真实的研究idea，判断一个问题值得做（足够有科研价值、有taste的问题，预计在一定的资源投入下预计可以获得良好的科学发现）
+- 将灵感写出来
+  - 综合上面的东西，写出一篇深刻的笔记。形式上可以和research-idea目前一样； 但内容的深刻程度不可同日而语
+  - 当然，这个过程肯定有点类似 research-literature-review ； 但 research-literature-review  写的是一种比较规范的综述； 而research-idea相对来说格式、内容不会很严谨，主要还是以具有启发性为主。 这个风格的差异很难描述，你懂的。 
+  - 笔记里那些重要的相关文章你肯定要包含； 要有专门的章节来呈现之前那个科研网络拓扑
+
+这是一次比较大的、比较复杂的改动。 允许你通过多agent协作开发，让这2个skill可以充分配合，从而模拟顶级人类科学家的思考idea的一般模式。哪些步骤应该开多agent、开几个agent、具体如何控制agent的行为，你要好好设计。您先写个源代码优化计划，不要改任何源代码。 
+
+---
+
+正文那里的标题层级，我还是喜欢类似 projects/NSFC_Young 这个示例里一样。 因为标书一般只规定模板文字，一般正文是没有什么特别的要求的。 我希望正文里的标题层级样式、颜色等与 projects/NSFC_Young 这个示例一样。当然，要尽量在 packages 的框架下进行，不要重复造轮子。 
+
+---
+
+projects/GXNSF_General 优化：
+
+- 项目的立项依据 之类的加粗，在word里蛮明显； 但在本latax里的渲染效果很弱，加粗不明显。 你可能要调一下。 
+- 模板文字的换行要严格如下：
+
+```
+（一）立项依据与研究内容（4000—8000 字）：
+1.项目的立项依据。 （研究意义、国内外研究现状及发展
+动态分析，需结合科学研究发展趋势来论述科学意义；或结
+合经济和社会发展中迫切需要解决的关键科技问题来论述
+其应用前景。附主要参考文献目录）
+2.项目的研究内容、研究目标，以及拟解决的关键科学
+问题。
+3.拟采取的研究方案及可行性分析。 （包括有关方法、技
+术路线、实验手段、关键技术等说明。）
+4.本项目的特色与创新之处（创新点和科学意义）。
+5.年度研究计划。 （包括拟组织的重要学术交流活动、合
+作与交流计划等）
+6.预期研究结果。
+（二）研究基础与工作条件
+1.工作基础。 （与本项目相关的研究工作积累和已取得的
+研究工作成绩）
+2.工作条件。 （包括已具备的实验条件，尚缺少的实验条
+件和拟解决的途径）
+3.项目组人员简介。 （包括申请人和项目组主要参与者的
+学历和研究工作简历，近期已发表与本项目有关的主要论文、
+专著目录和获得专利、学术奖励情况及在本项目中承担的任
+务。对已取得的成果，要求详细列出论文、专著题目，所有
+完成人，期刊名或出版社名，年，卷（期），起止页码等；专
+利名称，所有完成人，专利授予国别或地区，专利类型即发
+明专利或者实用新型专利，专利授权号；科技成果奖励名称
+及奖励等次、所有完成人、授奖年等信息）
+4.申请或承担科研项目情况。 （申请人和项目组主要参
+与者已完成和正在承担的科研项目情况，包括自然科学基金
+的项目，要注明项目的名称和编号、经费来源、起止年月、
+与本项目的关系及负责的内容等；申请人近 3 年申报国家自
+然科学基金项目的情况）
+5.完成广西自然科学基金项目情况。 （对申请人负责的
+前一个已结题广西自然科学基金项目〈注明项目名称及项目
+任务书编号〉完成情况、后续研究进展及与本申请项目的关
+系加以详细说明。）
+（三）项目的组织实施
+1.项目的组织管理措施。
+2.项目依托单位与合作研究单位责任分工和经费分配。
+3.项目实施地点及规模。
+（四）其他附件清单（相关附件材料在申报时上传至申报
+系统）
+```
+
+这样比较严格对齐。
+
+---
+
+广西国自然面上的示例正文写得不太好。 请你参考国自然青年模板的内容写一下。
+
+---
+
+广西国自然面上， latex模板里的字体、加粗和  ./projects/GXNSF_General/template 里有很大的差别。 你调一下，尽量和原模板对齐。
+
+---
+
+今天有个新issue要求做广西省面上模板，你搞一下。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/Github/ChineseResearchLaTeX/projects/thesis-jlau-master 的问题：
+
+- 封面那里单位代码和学号那里有点不太对齐，不够美观。
+- 示例内容不是以佐佐木希为主题； 你可以参考一下其它稳定的模板
+- 正文可以加一些示例用的图表，让模板更加丰富
+
+请优化。
+
+---
+
+基于 docs/plans/2026-07-02-thesis-cas-postdoc-format-alignment.md 优化模板。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+有个新issue要求做毕业论文类模板： https://github.com/huangwb8/ChineseResearchLaTeX/issues/50 。 你搞一下。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/Download/江西理工大学本科模板 这里有一些官方要求，请你启用 parallel-vibe 多agent流程来评估差距（总轮次不超过10轮）/优化模板文件，从而保证 projects/thesis-jxust-bachelor 与官方样式高度对齐。 目前我发现这些问题：
+- 封面样式没完全对齐。 特别是logo方面有较大差距
+- 没有独创性声明。 你去 附件6.本科毕业论文（设计）封面 这个doc里看看
+- 目录的样式很怪，完全不是人类友好型的目录。你学一下其它模板的优秀经验
+- 附件5.本科毕业论文（设计）格式.docx 有很多格式要求，一些字体类型、大小一定要准确。
+
+---
+
+有个新issue要求做毕业论文模板： https://github.com/huangwb8/ChineseResearchLaTeX/issues/49 。 你搞一下。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+skills/paper-write-sci 业务逻辑优化
+
+- 写作时，要尽量少使用含有`:`的句式，因为这样很不SCI style，很口语化
+- introduction写作时，应该要保持论文的核心观点、核心痛点、核心问题不要被反复地提及，这样会显得非常冗余、啰嗦，对写作水准的负面影响很大。写作时要注意做好这方面的协调。
+
+---
+
+基于 docs/plans/2026-06-14-research-skill-rename.md 干活。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。
+
+---
+
+我有一个大胆的想法，就是把几个skill的名字改了。 它们包括：
+
+- get-review-theme
+- guide-updater
+- check-review-alignment
+- make-research-plan
+- systematic-literature-review
+
+这几个skill和research-idea skill的主要共同点是，它们都是研究类的skill。因此，我想做一个`research-xxx{-xxx}` 系列的skill，这样它们比较容易记忆。上述的skill因为开发的时间太早了，当时没有考虑命名的问题。此外，如果真的要改名，我希望旧的名字也可以暂时兼容（比如，通过`请使用 {旧名字} skill做xxx任务` 仍可以命中新名字skill去完成任务）。此外，还要将旧名字加入 /Volumes/2T01/winE/PythonCloud/Agents/pipelines/skills/install-bensz-skills 的legacy skill的名录里，这样当用户运行 install-bensz-skills 时会将旧的skill自动删除； 然后换为新命名的skill。
+
+这是一个非常巨大、且需要谨慎进行的工程。 你写个优化计划我看看。
+
+---
+
+有个新issue要求做毕业论文模板： https://github.com/huangwb8/ChineseResearchLaTeX/issues/48 。 你搞一下。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+目前， /Volumes/2T01/Github/ChineseResearchLaTeX/projects/thesis-nju-master 的字体（比如字体类型、大小之类的）还有哪些不符合南京大学工程管理硕士学位论文规范要求（/Volumes/2T01/Download/2023.2.docx）的？
+
+---
+
+/Volumes/2T01/Github/ChineseResearchLaTeX/projects/thesis-nju-master 的样式还有没有需要改进的？ https://github.com/huangwb8/ChineseResearchLaTeX/issues/37 的需求是否已经满足以至可以关闭issue了？
+
+---
+
+有个新issue要求做毕业论文模板： https://github.com/huangwb8/ChineseResearchLaTeX/issues/47 。 你搞一下。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+有个新issue要求做毕业论文模板： https://github.com/huangwb8/ChineseResearchLaTeX/issues/45 。 你搞一下。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/winE/iProjects/SeqIntel/tmp/ChineseResearchLaTeX/projects/GDNSF_General/template/2026年省自然模板.docx 是新的模板，你需要根据它改一下latex模板。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。最后，回复并关闭 https://github.com/huangwb8/ChineseResearchLaTeX/issues/44 这个issue。 
+
+---
+
+基于 docs/plans/2026-05-29-thesis-docx-export.md 优化源代码。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+projects/GDNSF_General/template/附件6：2025年广东省自然科学基金-面上项目申请书模板.docx 的第6页有个报告正文； 你做个latex模板。设计上，可以适当参考nsfc系列。尽量复用现有的资源；但如果必须重新造轮子也可以接收。 使用 awesome-code skill 辅助规划、优化。可以适当使用 make-latex-model skill 的能力。 所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+这两个issue: https://github.com/huangwb8/ChineseResearchLaTeX/issues/40  和  https://github.com/huangwb8/ChineseResearchLaTeX/issues/41 要求制作2个新的毕业论文模板。 请你：
+
+- 彻底理解用户意图。下载必要的原始材料（比如，模板论文； 论文格式要求/规范等文件）
+- 了解 projects/thesis-* 类的模板； 了解系统设定。彻底规范要怎么做才能又快又好地做模板
+- 制作新的latex模板，命名要合乎规范。初步验收目标： 渲染的PDF和源PDF样式像素级一致（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）
+- 通过初步验收后，模板可以填回原来的佐佐木希的正文，这样就可以完成脱敏
+- 注意
+  - 模板文献是保密级，不能通过任何方式公开在网上
+  - 本次任务中，不要产生任何向github的commit或release。 要先给我看过
+
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+我自己更加倾向于， thesis-smu-postdoc 是一个独立于 thesis-smu-master 的模板。 如果 thesis-smu-master 里有一些资源被 thesis-smu-postdoc 使用，那么正确的方式应该是直接copy过去； 而不是形成代码上的引用。 我打个比方： 有个用户它可能仅下载  thesis-smu-postdoc ； 而根本不会下载、也不关心 thesis-smu-master  怎么样。 因此，我希望在逻辑、业务上，它们彻底地独立开来（尽管很多resources看上去是一样的）。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+projects/paper-sci-01 优化：
+
+- pdf/docx的书签里，应该到 subsection 层级
+
+---
+
+projects/paper-sci-01 优化：
+
+- 本项目里，tex会分别出pdf、docx。 我希望，特别在论文题目样式、论文作者样式、正文参考文献样式、参考文献条目等上面，pdf和docx应该高度一致，并共享同一基础源。因为，用户非常希望pdf和docx的样式尽可能一致，特别是上述关键部位的样式。
+
+ 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+论文写作时，有些杂志会对正文（introduction/method/results/discussion）的总字数、abstract的总字数有限制。 因此，用户在使用paper类模板时，经常有统计不同章节字数的需要。请开发一个脚本放在 packages/bensz-paper 里，当给定一个或多个tex时，可以统计目前tex的字数之和（不包括那些latex命令有关的字数，因为它们渲染为word/pdf后不产生字数）；然后升级包的版本号。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板或包的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+分类号和UDC的文字与后边的线、密级和编号的文字与后面的线，它们之间有一个固定的间隙。 目前，这个间隙不一样大，导致视觉效果比较差。能不能一样大？请优化。
+
+---
+
+分类号和UDC后边的线 vs. 密级和编号后面的线，能不能一样长、均匀一点？这样版面好看点。
+
+---
+
+如图， projects/thesis-smu-postdoc 的封面的样式有问题，分类号和UDC后边的线太长了，把密级和编号都压出界了。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+结合/Volumes/2T01/winE/我的坚果云/珠江医院/定岗博士后/南方医科大学博士后2026出站所需表格/附件1-博士后研究报告编写规范.doc 的建议（特别是封面），以 projects/thesis-sysu-doctor 为蓝图，新建一个南方医生大学博士后研究报告的latex模板。不需要新建latex包，用packages/bensz-thesis即可。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+基于 /Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/Cover-Letter.docx 构建一个新模板： paper-coverletter-01 。当然，模板里的敏感内容，比如论文题目、作者之类的要匿名； 通讯作者可以用Feng BaoBao。因为Cover Letter的结构比较简单，也许不需要专门依赖某个包（如果需要，我觉得bensz-paper包应该已经足够； 不需要再专门设计一个Cover letter的latex包）。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/fix-docx-author-alignment-v20260406.md 这个bug 在 packages/bensz-paper 和 projects/paper-sci-01 里也有。 你修一下。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+请在不改python代码的情况增强注释，让ai更加了解这个脚本怎么用。 脚本包括 ./packages 里和 ./scripts 里的python脚本。 注意，只优化注释，千万不要修改源码。
+
+---
+
+根据 plans/optimize-delegate-skip.md 优化安装检测机制，保证实现快速检测本地latex包是否需要更新。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+目前，bensz-cvbensz-nsfcbensz-paperbensz-thesis等包，如果发现远程版本和本地版本是一致且安装模式不是force的时候，一般会像 bensz-fonts 那样路过安装。 请问，这些包的跳过机制和 bensz-fonts 一样吗？我总感觉没有 bensz-fonts 的跳过那么快速，这让我怀疑脚本是不是完全下载包后再检测版本是否对应。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/bensz-paper-docx-references-defects-v20260406.md 这个bug 在 packages/bensz-paper 和 projects/paper-sci-01 里也有。 你修一下。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/fix-docx-correspondence-superscript-v20260405.md 这个bug 在 projects/paper-sci-01 里也有。 你修一下。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/fix-references-bookmark-and-docx-order-v20260405.md 这个bug 在 projects/paper-sci-01 里也有。 你修一下。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/fix-docx-math-rendering-v20260402.md 这个bug 在 projects/paper-sci-01 里也有。 你修一下。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/fix-bibliography-style-and-docx-table-rules-v20260402.md 的优化可以在 projects/paper-sci-01 里也做一下。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/fix-docx-bib-et-al.md  这个bug 在 projects/paper-sci-01 里也有。 你修一下。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/plans/fix-docx-heading-center.md 这个bug 在 projects/paper-sci-01 里也有。 你修一下。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper 是 projects/paper-sci-01 的一个实例。 我发现， CCS项目里的docx文件，开头的作者的机构标号的格式并不是右上角，这和pdf不一样。 这说明，作者单位的格式这里有p0缺陷。 请优化  projects/paper-sci-01 ，必要时可以优化 packages/bensz-paper 。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+使用 compact-bensz-skills skill 优化 ./skills 的工作类 markdown 
+
+---
+
+论文题目右边的文字，如果题目很长，应该在即将超过横线范围的时候换行； 而且，应该有一个灵活的机制保证可以进行2行或以上行数的换行。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+如图，左侧是我想要的样式，右边是模板的实际表现。 请优化：
+
+- 论文题目作者姓名专业名称研究方向指导教师在纵向空间上的排列可以稍微小点，让下方的时间块可以回到封面页而不是被挤下去
+- logo感觉可以小10%
+- 论文题目作者姓名专业名称研究方向指导教师的字体大小可以再大10%
+
+---
+
+thesis-nju-master的封面页，论文题目右侧的题目优化：
+
+- 左对齐
+- 离`论文题目`远一点，目前太近了
+
+---
+
+我发现，thesis-nju-master的封面页论文题目作者姓名专业名称研究方向指导教师这些字不如示例（见tests/thesis-nju-master模板文献的PDF）那样，在纵向上更加紧凑； 连带着它们右边的文字也是会更加紧凑。 请：
+
+- 优化1次
+- 进入循环：
+
+```
+工作目录 ./tests/nju-{时间戳} 
+将示例pdf的封面页转化为jpg，记为 exam-01.jpg
+for i in 1:30
+  将模板封面页分别转化为jpg，记为model-01-{i}.jpg
+  基于parallel-vibe skill（thread=2）独立比较model-01-{i}.jpg 和 exam-01.jpg 的异同（实质性内容除外； 主要是样式、模板文字的差异），得到差异Si
+    if Si == 0:
+      结束循环
+    else
+      根据Si优化模板封面的latex相关代码
+      重新渲染模板pdf
+```
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+如图，左边是示例文献； 右边是项目pdf。 我感觉这字体不太对。示例里应该是某种楷体； 而且字体大小也不太相称。 你看一下这个封面页，有没有可以改良的。如果要用到额外字体， bensz-fonts包应该可以提供帮助。 
+
+---
+
+tests/thesis-nju-master模板文献里有一个真实的、格式通过评审的 thesis-nju-master 毕业论文的PDF版。 请你：
+
+- 彻底了解这个真实论文的实际样式
+- 评估目前 projects/thesis-nju-master 有哪些缺陷
+- 优化 projects/thesis-nju-master 。 初步验收目标：thesis-nju-master 渲染的PDF和源PDF样式像素级一致（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）
+- 通过初步验收后，模板可以填回原来的佐佐木希的正文，这样就可以完成脱敏
+- 注意
+  - 模板文献是保密级，不能通过任何方式公开在网上
+  - 本次任务中，不要产生任何向github的commit或release。 要先给我看过
+
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+如图，左是projects/thesis-nju-master 的原始，右是本项目的情况。 我感觉有这些差异：
+
+- 专业学位类别（领域）应该要压扁，保持比作者姓名略长点
+- 每条横线与其上面的文字的空隔太大，不太方便
+
+---
+
+有人提了个毕业论文的需求，具体在 https://github.com/huangwb8/ChineseResearchLaTeX/issues/37 请：
+
+- 用户在该issue里给了一些链接、附件。你要充分利用
+- 基于 `projects/thesis-*` 和 packages/bensz-thesis 制作模板。 命名为thesis-nju-master。
+- 初步验收目标：thesis-nju-master渲染的PDF和源PDF样式像素级一致（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）
+- 用户提供的pdf源，你要区分好正文和教学类文字。 有一些标签是教学用的，不应该是模板的正文。要注意区分。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+目前，overleaf包的结构是比较乱的：
+
+- 各种 .sty 文件、.def和 main.tex 在同样的根目录； 我觉得最好用一个文件夹（比如styles）来托管
+- 包含冗余模板文件。比如，明明是模板A； 但是实际上文件里包含了模板B、C或其它
+- nsfc里， impl 这个文件夹有点让人摸不着头脑
+
+总之，我希望overleaf包不仅能正常工作，还要结构清晰，不要乱乱的。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+我在 https://github.com/huangwb8/ChineseResearchLaTeX/actions 里看到几次失败，具体是`Sync README Template List`。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+# 处理pr
+
+---
+
+Merge 这个pr https://github.com/huangwb8/ChineseResearchLaTeX/pull/39 到main。 注意：
+
+- 该pr与main存在一些conflict，以main为准，我们只merge不conflict的部分。
+- 根据 docs/pr-review/Git-PR-Review_huangwb8_ChineseResearchLaTeX_pr-39_20260326184515.md 这个审查报告，这个pr还有一些问题，你要处理好。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+这有个本项目的pr： https://github.com/huangwb8/ChineseResearchLaTeX/pull/39 请使用 git-pr-review skill （parallel-vibe runner=codex; 5次独立评审）帮我评估一下这个pr。最终结果输出目录： docs/pr-review 。
+
+---
+
+projects/thesis-ucas-doctor 的根目录里还有一些工作 tex，目前这样肯定是不合适的。 除main.tex外，其它的应该放在 extraTex里 
+
+---
+
+https://github.com/huangwb8/ChineseResearchLaTeX/pull/36 已经获得了源作者的授权，因此merge可以提上日程。 请：
+
+- merge该pr到main。该pr与main存在一些conflict，以main为准，我们只merge不conflict的部分。
+- 这个merge是比较粗糙的。 请根据 docs/for-developers 的相关规范重构这个pr对应的模板。如果你需要动 packages/bensz-thesis 包，要注意千万不能影响其它毕业论文模板的样式。
+- 这个模板的正文内容已经写好了，不需要再另外修改为某些别的内容。
+- 重命名这个模板为： thesis-ucas-doctor
+- 与本项目进行对齐后，初步验收目标：thesis-ucas-doctor渲染的PDF和源PDF样式像素级一致（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）
+- 在 projects/thesis-ucas-doctor/README.md 里要注明源作者授权了（具体见： https://github.com/huangwb8/ChineseResearchLaTeX/pull/36#issuecomment-4120624795），所以我们仍可以保持MIT。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+先在本项目的pr： https://github.com/huangwb8/ChineseResearchLaTeX/pull/36 里回复 Tenstu ，不要做merge。 回复的内容包括：
+
+- 最重要的待确认点：  LeoJhonSong 来判断是否允许license冲突； 是否允许变更license的重构。 你要艾特 LeoJhonSong 这样他才知道这个事
+- 目前并不符合项目的规范，需要进行改良
+- 其它问题见： 具体见 docs/pr-review/Git-PR-Review_huangwb8_ChineseResearchLaTeX_pr-36_20260324141226.md ； 当然这个文件要用超链接，方便用户访问
+
+---
+
+这有个本项目的pr： https://github.com/huangwb8/ChineseResearchLaTeX/pull/36 请使用 git-pr-review skill （parallel-vibe runner=codex 1个thread 5个runner）帮我评估一下这个pr。我发现了一些问题：
+
+- 使用的是GNU LISENCE。也许与本项目的MIT license是冲突的
+- 源项目（LeoJhonSong/UCAS-Dissertation）的开发者是否知情，因为这相当于对他的代码进行了copy，有版权问题
+- 目前该pr并不符合我的thesis的规范，可能要稍加改良才能使用。
+
+结果保存在 ./docs/pr-review 文件夹里
+
+
+
+# 重构
+
+---
+
+目前， projects 有多种类型的模板，比如标书、毕业论文、sci论文。 有一些开发者想要贡献，但也许他们不确切地知道怎么样是一个标准的模板。这个markdown还有一个好处，就是方便让ai知道标准的模板长什么样，从而让人类用户方便地通过人机协作的方式来贡献模板。 请你：
+
+- 彻底了解projects里不同类型模板的源代码、packages里latex包的源代码
+- 彻底了解projects里不同类型模板的标准
+- 在 docs/for-developers 里添加数个md文档，分别介绍不同类型的模板的标准
+
+---
+
+测试和latex包安装的优化：
+
+- pytest.ini 这个文件是不是可以放在 ./tests 里？ 不要在根目录放太多不必要的文件
+- 安装脚本如果没有特别指定 `--packages`时，默认安装所有的包
+- 安装脚本工作时，应该首先找一下是否存在旧版本的包。 如果包的version参数是一样的，说明包的版本没变，则不需要重复安装； 除非添加 --force 参数强制安装
+
+github至gitee的github action推送workflow优化：
+
+- 不再基于最新release，而是基于最新commit。如果有新的commit存在则启动推送
+- 每小时自动检测1次
+- 本次要保证必须推送成功
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+因为SCI论文、毕业论文的模板的需求是非常修改化的，和cv/nsfc这此模板不一样。 因此，也许很多用户都有定制的需要。 请优化TEMPLATE-LIST自动化流程，在对应的位置表明，如果用户有个性化的需求，可以提issue。
+
+另外，你要定制一些issue模板，保证用户打开某种issue类型时，可以方便地提供所有必须的模板信息。最重要的其实是docx模板文件；其它的你看着办。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+docs 里添加一个开发者规范，主要是如何规范地贡献PR。 我希望用户应该先发issue，然后在我同意之后才能发pr。 这是为了保证不存在垃圾pr。 或者可能有其它规范，有利于保证其它开发者可以更合理地参与项目的共同构建。 我比较欢迎这种pr—它们基于 ./packages 里的包构建了新的毕业论文模板，这是受欢迎的。 你综合一下我的项目的实际情况，写个规范。 然后，在 ./README.md 的这个位置里添加一个开发者规范文档的引用。 
+
+---
+
+目前， 很多 projects 里的 .vscode 里设置，只对macOS是有效的； linux、windows有可能是不支持的。 能不能改为3大平台都兼容？
+
+---
+
+很多用户反馈，无法使用硬编码的方式安装本项目的latex包。 他们很多是在linux或者windows里使用。 我怀疑，是因为安装脚本没有针对这两种系统优化； 因为不同系统的某些latex命令可能不在同一个文件夹里； 甚至可以需要额外的命令判断它们的绝对路径在哪。 请问，目前的latex包安装脚本是否确实存在这些脆弱性？
+
+---
+
+现在推送至Gitee，都是我手动登陆Gitee然后拉取github里的东西。 能不能搞个自动化流程，当我在github里发布新release的时候，直接把最新的release推送到gitee里？使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+.github/workflows 里的 github action 的自动化流程应该支持最新的字体分离架构。请：
+
+- 完善流程
+- 提交release。具体为：
+  - 创建tag v4.0.3
+  - Git-commit skill 创建commit
+  - Git-publish-release skill 创建 release
+- 立刻触发1次github action 自动化流程
+- 检查项目README里是否已经有cv模板的可下载的zip链接。如果正常就可以结束工作； 否则， 需要反复优化直至成功。
+
+---
+
+Overleaf压缩包你一定要特别关注字体；要保证每个Overleaf包里均有字体（应该不需要全部字体都塞进去； 每个project模板需要的字体是不一样的，有的甚至不需要字体）。总之，要保证Overleaf压缩包可以正常工作。
+
+---
+
+./packages 文件夹里 LaTeX包架构的优化
+
+- latex包有一个很重的资产： 字体。 我希望有一个新的包 ./packages/bensz-fonts 。 它的主要作用是
+  - 托管字体文件
+  - 提供统一的字体引用的API
+  - 作为其它bensz系列latex包的基础包
+- 这样设计有几个好处
+  - 每个新的latex包开发时，不需要再关注字体怎么引用、设计，因为 bensz-font 已经定义好了这一些
+- 注意
+  - 目前安装包的时候，bensz-font 包必须是强制安装的（否则，单独安装其它LaTeX包可能无法正常工作）
+  - 安装bensz-font 包时，因为它的体积比较大，应该有一个智能选择镜像的功能。 我在 Gitee 里是有镜像的， 中国大陆的用户用Gitee的URL下载应该会快一些，这个请帮忙协调好安装脚本，保证用户可以通过指定某个参数，从而可以在Gitee里下载这个包。其它的包也是类似，都要支持从Gitee镜像里下载。当然，默认还是从Github下载。
+
+  这些都是新特性，涉及多项目、多模板，优化难度很大。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+.github/workflows 里的 github action 的自动化流程应该支持 cv 模板。请：
+
+- 完善流程
+- 提交release。具体为：
+  - 创建tag v4.0.2
+  - Git-commit skill 创建commit
+  - Git-publish-release skill 创建 release
+- 立刻触发1次github action 自动化流程
+- 检查项目README里是否已经有cv模板的可下载的zip链接。如果正常就可以结束工作； 否则， 需要反复优化直至成功。
+
+---
+
+新增简历LaTeX模板支持。 基于/Volumes/2T01/winE/iProjects/Manuscripts/hwbCV （只读） 模仿目前SCI模板的套路，重构形成：
+
+- 包
+  - packages/bensz-cv
+- 模板
+  - projects/cv-01：基于 /Volumes/2T01/winE/iProjects/Manuscripts/hwbCV  的样式。有中/英版。
+- 初步验收目标
+  - projects/cv-01渲染的PDF和源PDF样式像素级一致（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）
+- 去隐私
+  - 完成初步验收目标后，应该去隐私。因为/Volumes/2T01/winE/iProjects/Manuscripts/hwbCV 是真实的简历，正文内容绝不能外传。 你可以构建一些假的内容，作为充分展示模板使用即可。 要求模板支持的所有样式都要用得上。可以使用  projects/NSFC_Young 里提到的佐佐木希。 你可以copy这个头像来用： /Volumes/2T01/winE/我的坚果云/样式备份/头像/zzmx-logo-02.jpg 
+
+  这些都是新特性，涉及多项目、多模板，重构难度很大。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+新增毕业论文模板的支持。基于 /Volumes/2T01/Github/smu-thesis-latex-clinical/projects/mmed-cy-01 和 /Volumes/2T01/winE/iProjects/Manuscripts/thesis_sysu2 , 模仿目前SCI模板的套路，重构形成
+
+- 包
+  - packages/bensz-thesis 
+- 模板
+  - projects/thesis-smu-master：基于  /Volumes/2T01/Github/smu-thesis-latex-clinical/projects/mmed-cy-01 的样式。
+  - projects/thesis-sysu-doctor：基于 /Volumes/2T01/winE/iProjects/Manuscripts/thesis_sysu2 的样式。
+- 初步验收目标
+  - projects/thesis-smu-master和projects/thesis-sysu-doctor渲染的PDF和源PDF样式像素级一致（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）
+- 去隐私
+  - 完成初步验收目标后，应该去隐私。因为/Volumes/2T01/Github/smu-thesis-latex-clinical/projects/mmed-cy-01 和 /Volumes/2T01/winE/iProjects/Manuscripts/thesis_sysu2都是真实的毕业论文，正文内容绝不能外传。 你可以构建一些假的内容，作为充分展示模板使用即可。 要求模板支持的所有样式都要用得上。论文主题同 projects/NSFC_Young
+  - 论文作者的名字统一为：冯宝宝
+- 注意事项：
+  - /Volumes/2T01/Github/smu-thesis-latex-clinical/projects/mmed-cy-01的完成度很高，是近期开发的； 因此projects/thesis-smu-master基本上搬过来就能用。  /Volumes/2T01/winE/iProjects/Manuscripts/thesis_sysu2 是很久以前的项目，很多设计肯定不太规范，要好好重构，按projects/thesis-smu-master的架构来重构，应该问题不大
+  - 总的来说，它们都是毕业论文模板，很多东西是很像的。这提示packages/bensz-thesis完全可以做得好。 可以参考 packages/bensz-nsfc 是怎么管理公共部分和模板的私有部分的。
+
+  这些都是新特性，涉及多项目、多模板，重构难度很大。使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+README文档里的`**## NSFC 公共包安装**`小节改为`**## LATEX包安装**`。写出：
+
+- 可灵活安装包
+  - 默认是安装 https://github.com/huangwb8/ChineseResearchLaTeX/tree/main/packages 里有的包
+  - 用户可以指定其中的1个或多个包安装。 
+
+- 安装方式
+  - 远程硬编码：大致是
+    - 用户配置好python环境
+    - 运行一个python命令。脚本是https地址，不要是本地地址。
+  - 远程ai自主规划：
+    - 在Claude Code/Codex里提出Prompt安装（要包含本项目的https链接，这样ai就会自动联网去了解怎么安装）
+- 如果目前的架构不支持上述安装方式，可以优化 ./scripts 里的脚本以实现这个目标
+- 必要时， AGENTS.md 的内容可以协调、同步优化。
+
+---
+
+Readme文档里的`## 📋 模板列表`进行重构。不再需要我手动地写。 你在本项目开发一个github action流程（你可以看看 /Volumes/2T01/Github/huangwb8/.github/workflows 差不多是这种东西），它的作用是：
+
+- 定期检测最新的release（第1小时检查1次； 用户可以手动触发）
+- 在Readme文档里的`## 📋 模板列表`下构建一个格式化的表格，类似于现在的格式； 但里面的信息的实时更新的
+- NSFC模板、SCI论文模板、毕业论文模板应该有一定的分隔，样式优雅即可
+- Overleaf 演示不放实际的Overleaf地址； 而是放Overleaf包的地址
+
+使用 awesome-code skill 辅助规划、优化。所有要求都要落实。 
+
+---
+
+创建tag v4.0.0，然后发布release。 验收目标：
+
+- 成功release
+- Release assets 是正常的，即所有的 projects 里的模板都有普通版zip和overleaf版zip
+
+如果有问题，使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 
+
+---
+
+你理解错了。 我是指， projects/paper-sci-01 的参考文献的docs样式和/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper 的参考文献的docs样式似乎不完全一样。 问题出在哪？
+
+---
+
+projects/paper-sci-01 的参考文献的docs/pdf的样式和/Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper 似乎不完全一样。 问题出在哪？
+
+---
+
+将 /Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper 是一个已经做好的sci论文写作模板。 现在，请将它移植到本项目，作为一个子功能/子project而存在。 大致如下：
+
+- /Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper/texmf/tex/latex/benszmanuscriptlatex 到这里后变成 packages/bensz-paper
+- 基于它添加一个project，保存在 projects/paper-sci-01 代表是适合写sci论文的一个模板
+- 你不可以使用  /Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper 里的正文内容，因为那是我未发表的论文。 你可以使用 https://www.cell.com/cancer-cell/fulltext/S1535-6108(26)00110-8 作为模板正文。
+
+注意：
+
+- 不能动nsfc项目
+- 因为多了一类项目——SCI写作模板； 也许，其它必要的部分也要调整，比如项目的 AGENTS.md; ./scripts 里的脚本等。 这个你自己把握。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。 
+
+验收目标：projects/paper-sci-01里可以渲染出格式标准的PDF和docx。
+
+---
+
+在 projects/NSFC_*/extraTex/@config.tex 里，应该添加大量注释类代码，让用户可以根据自己的需求定制化标书的格式。 我希望
+
+- 所有可调的参数都要列出来； 然后写的是目前的默认值
+- 要有说明教用户
+  - 这个参数是什么？
+  - 应该怎么设置？
+- 必须保证 projects/NSFC_*/extraTex/@config.tex 里的参数设置会压过默认的模板设置。在代码逻辑上要保证这一点。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。
+
+---
+
+projects/NSFC_General/code/nsfc_build.py 之类的脚本用来干啥的？
+
+---
+
+scripts/pack_release.py 优化：
+
+- 里面除了可以对项目进行一般的打包，还需要打包一个专门可在overleaf中使用的zip。因为，overleaf中用户无法像本地电脑那样随时将一个latex包安装到它的系统里。你只要优化些规则，应该就可以做到。
+- 发布版本的时候，压缩包的命名类似于：
+  - 普通的可在个人电脑里用的包： NSFC_Young-{release号}.zip
+  - 定制的可在Overleaf上使用的包： NSFC_Young-Overleaf-{release号}.zip
+
+  使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。
+
+---
+
+对于`用户安装 bensz-nsfc 包后，项目里有稳定办法找到这些脚本`这个需求，解决方法很简单
+
+- 做好安装用的python脚本，让用户不管在什么系统、什么设备里，基于这个python脚本都可以将bensz-nsfc 包安装到正确的位置
+- 设计好AGENTS.md的规则，要求ai去latex包的根目录里找脚本。这样ai在实际工作的时候就会自主规划了
+- 因为包已经按常规安装正确，一般来说ai肯定很容易找到它（因为latex包一般都装在一些固定的位置）
+
+---
+
+bensz-nsfc/scripts 不需要专门被用户下载； 因为它作为latex包的一部分。 用户只要安装latex包，就可以调用这些脚本了。 你觉得呢？因为，我觉得打包具体项目的zip时，不需要专门把bensz-nsfc/scripts打包进去。
+
+---
+
+请为 ./projects 里的项目添加写标书专用的 AGENTS.md 和 CLAUDE.md 文件，让ai可能更好地辅助用户写标书。 这是很重要的，因为用户一般是下载整个项目文件夹（比如 projects/NSFC_General） 的压缩包； 如果里面已经内置了这2个文件，它就不需要重新使用了。注意，不要动根目录的AGENTS.md 和 CLAUDE.md 文件（它们的主要作用不是写标书，而是开发本项目）。使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。
+
+---
+
+./scripts中和nsfc直接相关的，应该搬到 packages/bensz-nsfc/scripts 里去。AGENTS.md 也要相应地调整、优化。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。
+
+---
+
+请了解下 /Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper 是怎么渲染tex为PDF的。 它有这个特点：
+
+- 有固定的python代码负责渲染
+- 经过代码渲染后，main.tex目录是很干净的，没有中间文件
+- main.pdf和main.tex之前存在跳转连接，在vscode里使用很方便
+
+目前，本项目也许没有达到这种完美的渲染体验。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。要保证最终成品能正常、稳定、高效地工作。注意：
+
+- 不需要渲染docx的功能
+
+---
+
+每个项目里 fonts  bibtex-style 是文件体积的大头，3个项目里也是高度一致的。 让这些资源直接托管在  packages/bensz-nsfc 的 assets 文件夹里。 使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。要保证最终成品能正常、稳定、高效地工作。主要考核目标： 项目重构完后，NSFC_General、NSFC_Local、NSFC_Young渲染出来的PDF在外观上和之前完全一样（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）
+
+---
+
+根据 plans/重构-v202603101512.md 重构本项目。测试用目录在 ./tests/重构-v202603101512 。 我已经做好github备份，你放心大胆地做。使用 awesome-code skill 辅助规划、优化。所有问题都要解决，所有建议都要落实。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。要保证最终成品能正常、稳定、高效地工作。主要考核目标： 项目重构完后，NSFC_General、NSFC_Local、NSFC_Young渲染出来的PDF在外观上和之前完全一样（你可以通过将pdf页面转化为jpg，通过视觉智能比较jpg的差别; 要求pdf里每一行的文字、缩进外观都完全一样【这是模板是否优秀的重要标志】）。
+
+---
+
+其实，我希望核心的latex包也可以随意切换版本。 我的想法是：
+
+- 用户必须通过我定义的python脚本来安装包
+- 当用户有安装历史版本的需求时，因为本项目是在github上托管的，因此，只需要请求某个git版本，就可以为用户安装一个旧的版本； 或者，也可以随时进步到任意更新的版本
+
+请优化目前的重构计划。
+
+---
+
+在重构项目的时候，我对一个功能特别需要：模板的版本控制。这是一个巨大的需求：用户在某个时间段，也许不喜欢最新的模板（由于种种原因）。因此，它可能会停留在某个过去的模板很长时间； 但是随时有跟进/回退到模板的任意版本的可能性。因此，我需要项目应该在版本控制这一块做得非常好。请优化目前的重构计划。
+
+---
+
+这里写一下： 
+
+- 我准备对本项目的国自然基金模板进行重构，为未来50年发展打好基础
+- 我会新增类似 /Volumes/2T01/winE/iProjects/Manuscripts/CCS/paper 的期刊论文写作latex能力，助力大家使用vibe coding的能力来写论文
+- 我会新增类似 /Volumes/2T01/Github/smu-thesis-latex-clinical/projects/mmed-cy-01 的毕业论文写作latex能力，助力毕业的小伙伴使用vibe coding的能力来写论文 
+
+通过上面3个点，让ChineseResearchLaTeX项目变成一个真正的国人latex平台，而不仅限于国自然（尽管国自然仍是重头戏）。要求在400-500字左右。
+
+---
+
+plans/重构-v202603101512.md 的计划觉得可以吗？有没有可以优化的空间？
+
+# 预算说明书
+
+---
+
+创建一个skill，叫 nsfc-budget 。 源代码/工作文件保存在 skills/nsfc-budget 。开发的skill要符合这个规范： https://github.com/huangwb8/skills/blob/main/AGENTS.md 。 该skill的工作流程大致如下：
+
+- 输入：
+  - 工作目录： 用户会指定。 如果用户没有指定，你必要暂停工作，要求用户指定一个工作目录。
+  - 用户的标书正文； 或者是其它用户指定的材料
+  - 总预算：用户提供。 如果用户不提供，就按这个标准： 面上基金50w，地区基金50w，青年基金30w
+  - 正文总字数（不包含latex模板文字/代码）：用户提供。如果用户不提供，以800-1000字为宜。一般来说
+    - 每个部分不超过500字。
+- 工作目录
+  - 所有中间文件都保存在工作目录的 .nsfc-budget 隐藏文件夹里
+  - 不可以在 .nsfc-budget 隐藏文件夹 以外的地方放任何工作中产生的非结果性的中间文件，免得污染用户的工作目录或其它目录
+- 选择latex模板：
+  - 默认是 skills/nsfc-budget/models/01 
+  - 后续我会放更多模板； 但暂时就1个。 你设计的时候，要为多模板可选做准备
+- 彻底理解用户标书的内容，综合latex模板里的预算的要求写标书的预算。
+  - 这是一个调研报告，对于如何写预算说明书很有启发，你学习一下 ： /Volumes/2T01/winE/PythonCloud/Agents/pipelines/deep_research_plus/reports/国自然面上基金预算说明书撰写规范 
+  - 学习完后将相关策略融入到你开发的skill里
+  - 不能硬引用这个目录，因为 /Volumes/2T01/winE/PythonCloud/Agents/pipelines/deep_research_plus/reports/国自然面上基金预算说明书撰写规范 只是一个临时目录，我之后会删除
+- 要有理有据、详略得当、逻辑严密，要写出真需求，不要捏造需求。
+- 其它你觉得有必要完善的点
+- 输出
+  - 实际预算说明书的latex项目文件
+  - 渲染出budget.pdf
+- 目标：一份完美的预算说明书，人类评审专家不可能从中找到任何逻辑漏洞，从而心甘情愿地把基金批给用户。
+
+---
+
+有待改进：
+
+- 设备费、业务费、劳务费 这几个字不要加粗； `请按照《国家自然科学基金项目申请书预算编制说明》等有关要求，按照政策相符性、目标相关性和经济合理性原则，实事求是编制项目预算。填报时，每个科目应结合科研任务按支出用途进行基本测算说明。` 这句话加粗
+- 所有的行的断句，请严格执行：
+
+```
+1.科学基金资助项目直接费用
+请按照《国家自然科学基金项目申请书预算编制说明》等有关要求，按照政策相符性、目标相关性和经济合
+理性原则，实事求是编制项目预算。填报时，每个科目应结合科研任务按支出用途进行基本测算说明。
+1.1 设备费（是指在项目实施过程中购置或试制专用仪器设备，对现有仪器设备进行升级改造，以及租赁外单
+位仪器设备而发生的费用。计算类仪器设备和软件工具可在设备费科目列支。填报时，应按照设备购置费、试制改
+造费和租赁使用费的分类，提供设备支出的必要性及基本测算说明。单价大于50万元（含50万元）的设备需补充说
+明设备的主要性能指标、主要技术参数等内容。）
+1.2 业务费（是指项目实施过程中消耗的各种材料、辅助材料等低值易耗品的采购、运输、装卸、整理等费用，
+发生的测试化验加工、燃料动力、出版/文献/信息传播/知识产权事务、会议/差旅/国际合作交流等费用，以及其他
+相关支出。填报时，应按照支出大类进行基本测算说明。）
+1.3 劳务费（是指在项目实施过程中支付给参与项目研究的研究生、博士后、访问学者以及项目聘用的研究人
+员、科研辅助人员等的劳务性费用，以及支付给临时聘请的咨询专家的费用等。填报时，应综合考量劳务费支出对
+象所承担研究任务的必要性、投入本项目的工作时长、费用标准的合理性等因素，按照人员类别进行基本测算说明。
+专家咨询费应按照国家有关规定执行。）
+2.直接费用中合作研究转拨资金
+需对合作研究单位承担的研究任务做必要说明。直接费用转拨资金需经项目申请人与参与者协商一致，并按设
+备费、业务费、劳务费三个科目做预算说明。如存在多个合作研究单位，请分单位逐一说明。
+3.其他来源资金
+对其他来源资金的资金来源、资金具体开支用途做简要说明。
+```
+
+- 每一行的前面都要缩进2个中文占位
+
+---
+
+有待改进：
+
+- 每一段的前面都要缩进2个中文占位
+- 框要更粗点
+- 预算说明书和框之间的间隙要小2/3
+- 设备费、业务费、劳务费 这几个字要加粗； `请按照《国家自然科学基金项目申请书预算编制说明》等有关要求，按照政策相符性、目标相关性和经济合理性原则，实事求是编制项目预算。填报时，每个科目应结合科研任务按支出用途进行基本测算说明。` 这句话不能加粗
+- 每一行的字的数量应该是一样的，但目前不一样。 比如，原版是 `1.1 设备费（是指在项目实施过程中购置或试制专用仪器设备，对现有仪器设备进行升级改造，以及租赁外单`； 但新版是`1.1 设备费（是指在项目实施过程中购置或试制专用仪器设备，对现有仪器设备进行升级改造，以及租赁外单位仪`
+
+---
+
+请仿照 projects/NSFC_Young 的基本框架（只读），基于 projects/Budget_Justification/template/国家自然科学基金项目项目预算说明书（除重大项目、国家重大科研仪器研制项目以外）.docx , 用 [$make_latex_model](/Users/bensz/.codex/skills/make_latex_model/SKILL.md) 制作latex模板
+
+# 摘要skill
+
+---
+
+nsfc-abstract优化
+
+- 写摘要时，研究背景的篇幅小点； 前期研究、拟研究的内容可以稍多点。 研究背景写太多在大多数人类专家眼里是不专业的，因为他们希望看到正在进入正题。
+
+---
+
+nsfc-abstract优化
+
+- 研究领域是一句话； 不能超过25 个汉字；要精简
+- 中文摘要里的双引号只能用`“我们”`这样的，不能用其它形式。到时用户是直接copy摘要到系统里面的，上面只支持纯文本，不支持任何其它样式
+
+---
+
+根据/Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/materials/标书写作技巧.md 里关于摘要的写作技巧，开发一个名为 `nsfc-abstract` 的skill，保存在 ./skills/nsfc-abstract。 它的作用是： 根据用户提供的内容写标书的中文、英文摘要。 一般有以下要求：
+- 要提供中文、英文两个版本。 英文是中文的翻译版
+- 中文摘要400字以内（含标点符号）、英文摘要4000字符以内（含标点符号）
+- 遵守 /Volumes/2T01/winE/PythonCloud/Agents/pipelines/skills/AGENTS.md 的开发规范
+先开发一个demo,然后使用 auto-test-skill 优化1次； 其中的p0-p2级的问题全部都要落实
+
+# 综述skill
+
+- 根据 skills/systematic-literature-review/plans/文献-优化-v202601251638.md 优化skill；如果某些点你有更好的策略，你直接按你的想法就行，不用问我。然后，使用 auto-test-skill 优化1轮。 最后，该skill版本升级为 1.0.9。
+
+- 根据 skills/systematic-literature-review/plans/样式-v202601242025.md 优化skill；如果某些点你有更好的策略，你直接按你的想法就行，不用问我。然后，使用 auto-test-skill 优化1轮。 注意，不要大改 systematic-literature-review 的框架，它目前的业务逻辑很好； 把本次计划里关键的优化点落实就行。最后，该skill版本升级为 1.0.3。不要修改 README.md关于该skill的用法。
+
+- 我看 /Volumes/2T01/Github/ChineseResearchLaTeX/skills/systematic-literature-review 这个skill改动挺大的，我担心它不能正常工作。 请在 /Volumes/2T01/winE/PythonCloud/Agents/pipelines/reviews/TEST01 里测试/Volumes/2T01/Github/ChineseResearchLaTeX/skills/systematic-literature-review 。如果有bug，就修复。 最后保证/Volumes/2T01/Github/ChineseResearchLaTeX/skills/systematic-literature-review 可以跑通。
+
+# VSCode配置
+
+目前， projects 里项目的 .vscode/settings.json 里， xelatex 之类的路径是绝对路径； 或者说是一个确定性的路径。 然而，用户的配置环境可能是很多样的。 不一定是这个路径。 在这方面，有没有办法让 settings.json  变得更加通用，即可以智能识别用户当前环境下的这些编译器的路径？
+
+# nsfc-length-aligner
+
+skills/nsfc-length-aligner 优化
+
+- 目前， 该skill工作时的中间文件可能会泄露，不是严格在工作目录里的 .nsfc-length-aligner 里。我希望可以严格在 .nsfc-length-aligner 里，不要污染项目
+
+# nsfc-reviewers
+
+nsfc-reviewers skill 优化
+
+- 标书的某些部分好坏还受到项目资助力度的限制。一般来说，青年基金只有30-40w，面上项目只有50-60w。因此，用户在设计研究内容/研究方法时，可能会因为这个基金限制而有所妥协（比如，实验设计只能达成一个比较弱的目标）。 但这并不是缺陷，反而是优点，因为国自然的资助额是有限的；如果你觉得用户的研究内容设计的缺陷和这个资助额度有关，你应该在report里说明受基金所限这里的设计有缺陷。并且提醒用户一个完全的设计是怎么样的（假设资助金额没有限制）
+
+# nsfc-code
+
+---
+
+开发一个skill，名为 nsfc-code，保存在 ./skills/nsfc-code 里。 它的基本任务是： 根据标书的内容提供基金代码的选择。它大致的工作原理是：
+
+- 彻底了解标书的正文内容
+- 调研 skills/nsfc-code/references/nsfc_code_recommend.toml ，找到最贴切的代码
+- 给出5个推荐，每个推荐都包含申请代码1、申请代码2。申请代码1是主要代码，申请代码2是次要代码（但也是比较相关的）
+- 每个推荐要附带理由
+- 结果保存在工作目录的 NSFC-CODE-v{当前的年月日时分}.md 里。如果用户对保存目录或文件名另有约定，按用户的办。
+- 全程对标书内容只读，不要修改。
+- 全程按 Skill 开发规范：  https://github.com/huangwb8/skills/blob/main/AGENTS.md
+
+为了更好地开发skill，你可以：
+
+- 先使用 better-prompt skill 优化上述提示词
+- 利用 awsome-code skill 辅助规划和工作，确定好ai规划和硬编码的部分。
+- 做出一个demo
+- 使用 auto-test-skill skill 对该 demo 进行1次优化。
+
+# nsfc-schematic
+
+---
+
+nsfc-schematic 的 nano banana 模式 优化
+
+- 因为 nano banana 的图里的文字，有可能会出现扭曲，降低人类可读性。 为了减少这种情况，我希望 skill的prompt里应该加强图片字体的样式约束，以保证字体生成的规范性，就打打印出来的一样，符合标书的严格需求。 你可以联网找一下大家有哪些经验，一般是怎么写的prompt； 然后有机地融入目前的流程里。
+- 必要时要更新skill的readme
+
+---
+
+nsfc-schematic 使用 nano banana 模式时，是不是这样：
+
+- 先理解内容，了解用户的标书内容，制定一个计划
+- 请求 nano banana api，获得第1版。它是1个png图
+- 宿主ai（就是codex或者claude code所在的ai环境； 非 nano banana ）读这个png图，找到它的不足，然后总结优化建议
+- 宿主ai规划一个合适的prompt
+- 宿主ai调用一个硬编码代码，将prompt + 第1版的png图传回nano banana api； 获得第2版
+- 继续优化（如此类推）
+- 直到：
+  - 达到了用户定义或者系统默认的自优化次数
+  - 宿主ai判断当前的图已经足够好，不需要再改（即触发了早停）
+- 结束
+
+目前的流程是这样吗？如果不是，有哪些出入？
+
+---
+
+nsfc-schematic 优化
+
+- 新增一个 基于 Nano Banana 模型 制作原理图的模式。 大致的工作流程是
+  - 彻底了解用户的需要
+  - 构建合适的prompt
+  - 查找用户 .env  里的Gemini配置； 如果能正常连接 nano banana 模型就继续工作（这里需要你设计一些脚本，保存在 skills/nsfc-schematic/scripts 即可）； 不然就中止任务让用户正常配置（目前，我在  .env 我放了一个真实可用的Gemini API，它可以用于访问 Nano Banana 模型； 它一定可以跑通）
+  - 完美接入目前的自优化步骤（基于 parallel-vibe ），默认也是5
+  - 中间文件的管理基本一样
+  - 结果出高分辨率的、能在标书里使用的 png 文件就行，因为 Nano Banana 不支持生成svg和pdf
+- 目前的 draw.io 模式是默认的； 这个 Nano Banana 的模式必须用户主动提及才会调用。 所以正常情况下， Nsfc-schematic 的工作过程基本同前。
+- 开发完成后，使用 auto-test-skill skill 对 nsfc-schematic 进行1次优化。
+
+---
+
+nsfc-schematic 优化
+
+- 目前， nsfc-schematic 开不同的run不断优化图时， 应该像 nstc-roadmap 一样使用 parallel-vibe 的策略。 请你参考nstc-roadmap，优化一下nsfc-schematic 这方面的设计。
+
+---
+
+使用 auto-test-skill 对 nsfc-schematic 进行1次优化。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/roadmaps/SeqCCS原理图-v2 是  skills/nsfc-schematic 的1个实例，直接出品。目前，我感觉有一些缺陷：
+
+- 用户明明指定了出图的比例； 但是最终的结果没有严格遵守这个比例。 我希望，当用户指定了图的比例，要严格执行。
+- /Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/roadmaps/SeqCCS原理图-v2/.nsfc-schematic/runs 里， 我发现只有 2个runs。 这应该是不对的。 默认的5个run应该全部跑完； 当然，用户可以随意
+- 我希望，skill目前的自动布局算法（网格排列、画布拟合）、正交路由算法（避障、waypoints） 、启发式评估（几何度量、阈值检查）  等硬编码执行层（确定性操作）全部转为ai自主规划，充分利用ai的智能
+- 其它可能存在的问题，你自己找找
+
+请你彻底地调查 skills/nsfc-schematic 的工作文件和工作代码，充分地理解上述实例暴露出来的问题，给出一个该skill的优化计划，保存在： skills/nsfc-schematic/plans/实例辅助优化-v202603011601.md 里
+
+---
+
+PlanName = 实例辅助优化-v202603011216
+按 skills/nsfc-schematic/plans/{PlanName}.md 的要求优化skill；所有的问题都要落实。有疑问的地方，你按最优方案决定，不要问我。在 skills/nsfc-schematic/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/roadmaps/SeqCCS原理图-v2 是  skills/nsfc-schematic 的1个实例，直接出品。目前，我感觉有一些缺陷：
+
+- 字体很小，整体的人类可读性很差； 你要保证人类可读性。可适当参考 nsfc-roadmap
+- PDF的输出有问题，应该保证PDF的输出和png、svg一样是正常的。 可适当参考 nsfc-roadmap 
+- 整体的设计是比较差的
+- 其它可能存在的问题，你自己找找
+
+请你彻底地调查 skills/nsfc-schematic 的工作文件和工作代码，充分地理解上述实例暴露出来的问题，给出一个该skill的优化计划，保存在： skills/nsfc-schematic/plans/实例辅助优化-v202603011216.md 里
+
+---
+
+PlanName = 实例辅助优化-v202603011030.md
+按 skills/nsfc-schematic/plans/{PlanName}.md 的要求优化skill；所有的问题都要落实。有疑问的地方，你按最优方案决定，不要问我。在 skills/nsfc-schematic/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/roadmaps/SeqCCS原理图-v2 是  skills/nsfc-schematic 的1个实例，直接出品。目前，我感觉有一些缺陷：
+
+- 所有的中间文件，应该在工作目录的 .nsfc-schematic 里托管。 具体参考 nsfc-roadmap 的设计
+- 应该有自优化的过程。 具体参考 nsfc-roadmap 的设计
+
+请你彻底地调查 skills/nsfc-schematic 的工作文件和工作代码，充分地理解上述实例暴露出来的问题，给出一个该skill的优化计划，保存在： skills/nsfc-schematic/plans/实例辅助优化-v2026xxxx.md 里
+
+---
+
+PlanName = 实例辅助优化-v202602282149.md
+按 skills/nsfc-schematic/plans/{PlanName}.md 的要求优化skill；有疑问的地方，你按最优方案决定，不要问我。在 skills/nsfc-schematic/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+/Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/roadmaps/SeqCCS原理图-v2 是 skills/nsfc-schematic 的1个实例，直接出品。目前，我感觉有一些缺陷：
+
+- 不应该有类似`SeqCCS 原理图：秩排序输入 → 双模态 MLM 预训练 → 个体化分型与验证`这样的标题。不能有图的title； 因为title会占用很多空间
+- 有些字，比如尺度约束、缺失约束、异质性约束之类的逻辑箭头里的字太小
+- 空间利用率不高。理论上，最上/下/左/右的框框边缘应该很接近画布的边缘
+- 有些逻辑箭头会挡住框框里的字
+- 框框的形态的选择有点随便，并不够和谐、美观
+- 其它有待你发现的问题
+
+请你彻底地调查 skills/nsfc-schematic 的工作文件和工作代码，充分地理解上述实例暴露出来的问题，给出一个该skill的优化计划，保存在： skills/nsfc-schematic/plans/实例辅助优化-v2026xxxx.md 里
+
+---
+
+PlanName = 借鉴roadmap-优化-v202602282005
+按 skills/nsfc-schematic/plans/{PlanName}.md 的要求优化skill；有疑问的地方，你按最优方案决定，不要问我。在 skills/nsfc-schematic/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+PlanName = 借鉴roadmap-优化-v202602191311
+按 skills/nsfc-schematic/plans/{PlanName}.md 的要求优化skill；有疑问的地方，你按最优方案决定，不要问我。在 skills/nsfc-schematic/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+# nsfc-roadmap
+
+---
+
+nsfc-roadmap 和 nsfc-schematic 的 nano banana 模式优化：
+
+- 除了兼容 nano banana， 还要支持 gpt-image-2 模型，这是最近openai比较惊艳的一个模型，你可以联网了解一下它怎么用； 然后兼容openai 的api就行。 这个难度应该不大
+- 你可以在 .env 里添加一个示例用法； 但是，这个文件不能被git跟踪，因为它具有敏感信息
+
+---
+
+nsfc-roadmap 和 nsfc-schematic 的 nano banana 模式 优化
+
+- 严禁生成的图片里带有图的总标题。 因为放入标书时这个总标题会被删除，所以没有意义。 
+
+---
+
+nsfc-roadmap 和 nsfc-schematic 的 nano banana 模式 优化
+
+- 多轮自优化时，有时候字体会慢慢变形。 是不是每次优化时，关于字体的约束没有加入prompt里？必须保证每一次与 nano banana 的交互prompt中包含字体相关约束； 否则生成的图片的字体可能会扭曲。
+
+---
+
+nsfc-roadmap 和 nsfc-schematic 的 nano banana 模式 优化
+
+- 目前出png的时候，由于是4k级别的，一般是比较大的。 但是，国自然标书对最终的PDF的文件大小是有要求的。 因此，我希望在原来4k png的基础上，转一个体积变小很多，但质量损耗很小（至少在标书的A4纸打印出来后）的png，命名为 xxx_compacted.png
+
+---
+
+nsfc-roadmap 和 nsfc-schematic 的 readme 优化
+
+- 要写明有 draw.io 模式和 nano banana 模板； 要指出它们的优劣
+  - draw.io 可出svg矢量图，但调整需要多轮对话、对于使用者的要求较高
+  - nano banana 出图质量很高、很快，但需要配置额外的Gemini API，并且只有高清版png,没有矢量图
+
+---
+
+nsfc-roadmap 和 nsfc-schematic 的 nano banana 模式 优化
+
+- 在自优化的过程中，上一轮的图片是不会传到下一轮的 nano banana api 里的； 这会有个很大的问题：**每次生成的风格都不一样，就像开盲盒一样**。这对于写标书这种严肃的写作场景肯定是不合适的。 我希望可以这样优化：
+  - 宿主ai在读图的时候，还要做一个判断——当前的样式是否已经足够好了。 
+    - 如果足够好，就输出TRUE； 那么之后的优化过程，下一轮优化时都要传入上一轮的图片，保证风格的延续性。
+    - 如果还没足够好，就输出FALSE；此时后续的步骤就基本同目前（就是不会将上一轮的图片传到下一轮）
+  - 有时候用户可能会想基于某个run或者某个结果继续优化，那么这时显然也是 TRUE 的情况； ai要能自主判断用户的这个意图，保证图片风格的延续性
+- 宿主ai还要判断配色质量是否可以； 给 nano banana api 的prompt里最好要包含配色的建议
+
+---
+
+nsfc-roadmap 和 nsfc-schematic 的 nano banana 模式 优化
+
+- 不管画布是什么尺寸，永远都要输出4k分辨率的图片，以满足出版需要
+
+---
+
+nsfc-roadmap 的 nano banana 模式 优化
+
+- 因为 nano banana 的图里的文字，有可能会出现扭曲，降低人类可读性。 为了减少这种情况，我希望 skill的prompt里应该加强图片字体的样式约束，以保证字体生成的规范性，就打打印出来的一样，符合标书的严格需求。 你可以联网找一下大家有哪些经验，一般是怎么写的prompt； 然后有机地融入目前的流程里。
+- 必要时要更新skill的readme
+
+---
+
+nsfc-roadmap使用 nano banana 模式时，是不是这样：
+
+- 先理解内容，了解用户的标书内容，制定一个计划
+- 请求 nano banana api，获得第1版。它是1个png图
+- 宿主ai（就是codex或者claude code所在的ai环境； 非 nano banana ）读这个png图，找到它的不足，然后总结优化建议
+- 宿主ai规划一个合适的prompt
+- 宿主ai调用一个硬编码代码，将prompt + 第1版的png图传回nano banana api； 获得第2版
+- 继续优化（如此类推）
+- 直到：
+  - 达到了用户定义或者系统默认的自优化次数
+  - 宿主ai判断当前的图已经足够好，不需要再改（即触发了早停）
+- 结束
+
+目前的流程是这样吗？如果不是，有哪些出入？
+
+---
+
+PlanName = Gemini画图-优化-v202603012236
+按 skills/nsfc-roadmap/plans/{PlanName}.md 的要求优化skill，所有缺陷都要修复。 有疑问的地方，你按最优方案决定，不要问我。在skills/nsfc-roadmap/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+Nsfc-roadmap 优化
+
+- 我希望它可以像 nsfc-schematic 一样支持nano banana 模式。 你参考nsfc-schematic 为Nsfc-roadmap 添加这个模式
+- 开发完成后，使用 auto-test-skill skill 对 nsfc-schematic 进行1次优化。
+- 使用write-skill-readme skill写好readme
+
+---
+
+目前， nsfc-roadmap输出 PDF时可能会存在严重乱码（多页/拼页）。 请按这个思路修复：
+
+- drawio 文件的 pageWidth/pageHeight 与真实画布一致，避免导出时被切成多页
+- PDF 导出时强制 --crop，确保单页输出
+- 其它保证PDF准确的设置，你也可以修复
+
+---
+
+PlanName =实例辅助优化-v202602281042
+按 skills/nsfc-roadmap/plans/{PlanName}.md 的要求优化skill，所有缺陷都要修复。 有疑问的地方，你按最优方案决定，不要问我。在skills/nsfc-roadmap/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+(～￣▽￣)～ 可优化的点：
+
+- references/models 里有一些新的模板； 你应该更新一下 templates.yaml
+- 阶段 1：规划 这部分，步骤我建议这样优化：
+  - ai调查必要的tex，彻底了解整个标书的情况。仅看标书的研究内容来决定是不明确的； 应该看标书的立项依据和研究内容，这样可能会有更加全面的把握。
+  - 结合标书的实际情况，从 `references/models/templates.yaml` 选模板并生成最终版的 `roadmap-plan.md`
+  - 根据`roadmap-plan.md`生成`spec.yaml`
+- 阶段 2、3和4的目标要相应调整，因为阶段1有重大变化
+
+# nsfc-qc
+
+---
+
+PlanName = 英文缩写检查-v202603080812
+按 skills/nsfc-qc/plans/{PlanName}.md 的要求优化skill；有疑问的地方，你按最优方案决定，不要问我。在 skills/nsfc-qc/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+skills/nsfc-qc关于英文缩写的检查策略要优化：
+
+- 应该将标书正文（所有子tex）当作一个整体来判断英文缩写是否首次出现、英文全称/中文解释是否在全文里唯一
+- 应该按实际渲染的顺序，而不是子tex的排名顺序。 因为用户有可能会打乱子tex的渲染顺序。
+- 可能还有其它问题，你找找
+
+把优化计划写在： skills/nsfc-qc/plans/英文缩写检查-v202603080812.md
+
+---
+
+目前，nsfc-qc 的逻辑里是否包含术语的规范使用检查？
+
+---
+
+PlanName = 缩写检查-新特性-v202602212344
+按 skills/nsfc-qc/plans/{PlanName}.md 的要求优化skill；有疑问的地方，你按最优方案决定，不要问我。在 skills/nsfc-qc/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+(～￣▽￣)～ 根据 skills/nsfc-qc/plans/实例辅助优化-v202602170903.md 优化skill；如果某些点你有更好的策略，你直接按你的想法就行，不用问我。然后，使用 auto-test-skill 优化1轮。
+
+---
+
+
+(～￣▽￣)～ 这是一个实例： /Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/QC/v202602170654。 有一些问题：
+
+- .nsfc-qc 隐藏文件夹保存在 /Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/.nsfc-qc 而不是 /Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026/QC/v202602170654.nsfc-qc。 说明目前skill的文件夹的管理有问题（当前我已经手动纠正； 但我希望以后工作时不要出现类似的错误）
+- 你评估一下输出结果，看看还有哪些skill可以改良的空间
+
+将优化计划写到： skills/nsfc-qc/plans/实例辅助优化-v202602170903.md
+
+---
+
+(～￣▽￣)～ 请开发一个skill，保存在 ./skills/nsfc-qc 文件夹里。 它的主要作用是： 对标书进行质量控制。它的步骤大致如下：
+
+- 分析产生的所有中间文件托管在工作目录的 .nsfc-qc 隐藏文件夹里；
+- 利用 parallel-vibe skill 开多个thread（默认5个；默认串联模式）独立地进行QC。
+- 每个QC做的事情是一样的，大致是：
+  - 检查标书里生硬的、不像人类专家写作风格的部分，予以优化
+  - 检查每个引用（一般是参考文献）是否存在假引（虚构的引用）、错引（引用的文献和实际的内容不对应）或者其它问题
+  - 标书总篇幅是否过长或过短。青年基金和面上基金明确规定：申请书正文原则上不超过30 页，鼓励简洁表达。当然，这是一个推荐性的优化，不是强制的；毕竟写长一点应该问题不大； 但如果太短则不好。
+  - 标书不同章节的内容的篇幅分布是否合理
+  - 标书不同章节的内容是否逻辑通畅、条理清晰、论证充分、较少歧义
+  - 中文为主的标书里， 双引号不能这样用：`"免疫景观"`，而要这样用：```免疫景观"`。
+  - 其它你觉得可以做的QC
+- 综合所有thread的结果，给出最终优化建议。
+- 有标准的输出结果。
+- nsfc-qc 对标书内容是只读的，工作过程中不能修改标书的内容。因为它的qc report还需要被进一步审核。
+
+# nsfc-research-content-writer
+
+PlanName = v202602221258
+按 skills/nsfc-research-content-writer/plans/{PlanName}.md 的要求优化skill。 使用 awesome-code skill 辅助规划、优化。 有疑问的地方，按你认为最优方案执行，不要问我。在 skills/nsfc-research-content-writer/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+# nsfc-justification-writer
+
+> 最后出品的时候，应该做一些基本的检查； 有没有概念冗余、单调重复出现；要保证整洁、精练、逻辑通畅、行云流水。
+
+---
+
+立项依据的第一小节通常是研究意义，2个段落即可。 要注意，2个段落不能都用“重要问题”收束，这容易让读者以为项目提出了多个并列的研究问题，也容易让论证连续收束了多次。 一般来说，这两段实际应当承担不同的作用：第一段解释研究需求、第二段指出认识缺口。这样，两段就形成“为什么需要 → 还缺什么认识”的递进关系。研究意义中只突出一个总的认识缺口，完整的核心科学问题留到研究现状之后正式提出。
+
+上述是一些不错的技巧； 你应该融入到 skills/nsfc-justification-writer 里
+
+---
+
+skills/nsfc-justification-writer 是怎么一步步把立项依据写出来的？请你把所有的细节都写清楚，总结为一个md文档，保存在 docs/plans 的一个新md里。 注意：应该在彻底了解skill源代码且不看任何文档的基础上写这个md，以保证完全真实（因为文档可能会犯错误）。
+
+---
+
+基于 docs/plans/2026-08-23-nsfc-justification-writer-专业性可读性优化计划.md 优化源代码。 有疑问的地方，按你认为最优方案执行，不要问我。在 skills/nsfc-rjustification-writer/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+PlanName = 第三方约束-优化-v202602221613
+按 skills/nsfc-justification-writer/plans/{PlanName}.md 的要求优化skill。 使用 awesome-code skill 辅助规划、优化。 有疑问的地方，按你认为最优方案执行，不要问我。在 skills/nsfc-rjustification-writer/tests/{PlanName} 这个文件夹里运行轻量测试以保证项目流程可以正常运行；所有测试时产生的中间文件都必须保存在测试目录里；测试目录必须包含测试的规划文档和报告文档。
+
+---
+
+请在彻底了解 skills/nsfc-justification-writer 的工作代码/文件后回答： 目前skill的开发度如何？有哪些缺陷？如果有，请指出并将改良计划保存在 plans/v2026010xxxxx.md 里。
+
+# nsfc-ref-alignment
+
+---
+
+检验参考文献时，仅检验正文tex里有的参考文献就行； 其它bib里的文献不用管。 目前是这样吗？
+
+---
+
+开发一个名为 nsfc-ref-alignment 的skill，保存在 ./skills 它的作用是： 检查标书里的引用有没有问题。是要保证：
+
+- skill工作时的所有中间文件都托管在工作目录的 .nsfc-ref-alignment 隐藏文件夹里。 每次分析都是 run_xxx 的命名； 后面的 xxx 是时间戳； 这样可以保证每次分析不冲突
+- skill工作的时候不修改任务标书的配置或正文，以保证标书内容的安全； 除非用户另有指定。
+- 标书里所有的参考文献都是真实存在的，没有错误
+- 参考文献的引用与它对应的正文内容是相适应的，不是乱来的
+- skill仅输出参考文献的相关报告让用户审核，不直接修改。 因为改标书的参考文献是件大事，要让用户审查一下计划。这个报告默认保存在 ./references 里，除非用户另有指定
+- 重点参考 check-review-alignment的开发经验；这是一个类似的skill
+
+先把demo做出来，然后使用 auto-test-skill skill进行1次优化迭代。最后， 使用 write-skill-readme  skill 来写它的README.md； 使用 which-model 来写README的相关章节
+
+# complete-example
+
+```
+请你联网调研一下日本演员佐佐木希的发展路程。假设你要以此为题材填写 projects/NSFC_General 。 请使用 skills/complete-example 辅助工作。 最后的排版，PDF要紧凑、美观，大致维持在8页左右。
+
+请你联网调研一下日本演员佐佐木希的发展路程。假设你要以此为题材填写 projects/NSFC_Young 。 请使用 skills/complete-example 辅助工作。 最后的排版，PDF要紧凑、美观，大致维持在8页左右。
+```
+
+# make-latex-model
+
+---
+
+skills/make-latex-model 优化：
+
+- skills/make-latex-model/templates/nsfc 这里的设计没必要； 因为每年nsfc的文字都可能不一样。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+skills/make-latex-model 优化：
+
+- 在制作模板时，./packages 里的包应该慎重改，因为很多其它的模板可能会依赖它； 因此，如果当前模板要改packages包的某些部分，千万不能影响其它已经存在的模板。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。不要破坏其它模板的样式、功能。要保证最终成品能正常、稳定、高效地工作。
+
+---
+
+目前，projects 里项目的性质已经发生很大的变化， skills/make_latex_model 也要随之变化。 总之，能按要求做出好的模板就行。 你调一下 skills/make_latex_model， 让它适应ChineseResearchLaTeX的变化。 版本号要剧烈变化。
+
+---
+
+- 正式交付项目
+
+```
+使用 `skills/make_latex_model` 这个skill对 projects/NSFC_General 进行改造，使得它的latex系统与 `projects/NSFC_General/template/2026年最新word模板-1.面上项目-正文.doc` 这个最新word模板对齐。
+
+使用 `skills/make_latex_model` 这个skill对 projects/NSFC_Young 进行改造，使得它的latex系统与 `projects/NSFC_Young/template/2026年最新word模板-青年科学基金项目（C类）-正文.pdf` 这个最新模板对齐。
+```
+
+- 测试用脚本
+
+```
+请按步骤进行
+- 在 skills/make_latex_model/tests/Auto-Test-01 生成一个测试，评估 `make_latex_model`这个skill（下称`目标skill`）的能力。 以 projects/NSFC_Young 为例，利用 projects/NSFC_Young/template/2026年最新word模板-青年科学基金项目（C类）-正文.doc 对 projects/NSFC_Young 进行改造（当然，不要直接改动 projects/NSFC_Young 里的原始文件 ；所有过程都在测试目录里进行）。利用 auto-test-skill 这个skill（已经安装在Claude Code/Codex里）进行自动化测试。每一轮测试完成后，目标skill都要变得更好；同时，把Auto-Test-01里上一轮测试的文件清空，在同一个测试目录里进行下一轮测试。如此循环，利用ai的智能不断地优化目标skill。直到目标skill完全正常工作或者超过10轮测试为止。
+```
+
+# transfer_old_latex_to_new
+
+---
+
+skills/transfer-old-latex-to-new 优化
+
+- 本skill工作的时候，绝不能修改packages/projects 里的latex包的源代码或模板的样式，只是把正文内容放到合适的部位； 目前可能没有类似的约束。
+
+使用 awesome-code skill 辅助规划、优化。所有问题都要解决。 如果工作时有疑问，或者有更好的方案，自己选个最优方案优化，不要问我。要保证最终成品能正常、稳定、高效地工作。然后，使用 auto-test-skills skill对本skill进行优化。
+
+---
+
+目前，projects 里项目的性质已经发生很大的变化， skills/transfer_old_latex_to_new 也要随之变化。 总之，能按要求做出好的模板就行。 你调一下 skills/transfer_old_latex_to_new， 让它适应ChineseResearchLaTeX的变化。 版本号要剧烈变化。我还有一些要求：
+
+- 对于输入和输出不要做什么特别的限制，完全由ai来托管。 我希望skill可以适应任何类型的输入； 并且输出时，由ai完全决定该怎么输出。
+
+---
+
+- 干活
+
+```
+请基于`transfer_old_latex_to_new`这个skill把/Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026 这个旧项目迁移到/Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026_TEST01 这个文件夹里；新项目的模板是 ./projects/NSFC_Young。 注意，千万不能修改或者删除 /Volumes/2T01/winE/iProjects/Manuscripts/NSFC_Young_2026 里面的任何文件（完全只读）； 只需要在 NSFC_Young_2026_TEST01 里按要求生成内容就行。 如果你工作时有测试文件/中间文件要生成，请一律放在 ./tests/v202601081624里；测试/中间文件必须要保存在该测试目录里，不要到处“拉屎“。
+```
+
+- 测试
+
+```
+请按 @plans/v202601081355.md  优化 skill。 允许你在 ./tests/v202601081527 里运行轻量测试以保证交付的skill的质量。测试/中间文件一定要保存在该测试目录里，不要到处“拉屎“。
+```
+
+- 原始
+
+```
+我希望设计一个skill，名为`transfer_old_latex_to_new`。它的角色是：充当一个具有顶级科研思维的顶尖科学家，将一个旧的研究基金申请书的内容有机地迁移到新的模板中。工作逻辑大致如下：
+
+-输入： 
+  - 类似 projects/NSFC_Young 这样的标准latex项目（有main.tex、extraTex、extraTex/@config.tex等成分），它代表的是旧的标书项目，我称为p1
+  - 类似类似 projects/NSFC_Young 这样的标准latex项目（有main.tex、extraTex、extraTex/@config.tex等成分），但它是一个已经被调好的新模板，代表的是最新的格式；我称为p2
+
+- 输出： 优化p2
+
+我希望这个skill的大致流程是这样的：
+- 识别旧项目的主要部分
+- 识别新项目的主要部分
+- 比对这些部分的联系和区别，ai自主规划从旧项目迁移到新项目。因为旧项目和新项目在结构上可能大不一样，因此必须依赖ai的智能，不可能存在任何硬编码可以完成这个任务
+- 迁移的过程要严格遵守新项目的模板，不能改动模板，只能动内容（一般是extraTex里非 `@config.tex` 的那些文件）
+- 完成迁移
+- ai再次查看旧项目和新项目。如果觉得新项目写得不好，可以优化。本轮可以重复，但最多不超过5轮（这个5可以硬编码，用户的Prompt可以影响这个参数）。
+- 确定新项目比较满意
+- latex渲染成pdf。
+- 结束
+
+skill开发的时候要遵守 '/Users/bensz/Nutstore Files/PythonCloud/Agents/pipelines/skills' 的相关规范。
+
+请结合 plans/v202601051859.md，给出skill开发计划让我审核。
+```
+
+# 改进
+
+---
+
+Bachelor、Master、Doctor
+
+---
+
+./projects 里的模板的正文里，应该要使用到 enumerate 和 ssssubtitle ，否则用户不知道可以使用它们。
+
+---
+
+模板优化：
+
+- 研究内容样式
+- 可否类似fylimas/nsfc那个项目一样列出自己的发表工作
+
+写作skill的优化
+
+- 局限性和本研究的解决方案在逻辑上要统一。
+- 立项依据里，科学问题、研究设计、科学假设要统一。
+- 方法学细节，不应该在立项依据和研究内容的高层描述中大书特书，只需在研究方法小节里提到即可。
+- 类似`在经费与样本质量允许时`这样的表述是绝对禁忌！这类"条件允许时"、"经费允许时"的表述会让评审认为申请人自己都不确信项目可行，是标书写作的大忌。
+
+---
+
+如果本项目要创建新release，要这样做：
+
+- 使用 git-commit skill 创建commit信息并push
+- 创建一个新的tag
+- 使用 git-publish-release 生成release
+- projects里的每个项目，都要生成 .zip 文件，保存在在 ./tests/release-{本次的tag} 这个文件夹里。生成.zip时，zip里仅保留这些文件/文件夹（当然，不能对projects里的文件有任何修改； 这一步只是在一个测试文件夹里生成zip）
+  - .vscode
+  - bibtex-style
+  - code
+  - extraTex
+  - figures
+  - fonts
+  - references
+  - template
+  - main.pdf
+  - main.tex
+  - README.md
+- 把这些zip当作release的Assets推送到github
+
+请把上述规则有机地融入 @AGENTS.md 里
+
+
+
+# Legacy
+
+- 请按 plans/v202601051748.md  这个计划设计skill，保存在当前项目的 skills 文件夹内。
+
+- NSFC基金每年的模板都可能会变化。以NSFC_Young为例，一般projects/NSFC_Young/template 里会包含今年的最新模板（比如今年是2026年，那么 projects/NSFC_Young/template/2026年最新word模板-青年科学基金项目（C类）-正文.doc 就是最新的官方模板）。而 projects/NSFC_Young/main.tex 有可能是旧的（比如是去年的仿Word样式的Latex模板）。我希望在 `skills` 目录下开发一个skill，名为`make_latex_model`。它的作用是： 在充分了解目前main.tex和projects/NSFC_Young/template/2026年最新word模板-青年科学基金项目（C类）-正文.doc的基础上，优化main.tex及其相关的 projects/NSFC_Young/extraTex/@config.tex 文件，以实现对doc的高仿（渲染的PDF和Word版打印的PDF在标题样式上完全一样）。 国自然基金委对格式的要求很严格，因此这种模仿的保真度要求非常高。这个skill在工作的时候要非常注意：1、尽量轻量地修改main.tex和@config.tex，不要进行大的重构（除非有必要这样做），特别是样式的规定。老样式经过长期维护，可靠性非常高；一般只需要在它的基础上优化就行 2、 最新版的word模板有时有main.tex很不一样，有时差不多。你要注意优化时的度，不能过度开发，也不能太懒开发。 3、 skill的开发必须遵守 '/Users/bensz/Nutstore Files/PythonCloud/Agents/pipelines/skills' 的相关规范。请给出开发该skill的计划供我审查。 
+

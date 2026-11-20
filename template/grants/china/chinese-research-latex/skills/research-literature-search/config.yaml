@@ -1,0 +1,58 @@
+skill_info:
+  name: research-literature-search
+  version: 1.0.7
+  description: "独立完成多查询、多源文献检索、规范化、canonical 去重与可审计 manifest 交接；不负责评分、选文、写作或导出。"
+  author: "Bensz Conan"
+  category: normal
+
+dependencies:
+  python:
+    - "requests>=2.31"
+    - "pyyaml>=6.0"
+
+contract:
+  version: rls.v1
+  candidate_schema_version: rls.paper.v1
+
+query_input:
+  min_queries: 5
+  max_queries: 25
+  aliases: [query-file, queries]
+
+search:
+  max_results_per_query: 50
+  max_total_results: 500
+  provider_priority: [mcp, openalex, semantic_scholar, crossref, duckduckgo]
+  fallback_enabled: true
+  # 兼容拆分前 review：按优先级尝试，达到阈值即停止；不足时才 fallback/top-up。
+  retrieval_strategy: priority-fallback-topup
+  topup_threshold: 0.7
+  timeout_seconds: 30
+
+preprint_profiles:
+  computer_science: {include_preprints: true, preprint_priority: high, published_version_preferred: true}
+  mathematics: {include_preprints: true, preprint_priority: high, published_version_preferred: true}
+  biology: {include_preprints: true, preprint_priority: medium, published_version_preferred: true}
+  medicine: {include_preprints: true, preprint_priority: low, published_version_preferred: true}
+  general: {include_preprints: true, preprint_priority: medium, published_version_preferred: true}
+
+filters:
+  min_year: null
+  max_year: null
+  publication_types: []
+  exclude_preprints: false
+
+dedupe:
+  title_similarity_threshold: 0.92
+  token_jaccard_threshold: 0.80
+  year_window: 1
+
+abstract_enrichment:
+  default_mode: disabled
+  post_selection_command: enrich-abstracts
+  max_papers_total: 200
+  min_abstract_chars: 80
+
+workspace:
+  artifact_paths_relative_to_manifest: true
+  cache_mode: minimal

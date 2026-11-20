@@ -1,0 +1,369 @@
+% badness-lint skip-file unreferenced-label
+% badness-lint skip-file hard-coded-reference
+
+% WARNING: Tagging/Accessible PDFs require running with LuaLaTeX. To disable
+% this functionality, delete the \DocumentMetadata command. However, it's
+% preferred to keep it if your toolchain allows it.
+
+% DocumentMetadata is required for an accessible PDF
+\DocumentMetadata{
+    lang=en,
+    pdfstandard=ua-2,
+    pdfstandard=a-4f,
+    tagging=on,
+    testphase={phase-II,table,firstaid},
+    tagging-setup={
+        math/setup={mathml-AF,mathml-SE},
+        extra-modules={verbatim-mo},
+    }
+}
+
+\documentclass[12pt,draftproposal]{msca-pf}
+
+% {{{ packages
+
+% better environments
+\usepackage[nameinlink, noabbrev]{cleveref}
+\usepackage{booktabs}
+
+% better typography
+\usepackage[activate={true,nocompatibility}, tracking=true]{microtype}
+
+% }}}
+
+% {{{ formatting
+
+% NOTE: this needs to be kept so that the sections match the template!
+\setcounter{section}{3}
+
+% }}}
+
+% {{{ commands
+
+% add your own fancy commands
+% \NewDocumentCommand \mycmd { m } {\textbf{#1}}
+
+% }}}
+
+% {{{ title
+
+\title{Part B-2}
+\author{}
+\date{}
+
+% NOTE: update these as necessary
+% \mscaidentifier{HORIZON-MSCA-2026-PF-01}
+% \mscaproject{TDB}
+
+% }}}
+
+\begin{document}
+
+\maketitle
+
+\begin{mscaexplanation}
+\itshape The text in each section is provided only as guidance and should not be part of
+the final proposal. It is removed automatically when removing the \texttt{draftproposal}
+option in the document class. However, some of the tables are part of the document
+format and should be used and expanded from the ones provided here.
+
+When in doubt, always consult the official template and programme guide!
+\end{mscaexplanation}
+
+\section{CV of the researcher (indicative length: 5 pages)}
+\label{sc:cv}
+
+\begin{mscaexplanation}
+Any information provided in Parts A and B of the proposal should be fully consistent.
+Always mention full consecutive dates (using format: dd/mm/yyyy). The CV should
+include the standard academic and research record. Any research career gaps
+and/or unconventional paths should be clearly explained and the dates must match
+the ones provided in Part A (if applicable).
+
+At a minimum, the CV should contain:
+
+\begin{enumerate}
+    \renewcommand{\labelenumi}{\alph{enumi})}
+    \item The name of the researcher;
+    \item Professional experience (most recent first, with exact dates in format
+    dd/mm/yyyy);
+    \item Education, including PhD award date (most recent first, with exact
+    dates in format: dd/mm/yyyy).
+\end{enumerate}
+
+The CV should include information on:
+
+\begin{itemize}
+    \item Publications in peer-reviewed scientific journals, peer-reviewed conference
+    proceedings,  and/or monographs (they are expected to be open access either
+    published or through repositories) and other outputs such as data, software,
+    algorithms significant for your research path (they are expected to be open
+    access in appropriate repositories to the extent possible; they should be
+    accompanied by a very short qualitative assessment of their scientific
+    significance and not by the Journal Impact Factor);
+
+    \item Invited presentations to internationally established conferences and/or
+    international advanced schools;
+
+    \item Organisation of international conferences, including membership in
+    the steering and/or programme committee;
+
+    \item Research expeditions led by the researcher;
+
+    \item Granted patent(s);
+
+    \item Examples of participation in industrial innovation;
+
+    \item Prizes and Awards;
+
+    \item Funding received so far;
+
+    \item Supervising and mentoring activities;
+
+    \item Other items of interest.
+\end{itemize}
+
+You may modify the template below as necessary to include all relevant information.
+\end{mscaexplanation}
+
+\subsection*{Education}
+\label{ssc:cv:education}
+
+\begin{cvitem}
+\cventry{DD/MM/YYYY DD/MM/YYYY}{Ph.D. in Aerospace Engineering}{University Name}{Location}
+\cvdetail{Title}{Title of my Ph.D}
+\cvdetail{Advisor}{John Doe}
+\end{cvitem}
+
+\subsection*{Positions}
+
+\begin{cvitem}
+\cventry{DD/MM/YYYY DD/MM/YYYY}{Job Title}{Company / University}{Location}
+\cvdetail{Description}{Job description in short}
+\end{cvitem}
+
+% example of a bare entry (same as above without the details)
+\cventryitem{DD/MM/YYYY DD/MM/YYYY}{Job Title}{Company / University}{Location}
+
+\subsection*{Publications}
+
+\begin{cvitem}
+\cvpub{DD/MM/YYYY}{John Doe, Jane Doe}{Title of the Paper}
+                  {Journal Name, Vol. XX, pp. XX--XX}
+\cvdetail{Description}{Main findings of the paper}
+\cvdetail{URL}{DOI or arXiV URL}
+\end{cvitem}
+
+% example for a bare publication (same as above without the details)
+\cvpubitem{DD/MM/YYYY}{John Doe, Jane Doe}{Title of the Paper}
+                      {Journal Name, Vo. XX, pp. XX--XX}
+
+\begin{mscaexplanation}
+Applicants who have successfully defended their doctoral thesis \emph{before} the call
+deadline but who have not yet formally been awarded the doctoral degree must
+clearly indicate the date of the successful, unconditional PhD defence (``viva'').
+Researchers having their last thesis defence after the call deadline will be automatically
+declared ineligible for this call.
+\end{mscaexplanation}
+
+\section{Capacity of the Participating Organisation(s)}
+\label{sc:organisations}
+
+\begin{mscaexplanation}
+Please provide an overview list of all participating organisations (the
+beneficiary and, where applicable, all associated partners) using template
+table~\ref{ssc:organisations:overview} below, and more detailed information for
+each of the participating organisations (using a separate table for each
+organisation) using template table~\ref{ssc:organisations:capacity} below.
+
+Any inter-relationship between the participating organisation(s) or individuals
+and other entities/persons appearing (e.g.\ family ties, shared premises or
+facilities, joint ownership, financial interest, overlapping staff or directors,
+etc.) must be declared in the proposal.
+
+Applicants should provide additional information regarding the administrative/legal
+relations between the department carrying out the work as described in the table
+below, and the entity/entities mentioned in Part A of the proposal (i.e.\ linked
+to the given Participant Identification Code –- PIC).
+
+Should the proposal be shortlisted for funding, all participating organisations
+will have to be registered with the European Commission’s
+\href{https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/how-to-participate/participant-register}{Participant Register Services}. Therefore where
+this information is \href{https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/how-to-participate/participant-register-search}{already known},
+please provide in Table 5.1 the (draft or validated) nine digit \emph{Participant
+Identification Code} (PIC) for the beneficiary and, where applicable, each
+associated partner.
+\end{mscaexplanation}
+
+\subsection{Template table: Overview of Participating Organisations}
+\label{ssc:organisations:overview}
+
+\begin{mscaexplanation}
+Only relevant rows from the table should be kept.
+\end{mscaexplanation}
+
+\begin{mscaorgoverview}
+Beneficiary &
+&
+&
+&
+& \\
+\hline
+Associated partner linked to a beneficiary (if applicable) &
+&
+&
+&
+& \\
+\hline
+Associated partner for outgoing phase (mandatory for GF) &
+&
+&
+&
+& \\
+\hline
+Associated partner for secondment (if applicable) &
+&
+&
+&
+& \\
+\hline
+Associated partner for non-academic placement (if applicable) &
+&
+&
+&
+& \\
+\hline
+\end{mscaorgoverview}
+
+\subsection{Template table: Capacity of the Participating Organisations}
+\label{ssc:organisations:capacity}
+
+\begin{mscaexplanation}
+Please complete a separate table for each participating organisation. For the
+beneficiary, this table should be \emph{maximum 1 page in length}; for each associated
+partner, the table should be \emph{maximum ½ page in length}. Choose one of
+
+\begin{itemize}
+    \item Beneficiary (compulsory).
+    \item Associated partner linked to a beneficiary (if applicable)
+    \item Associated partner for outgoing phase (mandatory for GF only)
+    \item Associated partner for secondment (if applicable)
+    \item Associated partner for non-academic placement (if applicable)
+\end{itemize}
+\end{mscaexplanation}
+
+\begin{mscaorgcapacity}
+\multicolumn{2}{|l|}{
+    \textbf{[Role]}
+} \\
+\hline
+\multicolumn{2}{|l|}{
+    \textbf{[Full name + Legal Entity Short Name + Country]}
+} \\
+\hline
+\multicolumn{2}{|l|}{
+    \textbf{General description}
+} \\
+\hline
+\textbf{Role and profile of supervisor} & \\
+\hline
+\textbf{Key research facilities, infrastructure and equipment} &
+\begin{mscaexplanation}
+\itshape Demonstrate that the beneficiary has sufficient facilities and infrastructure
+to host and/or offer a suitable environment for training and transfer of knowledge
+to the recruited experienced researcher.
+
+\bigskip
+
+If applicable, indicate the name of the associated partner linked to a beneficiary
+and describe the nature of the link in the corresponding table.
+\end{mscaexplanation} \\
+\hline
+\textbf{Previous and current involvement in EU-funded research and training
+programmes/actions/projects} &
+\begin{mscaexplanation}
+\itshape Indicate up to 5 relevant EU, national or international research and training
+actions/projects in which the institution/department has previously participated
+and/or is currently participating.
+\end{mscaexplanation} \\
+\hline
+\end{mscaorgcapacity}
+
+\section{Additional ethics information}
+\label{sc:ethics}
+
+\begin{mscaexplanation}
+Additional information that could not be included in Part A of the proposal (if needed).
+\end{mscaexplanation}
+
+\section{Additional information on security screening}
+\label{sc:security}
+
+\begin{mscaexplanation}
+Additional information on security aspects that could not be included in Part
+A of the proposal (if needed).
+\end{mscaexplanation}
+
+\section{Environmental considerations in light of the MSCA Green Charter}
+\label{sc:environment}
+
+\begin{mscaexplanation}
+Please explain how the proposed project would strive to adhere to the MSCA Green
+Charter\footnotemark{} during its implementation. Please indicate here --
+max 1/2 page -- what actions you propose to take to ensure the sustainable
+implementation of project and to mitigate its environmental impact, in line
+with the principles set out in the MSCA Green Charter.
+
+\footnotetext{MSCA Green Charter \url{https://ec.europa.eu/msca/green_charter}.}
+\end{mscaexplanation}
+
+\section{
+    Required for Global Fellowships only: Letter of commitment from the
+    associated partner hosting the outgoing phase}
+\label{sc:commitment_letter}
+
+\begin{mscaexplanation}
+Use this section to add scanned copies of the letter(s) of commitment, if applicable.
+
+Minimum requirements:
+
+\begin{itemize}
+    \item With heading or stamp from the institution;
+    \item Up-to-date document, i.e.\ not dated prior to the call publication;
+    \item Demonstrating the will to actively participate in the (identified) proposal;
+    \item Explanation of the precise role.
+\end{itemize}
+
+Any additional information the organisation deems useful can be added in the letter.
+
+In case the letter fails to provide enough information on the associated partner's
+role and/or enough assurance of their commitment in the project (e.g.\ no signature,
+wrong proposal references, outdated letter…), the experts may penalise the
+proposal on these aspects under the implementation evaluation criterion.
+
+For GF proposals \emph{the absence of a letter of commitment will render the
+proposal inadmissible and the proposal will not be evaluated}.
+\end{mscaexplanation}
+
+\subsection*{Non-binding example of template letter of commitment for PF associated partners}
+
+I undersigned \emph{[title, first name and surname]}, in my quality of
+\emph{[role in the organisation]} in \emph{[name of the organisation]} commit
+to set up all necessary provisions to participate as associated partner in the
+proposal \emph{[proposal number and/or acronym]} submitted to the call
+HORIZON-MSCA-2026-PF-01, should the proposal be funded.
+
+On behalf of \emph{[name of the organisation]}, I also confirm that we will
+participate and contribute to the research, innovation and training activities
+as planned in this project. In particular, \emph{[name of the organisation]}
+will be involved in \emph{[free field for any additional information that the
+participating organisation wishes to indicate in order to describe its role
+and contribution to the project]}.
+
+I hereby declare that I am entitled to commit into this process the entity I represent.
+
+\hfill \emph{Name, Date, Signature}
+
+\end{document}
+
+% kate: default-dictionary en_GB;

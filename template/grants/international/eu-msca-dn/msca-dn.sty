@@ -1,0 +1,175 @@
+%%
+%% MSC DN (was itn) Style
+%%
+%% Phil Garner, October 2019
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{msca-dn}[MSC DN Proposal]
+
+% Default values when options are not specified
+\usepackage{xspace}
+\newcommand{\project}{\textsf{ProjectName}\xspace}
+\newcommand{\note}[1]{}
+\newcommand{\todo}[2]{}
+
+% Options.  Unknown options assumed to be project name
+\newcommand*{\getproject}[1]{%
+    \renewcommand{\project}{\textsf{#1}\xspace}%
+}
+\DeclareOption*{\expandafter\getproject\expandafter{\CurrentOption}}
+\DeclareOption{draft}{
+    \renewcommand{\note}[1]{{\color{blue}\textit{#1}}}
+    \renewcommand{\todo}[2]{\par
+        {\color{red}{\textbf{[#1] #2}}}%
+        \addcontentsline{toc}{subsubsection}{{\color{red}{[#1] #2}}}
+    }
+}
+\ProcessOptions\relax
+
+% Minimum font size should be 11pt in the document header.  This yields
+%  \normalsize   10.95 pt
+%  \footnotesize 9 pt, suitable for tables
+%  \scriptsize   8 pt, suitable for footnote references
+\usepackage[a4paper,margin=15mm]{geometry}
+\usepackage[bf,small]{titlesec}
+\usepackage{parskip}
+\usepackage{times}
+\usepackage[scaled]{helvet}
+\usepackage[scaled=0.89]{couriers} % 8/9 = 0.8888
+\usepackage{paralist} % For compactenum
+\usepackage{enumitem} % To change the enumeration label
+
+% We need fancy headers and footers
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\chead{\project\ --- DN}
+\lhead{}
+\rhead{}
+\rfoot{}
+\cfoot{Part B - Page \thepage\ of \pageref{LastPage}}
+\setlength{\headheight}{15.2pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% TOC needs to fit on one page with in-y'r-face title
+\renewcommand{\contentsname}{TABLE OF CONTENTS}
+\setcounter{tocdepth}{3}
+
+% The \checkmark is in here
+\usepackage{amssymb}
+
+% For tables; these are not floats, they are more just tabular environments.  With [11pt] in the documentstyle, \scriptsize is 8pt
+\usepackage{array}
+\usepackage[table]{xcolor}
+\newenvironment{msctable}[2][\footnotesize]{% \footnotesize is 9pt, the minimum size as of 2021
+  \begin{center}
+    #1 % Set the right size (and font maybe)
+    \newcommand{\ra}{\raggedright\arraybackslash}
+    \begin{tabular}{#2}
+}{%
+    \end{tabular}
+  \end{center}
+}
+
+% Using a section command here prevents the widow / orphan thing with homemade command
+\newcommand{\msccaption}[1]{\subsubsection*{#1}}
+
+% Low level sectioning.  Could be \paragraph if space is short
+\newcommand{\mscsection}[1]{\subsubsection*{#1}}
+
+% Tables have coloured headings.  This ensures some consistency
+\colorlet{msccolor}{olive!20}
+\newcommand{\colorrow}{\rowcolor{msccolor}}
+\newcommand{\colorcell}{\cellcolor{msccolor}}
+
+% Work package tables need to look the same
+\newcounter{wp}
+\newcounter{task}[wp]
+\newenvironment{mscwp}[3]{%
+    \refstepcounter{wp}
+    \begin{msctable}{|>{\ra}p{30mm}|>{\ra}p{140mm}|}
+        \hline
+        \colorcell\textbf{WP Number} &
+        \parbox{140mm}{WP\arabic{wp}\hfill\textbf{#1}} \\
+        \hline
+        \colorcell\textbf{WP Title} & #2 \\
+        \hline
+        \colorcell\textbf{Lead Beneficiary} & #3 \\
+        \hline
+}{
+        \hline
+    \end{msctable}
+}
+\newcommand{\mscwppar}[2]{\multicolumn{2}{|p{175mm}|}{%
+    \textbf{#1:} #2}}
+\newcommand{\mscwptask}[2]{%
+    \mscwppar{\textit{\refstepcounter{task}Task \arabic{wp}.\arabic{task}. #1}}{#2}}
+
+% Similar for research projects
+\newenvironment{mscrp}{%
+    \begin{msctable}{|c|c|c|c|c|c|}
+        \hline
+        \colorrow
+        \textbf{Fellow} &
+        \textbf{Host institution} &
+        \textbf{PhD enrolment} &
+        \textbf{Start date} &
+        \textbf{Duration} &
+        \textbf{Deliverables} \\
+        \hline
+}{
+        \hline
+    \end{msctable}
+}
+\newcommand{\mscrppar}[2]{\multicolumn{6}{|p{175mm}|}{%
+    \textbf{#1:} #2}}
+
+% Citations are in footnotes
+%\usepackage[style=footnote-dw]{biblatex}
+\usepackage[style=verbose]{biblatex}
+\let\cite\footcite
+\bibfont{\scriptsize}
+
+% Start and end pages
+\setlength{\fboxsep}{0pt}
+\newcommand{\mscpage}[1]{%
+    \begin{center}
+    \Large
+    \textbf{#1}\\
+    \vspace{15mm}
+    MARIE SKŁODOWSKA-CURIE ACTIONS\\
+    \vspace{15mm}
+    \textbf{Doctoral Networks (DN)}\\
+    \textbf{Call: HORIZON-MSCA-2022-DN-01-01}\\
+    \vspace{15mm}
+    PART B\\
+    \vspace{15mm}
+    \project\\
+    \vspace{40mm}
+    \normalsize
+    \textbf{This proposal is to be evaluated as:}\\
+    \vspace{5mm}
+    \textbf{DN}
+    \end{center}
+    \newpage
+}
+
+% For the commitment letters
+\usepackage{pdfpages}
+
+% Should come last
+\usepackage{hyperref}
+\hypersetup{
+   colorlinks,
+   menucolor=black,
+   linkcolor=black,
+   citecolor=black,
+   urlcolor=blue
+}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "master"
+%%% TeX-PDF-mode: t
+%%% End:

@@ -1,0 +1,51 @@
+%!TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{bensz-paper}
+\BenszPaperSetup{
+  template = paper-sci-01,
+  bibliography-style = vancouver
+}
+\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
+  {\textcolor{blue}{\bibopenbracket}%
+   \iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {\textcolor{blue}{\supercitedelim}}
+  {\textcolor{blue}{\bibclosebracket}}
+
+\addbibresource{references/refs.bib}
+\ExecuteBibliographyOptions{url=true, doi=true}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  bookmarksdepth=subsection
+}
+\AtBeginBibliography{\fontsize{11.5pt}{16.5pt}\selectfont}
+\AtEveryBibitem{%
+  \iffieldundef{doi}
+    {}
+    {\clearfield{url}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}}%
+}
+
+\begin{document}
+\input{extraTex/front/frontmatter.tex}
+\input{extraTex/front/abstract.tex}
+\input{extraTex/body/introduction.tex}
+\input{extraTex/body/methods.tex}
+\input{extraTex/body/results.tex}
+\input{extraTex/body/discussion.tex}
+\input{extraTex/body/conclusion.tex}
+\input{extraTex/back/additional-information.tex}
+\section{References}
+\printbibliography[heading=none]
+\input{extraTex/back/figure-legends.tex}
+\input{extraTex/back/supplementary-materials.tex}
+\end{document}

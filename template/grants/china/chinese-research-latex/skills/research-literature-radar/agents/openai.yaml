@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Literature Radar"
+  short_description: "按主题分层发现、筛选并长期归档重要研究论文与证据记录"
+  default_prompt: "使用 $research-literature-radar 建立一个可审计的主题论文雷达。"

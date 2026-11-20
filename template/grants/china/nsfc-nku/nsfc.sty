@@ -1,0 +1,85 @@
+% -------------------------------------------------
+% Modified from latex template of IEEE CVPR
+% -------------------------------------------------
+
+\usepackage{cite}
+\usepackage{times}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{overpic}
+\usepackage[hyphens]{url}
+\usepackage[pagebackref=false,breaklinks=true,colorlinks=true,bookmarks=false,linkcolor=black,citecolor=black,urlcolor=black]{hyperref}
+\usepackage[font={it}]{caption}
+
+
+\RequirePackage{silence}
+\hbadness=10000 \vbadness=10000 \vfuzz=30pt \hfuzz=30pt
+
+\usepackage{enumitem}
+\setenumerate[1]{itemsep=0pt,parsep=0pt,topsep=5pt}
+\setitemize[1]{itemsep=5pt,parsep=5pt,topsep=5pt}
+
+\pagestyle{empty}
+\usepackage[a4paper, left = 3cm, right = 3cm, top = 2.54cm, bottom = 2.54cm]{geometry}
+
+\newcommand{\alert}[1]{\textcolor[rgb]{0.0625,0.4453,0.7383}{#1}}
+\newcommand{\NsfcNote}[1]{{\large \emph{\alert{#1}}}}
+\newcommand{\ContentDes}[1]{
+   \setcounter{section}{0}
+   {\alert{\large {\bf \emph{#1}}}}%
+}
+\setlength{\parskip}{0.4\baselineskip}
+
+\setlength{\textheight}{9.575in}
+\setlength{\textwidth}{5.8in}
+\setlength{\columnsep}{0.3125in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\parindent}{1pc}
+\setlength{\oddsidemargin}{0.26in}
+%\setlength{\evensidemargin}{0.26in}
+
+
+% memento from size10.clo
+% \large{\@setfontsize\large\@xiipt{14}}
+% \Large{\@setfontsize\Large\@xivpt{18}}
+% \LARGE{\@setfontsize\LARGE\@xviipt{22}}
+% \huge{\@setfontsize\huge\@xxpt{25}}
+
+\def\@maketitle{ %\newpage \null \vskip .01in
+   \begin{center} {\LARGE\bf\@title\par} \end{center}
+}
+
+
+% correct heading spacing and type
+\def\cvprsection{\@startsection {section}{1}{\z@}
+   {12pt plus 2pt minus 2pt}{7pt} {\large\bf}}
+\def\cvprssect#1{\cvprsection*{#1}}
+\def\cvprsect#1{\cvprsection{\hskip -1em.~#1}}
+\def\section{\@ifstar\cvprssect\cvprsect}
+
+\def\cvprsubsection{\@startsection {subsection}{2}{\z@}
+   {11pt plus 2pt minus 2pt}{6pt} {\bf}}
+\def\cvprssubsect#1{\cvprsubsection*{#1}}
+\def\cvprsubsect#1{\cvprsubsection{\hskip -1em.~#1}}
+\def\subsection{\@ifstar\cvprssubsect\cvprsubsect}
+
+
+%%% Make figure placement a little more predictable.
+% We trust the user to move figures if this results
+% in ugliness.
+% Minimize bad page breaks at figures
+\renewcommand{\textfraction}{0.01}
+\renewcommand{\floatpagefraction}{0.99}
+\renewcommand{\topfraction}{0.99}
+\renewcommand{\bottomfraction}{0.99}
+\renewcommand{\dblfloatpagefraction}{0.99}
+\renewcommand{\dbltopfraction}{0.99}
+\setcounter{totalnumber}{99}
+\setcounter{topnumber}{99}
+\setcounter{bottomnumber}{99}
+
+
+% ---------------------------------------------------------------

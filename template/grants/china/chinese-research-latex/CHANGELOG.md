@@ -1,0 +1,1909 @@
+# Changelog
+
+本文件记录项目的修改历史，方便回顾项目的优化过程。
+
+格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。
+
+---
+
+## [Unreleased]
+
+### Changed
+
+- `nsfc-justification-writer`：研究意义默认采用两段递进，首段解释研究需求、次段指出一个总的认识缺口；避免连续以“重要问题”或同义判断收束，完整核心科学问题留到研究现状之后正式提出。同步分节指引、语义质控、回归样例和 README，Skill patch 版本递增。
+
+## [4.1.3] - 2026-11-12
+
+本次发布汇总 `v4.1.2` 之后的完整提交历史，新增四川大学硕士模板，恢复并规范综述交付，更新 NSFC 立项依据与研究内容的修订流程；同步全部 24 个项目的标准版与 Overleaf 版，共 48 个 ZIP，以及 README 下载链接和 Skill 版本清单。补回模板清单缺失的结束标记，恢复自动同步入口。
+
+### 兼容性说明
+
+- `research-literature-review` 3.0.0 改变正式交付路径：书目移入 `references/`，质检移入 `qc/`，正文资源与可选材料移入 `materials/`；旧路径自动化需调整。内置 BST 改为引用宿主机 Skill 路径，跨主机重编译需保证样式可用。
+- `nsfc-justification-writer` 移除旧版 coach/review/examples/apply-section/init 入口、信息表、HTML 报告和默认 `9000±800` 字数判定；`wordcount`/`diagnose` 仅统计，旧调用需迁移。
+
+### 版本内变更
+
+- `thesis-scu-master`：正文改为佐佐木希跨媒介公众形象的简短示例，同步封面、双语摘要、参考文献与使用说明；保留四级标题和跨章连续脚注，原高分子模型公式、曲线与比较表继续在正文中展示。
+
+- 新增 issue #56 四川大学硕士论文模板 `thesis-scu-master`：独立 profile/style、16开可编辑项目、高分子理论示例、双语摘要、四级标题、连续脚注及完整后置材料；核对法学院附件与需求的适用差异，记录版心、标题和字体取舍，接入统一构建、编辑器与独立打包验证。
+
+- `research-literature-review`：统一正式交付布局，根目录仅正文 PDF/Word/TeX，书目归 `references/`，质检归 `qc/`，正文资源与可选辅助材料归 `materials/`；新增独立输出规范，同步发布路径及目录校验。
+
+- `research-literature-review`：综述正文默认不叙述本次文献检索、筛选等调研过程，相关信息归入工作条件和配套报告；同步写作指南、章节模板、工作条件提示与语义复核要求，保留原始研究方法和证据边界的分析。
+
+- `research-literature-review`：综述成品明确排除 README；模板、编译与发布直接引用宿主机 Skill 内置 BST，停止复制内置及系统样式到成品，同步交付说明与回归测试。
+
+- `research-literature-search`：将有效的检索契约回归脚本从 `tests/` 移至 `scripts/`，补充 README 运行入口；迁移前后 22 项离线测试均通过。
+
+- `research-literature-search`：Python 依赖及原版本约束统一由 `config.yaml:dependencies.python` 托管，删除 `requirements.txt`，同步依赖说明。
+
+- `research-literature-review`：将 `latex-template/` 移至 `references/latex-template/`，同步编译、Word 导出、多语言、交付及测试引用。
+
+- 修复 `research-literature-review` 本地记录中的预算配置隔离与档位、Unicode JSONL、禁止引用资格、Bib 元数据转义、natbib 分布检查和系统 BST 编译/完整交付问题；联动 `research-literature-search` 查询模块隔离与版本来源，补充定向回归并完成本地 resolution 闭环。
+
+- 清理 `research-literature-review` 的开发验证指南、CRISPR 专用验证数据及两个配套脚本、静态示例 PDF；移除文档引用，将回归测试命令并入 README，Skill 配置版本更新为 patch。
+
+- 统一 `research-literature-review` 参考资料：合并评分/选文规范，删除重复迁移说明及过时引擎速记，示例 PDF 归入 assets；同步按阶段读取入口、开发验证说明和失效脚本配置，默认不强制评分分布或用低分补篇数。
+
+- `research-literature-review`：Python 依赖及原版本约束统一由 `config.yaml:dependencies.python` 托管，删除 `requirements.txt`，同步依赖说明。
+
+- `research-literature-review`：将 Skill 内 `qa/`、`tests/` 的 3 个测试文件统一迁入 `scripts/`，删除旧目录并更新开发验证入口；同步上游公共约束块。
+
+- `research-literature-review` v2.1.0：依据六份综述样本与源码历史完成质量退化调查和修复计划；恢复可实际应用的论文模板、Word 学术样式和完整文稿包，保留完整摘要与证据提取字段，修复验证假通过、失败未传递及恢复沿用旧完成标记。36 项定向回归通过，合成稿完成 PDF/Word 渲染及独立重编译；历史综述和系统安装副本未修改，长篇写作效果仍须同题评估。
+
+- `nsfc-research-content-writer`：实施 2026-11-01 架构与修订流程优化计划，区分新写/重构/审查/润色并检查三章关联；新增授权集合的只读预览、引用与结构保护、备份、安全替换和恢复，修复 S 编号与历史目录校验冲突。保留 3–4 子目标、三年计划、12–15 页经验边界；同步中英文指南、Skill 目录示例、迁移说明和定向安全/语义验证，未编译真实标书或更新系统安装副本。
+
+- 新增 `nsfc-research-content-writer` 架构与修订流程优化计划：参考立项依据写作器的 AI/脚本职责分层，规划任务分类、三章节联动、多文件安全写入与恢复及定向验收；保留 3–4 个子目标、三年计划、研究内容 12–15 页经验边界，末尾附可直接粘贴到 Codex 的执行 Prompt。本轮仅交付计划，未修改 Skill 实现。
+- `nsfc-justification-writer` v1.10.0：落实论证修订优化计划，增加任务诊断、最小有效修订、公允缺口分类、假设证据承接、科学主张变更边界、软预算和四类作者交付；仅审查不写正文。同步用户入口与参考样例，新增仓库级隔离安全回归，保持业务 CLI 和配置字段兼容。
+- 新增 `nsfc-justification-writer` 论证修订优化计划：规划修订前诊断、研究缺口分类、前期证据承接、科学主张变更边界、软预算与作者交付说明；本轮仅交付计划，未修改 Skill 实现。
+- `nsfc-justification-writer` v1.9.0：修复科学问题与科学假设被写成 `R1/R2/R3`、`H1/H2` 验证清单的问题，改为从研究现状缺口自然收束到核心问题，再由项目切入点提出可证伪假设；验证协议后置到研究方案。
+- `nsfc-justification-writer` v1.8.0：依据 2026-10-17 优化计划，新增正文判断与审查记录分离规则、必要限定压缩、缺证据时缩小主张、正文自然度质量控制和四类匿名回归样例；保留引用、事实、科学二分与安全写入链。
+- `nsfc-justification-writer` v1.7.0：移除 `9000±800` 默认字数目标及代码兜底，`wordcount`/`diagnose` 仅报告统计结果，不再进行目标、容差或扩写/压缩判定。
+- `nsfc-justification-writer` v1.6.1：按 `huangwb8/skills` 当前 Skill 开发规范重排 `SKILL.md` 固定骨架，补齐输入/输出管理、失败恢复、可复现校验和 canonical 公共约束块；同步收敛触发描述与版本文档。
+- `nsfc-justification-writer` v1.6.0：删除旧版备份回退、分块别名和 Tier1/Tier2 分层命名，脚本只使用当前路径与当前诊断字段；信息表模板、`init` CLI 和交互式信息表代码已删除。
+- `nsfc-justification-writer` v1.5.0：删除不再使用的 `assets/` 资源和旧版 `coach`、`review`、`examples`、`apply-section` 入口；将 `references/` 收敛为分节写法与质量控制两份文档，删除 HTML 诊断报告功能，主流程接口与文档同步收敛。
+- `nsfc-justification-writer` v1.3.4：将主标题规范收敛为“国内外研究现状”，禁止把“本项目切入点”并入标题；研究意义默认压缩为 2–3 段，研究现状主题小节默认 1 段、最多 2 段。同步更新模板、方向示例、Tier2、Prompt、验收清单与用户指南。
+
+## [4.1.2] - 2026-10-17
+
+本次发布汇总 `v4.1.1` 之后的全部变更，移除已迁移至 `huangwb8/skills` 的通用写作风格 Skill，并同步清理登记、项目调用指引、Prompt 与文档索引；同时生成全部项目的 v4.1.2 标准版和 Overleaf 版 ZIP。
+
+### Removed（移除）
+
+- 删除 `skills/nsfc-humanization/` 及技能登记、README 总览、NSFC 项目调用指引和专属 Prompt。写作风格 humanization 属于通用能力，已改名并迁至 `huangwb8/skills` 仓库维护，本仓库不再提供该 Skill。
+
+## [4.1.1] - 2026-10-04
+
+本次发布汇总 `v4.1.0` 之后的完整变更，重点包括西电本科模板、研究文献发现与解读、研究想法的证据闭环，以及检索与综述契约改进。同步生成全部 23 个项目的标准版和 Overleaf 版 ZIP。
+
+- 将 `thesis-xdu-bachelor` 正文改为沿用 `NSFC_Young` 主题的佐佐木希虚构职业发展论文，补齐双语摘要、人物配图、阶段表、流程图与模拟情感计算；附录保留机械模型和公式展示，同步示例说明。
+
+- 新增 issue #54 西安电子科技大学本科模板 `thesis-xdu-bachelor`：固定 XDUTS 6.2.7.2 本科基线与许可证，增加独立 profile/style、机械工程公开示例、共享字体、GB/T 7714—2005 引用、VS Code 配置和 Overleaf 打包；记录研究生附件与本科需求的适用差异。
+- 毕业论文构建入口开启 recorder，优先从首轮 `.bcf`/`.aux` 识别文档类内部配置的文献后端，并将 fontspec 字体错误纳入失败检测；补充后端、字体错误与独立打包回归。
+
+- `research-idea` v0.15.0：实施研究脉络叙事优化计划，工作 map 强化研究线关系与辨别证据，正式摘要以已有答案和重要未知组织论证；报告契约 v3 增加 GB/T 7714—2025 顺序引注、R→书目映射及末尾 `References` 校验，v2 报告仅保留只读兼容。同步中英文指南、模板、定向回归和只读历史样稿。
+
+- 新增并修订 `research-idea` 研究脉络摘要优化计划：区分工作 map 的完整证据索引与正式报告的领域介绍，纳入统一学术引文、末尾 `References`、R 编号映射、语义复核和历史样本验收；本轮未修改 Skill。
+
+- `research-idea` v0.14.1：将共享领域规则模块归入 `scripts/`，同步调用方、关键文件快照和回归导入；压缩工作型 Skill 文档，并新增事实对齐的中英文 README，保持现有运行与科研判断语义不变。
+
+- `research-idea` v0.14.0：落实 v19 证据闭环，四条前向边以同一 evidence artifact 贯通 verifier result、Kernel Gate 与 transition；完成索引升级至 v6，并新增论文解读深度/全文源、reviewer 回执和 deterministic evidence-consistency 对账。启动入口迁移到 strict-v2 原子初始化与固定托管 BSK wrapper。
+
+- 新增 `research-idea` v19 与 BSK 证据闭环优化计划：确认 v19 业务、State、Verifier、Gate 与事件链真实运行，同时记录完成索引哈希未贯通 Gate/transition、证据深度跨文件冲突、latest 托管声明与入口不兼容等缺口；计划分别给出 BSK 通用 binding 与 `research-idea` 领域适配的分层修复路径，本轮不修改两者源码。
+
+- `research-idea` 0.13.0：依据 v18 审计闭环计划新增不可变 completion evidence hash、completed attestation、reviewer 原始回执逐字段对账和四条前向边 applicability 重放校验；旧 v5 现场保持只读兼容。
+- 修订 Skill 基础设施边界：移除重复 BSK 的 `contract.py` 与自建 completion attestation，通用 evidence/Gate/transition/重放统一交给本地 BSK；research-idea 仅保留边 applicability 与 reviewer receipt 领域适配。
+
+- 新增 `research-idea` v18 审计闭环优化计划：规划将 Gate 前业务证据索引与 completed 后 Kernel attestation 分离，对 reviewer 原始回执逐字段对账，并在提交前、Gate 后和完成重放时校验全部前向边的 `hypothesis-merit` applicability；本轮不修改 Skill 源码。
+
+- `research-idea` v0.12.0 移除对 `research-literature-review` 的运行依赖，改为直接消费 `research-literature-search` 的候选级 `rls.v1` bundle；同步查新流程、completion-v5 证据门禁、报告模板、文档与回归测试。
+
+- 新增 `research-literature-review` 分层证据池与相关性门禁优化计划：保留不凑篇数原则，同时要求 canonical 候选全量分层、低置信度与资料不足记录不静默消失，并将完整证据池与正式引用集合分离。
+
+- 按 2026-09-15 三份计划优化研究类 Skill：`research-literature-radar` v0.2.0 新增全量 canonical landscape 与 hash/计数对账；`research-literature-review` v2.0.0 将硬 `min_refs` 改为相关性阈值、证据角色和软参考预算，并提供不导出长文/PDF/Word 的 `novelty-check`；`research-idea` v0.11.0 同时消费核心证据与辅助景观，按风险升级决定性近邻，并将流程就绪、科学充分和 claim 资格拆分门禁。
+- 按项目 BSK latest 约定删除 `research-idea` 的依赖版本号、旧式 `runtime.kernel` 精确绑定和重复 capability 配置；由于当前 action-specific required Verifier 尚不可用，`hypothesis-merit` 继续全局 required，但新增 applicability 防止不适用回执进入完成证据。
+- 为 Radar landscape 与 Review 选文新增根级公开回归入口，并在 `.gitignore` 中仅放行对应 Python 测试源码；测试缓存仍统一写入 `.bensz-api/`。
+
+- 强化 `AGENTS.md` 的 Skill 开发约束：`./skills/` 内 Agent Skill 源代码发生修改时，必须主动核对并对齐 GitHub 项目 `huangwb8/skills` 的现行规范，并同步相关文档、配置、测试与变更记录。
+
+- `research-literature-search`：恢复并固化拆分前的 priority-fallback-topup 检索语义，新增按领域区分的 preprint profile（计算机/数学偏向 frontier，医学/生物学优先正式版本），并将策略写入 manifest/Search Log。
+
+- `research-literature-search`：修复 OpenAlex 合法候选的 `primary_location.source` 为 `null` 时规范化崩溃的问题；缺失 venue 改为保留 `null` 并写入候选质量 warning，补充并纳入版本控制的包内回归测试与本地 bug 闭环。
+
+- 新增 `research-idea` 最新 BSK 托管运行时迁移计划：确认现有 State/required Verifier 应保留，目标配置最终只声明 Kernel 包名；同时记录生产 BSK 2.1.2 与最新版声明契约不兼容、官方集成 helper 受阻及待生产 2.2.0 后恢复实施的路径。本次未修改 `research-idea` 源码或版本。
+
+- `research-idea`：实施 bac-v15 原子初始化与阶段门控计划，版本推进至 v0.10.0、最低 Kernel 提升为 2.1.1。新增单一原子启动入口和运行快照，阶段入口接入 State-bound action authorization、每 State 新 visit/attempt 及 attempt supersede；完成检查按 v2 身份链收敛，并要求 completion-v4 的 completed 权威身份与独立审查 thread/runner 完成回执。旧 legacy 现场保持只读，不能补写获得新完成资格。
+
+- 新增两份 `bac-v15` 优化计划：分别针对 `research-idea` 的原子初始化、阶段开始授权、BSK 2.1.1 原生身份消费与运行版本绑定，以及 BSK 的强身份声明、原子 State 初始化、legacy 读写分离和运行契约快照；计划依据 v12–v15 实战事件与安装时间调查形成，本次不实施源码修改。
+
+- `research-idea`：依据 bac-v14 阶段身份闭环计划修复 Kernel 2.1.0 下的直线控制链；首次 State 进入必须带非空 run/attempt，阶段入口从 BSK 投影读取权威进入身份、按 action 隔离 Gate 幂等键并复核目标快照，完成检查可定位首个身份/转移断点。Kernel 原生 visit/attempt 轮换接口落地前，失败重试、换 attempt、回退与无身份旧现场保持 fail-closed；Skill 版本推进至 v0.9.1，最低 Kernel 调整为 2.1.0。
+
+- 新增三份 `bac-v14` 优化计划：分别针对 `research-idea` 阶段身份闭环、BSK State visit/attempt 身份模型，以及运行环境一致性、诊断与验收；计划基于 v14 实战中“内容链诚实降级但控制链停在 literature”、Kernel 2.1.0 三项身份回归失败和依赖检查误报等证据，本次不实施源码修复。
+
+- `research-idea`：新增轻量 BSK 阶段入口，统一 action→State 映射、required Verifier、Kernel Gate 与 transition 调用，降低 Agent 漏执行控制步骤的概率；入口不维护私有状态、Gate、attempt、handoff、provenance 或事件账本，完成检查继续独立拒绝缺少 BSK 状态链的运行，版本推进至 v0.9.0。
+
+- 优化 `docs/plans/2026-09-12-research-idea-全面优化计划.md` 的 BSK 责任判断：确认跨阶段复用旧 Gate 属于 Kernel 通用时序缺口；将四层“状态”修正为领域完成维度，并明确证据 manifest、科研充分性与 reviewer 独立性继续由 `research-idea` 专用 Pack 和完成检查负责。
+
+- `research-idea`：实施完成证据收敛修复，新增 `check_completion.py` 与 `completion-evidence.json` 索引契约，交付前核对报告结构、自定义文件名上下文、bsk completed 状态、required Gate、依赖 Skill 产物和三轮独立审查证据；清理 Skill 包内旧运行时测试引用，版本推进至 v0.7.1。
+
+- `research-literature-interpretation`：将 OpenAI UI 展示元数据并入 `config.yaml:interface`，删除只托管单个小配置的 `agents/openai.yaml` 目录，版本推进至 v0.1.2；触发语义与执行契约不变。
+
+- 新增 `docs/plans/2026-09-11-research-idea-completion-evidence-convergence.md`：基于一次相邻仓库 `research-idea` 实战运行复盘，记录报告内容质量良好但运行门禁、依赖产物、独立审查证据、自定义文件名校验和 Skill 包内测试入口未收敛的问题；本次仅交付计划，未实施 Skill 修改。
+
+- `research-idea`：新增 required 科学假设价值 Verifier，与阶段就绪 Verifier 一起批量 Gate；推荐候选必须通过创新性、概念增量、颠覆/改写潜力、非平凡性、关键预测和最强替代方向审问。报告模板、格式检查、README、版本快照和 Kernel 集成回归同步更新，版本推进至 v0.7.0。
+
+- `research-idea` 轻量化：保留五个 Markdown State 与本地语义 Verifier，直接使用 bsk 原生状态不变量、Gate、绑定与日志；移除自建运行时、机械证据脚本和重复快照/重放逻辑，精简领域初始化。最低 Kernel 要求移至 dependencies.kernel，以兼容原生声明加载器。同步操作指南、报告质量与直接 Kernel 集成回归。旧专用 CLI 不兼容，旧运行只读保留；证据内容变化后的重审由 Agent 负责。
+
+- `research-idea`：按质量优化计划增加研究目标、跨论文证据 map、价值与非平凡性筛选、最近工作等价性/实质增量比较及三轮不同审查任务；分开科学价值、判断可信度与近期投入。报告显式支持可推荐、无合格候选和证据不足，初始探索数量不再约束最终保留数量。
+- 修复 `research-idea` 的 C1/C2/C3 候选标题识别及空字段检查；增加 O/R 引用定位和完成资格检查，同步初始化示例与既有阶段契约，保留旧报告只读兼容与旧运行资产绑定。补齐 `tests/research-idea/` 回归；固定证据对照用于问题发现，尚不等于领域评阅与真实全链路验收完成。
+
+- 新增 `docs/plans/2026-09-10-research-idea-quality-optimization.md`：基于 BAC 实战诊断制定科研价值筛选、研究 map 综合、差异化审查及新旧版本对照验收计划；本次仅交付计划，未实施 Skill 修改。
+
+- `research-idea`：新增 Kernel 驱动的阶段验证器与状态机，支持证据哈希快照、绑定语义审查、required Gate、回退与事件恢复；更新初始化接口、运行说明、定向测试和技能版本。修复报告章节提取吞掉无空行正文的问题，保持独立报告检查 CLI。
+
+- `research-idea`：论文解读阶段改为并行子 agent 分批执行，每篇论文一个 agent，同时最多 3 个；超出部分排队且不嵌套并行，并保留失败/证据不足状态供研究脉络 map 汇总。
+
+- 更新 `AGENTS.md` 的 Skill 开发规则：新增或修改 Skill 前须重新查阅并对齐 `huangwb8/skills` 上游 `AGENTS.md`，以应对规范变化。
+
+- 清理各 Skill 文档中指向外部 `docs/templates/skill-common-constraints.md` 的模板维护提示。
+
+- 修复项目内 27 个 `SKILL.md` 的开头标题结构：移除重复的 Skill slug 标题和错误插入的 `## 目标`，保留原有正文标题；同时增强 `scripts/validate_skill_docs.py` 对该类结构回归的检查。
+
+- 精简根目录 `AGENTS.md`：移除失效或过细的模板目录说明，保留责任分层、任务工作区、BAC 贡献记录、Skill 开发、验证、文档同步和安全边界等真正影响协作的规则。
+
+- 按当前 Skill 文档规范统一 `skills/*/SKILL.md`：frontmatter 仅保留 `name` 与 `description`，移除标题数字前缀和重复元数据，保持现有触发语义与执行正文不变；新增 `scripts/validate_skill_docs.py` 作为 500 行、frontmatter、标题结构和版本标记校验入口。
+
+### Changed（变更）
+
+- 统一 `research-literature-radar` 与 `research-literature-interpretation` 的 Agent 展示名及 `research-idea` 任务工作区子目录，避免省略 `research-` 前缀造成命名分裂。
+- `research-idea` 升级至 v0.2.2：默认研究想法报告统一写入 `./docs/ideas/`，并将具体报告文件名从 Skill 触发描述移至输出规范，避免根目录污染与触发元数据冗余。
+- 将尚未上线的 `research-paper-interpretation`、`research-paper-radar` 重命名为 `research-literature-interpretation`、`research-literature-radar`，同步目录、交叉引用、运行路径和系统级安装；不保留旧名兼容。
+
+## [4.1.0] - 2026-09-03
+
+### Added（根 README 技能列表自动化 - 2026-09-03）
+
+- 新增 `scripts/update_readme_skill_list.py`：根 `README.md` 技能列表改为自动生成，版本号直接读取 `skills/*/config.yaml`（单一真相来源），状态按语义化版本推导（v1.0.0 及以上为 ✅ 稳定，v0.x.x 为 🚧 开发中）；阶段与功能摘要维护在脚本 `SKILL_SPECS` 登记表，脚本对磁盘目录与登记表做双向校验，目录无 `config.yaml` 时警告跳过。
+- 新增 `scripts/test_update_readme_skill_list.py` 回归测试（14 项），覆盖状态推导、版本校验、双向校验、标记替换与幂等性。
+- `update-template-list.yml` 工作流扩展为同步模板与技能两类列表（含新测试），workflow 更名为 Sync README Lists。
+- 根 `README.md` 技能表格区域加 `SKILL-LIST:START/END` 标记并完成首次生成，自动修正 3 处版本漂移：`nsfc-qc` v1.2.0→v1.2.1、`nsfc-reviewers` v1.4.0→v1.4.1、`research-idea` v0.2.0→v0.2.1。
+- 同步更新 `AGENTS.md`：Skill 相关问题与变更边界补充技能列表同步命令及 `SKILL_SPECS` 登记要求。
+
+### Changed（skills 安装/更新方式对齐上游 - 2026-09-03）
+
+- 根 `README.md` 与 `docs/manual-setup-guide.md` 的 skills 安装/更新说明对齐上游 `huangwb8/skills` 新入口：废弃 `@install/install.sh`（`curl | bash`）与 `install.ps1`（`irm | iex`）旧命令，改用 `bootstrap_install.py` 单行引导（仅依赖 Python 标准库，默认安装 general / research / anthropic-docs 三源）；对话式 Prompt 改为调用 `install-bensz-skills` skill，本地与远程安装命令路径同步更新为 `skills/alpha/install-bensz-skills/scripts/install.py`。
+
+### Fixed（research skills manifest 契约兼容 - 2026-09-02）
+
+- 修复 `research-literature-review` 与 `research-literature-search` 在同一 Python 进程中加载同名 `query_contract` 时的模块遮蔽；search manifest validator 改用唯一命名的 `rls_contract`，合法 `rls.v1` bundle 可正常验证。search 升至 v1.0.2，review 升至 v1.3.1。
+
+### Fixed（research-literature-search 空记录容错 - 2026-09-02）
+
+- 修复 provider 返回 `null` / 非对象候选时规范化阶段可能崩溃的问题：统一跳过无效条目，继续处理合法候选，并在 manifest / Search Log 中保留 `empty_records`、`invalid_records` 与 warning 审计信息；全部候选无效时返回 `no_valid_candidates`。
+
+### Changed（research-literature-search 拆分与 review 接口重构 - 2026-09-02）
+
+- 新增 `skills/research-literature-search/`：提供 `run`、`enrich-abstracts`、`validate`，输出 `rls.v1` manifest bundle、canonical 候选、来源追踪和去重映射。
+- `research-literature-review` 增加必需 search 依赖与 resolver；阶段 1 调用新生产者，阶段 2 改为 manifest/schema/hash 验证 no-op。
+- 保留旧检索、去重和摘要入口为 deprecated wrapper，兼容原有 CLI、文件名与 checkpoint/resume。
+- 根 README、skills README、依赖图和安装说明同步新增独立检索 Skill。
+- 补齐 search bundle 的 path/hash/provider 错误门禁、过滤参数与跨 provider identifier 合并，修复摘要补全成功状态的误报警告，并支持独立安装时由 resolver 注入 wrapper 路径。
+
+### Changed（变更）
+
+- `research-literature-review` 升级到 `v1.3.0`：建立显式多查询 JSON 契约和统一 stem，阶段 1 默认 fail-closed；新增可审计的单查询后备、查询指纹 resume 校验、Search Log 字段与离线回归测试。
+- `skills/`：对齐 `docs/prompts/005-bensz-skill-workspace.md` 的任务级中间文件契约；新运行统一使用 `.bensz-api/task-{yyyymmdd-hhmm}-{简短描述}/{skill名}/input|output|log/`，旧目录仅作显式兼容读取/迁移/清理。
+- `skills/nsfc-humanization/` 升级到 `v1.2.0`：基于工程协议腔与技术型 NSFC 文本优化计划，新增词语/句法/段落/章节四层诊断、术语表与章节去重、安全不变量和匿名回归样例；完成 1 轮 `auto-test-skill`（含 B 轮质量检查）并压缩工作型 Markdown，根级 README、skills 总览和技能 README 已同步。
+- `nsfc-justification-writer`：默认流程升级为完全自动，自动完成目标选择/创建、Tier1+Tier2、保守假设、成稿、正文-only 重试、备份和写入；移除中途用户确认/审核节点，保留 `--dry-run`、白名单、引用守护、diff 与回滚，版本推进至 v1.3.0。
+- `nsfc-justification-writer`：移除术语矩阵、固定内容维度检查及独立 `terms` 命令，将逻辑、术语、论证维度和专业可读性统一交由宿主 AI 自主规划；Python 仅保留确定性校验、分块、缓存和安全写入，精简写作链路。
+- `nsfc-justification-writer`：在既有语义重构基础上增加面向大同行的专业可读性复核，贯通 `review`、`coach --stage polish`、Tier2 聚合与 HTML 展示；新增 `readability` 兼容字段、无 AI 回退建议和保真边界文档，版本推进至 v1.2.0。
+- `nsfc-justification-writer`：将用户教程、典型工作流和架构边界合并到技能 README，删除重复的 `references/docs/` 文档目录并清理当前路径引用。
+- `research-literature-review`：将运行产物收敛到配置驱动的内部 `output/` 布局，新增 PDF/Word 白名单发布目录与 `--publish-dir`，并通过严格门禁阻止证据卡、选文和字数预算污染正式交付目录；技能版本推进至 v1.2.0。
+
+## [4.0.20] - 2026-08-20
+
+### Changed（变更）
+
+- **research-literature-review**：修复显式 `--resume-from` 时未加载已有 checkpoint、随后可能以空 state 覆盖历史状态的数据完整性问题；恢复流程统一先加载 state，再决定自动或显式起始阶段。
+- **skills 任务工作区**：新增 `skills/WORKSPACE.md` 并同步当前 Skills 文档与默认配置；中间文件默认收敛到 `./.bensz-api/task-{yyyymmdd-hhmm}-{简短描述}/{skill名}/input|output|log/`，同一任务共享一个根目录，旧隐藏目录仅保留显式兼容读取、迁移或清理。
+- **GXNSF 字体对齐**：`projects/GXNSF_General` 现按原 DOCX 声明优先使用系统中的“方正仿宋_GBK / 方正楷体_GBK”（兼容对应简体家族名），标题与条目标题继续使用仿宋加粗；缺少方正字体时仍稳定回退到 `bensz-fonts` 的内置字体，兼顾原稿字形与跨平台编译。
+
+### Added（新增）
+
+- 新增 `projects/GDNSF_Regional_Young/`：基于广东省基础与应用基础研究基金区域联合基金青年基金 Word 正文模板，复用 `GDNSF_General` 的项目层版式与构建链，落地区域联合青年基金专用标题、三段式正文提纲、研究基础与条件条目及 Word/PDF 基线资料；同步接入项目 README、VS Code 配置、Release 模板识别和省级基金模板列表，未修改 `packages/` 公共包。
+- 新增 `projects/GXNSF_General/`：基于 issue #52 提供的广西自然科学基金面上项目精简“报告正文” DOCX，落地四部分、十五个内容插槽的独立 LaTeX 模板；对齐 A4 页面、页边距、16 pt 字号、28.3 pt 固定行距、两字符首行缩进、仿宋/楷体语义与局部粗体，并提供项目级 XeLaTeX wrapper、VS Code 工作区、Word/PDF 基线与使用边界说明。
+- 为 `projects/GXNSF_General/extraTex/` 的十五个内容插槽补充佐佐木希公开案例示例：以多模态时序数据、跨媒介状态转移和职业韧性为科学主线，加入公式、表格、公开来源参考文献与完整组织实施示例；对人员履历、项目经历、工作条件和附件采用显式占位或“无”的示例写法，避免把演示材料伪装成真实申请。
+- 扩展 `scripts/sync_vscode_configs.py`、`scripts/update_readme_template_list.py` 与 `scripts/pack_release.py` 的 `GXNSF_` 项目识别：新增 GXNSF 专属 LaTeX Workshop 配置、首页独立分类、标准/Overleaf Release 资产接入及最小自包含字体运行时；省级基金打包逻辑继续与 `bensz-nsfc` 隔离，并保留 GDNSF 兼容入口。
+- 新增 GXNSF 的 VS Code、构建 wrapper、README 自动列表、标准 zip 和 Overleaf zip 回归测试，覆盖失败短路、缓存清理、项目类型识别、字体最小集合与不携带 `bensz-nsfc` 运行时等关键行为。
+
+## [4.0.19] - 2026-07-03
+
+### Added（新增）
+
+- 新增 `projects/thesis-cas-postdoc/`、项目级 `AGENTS.md` / `CLAUDE.md` / `README.md` / `template.json` / VS Code wrapper，以及 `packages/bensz-thesis/profiles/bthesis-profile-thesis-cas-postdoc.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-cas-postdoc.tex`：基于 issue #50 与《博士后研究报告编写规则》附件，为 `bensz-thesis` 产品线新增中国科学院博士后出站研究报告独立模板身份，覆盖封面、题名页、中英文摘要、目录、插图清单、附表清单、符号与缩略词表、正文、参考文献、附录、博士后个人简历、博士生/博士后期间科研成果、永久通信地址和致谢；示例正文遵循 thesis 产品线公开演示约定，以“冯宝宝”署名并围绕“佐佐木希”相关公开文化研究方向展开，同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260702`，避免安装器因旧版本号跳过新增模板。
+- 新增 `projects/thesis-jxust-bachelor/`、项目级 `AGENTS.md` / `CLAUDE.md` / `README.md` / `template.json` / VS Code wrapper，以及 `packages/bensz-thesis/profiles/bthesis-profile-thesis-jxust-bachelor.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-jxust-bachelor.tex`：基于 issue #49 与江西理工大学 2026 届本科毕业论文（设计）官方格式文件，为 `bensz-thesis` 产品线新增 JXUST 本科毕业论文 / 毕业设计独立模板身份；`main.tex` 通过 `\jxustSetWorkType{thesis|design}` 切换封面标题与正文页眉，并将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260630`，避免安装器因旧版本号跳过新增模板。
+- 为 `projects/thesis-jxust-bachelor/` 补充江西理工大学官网横版标志资源，并在 `bthesis-style-thesis-jxust-bachelor.tex` 的封面和题名页接入 `\jxustLogoImagePath`，缺少图片时仍回退为校名文字，修复 issue #49 首版封面未显示 logo 的遗漏。
+
+### Removed（删除）
+
+- 移除 `skills/nsfc-roadmap/` 与 `skills/nsfc-schematic/` 两个 skill：技术路线图与原理图生成能力不再由本项目内置 skill 维护；同步清理 `skills/README.md`（架构图节点、专属章节、技能依赖列表、推荐使用顺序及后续章节序号重排）、根级 `README.md` 技能表格、`projects/NSFC_General|Local|Young/AGENTS.md`、`skills/nsfc-reviewers/README.md` 与 `skills/nsfc-research-content-writer/` 下文档中对两者的引用。
+
+### Changed（变更）
+
+- 优化 `thesis-cas-postdoc` 与《博士后研究报告编写规则》附件的版式对齐：`packages/bensz-thesis/styles/bthesis-style-thesis-cas-postdoc.tex` 现将正文页码放到右下角、前置页保留 Roman 居中页码，新增显式正文分章入口与附录图表公式 `A1/B2` 字母前缀编号，拆分 figure/table caption 位置设置，并将参考文献默认收敛为五号、1.2 倍行距的 `gb7714-2015` 紧凑口径；`projects/thesis-cas-postdoc/README.md` 同步补充 `assets/1-2.doc` 规则映射说明。
+- `skills/` 下会产生中间文件的 skills 默认工作区统一迁移到 `./.bensz-api/skills/{skill名}/{yyyy-mm-dd-hh-mm}/` 规则；覆盖 `paper-select-journal`、`paper-know-journal`、`paper-write-sci`、`research-idea`、`paper-explain-figures`、`nsfc-budget`、`nsfc-length-aligner`、`nsfc-ref-alignment`、`nsfc-reviewers`、`nsfc-qc`、`nsfc-roadmap`、`nsfc-schematic`、`research-literature-review`、`transfer-old-latex-to-new` 等脚本默认值、配置、README/SKILL 当前说明与必要的 legacy 兼容/清理边界，最终交付物路径保持原有用户可见约定。
+- `skills/nsfc-qc/`、`skills/nsfc-reviewers/`、`skills/research-idea/` 同步 `parallel-vibe` 默认工作区目录从 `.parallel_vibe/` 到 `.parallel-vibe/` 的变更：运行、归档、清理、报告索引与泄露校验均优先使用新目录，同时保留 legacy `.parallel_vibe/` 兼容读取/清理；版本分别更新为 `nsfc-qc v1.2.1`、`nsfc-reviewers v1.4.1`、`research-idea v0.2.1`。
+- 研究类 skills 统一迁移为 `research-*` 系列：`get-review-theme` → `research-topic-extractor`、`guide-updater` → `research-guide-updater`、`check-review-alignment` → `research-citation-check`、`make-research-plan` → `research-plan`、`systematic-literature-review` → `research-literature-review`；新 `SKILL.md` frontmatter 明确保留旧名 prompt 兼容，`research-idea` 依赖优先使用新名并保留旧名 fallback，`research-citation-check` 渲染依赖优先使用 `research-literature-review` 并保留旧名 fallback，同时保留 `.systematic-literature-review/`、`.make-research-plan/`、`.check-review-alignment/` 等历史工作区目录不变。
+- `README.md` 与 `skills/README.md` 新增研究类 skill 迁移表，技能列表同步指向新目录和新版本；`nsfc-justification-writer` 的文案改为识别 `research-literature-review` 产物，但继续只读识别历史目录 `.systematic-literature-review/`。
+- `README.md` 重构「AI 模型配置建议」表格：将原来的「工具 / 推荐模型 / 适用场景」三列重组为「适用场景 / Codex CLI / Claude Code」结构，把工具融入列头、模型填入单元格，使 Codex CLI 与 Claude Code 两类工具的推荐模型横向对照；Claude Code 列按任务难度分配 **Claude Opus 4.8**（最复杂任务首选）与 **GLM-5.2**（日常主力、轻量任务），并在单元格内补充 **Effort**（推理强度）与 **Thinking**（扩展思考/轮级思考）两参数的推荐取值——复杂任务 Opus 拉满 Effort `high`/`xhigh` + Thinking 开，规划任务 GLM-5.2 开 Thinking，轻量/简单任务关闭 Thinking 以更快更省；同时扩充「模型选择说明」，新增 Effort / Thinking 的取值、配置方式（`/effort`、`settings.json` 的 `effortLevel`、`Option/Alt+T`、`ultrathink` 等）与「GLM 无独立 Effort、以 Thinking 开关为主控」的说明。
+- `README.md` 去硬编码重构：将「LaTeX 包安装」（方法二远程 curl、方法三本地 git clone）、「LaTeX 模板编译」（各产品线 build/count-words/docx 命令）、「Skills 安装/更新」（一键 curl|bash、本地/远程 git clone）三处硬编码命令统一迁移到新建的 `docs/manual-setup-guide.md`；README 三处改为以自然语言安装/编译法为主，并保留对 `docs/manual-setup-guide.md` 对应章节的引用，兼顾小白用户的 AI 一键体验与高级用户的手动命令参考。
+- `skills/paper-write-sci/` 升级到 `v0.11.2`：新增 SCI 写作节奏护栏，要求少用无结构功能的冒号解释句，并在 `Introduction` 中协调核心观点、核心痛点和核心问题的主展开位置，避免同一主张反复重提造成冗余。
+- `skills/nsfc-humanization/` 升级到 `v1.1.0`：新增针对模板化转折、抽象概念堆叠、边界声明过重和研究动作不清的机器味识别与改写规则，强调把原文已有信息改成研究动作优先表达，同时禁止为追求具体化而新增事实；同步更新根级 `README.md` 与 `skills/README.md` 的版本快照和功能说明。
+- `skills/nsfc-humanization/` 升级到 `v1.1.1`：默认 `strength` 从 `minimal` 调整为 `aggressive`，未显式声明强度时更主动地做段内表达重组；同步更新 skill README、配置版本与根级 README 版本快照。
+- `skills/nsfc-humanization/` 升级到 `v1.1.2`：将“不是……而是…… / 不只是……更是……”等伪对立、整齐二分句式明确列为高优先级 AI 机器味，新增真实边界、伪对立和同义递进三类处理策略；同步更新 skill README、参考模式库、配置版本与根级 README 版本快照。
+
+## [4.0.18] - 2026-06-11
+
+### Added（新增）
+
+- 新增 `projects/thesis-nwu-doctor/`、项目级 `AGENTS.md` / `CLAUDE.md` / `README.md` / `template.json` / VS Code wrapper / 官方资料记录，以及 `packages/bensz-thesis/profiles/bthesis-profile-thesis-nwu-doctor.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-nwu-doctor.tex`：基于 issue #48、《西北大学研究生学位论文规范》（研字〔2019〕7 号）和研究生院公开 Word 模板，为 `bensz-thesis` 产品线新增 NWU 博士论文独立模板身份，覆盖中文封面、英文题名页、知识产权声明书、独创性声明、中英文摘要、目录、章节正文、结论、参考文献、附录、攻读博士学位期间取得的研究成果、致谢和作者简介；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260610`，避免安装器因旧版本号跳过新增模板。
+
+### Changed（变更）
+
+- `projects/thesis-nwu-doctor/` 示例正文从秦岭生物多样性主题调整为佐佐木希跨媒介职业转型与形象韧性公开案例，补充复用演示图片、公开来源参考文献、事实边界说明和重建后的 `main.pdf`，使 NWU 博士论文模板在公开脱敏内容下覆盖图、表、公式、附录、成果、致谢和作者简介等完整结构。
+- `AGENTS.md` 新增 Thesis 示例内容人物约定：所有 `projects/thesis-*` 示例正文的作者姓名统一使用"冯宝宝"，论文内容主题统一围绕"佐佐木希"相关研究方向展开；同步在「变更边界」中增加对应约束。
+- `README.md` 新增毕业论文模板定制需求的提交时间窗口说明，并将 Release 下载链接推进到 `v4.0.18`。
+
+## [4.0.17] - 2026-06-06
+
+### Fixed（修复）
+
+- 继续优化 `thesis-nju-master` 目录层级观感：`packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex` 现进一步加大 section / subsection 目录项的右移幅度，形成更清晰的章、节、小节阶梯缩进；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260606.5`，避免安装器因旧版本号跳过此次样式修复。
+- 继续对齐 `thesis-nju-master` 与南京大学工程管理硕士学位论文规范中的字体口径：`packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex` 现将章标题收敛为小三号仿宋加黑、目录章级条目补回小四号仿宋加粗、小节标题行距调整为小四号 1.5 倍口径，并让图表题注与 `tabular` / `tabularx` / `longtable` 表格正文默认使用五号仿宋、英文与数字继续走 Times New Roman；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260606.3`，避免安装器因旧版本号跳过此次样式修复。
+
+## [4.0.16] - 2026-06-05
+
+### Added（新增）
+
+- 新增 `projects/thesis-jlau-doctor/`、项目级 `AGENTS.md` / `CLAUDE.md` / `README.md` / `template.json` / VS Code wrapper，以及 `packages/bensz-thesis/profiles/bthesis-profile-thesis-jlau-doctor.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-jlau-doctor.tex`：基于吉林农业大学官方博士学位论文装订封面附件，为 `bensz-thesis` 产品线新增 JLAU 博士论文独立模板身份；博士模板复用已校准的 JLAU 校徽、校名图、声明页、摘要、目录和理工农医类正文体系，并覆盖博士封面中的“学位授予单位及代码”“学科专业名称及代码”等字段口径；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260605.3`，并让 Release 打包在博士模板 Overleaf 运行时中携带 JLAU 基础样式依赖。
+- 新增 `projects/thesis-jlau-master/`、项目级 `AGENTS.md` / `CLAUDE.md` / `README.md` / `template.json` / VS Code wrapper / 官网校徽素材，以及 `packages/bensz-thesis/profiles/bthesis-profile-thesis-jlau-master.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-jlau-master.tex`：基于 issue #47 与吉林农业大学研究生学位论文写作规范，为 `bensz-thesis` 产品线新增 JLAU 硕士论文独立模板身份，覆盖学术型/专业硕士封面、盲审封面开关、独创性声明、中英文摘要、理工农医类目录与正文、参考文献、附录、作者简介和致谢；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260603`，确保安装器不会因旧版本号跳过新增模板
+- 新增 `projects/thesis-hit-doctor/`、项目级 `AGENTS.md` / `CLAUDE.md` / `README.md` / `template.json` / VS Code wrapper / 官方资料记录，以及 `packages/bensz-thesis/profiles/bthesis-profile-thesis-hit-doctor.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-hit-doctor.tex`：基于 issue #45 与哈尔滨工业大学研究生院《博士研究生学位论文书写范例（理工类）》为 `bensz-thesis` 产品线新增 HIT 博士论文独立模板身份，覆盖中英文封面、题名页、摘要、目录、正文和后置材料；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260602`，确保安装器不会因旧版本号跳过新增模板
+- 新增 `packages/bensz-thesis/scripts/thesis_docx_tool.py` 与 `thesis_project_tool.py docx` 子命令：为所有 `projects/thesis-*` 提供通用 LaTeX 源到可编辑 Word draft 的 DOCX 导出链路，默认生成 `main.docx`，将中间 Markdown、复杂对象原始源码与质量报告隔离到 `.latex-cache/docx/`，并支持 `--reference-doc`、`--output`、`--keep-markdown` 与 `--skip-style-normalization`；`projects/thesis-ucas-doctor/scripts/export_docx.py` 现降级为兼容旧入口的薄 wrapper，文档同步强调 DOCX 为可编辑初稿且复杂对象需人工复核
+- 新增 `projects/GDNSF_General/`：基于 `projects/GDNSF_General/template/附件6：2025年广东省自然科学基金-面上项目申请书模板.docx` 的报告正文提纲，落地广东省自然科学基金面上项目报告正文 LaTeX 模板；项目层独立维护 `main.tex`、`extraTex/`、`references/`、VS Code 配置与 `scripts/gdnsf_build.py` 构建入口，默认复用 `bensz-fonts` 字体资源且不修改 `packages/bensz-nsfc/`，避免影响现有 NSFC 模板；同步扩展 `scripts/pack_release.py`、`scripts/sync_vscode_configs.py` 与 `scripts/update_readme_template_list.py` 的 `GDNSF_` 项目识别，确保 VS Code 同步、首页模板列表与 Overleaf 字体运行时打包不会遗漏该模板
+- 新增 `projects/thesis-just-bachelor/`、`projects/thesis-ahnu-master/`、对应项目级 `AGENTS.md` / `CLAUDE.md` / `README.md` / `template.json` / VS Code wrapper，以及 `packages/bensz-thesis/profiles/bthesis-profile-thesis-just-bachelor.def`、`packages/bensz-thesis/profiles/bthesis-profile-thesis-ahnu-master.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-just-bachelor.tex`、`packages/bensz-thesis/styles/bthesis-style-thesis-ahnu-master.tex`：基于 issue #40 / #41 的公开材料为 `bensz-thesis` 产品线新增江苏科技大学学士论文与安徽师范大学硕士论文两套独立模板身份，并保持源码、构建链路与项目示例分层清晰
+- 新增 `projects/paper-coverletter-01/`、`projects/paper-coverletter-01/AGENTS.md`、`projects/paper-coverletter-01/CLAUDE.md`、`projects/paper-coverletter-01/scripts/paper_build.py` 与匿名化 `extraTex/` 示例正文：基于真实 Word cover letter 的结构抽象出首个投稿信模板项目，默认复用 `bensz-paper` 公共包、不新增专门 cover letter 包，并以 `Feng BaoBao` 作为公开示例中的通讯作者占位名
+- 新增 `packages/bensz-paper/profiles/bml-profile-paper-coverletter-01.def`：为投稿信项目补充 US Letter、1 英寸页边距、无首行缩进、禁用行号的轻量 profile，使 `bensz-paper` 除正文论文外也能稳定承载 cover letter 场景
+- 新增 `projects/thesis-smu-postdoc/`、项目级 `AGENTS.md` / `CLAUDE.md` / `README.md`、`main.tex`、`extraTex/`、`references/refs.bib`、`template.json` 与 `assets/nfmu_calligraphy_raw.png`：基于《博士后研究报告编写规则》中的封面与题名页要求，复用 `bensz-thesis` 构建链路落地首个南方医科大学博士后研究报告公开示例项目，不新增专门公共包，并通过 `degree=postdoc` 并入 `thesis-*` 元数据链路
+- 新增 `bensz-paper` 可见字数统计能力：`packages/bensz-paper/scripts/manuscript_tool.py` / `packages/bensz-paper/scripts/paper_project_tool.py` 现支持 `count-words <tex...>`，可递归跟随 `main.tex`、`\input` 与 `\include` 链，按渲染后可见文本统计一个或多个 `.tex` 的总字数，并自动忽略 LaTeX 命令名、引用 keys 与数学公式源码；`packages/bensz-paper/tests/test_manuscript_tool.py` 同步补充命令级回归测试
+
+### Fixed（修复）
+
+- 继续对齐 `thesis-nju-master` 与南京大学工程管理学院 2023.2 版论文规范：`packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex` 现将正文、章节标题、摘要标题和图表题注收敛到官方附件标注的仿宋体系，封面根据 `\njuSetDegreeType{professional|academic}` 区分“申请硕士专业学位 / 申请硕士学位”与“专业学位类别（领域）/ 学科、专业名称”字段，并新增原创性声明、学位论文使用授权声明和出版授权书页面宏；目录页进一步收回章级编号左凸问题，让“第 1 章 绪论”等章级条目与摘要、参考文献等目录项处于同一内容列，并调整 section 缩进与点线密度，避免章级条目过于突出；`projects/thesis-nju-master/main.tex` 默认装配这些前后置材料，`projects/thesis-nju-master/README.md` 同步移除不存在的 `baseline.tex` 说明；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260606.2`，确保安装器不会因旧版本号跳过此次样式更新。
+- 优化 `thesis-nju-master` 封面题目填写区与目录层级样式：`packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex` 现扩大 NJU 封面字段区与下划线宽度，并对超长题目行增加自动测量与等比压缩保护，避免示例题目中“内容”等字符越过下划线边界；目录页则改为稳定的章号列、标题列、页码列和更疏朗的点线节奏，改善原先章/节层级拥挤、点线过密的问题；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260606`，确保安装器不会因旧版本号跳过此次样式修复。
+- 优化 `thesis-jlau-master` 封面与声明页对齐：从吉林农业大学官方 Word 封面附件中抽取干净校徽与“吉林农业大学”校名图，更新 `projects/thesis-jlau-master/assets/branding/` 并在 `packages/bensz-thesis/styles/bthesis-style-thesis-jlau-master.tex` 中新增校名图入口、重排封面标题区、将封面元信息改为官方样张的“标签 + 下划线填写区”，同时补回学位论文使用授权声明第一条的 `1、` 编号；`packages/bensz-thesis/package.json` 版本同步推进到 `p_v20260605.2`。
+- 修复 `thesis-jlau-master` 封面校徽出现黑色方框的问题：`packages/bensz-thesis/styles/bthesis-style-thesis-jlau-master.tex` 现通过圆形裁切方式显示 `jlau-emblem.jpg`，保留原始校徽素材并去除 JPEG 四角黑底对封面的影响；同时将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260605.1`，避免安装器因旧版本号跳过此次样式修复。
+- 修复并优化 `thesis-jlau-master` 目录页层级样式：`packages/bensz-thesis/styles/bthesis-style-thesis-jlau-master.tex` 现直接在目录正文起点输出章级 `\thecontentslabel`，避免原生 `\chapter{...}` 生成的章号外凸；同时右移 section / subsection 目录项，使“章 / 节 / 小节”从左到右稳定递进，并将 `packages/bensz-thesis/package.json` 版本推进到 `p_v20260605`，避免安装器因旧版本号跳过此次样式修复。
+- 优化 `projects/GDNSF_General/` 报告正文提纲说明区的行首与断行分布：新增项目级 `\GDNSFTemplatePara` 段落宏，并在稳定语义边界使用 `\linebreak{}` 控制长提示语断行，让提示语、AI 使用声明、一级提纲和红色说明文字保留 Word 模板中的 2 字符首行缩进，同时继续左对齐并维持原有红黑混排，避免长说明段落行首过齐、换行观感偏离 `template/2026年省自然模板.docx`。
+- 更新 `projects/GDNSF_General/` 以对齐 `template/2026年省自然模板.docx`：将报告正文从 2025 细分提纲收敛为 2026 年“三段式”结构，新增 30 页上限提示与生成式 AI 使用声明，补齐红色说明文字样式、正文页边距与“研究基础与条件”标题口径，并同步清理项目层过期章节入口，保持 GDNSF 模板独立于 `packages/bensz-nsfc/` 与其它产品线。
+- 修复 `scripts/pack_release.py` 生成 `bensz-paper` Overleaf 包时未正确重写 profile 路径的问题：`styles/bml-core.sty` 现在会显式从压缩包内的 `styles/profiles/` 加载 `bml-profile-*.def`，避免在开发者本机已安装 `bensz-paper` 时误借用本地 TEXMF profile、而在干净 Overleaf/TEXMF 环境中报 `Profile not found`；同时补充打包回归断言，确保 `paper-sci-01` / `paper-coverletter-01` 这类小体积 Overleaf 包不再被本机环境假阳性掩盖。
+- 修复 `thesis-smu-master` 示例正文中未转义路径文本导致 Overleaf / 裸 `xelatex` 编译触发 `Missing $ inserted` 的问题，并让 `thesis-ucas-doctor` Overleaf 包自动携带 `.latexmkrc` 开启 `-shell-escape`，满足其 `minted` 代码高亮依赖；同时补充 UCAS Overleaf 打包回归断言，避免需要 shell escape 的模板 zip 缺少编译配置。
+- 修复 `projects/GDNSF_General/` 报告正文页标题字体过黑、加粗观感与 Word 模板不一致的问题：将标题、提纲提示与各级条目从黑体/NotoSansSC-Bold 叠加伪粗调整为更接近原模板的宋体加粗体系，标题字号同步对齐为 18pt，并让“参照以下提纲撰写，”保留局部加粗、后续说明恢复常规宋体。
+- 优化 `projects/GDNSF_General/` 报告正文提纲断行与字重：将正文节页边距对齐到 Word 原件约 1.50cm 的设置，补充分离“全标题加粗条目”和“标题词加粗、括号说明常规字重条目”的宏，并在长标题的自然语义边界显式使用 `\linebreak{}` 与局部左对齐标题段，避免短标题句号被错误降为常规字重、长标题被版心自动断在不稳定位置，同时保留参考文献格式中的字面双连字符。
+- 修复 `skills/nsfc-research-foundation-writer/SKILL.md` frontmatter 混入 Markdown 正文导致 Codex 技能加载器 YAML 解析失败的问题，并增强该 skill 自检脚本的 frontmatter YAML 解析校验
+
+- 调整 `paper-sci-01` 的 PDF 参考文献可读性：在 [main.tex](/Volumes/2T01/Github/ChineseResearchLaTeX/projects/paper-sci-01/main.tex) 中为 bibliography 增加项目级 `\AtBeginBibliography{\fontsize{11.5pt}{16.5pt}\selectfont}` 覆盖，使 PDF 端参考文献条目在当前 Vancouver/JITC 风格下不再显得过小，同时不影响 DOCX 端和其它模板
+- 修复 `bensz-paper` 在完整仓库开发模式下仍可能从已安装 texmf 包读取旧 profile 的问题：现在 [bml-core.sty](/Volumes/2T01/Github/ChineseResearchLaTeX/packages/bensz-paper/bml-core.sty) 会基于当前包文件所在目录显式加载 `profiles/`，不再被用户系统里旧版 `bensz-paper` 的 profile 覆盖；同时将 `paper-sci-01` 的参考文献字号统一收敛到项目 profile 的 `10.5pt / 15pt`，并让 DOCX 的 Vancouver bibliography 直接跟随同一 profile 参数，而不再额外硬编码 `12pt / 18pt`，从而消除“PDF 偏小、DOCX 偏大”的分叉
+- 修复 `paper-sci-01` 参考文献链接样式不完整的问题：在 [main.tex](/Volumes/2T01/Github/ChineseResearchLaTeX/projects/paper-sci-01/main.tex) 中为 `paper-sci-01` 显式启用 `colorlinks=true`、`citecolor=blue`、`urlcolor=blue` 与 `linkcolor=blue`，使 PDF 正文上标引用和参考文献 DOI 统一显示为蓝色超链接；同时在 [fix_docx_spacing.py](/Volumes/2T01/Github/ChineseResearchLaTeX/packages/bensz-paper/scripts/fix_docx_spacing.py) 中为 Vancouver 链路新增 bibliography 书签与正文上标内部跳转重写逻辑，让 DOCX 中的 `[1]`、`[2,3]` 这类上标引用也成为蓝色可点击链接，并继续保持 DOI 外链与其它模板的兼容性
+- 修复 `projects/paper-sci-01` 的 PDF / DOCX 书签层级不完整问题：将 [abstract.tex](/Volumes/2T01/Github/ChineseResearchLaTeX/projects/paper-sci-01/extraTex/front/abstract.tex)、[additional-information.tex](/Volumes/2T01/Github/ChineseResearchLaTeX/projects/paper-sci-01/extraTex/back/additional-information.tex)、[figure-legends.tex](/Volumes/2T01/Github/ChineseResearchLaTeX/projects/paper-sci-01/extraTex/back/figure-legends.tex) 与 [supplementary-materials.tex](/Volumes/2T01/Github/ChineseResearchLaTeX/projects/paper-sci-01/extraTex/back/supplementary-materials.tex) 中原先不会写入 PDF 书签的 `\section*` / `\subsection*` 调整为无编号但可进入导航层级的常规节标题；同时在 [main.tex](/Volumes/2T01/Github/ChineseResearchLaTeX/projects/paper-sci-01/main.tex) 显式设置 `bookmarksdepth=subsection`，使最终 PDF 书签稳定展开到 `subsection`，并与 DOCX 侧的 Heading 1 / Heading 2 导航保持一致
+- 调整 `paper-sci-01` 专属 profile 的参考文献字号：将 [bml-profile-paper-sci-01.def](/Volumes/2T01/Github/ChineseResearchLaTeX/packages/bensz-paper/profiles/bml-profile-paper-sci-01.def) 中 `\bml@bibfontsize` / `\bml@bibledaing` 从原先的紧凑小字号 `7.875pt / 9.5pt` 提升到 `10.5pt / 15pt`，使 `projects/paper-sci-01` 的 PDF 参考文献条目观感更接近用户指定的 `CCS/paper`，并与 DOCX 端已采用的正文级参考文献字号保持一致，同时不影响 `bensz-paper` 其它模板
+- 修复 `paper-sci-01` 参考文献样式与目标投稿风格不一致的问题：`packages/bensz-paper/bml-bibliography.sty` 现新增对 `vancouver` 的条件支持，允许 PDF 端在不影响默认 `gb7714-2015` 项目的前提下切换到 Vancouver/JITC 口径；`projects/paper-sci-01/main.tex` 现显式启用 `bibliography-style = vancouver` 并把正文 `\supercite` 收敛为方括号上标编号；`projects/paper-sci-01/artifacts/manuscript.csl` 则同步改为与 `CCS/paper` 接近的 Vancouver CSL，使 DOCX 端的正文引用与文末条目统一为 `1. Author... Journal. Year;Volume(Issue):Pages. doi: ...` 样式；`packages/bensz-paper/scripts/fix_docx_spacing.py` 与对应测试也同步补上“仅对 `gb7714` 做方括号 bibliography 重写、`vancouver` 保持 JITC 风格”的分支逻辑
+- 修复 `bensz-paper` / `projects/paper-sci-01` 的 PDF / DOCX 关键样式分叉问题：`packages/bensz-paper/scripts/fix_docx_spacing.py` 现会优先读取当前 LaTeX profile 中的章节字号、参考文献字号、参考文献行距与悬挂缩进参数，并在 DOCX 后处理阶段统一校正首页标题、作者区、一级章节和 bibliography 段落；同时将 Word 参考文献条目从 `1. ...` 统一规范为更接近 PDF 的 `[1] ...` 方括号编号 + 悬挂缩进，避免 `paper-sci-01` 在题目、作者、参考文献样式与条目口径上与 PDF 明显脱节；`packages/bensz-paper/tests/test_manuscript_tool.py` 同步新增 front matter 字号归一化与 bibliography 标签/缩进回归测试
+- 修复并优化 `projects/thesis-smu-postdoc/extraTex/front/cover.tex` 顶部档案字段布局：将原先把“右侧标签+字段”压缩进单个窄列的 `tabularx` 改为四列定宽布局，并用 `\dimexpr` 自动计算两侧等长填写线，同时统一标签文字与填写线之间的固定间距，从而让分类号 / UDC 下划线不再过长，`密级` 与 `编号` 字段完整落在版心内，整体版面更均衡，且不影响其它 `bensz-thesis` 模板项目
+- 修复 `projects/paper-coverletter-01` 的 DOCX 正文与 PDF 明显不一致问题：`packages/bensz-paper/scripts/manuscript_tool.py` 现会在 DOCX 片段转换前顺序提取并展开 cover letter 中这类无参数 `\newcommand` 元数据宏，同时移除会让 Pandoc 吞掉日期前导数字的 `\noindent`，从而让 `metadata.tex` 中的日期、收件人、稿件标题、期刊名和署名信息稳定写入 `main.docx`；`packages/bensz-paper/tests/test_manuscript_tool.py` 同步补充跨片段宏展开回归测试
+- 修复 `bensz-paper` 对“无参考文献的轻量文档”支持不足的问题：`packages/bensz-paper/scripts/manuscript_tool.py` 现会根据 `main.tex` 自动识别是否声明参考文献命令；若未声明，则 PDF 构建跳过 `biber`、DOCX 构建跳过 citeproc，从而让 `paper-coverletter-01` 这类投稿信项目无需伪造 `.bib`/`.csl` 也能稳定导出 PDF 与 Word；`packages/bensz-paper/tests/test_manuscript_tool.py` 同步补充无文献 DOCX 与命令检测回归测试
+- 修复 `bensz-paper` / `projects/paper-sci-01` 的 DOCX 首页作者左对齐回归：`packages/bensz-paper/scripts/manuscript_tool.py` 现会把 Pandoc front matter 中 `::: center` 产生的作者区块显式标记为 DOCX 居中块，再由 `packages/bensz-paper/scripts/fix_docx_spacing.py` 在最终 Word 文件里只对该块写入段落级居中并移除中间标记，从而让 `paper-sci-01` 的标题保持居中、作者名单恢复居中、单位/等贡献/通讯作者/running title 继续保持左对齐；`packages/bensz-paper/tests/test_manuscript_tool.py` 同步补充 fenced div 归一化与 DOCX round-trip 对齐回归测试，防止再次退回“作者行左对齐”
+- 修复根级 `scripts/install.py` 在 `delegate` 模式下重复安装检测偏慢的问题：现将远程 `package.json` 轻量版本比对前移到 `_install_delegated_package()` 入口，并提炼为公共 `_check_skip_reinstall()`；当 `bensz-nsfc`、`bensz-paper`、`bensz-thesis`、`bensz-cv` 已安装同版本且未传 `--force` 时，根级安装器会像 `bensz-fonts` 一样在一次 metadata 请求后直接跳过，不再先下载安装器脚本、辅助模块并启动子进程；同时 `scripts/test_install_architecture.py` 新增“快速跳过 / force 重装 / metadata 失败降级”三条回归测试，确保不破坏各包独立安装器与现有 CLI 行为
+- 修复 `bensz-paper` 与 `projects/paper-sci-01` 的 DOCX references 缺陷：`packages/bensz-paper/scripts/fix_docx_spacing.py` 现会把缺失或层级错误的 `References` 标题统一修正为与正文主章节一致的 `Heading 1`，并确保它位于首条参考文献前；`projects/paper-sci-01/artifacts/manuscript.csl` 则移除了会触发 citeproc 左右双栏拆段的 `second-field-align="flush"`，同时把编号后缀改为 `". "`，从而让 Word 中的参考文献保持单段编号排版；`packages/bensz-paper/tests/test_manuscript_tool.py` 同步新增标题层级与单段 bibliography 回归测试，防止再次回退
+- 修复 `bensz-paper` 在 DOCX 导出中把通讯作者星号上标错误写成原文 `^*^` 的问题：`packages/bensz-paper/scripts/manuscript_tool.py` 现保留 Pandoc 生成的 `\*` 转义，不再把 `<sup>\*</sup>` 错误降级成 `^*^`，从而确保 `projects/paper-sci-01` 等论文项目中的 `\textsuperscript{*}Correspondence: ...` 能稳定写入 Word 原生上标；`packages/bensz-paper/tests/test_manuscript_tool.py` 同步新增转义级单测与 DOCX round-trip 回归测试，防止再次回退
+- 修复 `bensz-paper` 在论文尾部 `References` 书签与 PDF/DOCX 顺序对齐上的稳定性问题：`projects/paper-sci-01/main.tex` 现改为显式 `\section{References}` + `\printbibliography[heading=none]`，保证 PDF 书签稳定出现 `References`；`packages/bensz-paper/scripts/fix_docx_spacing.py` 则把尾部章节识别扩展为同时兼容 `Figure legends` / `Figure titles and legends` 以及 `Supplementary materials` / `Supplemental information titles and legends`，避免 DOCX 后处理在不同投稿命名下失去参考文献重排与无缩进控制；同时 `projects/paper-sci-01/extraTex/body/results.tex` 把分段函数示例改为不依赖额外数学环境的兼容写法，消除真实构建链中 `xelatex` 的对齐符误报；`packages/bensz-paper/tests/test_manuscript_tool.py` 补充对应回归测试，`packages/bensz-paper/package.json` 与脚本版本同步升级到本轮修复版本
+- 修复 `bensz-paper` 的 PDF 参考文献 DOI/URL 冗余与 DOCX 默认表格横线缺失问题：`packages/bensz-paper/bml-bibliography.sty` 现默认保留 DOI 并抑制 URL，同时在 item 级清理 `url/urldate` 字段，避免 `paper-sci-01` 等论文项目的 PDF 参考文献重复显示 `https://doi.org/... + DOI: ...`；`packages/bensz-paper/scripts/manuscript_tool.py` 与 `packages/bensz-paper/scripts/fix_docx_spacing.py` 现会为 Pandoc 生成且尚无显式边框的 `Normal Table` 自动补上可见横向边框，同时保持已有自定义表格边框不被覆盖；`projects/paper-sci-01/main.tex` 与 `projects/paper-sci-01/artifacts/manuscript.csl` 也同步收口为 DOI 优先、`doi.org` URL 不重复打印的项目级护栏；`packages/bensz-paper/tests/test_manuscript_tool.py` 进一步补上 bibliography 口径、LaTeX 表格转 Markdown 与表格边框回归测试，`projects/paper-sci-01/` 还清理了示例 `.bib` 中的 DOI 镜像 URL 并补入最小演示表格
+- 修复 `bensz-paper` 的 DOCX 数学公式退化为源码文本问题：`packages/bensz-paper/scripts/manuscript_tool.py` 的 LaTeX→Markdown 阶段现改为输出标准 Pandoc Markdown 数学语法，避免 `gfm` 把公式包进反引号；DOCX 导出则改为先通过 `html5 --mathml` 生成带 MathML 的中间态，再写入 `main.docx`，确保 Word 中生成原生 OMML 公式对象；`packages/bensz-paper/tests/test_manuscript_tool.py` 新增数学语法与 OMML 回归测试，`projects/paper-sci-01/extraTex/body/results.tex` 也同步补入最小行内/陈列数学示例以覆盖真实构建链
+
+### Changed（变更）
+
+- 更新根级 `README.md`、`projects/README.md`、`packages/bensz-thesis/README.md` 与 `packages/bensz-thesis/scripts/validate_package.py`：将 `thesis-just-bachelor`、`thesis-ahnu-master` 纳入 thesis 产品线清单、结构校验和仓库入口说明，并在未创建 release 前明确标记为“开发中（未发布）”
+- 更新 `packages/bensz-thesis/package.json`、`packages/bensz-thesis/profiles/bthesis-profile-thesis-smu-postdoc.def`、`packages/bensz-thesis/styles/bthesis-style-thesis-smu-postdoc.tex`、`projects/thesis-smu-postdoc/extraTex/config-pre.tex`、`packages/bensz-thesis/scripts/validate_package.py`、`scripts/pack_release.py`、`scripts/test_install_architecture.py`、`packages/bensz-thesis/README.md`、`projects/thesis-smu-postdoc/README.md`、根级 `README.md`、`projects/README.md`、`docs/for-developers/README.md`、`docs/for-developers/thesis-template-standard.md` 与 `AGENTS.md`：将 `thesis-smu-postdoc` 从原先借用 `thesis-smu-master` 模板 ID 的状态升级为 `bensz-thesis` 包内的独立 template/profile/style，并把公共包版本从 `p_v20260322` 升级到 `p_v20260414`，同步收敛打包、校验、开发文档与示例文本口径，确保用户单独获取 `thesis-smu-postdoc` 时也具备完整、自洽的模板身份，且安装器不会因版本号未变而误跳过更新
+- 更新根级 `README.md`：在 LaTeX 包远程安装说明中补充直接从 Gitee 镜像拉取 `scripts/install.py` 的 macOS / Linux / Windows 命令示例，并补充 Gitee 克隆仓库入口，避免无法访问 GitHub 的用户在“脚本下载”这一步就被阻塞
+- 更新 `packages/bensz-paper/package.json`、`packages/bensz-paper/scripts/__init__.py` 与 `packages/bensz-paper/scripts/manuscript_tool.py` 中的版本号：由于本轮为论文/投稿信模板补齐可见字数统计命令，公共包版本现从 `p_v20260407.1` 升级为 `p_v20260412`，CLI 脚本版本同步从 `1.3.8` 升级为 `1.3.9`
+- 更新 `packages/bensz-paper/package.json`、`packages/bensz-paper/scripts/__init__.py` 与 `packages/bensz-paper/scripts/manuscript_tool.py` 中的版本号：由于本轮继续收敛 `paper-sci-01` 的 PDF / DOCX 题目、作者与参考文献关键样式，公共包版本现从 `p_v20260412` 升级为 `p_v20260414`，CLI 脚本版本同步从 `1.3.9` 升级为 `1.3.10`
+- 更新 `packages/bensz-paper/package.json`、`packages/bensz-paper/scripts/__init__.py` 与 `packages/bensz-paper/scripts/manuscript_tool.py` 中的版本号：由于本轮继续把 `paper-sci-01` 的参考文献链路切换到 `CCS/paper` 同款 Vancouver/JITC 口径，补齐条件化 `vancouver` 支持，并进一步修复 PDF / DOCX 书签、超链接、profile 字号归一化与 DOCX bibliography 内部跳转，公共包版本现从 `p_v20260414` 升级为 `p_v20260414.3`，CLI 脚本版本同步从 `1.3.10` 升级为 `1.3.13`
+- 更新 `packages/bensz-paper/README.md`、根级 `README.md`、根级 `AGENTS.md`、`projects/paper-sci-01/README.md` 与 `projects/paper-coverletter-01/README.md`：同步补充 `count-words` 的使用入口、统计口径与适用场景，避免新增脚本能力后文档仍停留在“只有 build 命令”
+- 更新 `packages/bensz-paper/package.json` 与 `packages/bensz-paper/scripts/` 中的版本号：由于本轮继续修复 `paper-coverletter-01` 的 DOCX 与 PDF 内容对齐问题，公共包版本现从 `p_v20260407` 升级为 `p_v20260407.1`，CLI 脚本版本同步从 `1.3.7` 升级为 `1.3.8`
+- 更新 `scripts/update_readme_template_list.py`、`projects/README.md`、`packages/bensz-paper/README.md`、根级 `README.md` 与 `AGENTS.md`：`paper-*` 模板列表现改为自动发现，不再把 `paper-sci-01` 写死在模板列表脚本里；文档口径也同步扩展为“SCI 正文 + 投稿信”两类 `bensz-paper` 示例链路
+- 更新 `scripts/sync_vscode_configs.py`、`scripts/update_readme_template_list.py`、`scripts/test_update_readme_template_list.py`、`projects/README.md`、根级 `README.md` 与 `AGENTS.md`：将博士后研究报告示例统一重命名为 `thesis-smu-postdoc`，并把 `projects/thesis-*/template.json` 的 `degree` 枚举扩展为 `postdoc`；README 模板列表现改为以“类型”列展示 `学士 / 硕士 / 博士 / 博士后`
+- 更新 [packages/bensz-paper/package.json](/Volumes/2T01/Github/ChineseResearchLaTeX/packages/bensz-paper/package.json) 与 `packages/bensz-paper/scripts/` 中的版本号：由于本轮继续修复 `bensz-paper` 的 DOCX front matter 作者对齐问题，公共包版本现从 `p_v20260406` 升级为 `p_v20260406.1`，CLI 脚本版本同步从 `1.3.5` 升级为 `1.3.6`
+- 更新 [packages/bensz-paper/package.json](/Volumes/2T01/Github/ChineseResearchLaTeX/packages/bensz-paper/package.json) 与 `packages/bensz-paper/scripts/` 中的版本号：由于本轮继续修复 `bensz-paper` 的 DOCX references 标题层级与 bibliography 单段排版问题，公共包版本现从 `p_v20260405` 升级为 `p_v20260406`，CLI 脚本版本同步从 `1.3.4` 升级为 `1.3.5`
+- 更新 [packages/bensz-paper/package.json](/Volumes/2T01/Github/ChineseResearchLaTeX/packages/bensz-paper/package.json) 中的包版本号：由于本轮已连续修改 `bensz-paper` 的 bibliography、DOCX 表格、DOCX 数学公式链路与 `paper-sci-01` 示例配套能力，公共包版本现从 `p_v20260322` 升级为 `p_v20260402`
+- 扩充 `projects/paper-sci-01/extraTex/body/results.tex` 中的公式审查样例：由最小数学片段升级为一组更适合人工验收的代表性公式，覆盖行内希腊字母、上下标、分式、求和、带约束条件、分段函数与数学环境中的正文说明，便于直接审查当前模板在 PDF / DOCX 中的公式支持效果；`projects/paper-sci-01/README.md` 也同步更新了示例定位说明
+- 修复 `.github/workflows/update-template-list.yml` 经常被无关回归测试拦截的问题：README 模板列表同步工作流现在只运行与模板列表/Issue 链接直接相关的测试，不再因为 `scripts/pack_release.py` 的 release 架构回归而整条自动同步链路失败；同时为 `scripts/pack_release.py` 补回 `add_*_runtime_bundle()` 兼容入口，并同步更新 `scripts/test_install_architecture.py` 对 `thesis-ucas-doctor` 标准包内容的断言
+- 修复 `projects/paper-sci-01/artifacts/manuscript.csl` 的 DOCX 参考文献作者截断口径：将 bibliography 的 `et-al-min / et-al-use-first` 从 `6 / 1` 调整为 `4 / 3`，使 `paper-sci-01` 的 Word 导出与 PDF 侧 `biblatex` 的三作者口径一致；同时为 `packages/bensz-paper/tests/test_manuscript_tool.py` 新增基于 Pandoc citeproc 的回归测试，防止再次回退成“仅首位作者 + et al.”
+- 为 `packages/bensz-paper/tests/test_manuscript_tool.py` 补充 DOCX frontmatter 上标回归测试：新增对 `\textsuperscript{}` 到 Pandoc 原生 `^...^` 语法的断言，以及从 `build_markdown_for_docx()` 到实际 DOCX 产物的 round-trip 验证，确保 `projects/paper-sci-01` 及其派生论文项目中的作者机构编号、等贡献符号和通讯作者星号在 Word 导出中继续保持右上角上标表现，不回退成普通基线文本
+
+### Changed（变更）
+
+- **nsfc-roadmap v1.0.7 → v1.0.8**：Nano Banana PNG-only 模式新增 OpenAI Image API 兼容层，支持在 `.env` 中通过 `IMAGE_PROVIDER=openai` + `OPENAI_IMAGE_MODEL=gpt-image-2` 切换到 OpenAI，同时保留既有 Gemini 工作流与多参考图/4K 对齐能力
+- **nsfc-schematic v1.0.7 → v1.0.8**：Nano Banana PNG-only 模式新增 OpenAI Image API 兼容层，支持在 `.env` 中通过 `IMAGE_PROVIDER=openai` + `OPENAI_IMAGE_MODEL=gpt-image-2` 切换到 OpenAI，同时保留既有 Gemini 工作流与多参考图/4K 对齐能力
+- 同步 `skills` 文档总览：更新根级 `README.md` 与 `skills/README.md` 中的 skills 生态说明、版本快照与使用顺序，补入新增的 `paper-select-journal`，并补齐 `nsfc-qc`、`nsfc-length-aligner`、`nsfc-humanization` 在 `skills/README.md` 中缺失的条目，减少总览与各 skill 自身 `config.yaml` / `README.md` 之间的漂移
+- 精简 `skills/paper-write-sci/` 的主技能文档：将章节职责、`.tex` 可读性、数字审查、全文缩写守卫和逻辑审查等长规则块下沉到新增的 `skills/paper-write-sci/references/execution-guards.md`，`SKILL.md` 改为保留触发语义、主流程骨架、边界约束和按需读取入口，降低上下文开销
+- 强化 `skills/paper-write-sci/` 的缩写一致性规则：新增全文级 `abbreviation_check` 配置，要求先建立 `analysis/abbreviation-inventory.md`，并按整篇论文所有正文 `.tex` 联合判断首次定义与统一写法；相关 `SKILL.md`、Skill README、风格参考与说明文档已同步，避免把缩写检查误降级为“当前 tex 文件内自洽”
+- 压缩 `skills/systematic-literature-review/`、`skills/nsfc-roadmap/`、`skills/nsfc-schematic/`、`skills/nsfc-reviewers/`、`skills/complete-example/`、`skills/nsfc-qc/`、`skills/nsfc-justification-writer/`、`skills/check-review-alignment/`、`skills/nsfc-humanization/`、`skills/make-latex-model/`、`skills/get-review-theme/` 的 `SKILL.md`：保留触发语义、输入输出契约、关键路径与脚本入口，删除重复角色铺垫、长示例与低价值展开，便于降低 `./skills` 的工作类 Markdown 上下文开销
+- 继续压缩 `skills/transfer-old-latex-to-new/`、`skills/systematic-literature-review/`、`skills/get-review-theme/`、`skills/nsfc-justification-writer/` 下体积最大的工作型 `references/*.md`：将 legacy 评审记录、长 Prompt、冗长模板与重复示例收敛为最小可执行规则、决策表和输出契约，进一步降低 `./skills` 的工作类参考文档上下文开销
+- 继续压缩第二梯队工作型 `references/*.md`：将 `skills/complete-example/`、`skills/transfer-old-latex-to-new/`、`skills/nsfc-justification-writer/`、`skills/nsfc-humanization/`、`skills/nsfc-roadmap/`、`skills/nsfc-schematic/`、`skills/systematic-literature-review/`、`skills/nsfc-reviewers/`、`skills/nsfc-research-content-writer/` 中的中等体积参考文档收敛为短规则、短模板和速记说明，减少历史总结、长示例与重复背景说明
+- 更新 `packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex`：将 NJU 硕士论文封面“论文题目”区恢复为稳定的 `tabular + m` 对齐骨架，并为右侧双行题目块新增独立视觉下移量，使其更接近官方示例的标签/题目相对位置，同时避免影响其它 thesis 模板
+- 优化 `skills/make-latex-model/` 到 `v3.1.0`：新增 `scripts/plan_package_regression.py` 作为公共包修改前的确定性回归计划入口，并把“先生成受影响模板回归矩阵、优先收敛到模板专属 style/profile、再回归该公共包覆盖的全部现有模板”的包层安全门禁同步到 Skill 文档、配置与根级索引
+- 继续优化 `skills/make-latex-model/` 到 `v3.1.1`：删除“当前 skill 是旧版 NSFC 脚本改良/继承”的叙事，新增 `references/SCRIPT_SCOPE.md` 用当前职责矩阵重写脚本边界，并将 `validate.sh`、`optimize.py`、`templates/nsfc/*.yaml` 等入口统一定义为 NSFC 专项工具
+- 继续优化 `skills/make-latex-model/` 到 `v3.1.2`：移除 `templates/nsfc/*.yaml` 这层按年度固化 NSFC 标题文字的设计，新增 `scripts/core/template_catalog.py` 作为稳定结构默认值来源，并同步重构 `config_loader.py`、`extract_headings.py`、`setup_wizard.py` 与根级索引，避免 skill 再依赖易过期文案
+- 同步 `skills/make-latex-model/` 与 `skills/transfer-old-latex-to-new/` 的对外名称、README/索引链接与示例命令，统一改为当前连字符命名，并保留旧别名的兼容说明。
+- 按两个 skill 当前 `SKILL.md` frontmatter 回写版本号：`make-latex-model` 统一为 `v3.0.1`，`transfer-old-latex-to-new` 统一为 `v2.0.0`；相关 `config.yaml`、Skill README、Skill CHANGELOG 与根级 README 已同步。
+- 优化 `skills/make-latex-model/`：将产品线判定与 legacy 脚本边界下沉到 `references/`，把 `check_state.py` 改为按 `config.yaml` 的 `product_line_rules` 判断 `NSFC / paper / thesis / cv` 初始化状态与官方构建命令，并将该 skill 版本提升到 `v3.0.1`
+- 优化 `skills/transfer-old-latex-to-new/` 的 legacy CLI 与质量校验链路：修复 `scripts/validate_config.py` 默认配置路径错误，为 `scripts/run.py` 的 `analyze/apply/compile/restore` 接入 `--profile`，新增 `skill_info.version` / `metadata.skill_version` 一致性校验，并清除 `tests/test_smoke.py` 的 pytest warning；同时补充该 skill 本轮 auto-test 的 A/B 轮计划与测试记录。
+
+### Added（新增）
+
+- 新增 [projects/thesis-ucas-doctor/docs/official/README.md](projects/thesis-ucas-doctor/docs/official/README.md)、[projects/thesis-ucas-doctor/docs/official/SHA256SUMS.txt](projects/thesis-ucas-doctor/docs/official/SHA256SUMS.txt) 与 `projects/thesis-ucas-doctor/docs/official/.gitignore`：将 UCAS 资环官方资料的来源页面、本地文件名约定与完整性校验清单收口到 `docs/official/`，仓库不再直接分发许可待确认的官方 `.doc/.docx` 原件
+- 新增 [projects/thesis-ucas-doctor/docs/ucas_resource_env_alignment_matrix.md](projects/thesis-ucas-doctor/docs/ucas_resource_env_alignment_matrix.md)：固化“资环具体要（.doc）↔ 资环 Word 模板（.docx）↔ UCAS LaTeX 模板”的项目级验收矩阵
+- 新增 [projects/thesis-ucas-doctor/spine.tex](projects/thesis-ucas-doctor/spine.tex)：提供 UCAS 资环书脊独立构建入口（不并入 `main.pdf`）
+- 新增 [projects/thesis-ucas-doctor/scripts/export_docx.py](projects/thesis-ucas-doctor/scripts/export_docx.py)：提供 UCAS 项目级 LaTeX→DOCX 对齐导出与质量报告入口
+- 新增 `projects/thesis-nju-master/`、`projects/thesis-nju-master/AGENTS.md`、`projects/thesis-nju-master/CLAUDE.md`、`projects/thesis-nju-master/template.json`、`projects/thesis-nju-master/assets/source/nju_mem_2023_2.pdf`、`packages/bensz-thesis/profiles/bthesis-profile-thesis-nju-master.def` 与 `packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex`：基于 issue #37 的南京大学工程管理学院公开页面与 Word 附件新增 `thesis-nju-master` 模板链路，并采用“公开基线验收入口 + 干净可编辑脚手架”双入口结构，显式区分教学标签与真实正文层
+- 新增 `projects/thesis-ucas-doctor/`、`projects/thesis-ucas-doctor/AGENTS.md`、`projects/thesis-ucas-doctor/CLAUDE.md`、`projects/thesis-ucas-doctor/template.json`、`tests/baselines/thesis-ucas-doctor/source-baseline.pdf` 与 `packages/bensz-thesis/profiles/bthesis-profile-thesis-ucas-doctor.def`：将 PR #36 引入的 UCAS 模板重构为当前仓库标准的毕业论文示例项目，保留公开正文与资源，并补齐项目级指令、元数据与像素级验收基线
+- 新增 `docs/for-developers/README.md`、`docs/for-developers/nsfc-template-standard.md`、`docs/for-developers/paper-template-standard.md`、`docs/for-developers/thesis-template-standard.md` 与 `docs/for-developers/cv-template-standard.md`：基于当前 `projects/` 与 `packages/` 的真实源码、构建入口和分层模型，系统整理四条模板产品线的“标准模板长什么样”，帮助贡献者和 AI Agent 按当前仓库标准协作新增或维护模板
+- 新增 [docs/developer-contribution-guide.md](docs/developer-contribution-guide.md)：明确仓库的开发者协作与 PR 规范，要求贡献者默认遵循“先提 Issue、获维护者确认后再提 PR”的流程，并结合当前 `packages/` 分层补充受欢迎 PR 类型、提交流程与验证要求
+- 新增 [projects/thesis-smu-master/template.json](projects/thesis-smu-master/template.json) 与 [projects/thesis-sysu-doctor/template.json](projects/thesis-sysu-doctor/template.json)：将毕业论文项目的 `project_name`、`school`、`degree` 下沉到项目根目录元数据文件，作为 README 模板列表等脚本识别院校信息的来源
+- 新增 [docs/bensz-fonts-support-model.md](docs/bensz-fonts-support-model.md)：系统说明 `bensz-fonts` 如何通过统一字体 API、依赖安装、`TEXINPUTS` 注入与 Overleaf/runtime 打包支撑 `bensz-nsfc`、`bensz-paper`、`bensz-thesis`、`bensz-cv`
+- 新增 `scripts/sync_gitee_mirror.py` 与 `.github/workflows/sync-gitee-mirror.yml`：为 GitHub→Gitee 镜像同步提供官方脚本与工作流入口，并支持 `workflow_dispatch` 手动重试
+- 新增 [docs/gitee-sync-guide.md](docs/gitee-sync-guide.md)：整理 GitHub→Gitee 自动同步的一次性配置、首次验证、日常使用与常见故障排查步骤
+- 新增 `.github/ISSUE_TEMPLATE/` 下的 `paper-template-customization.yml`、`thesis-template-customization.yml`、`docx-template-support.yml`、`template-bug-report.yml` 与 `config.yml`：为 SCI 模板定制、毕业论文模板定制、DOCX 模板问题/需求和通用模板问题提供结构化 Issue 表单，重点把 `reference.docx` / 官方 Word 模板 / baseline 资料等关键上下文前置为必填信息
+- 新增共享字体基础包 `packages/bensz-fonts/`：集中托管原先分散在 `bensz-nsfc` 与 `bensz-cv` 中的字体文件，提供统一字体路径与字体配置 API，并补充本地安装脚本与 TDS 打包脚本
+- 新增学术简历公共包 `packages/bensz-cv/`：引入 `bensz-cv.cls` / `resume.cls` 双入口、字体与图标运行时资源、统一构建/清理/像素级比较脚本 `cv_project_tool.py`、本地安装脚本与 TDS 打包脚本
+- 新增中英文简历示例项目 `projects/cv-01/`：基于只读源简历样式完成中英文 PDF 像素级验收后，再替换为公开可分享的去隐私演示内容；当前示例人物统一为“佐佐木希 / Nozomi Sasaki”，并配套项目级 wrapper、VS Code 工作区与演示参考文献
+- 新增 `scripts/vscode/` 与 `scripts/sync_vscode_configs.py`：统一托管 `projects/` 下各示例项目的 VS Code 工作区与 LaTeX Workshop 固定配置，并提供一键同步 / 漂移检查入口
+- 新增 `projects/README.md`：为 `projects/` 目录补充入口级导览，按“国自然 / SCI 论文 / 毕业论文”三大版块说明不同用户群体应进入的示例项目与具体用途
+- 新增毕业论文公共包 `packages/bensz-thesis/`：引入 `bensz-thesis.sty` 公共入口、`thesis-smu-master` / `thesis-sysu-doctor` profile、统一 PDF 构建脚本 `thesis_project_tool.py`、像素级 PDF 比对能力、包级校验脚本与安装/TDS 打包脚本
+- 新增毕业论文示例项目 `projects/thesis-smu-master/`、`projects/thesis-sysu-doctor/`：分别基于南方医科大学硕士论文样式与中山大学博士论文样式重构，先通过与私有源 PDF 的像素级验收，再替换为公开可分享的演示正文、图表与参考文献；两套示例作者统一为“冯宝宝”
+- 新增 `projects/thesis-smu-master/AGENTS.md`、`projects/thesis-smu-master/CLAUDE.md`、`projects/thesis-smu-doctor/AGENTS.md`、`projects/thesis-sysu-doctor/CLAUDE.md` 与项目级 `scripts/thesis_build.py`：支持在完整仓库和单项目场景下调用 `bensz-thesis` 官方构建链路
+- 新增 `scripts/install.py`：统一 LaTeX 包安装器，支持远程执行（`curl | python3 -`）与本地执行，可通过 `--packages bensz-nsfc,bensz-paper` 安装 `packages/` 下的一个或多个公共包；`bensz-nsfc` 委托给包级安装器，`bensz-paper` 直接复制 `.sty` 文件到 `TEXMFHOME`
+- 新增 `scripts/update_readme_template_list.py` 与 `.github/workflows/update-template-list.yml`：自动读取 GitHub 最新正式 Release 资产，每小时定时检查并支持手动触发，将根级 `README.md` 中 `## 📋 模板列表` 重构为按 `NSFC / SCI / 毕业论文` 分组展示的实时模板清单；Overleaf 列统一改为指向 Overleaf 专用 zip 包地址，而不再维护单独的在线演示链接
+- 新增 `docs/bensz-nsfc-design-principles.md`：系统解释 `bensz-nsfc` 的设计目标、分层模型、加载链路、覆盖顺序、资源策略、版本锁定与维护边界，帮助用户和维护者理解“公共包 + profile + 薄项目 + 官方脚本入口”的设计取舍
+
+### Changed（变更）
+
+- **make-latex-model v2.9.0 → v3.0.0**：按当前 ChineseResearchLaTeX 的真实架构重定位为“模板落地与高保真对齐”skill，不再把所有任务简化成 NSFC 的 `@config.tex + main.tex` 微调
+  - `skills/make-latex-model/{SKILL.md,config.yaml,README.md}`：改为面向 `NSFC / paper / thesis / cv` 四条产品线，强调先判断 `projects/*` 与 `packages/bensz-*` 的正确修改层级，再走官方构建入口验收
+  - `skills/make-latex-model/docs/{WORKFLOW.md,FAQ.md}`：同步切换到当前仓库的 `packages/ + projects/ + 官方构建脚本` 工作流
+  - `skills/make-latex-model/scripts/README.md`：将旧版 NSFC 风格脚本明确降级为 legacy 辅助工具，不再充当唯一主流程
+  - 新增 `skills/make-latex-model/CHANGELOG.md`：为该 skill 建立独立版本记录
+- **transfer-old-latex-to-new v1.4.1 → v2.0.0**：按当前 `projects/` 与 `packages/` 的真实分层重定位为“模板迁移与重构编排”skill，不再把任务限定为“旧 NSFC 目录迁移到新目录”
+  - `skills/transfer-old-latex-to-new/{SKILL.md,README.md}`：改为支持 `NSFC / paper / thesis / cv` 四条产品线，强调任意输入由 AI 自主解析、任意输出由 AI 自主决定
+  - `skills/transfer-old-latex-to-new/config.yaml`：版本跃迁到 `2.0.0`，并明确该配置主要服务 legacy CLI，而不是限制主工作流的输入输出边界
+  - `skills/transfer-old-latex-to-new/scripts/README.md`：将 `run.py`、`migrate.sh` 等脚本降级为可选 legacy CLI 后备说明
+  - 新增 `skills/transfer-old-latex-to-new/CHANGELOG.md`：为该 skill 建立独立版本记录
+- 更新 `packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex`：进一步收紧 NJU 硕士论文封面中“论文题目 / 作者姓名 / 专业名称 / 研究方向 / 指导教师”字段的专用行距、字段盒高度、题目双行间距与字段区上下留白，并下移日期位置，使左侧标签和右侧填写内容的纵向节奏更贴近公开示例
+- 更新 `packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex`：修正 NJU 硕士论文封面字段的排版顺序，将值文字恢复到横线上方、横线改为下划线语义，避免首页出现“上面一条线、下面一行字”的错误布局
+- 更新 `packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex`：收紧 NJU 硕士论文封面字段的标签盒宽度与标签到填写线的间距，统一“论文题目 / 作者姓名 / 专业名称 / 研究方向 / 指导教师”左侧标签的字距与横线起点，使信息区更贴近公开基线封面
+- 更新 `packages/bensz-thesis/styles/bthesis-style-thesis-nju-master.tex`：将 NJU 硕士论文封面题目区改为按整块高度垂直对齐，并移除双行题目块末尾的额外留白，使“论文题目”标签与双行题目填写区的相对位置更贴近公开样张
+- 更新 `projects/thesis-nju-master/main.tex`、`projects/thesis-nju-master/editable.tex`、`projects/thesis-nju-master/baseline.tex`、`projects/thesis-nju-master/README.md`、`projects/thesis-nju-master/AGENTS.md`、`projects/README.md`、`README.md` 与 `docs/for-developers/thesis-template-standard.md`：将 `thesis-nju-master` 调整为“`main.tex` 默认可编辑 + `baseline.tex` 公开基线直通 + `editable.tex` 兼容旧命令”的入口结构，修复用户按惯例打开 `main.tex` 时看到空壳文件的问题
+- 更新 `packages/bensz-thesis/scripts/thesis_project_tool.py`、`packages/bensz-thesis/scripts/validate_package.py`、`projects/README.md`、`docs/for-developers/thesis-template-standard.md`、`AGENTS.md` 与根级 `README.md`：毕业论文产品线现正式纳入 `thesis-nju-master`，并为 thesis 构建链路新增“`% BENSZ_PASSTHROUGH_PDF:` 公开源 PDF 直通”能力，用于稳定维护只读基线验收入口，同时继续保留 `editable.tex` 这类真实可编辑模板源
+- 更新 `scripts/pack_release.py`、`packages/bensz-nsfc/bensz-nsfc-core.sty`、`packages/bensz-nsfc/templates/`、`packages/bensz-nsfc/README.md`、根级 `README.md` 与 `AGENTS.md`：Overleaf 专用 zip 现改为只保留最小可编译项目文件，并将公共包运行时统一整理到根目录下的 `styles/`；其中 NSFC / Paper / Thesis / CV 的运行时都会按项目裁剪，移除 VS Code 配置、构建脚本、示例 PDF/DOCX、Word 模板以及其它非当前模板必需文件，避免不同模板实现互相混入
+- 更新 `packages/bensz-nsfc/` 目录语义：将原 `impl/` 稳定实现目录正式重命名为 `templates/`，并同步修改核心加载路径与文档口径，使 NSFC 模板实现层的职责更直观
+- 更新 [packages/bensz-thesis/styles/ucas/ucasDissertation.cls](packages/bensz-thesis/styles/ucas/ucasDissertation.cls)：新增可复用 `\makeSpine`，并以 `resourceenv` 项目级开关收敛资环模板的三级标题约束，避免把该口径误施加到其它模板
+- 更新 [projects/thesis-ucas-doctor/scripts/export_docx.py](projects/thesis-ucas-doctor/scripts/export_docx.py)：默认优先从 `docs/official/` 发现参考 Word 模板，并修复真实示例中的 `equation + aligned` 数学块与 `\graphicspath{{assets/}}` 图片路径解析问题（含子目录场景）；导出中间稿补齐“目录/图表目录/参考文献”结构标题，显式校验 `--reference-doc` 路径存在性，质量报告中“章节存在：图表目录”通过时明确输出 `PASS/已检测`
+- 更新 [projects/thesis-ucas-doctor/README.md](projects/thesis-ucas-doctor/README.md)：补充“主文档/书脊双构建命令”、DOCX 验收命令与 `docs/official/` 的“用户自行下载 + SHA256 校验”口径，并把像素级比对命令改为显式传入用户自备基线
+- 更新 `packages/bensz-thesis/styles/ucas/ucasDissertation.cls`、`packages/bensz-thesis/styles/bthesis-style-thesis-ucas-doctor.tex`、`packages/bensz-thesis/styles/ucas/ucasInfo.sty`、`packages/bensz-thesis/styles/ucas/ucasSilence.sty`、`packages/bensz-thesis/scripts/validate_package.py` 与 `projects/thesis-ucas-doctor/main.tex`：将 UCAS 模板的稳定实现正式收敛到 `bensz-thesis` 包级目录，由项目层保留 `main.tex + extraTex + wrapper + template.json` 薄封装，同时继续通过包内专属 class 保持与源 PDF 的像素级一致，且不影响现有 `thesis-smu-master` / `thesis-sysu-doctor`
+- 更新 `scripts/pack_release.py`、`scripts/test_install_architecture.py`、`README.md`、`projects/README.md`、`docs/for-developers/README.md`、`docs/for-developers/thesis-template-standard.md`、`packages/bensz-thesis/README.md` 与 `AGENTS.md`：将毕业论文产品线口径同步到 `thesis-ucas-doctor`，移除对 PR 36 旧版 `Thesis.tex + .latexmkrc + 项目私有样式` 结构的说明，并让 Overleaf 打包正确识别 UCAS 模板所需的 `TimesNewRoman.ttf`
+
+### Removed（删除）
+
+- 删除 `tests/baselines/` 下的已跟踪基线文件：该目录中的 baseline 产物不再纳入 Git 跟踪，避免在默认已忽略的 `tests/` 目录下继续保留历史二进制基线文件
+- 删除根级 `config.yaml`：确认当前仓库级脚本、测试与工作流均未再读取该文件，且其内容已长期落后于真实目录结构与版本现状；同时更新 [AGENTS.md](AGENTS.md) 中对该文件的根目录列举与“真实状态优先”表述，避免继续把过期元信息误当作仓库级配置源
+- 更新 [packages/bensz-paper/README.md](packages/bensz-paper/README.md)、[packages/bensz-nsfc/README.md](packages/bensz-nsfc/README.md)、[packages/bensz-cv/README.md](packages/bensz-cv/README.md)、[packages/bensz-fonts/README.md](packages/bensz-fonts/README.md) 与 [packages/bensz-thesis/README.md](packages/bensz-thesis/README.md)：统一将包级 README 收敛为“公共包职责 + 目录结构 + 通用官方入口”，移除对具体 `projects/*` 示例项目的绑定描述，避免新增项目时反向牵动公共包文档
+- 更新 `scripts/install.py`、新增 `scripts/package_version_manager.py`，并重写 `packages/bensz-paper/scripts/package/install.py`、`packages/bensz-thesis/scripts/package/install.py`、`packages/bensz-cv/scripts/package/install.py` 以及相关 README / `AGENTS.md`：`bensz-paper`、`bensz-thesis`、`bensz-cv` 现改为与 `bensz-nsfc` 同类的“包级版本管理 + 激活”安装模型，支持缓存多版本、`install/use/rollback/check/uninstall` 等命令；根级统一安装器也同步改为委托这些包的专用安装器，同时保持默认 `scripts/install.py install` 入口不变；所有包级缓存/状态目录统一收口到 `~/.ChineseResearchLaTeX/<package>/`
+- 更新根级 `pytest.ini` 与 `scripts/test_install_architecture.py`：补充“配置必须留在仓库根目录、不能简单挪到 `tests/` 子目录”的约束说明，并继续将仓库根目录执行的 pytest 缓存重定向到 `tests/.pytest_cache`
+- 更新 `scripts/install.py`、`packages/bensz-nsfc/scripts/install.py` 与新增 `packages/bensz-paper/package.json`、`packages/bensz-thesis/package.json`、`packages/bensz-cv/package.json`：统一安装器现改为未显式传 `--packages` 时默认安装全部公共包，并在安装前对比已安装包 `version`；若版本未变化则跳过重复安装，支持通过 `--force` 强制覆盖重装
+- 更新 `scripts/sync_gitee_mirror.py`、`.github/workflows/sync-gitee-mirror.yml`、`docs/gitee-sync-guide.md`、根级 `README.md` 与 `AGENTS.md`：Gitee 镜像同步现改为默认分支 `push` 触发 + 每小时巡检的 commit 驱动模式，不再默认推送“最新 tag”；同步脚本会在推送后校验 Gitee 远端分支是否与 GitHub 当前 commit 完全一致，确保失败时明确报错而不是静默通过
+- 更新 `packages/bensz-paper/scripts/manuscript_tool.py`、`packages/bensz-paper/scripts/fix_docx_spacing.py`、`packages/bensz-paper/scripts/inspect_docx_styles.py`、`packages/bensz-paper/tests/test_manuscript_tool.py`、`projects/paper-sci-01/extraTex/`、`projects/paper-sci-01/README.md`、`projects/paper-sci-01/AGENTS.md`、`packages/bensz-paper/README.md`、`projects/README.md`、根级 `README.md` 与 `AGENTS.md`：`bensz-paper` 现改为以 `extraTex/**/*.tex` 作为 PDF / DOCX 的唯一正文真相来源，DOCX 导出时只在运行期临时生成 Markdown；示例项目已移除持久化正文 Markdown 与 `references/meta.yaml`
+- 更新 `scripts/update_readme_template_list.py`、`scripts/test_update_readme_template_list.py`、`scripts/test_issue_templates.py`、根级 `README.md` 与 `.github/ISSUE_TEMPLATE/paper-template-customization.yml`：移除 README 自动生成的 SCI 区块中“DOCX 模板问题/需求”引导，并将 DOCX / `reference.docx` / PDF 对齐类诉求统一并回 SCI 模板定制表单，避免维护独立入口
+- 更新根级 `README.md`：在“社区支持”区域新增开发者贡献规范入口，明确代码/模板/脚本协作默认走“Issue 先行、确认后再提 PR”的流程
+- 更新 `scripts/update_readme_template_list.py`、`scripts/test_update_readme_template_list.py`、根级 `README.md` 与 `.github/workflows/update-template-list.yml`：README 自动生成的 SCI / 毕业论文模板区块现会直接提示“如有个性化需求可提 Issue”，并分别引导到 SCI 模板定制、毕业论文模板定制与 DOCX 模板问题/需求表单；模板列表工作流也新增对应回归校验
+- 更新 `scripts/update_readme_template_list.py`、`scripts/test_update_readme_template_list.py` 与 `AGENTS.md`：毕业论文元数据中的 `degree` 现显式预留 `bachelor`，README 模板列表会自动渲染为“学士”；项目规则也同步明确 thesis 元数据统一使用 `bachelor` / `master` / `doctor` 枚举
+- 更新 `scripts/update_readme_template_list.py`、`scripts/test_update_readme_template_list.py` 与根级 `README.md`：README 模板列表中的毕业论文下载表在“院校”后新增“学位”列，并将 `projects/thesis-*/template.json` 中的 `master` / `doctor` 自动展示为“硕士” / “博士”，使模板差异更直观
+- 更新 `scripts/update_readme_template_list.py`、`scripts/test_update_readme_template_list.py` 与 `AGENTS.md`：README 模板列表中的毕业论文院校信息不再由脚本硬编码维护，改为强制读取各 `projects/thesis-*/template.json`；新增 thesis 项目时若缺少元数据文件或必填字段，脚本会直接报错，避免错误识别院校
+- 更新 `scripts/update_readme_template_list.py`、`scripts/test_update_readme_template_list.py` 与根级 `README.md`：README 自动生成的毕业论文模板下载表不再显示“状态”列，改为展示“院校”列；当前已为 `thesis-smu-master` / `thesis-sysu-doctor` 分别映射“南方医科大学”与“中山大学”，使 Release zip 列表对用户更直观
+- 更新 `packages/bensz-nsfc/scripts/nsfc_project_tool.py`、`packages/bensz-paper/scripts/manuscript_tool.py`、`packages/bensz-paper/scripts/fix_docx_spacing.py`、`packages/bensz-paper/scripts/package/install.py`、`packages/bensz-paper/scripts/package/build_tds_zip.py`、`packages/bensz-thesis/scripts/thesis_project_tool.py`、`packages/bensz-cv/scripts/cv_project_tool.py`、`scripts/install.py` 与 `scripts/pack_release.py`：在 Windows CLI 入口启动时主动将 `stdout/stderr` 切换为 UTF-8，避免默认 GBK 控制台在输出 `✓ / ✗ / ⚠️ / ❌` 等 Unicode 状态符号时触发 `UnicodeEncodeError`
+- 更新 `scripts/vscode/` 模板、`scripts/sync_vscode_configs.py`、根级 `README.md`、`projects/README.md` 与 `AGENTS.md`：VS Code / LaTeX Workshop 固定配置不再依赖 `bash -lc "python3 ..."`，改为通过 `texlua` 调用项目级 `scripts/latex_workshop_build.lua` 自动寻找可用 Python 解释器并转调 `scripts/*_build.py`；同步后的 `projects/*/.vscode/settings.json` 现默认兼容 macOS / Linux / Windows 三平台
+- 更新根级 `README.md` 与 `AGENTS.md`：将 Windows PowerShell 远程安装示例从固定 `py -3` 调整为更稳妥的 `python -`，并补充“`No installed python found!` 多为 Python Launcher 缺失或 Python 未正确安装”的排障说明
+- 更新根级 `README.md`：将首页定位从“三条写作主线”扩展为真正覆盖“NSFC / SCI / 毕业论文 / 学术简历”四条产品线，并在保持首页简洁的前提下增强 `bensz-cv` / `cv-01` 的可见性；更具体的包级与模板级使用说明继续下沉到各自 README 维护
+- 更新 `scripts/install.py`、`packages/bensz-nsfc/scripts/install.py` 与各包本地安装脚本：安装器现会在 macOS / Linux / Windows 下自动探测常见 TeX Live / MiKTeX 可执行目录，`TEXMFHOME` 解析新增环境变量与 `--texmfhome` 覆盖支持，TeX 文件数据库刷新补充 `texhash` 与 Windows `initexmf --update-fndb` 兜底
+- 更新根级 `README.md` 与 `AGENTS.md`：补充 Windows PowerShell 远程安装命令、`--texmfhome` 用法，并明确统一安装器现在支持三平台自动探测 TeX 命令
+- 更新根级 `README.md` 与 `AGENTS.md`：补充 Gitee 镜像自动同步工作流、所需 GitHub Secrets/Variables 与维护边界说明
+- 更新根级 `README.md`：在 Gitee 镜像自动同步说明中补充 `docs/gitee-sync-guide.md` 文档入口，方便维护者按步骤完成配置
+- 更新 [docs/gitee-sync-guide.md](docs/gitee-sync-guide.md) 与根级 `README.md`：明确 `GITEE_SSH_PRIVATE_KEY` 必须使用不带 passphrase 的 SSH 私钥，并补充 `ssh-add -` 提示输入口令时的排障说明
+- 更新 `.github/workflows/sync-gitee-mirror.yml`、[docs/gitee-sync-guide.md](docs/gitee-sync-guide.md) 与测试文件位置：将 Gitee 镜像同步的轻量回归测试从 `tests/test_sync_gitee_mirror.py` 调整为 `scripts/test_sync_gitee_mirror.py`，避免受根级 `tests/` 忽略策略影响，并保持该工作流自带校验脚本始终可随仓库一起发布
+- 更新 `scripts/install.py`、`packages/bensz-nsfc/scripts/install.py` 与各包本地安装/TDS 打包脚本：统一安装器新增 `bensz-fonts`、依赖自动补齐与 `--mirror gitee` 镜像下载能力；`bensz-nsfc` / `bensz-paper` / `bensz-thesis` / `bensz-cv` 的本地安装与 TDS 打包链路现会同步纳入 `bensz-fonts`
+- 更新 `scripts/pack_release.py`、`packages/bensz-nsfc/scripts/nsfc_project_tool.py`、`packages/bensz-paper/scripts/manuscript_tool.py`、`packages/bensz-thesis/scripts/thesis_project_tool.py` 与 `packages/bensz-cv/scripts/cv_project_tool.py`：Overleaf runtime、仓库内构建与缓存运行时统一接入 `bensz-fonts`，并将 Overleaf 压缩包的字体注入策略改为“按项目最小必需字体集”而非全量打包，确保单项目 zip、本地开发和 TEXMF 安装三种场景下的字体解析一致
+- 更新根级 `README.md`、`packages/bensz-nsfc/README.md`、`packages/bensz-cv/README.md`、`docs/nsfc-usage-guide.md` 与 `docs/bensz-nsfc-design-principles.md`：将字体资源架构从“NSFC 资产目录内托管”调整为“`bensz-fonts` 基础包 + 各模板共享引用”，并补充 `--mirror gitee` 安装说明
+- 更新 `.github/workflows/update-template-list.yml`：README 模板列表同步流程现支持 `release.edited` 与手动触发后的字体分离架构回归测试，并在执行后强制校验 README 中存在 `cv-01` 下载链接
+- 更新根级 `README.md`、`projects/README.md` 与 `AGENTS.md`：将产品线从“NSFC + SCI + 毕业论文”扩展为覆盖学术简历模板，补充 `bensz-cv` / `cv-01` 的目录结构、安装命令、官方构建入口与去隐私维护边界
+- 更新根级 `scripts/install.py`、`scripts/pack_release.py`、`scripts/update_readme_template_list.py` 与 `.github/workflows/update-template-list.yml`：统一安装器新增 `bensz-cv` 支持，Release 打包新增 `cv-*` 项目与 `bensz-cv` 运行时注入逻辑，README 模板列表生成脚本新增简历模板分类，模板列表同步工作流新增 `release.published` 触发
+- 统一 `projects/` 下各示例项目的 VS Code 工作区口径：保留每个项目各自的 `*.code-workspace` 入口，并为 `projects/paper-sci-01/`、`projects/thesis-smu-master/`、`projects/thesis-sysu-doctor/` 新增 `.vscode/settings.json`，参照 NSFC 项目的 LaTeX Workshop 配置接入项目级 Python wrapper、固定 `.latex-cache/` 中间目录并隐藏根目录杂项产物；同时修正 3 个 NSFC 项目的 `.vscode/settings.json`，将已迁移的构建入口从失效的 `code/nsfc_build.py` 同步到真实存在的 `scripts/nsfc_build.py`
+- 更新 `AGENTS.md`、`README.md` 与 `projects/README.md`：将“每个示例项目都必须提供与目录同名的 `*.code-workspace` 与 `.vscode/settings.json`，并优先通过工作区文件打开 VS Code”明确固化为项目规则，同时补充 `python scripts/sync_vscode_configs.py` 作为官方同步入口
+- 优化根级 `README.md` 首页主标语的 HTML 展示样式：改为 GitHub README 稳定支持的 `h3 + strong` 简化标签组合，并保留人机协作氛围的表情元素，增强首屏强调效果同时避免 `style` 属性失效
+- 更新 `AGENTS.md` 与 `CLAUDE.md` 的 Release 发布约束：将 `python scripts/pack_release.py --tag <tag> --upload` 明确强化为 GitHub Release 场景下默认不可省略的必做步骤；未执行成功前不得表述为“发布完成”，且最终答复必须显式交代 Assets 上传状态
+- 更新根级 `README.md` 的项目愿景与概览口径：首页标语从单一“国自然标书”扩展为覆盖中国科研 LaTeX 文档整体场景，并将项目定位同步修正为支持国自然标书、SCI 论文、毕业论文等多条写作主线
+- 优化 `scripts/update_readme_template_list.py` 的 thesis 模板识别逻辑：README 模板列表改为优先从 `projects/thesis-*` 自动发现毕业论文示例项目，并按真实 Release 资产名称生成标准包 / Overleaf 包下载链接；不再把已落地的 thesis 产品线误显示为包级预留位点；同时调整根级 `.gitignore`，仅放行该链路的回归测试文件以避免 `tests/` 目录整体忽略导致测试丢失
+- 更新根级 `README.md`：毕业论文部分从“预留位点”升级为可直接构建的 `bensz-thesis` 产品线，新增 `thesis-smu-master` / `thesis-sysu-doctor` 项目入口，并补充 thesis 构建命令与安装说明
+- 更新 `AGENTS.md`：项目口径从“`bensz-thesis` 预留位点”升级为“已落地的毕业论文公共包 + 双示例项目”，同步补充 thesis 分层模型、脚本入口与像素级验收工作流
+- 更新根级 `scripts/install.py`：统一安装器新增 `bensz-thesis` 支持，并将 `bensz-paper` / `bensz-thesis` 的安装模式统一为复制完整包目录，保证已安装场景下项目级 wrapper 可以定位 `scripts/`、`profiles/`、`styles/`
+- 更新根级 `scripts/pack_release.py`：Release 打包新增 thesis 项目识别与 `bensz-thesis` 运行时文件注入；项目白名单同步补充 `assets/`、`bibtex-style/` 等毕业论文必需目录
+- 更新根级 `README.md`：将 `## NSFC 公共包安装` 重命名为 `## LaTeX 包安装`，新增可安装包清单表格、远程硬编码安装方式（curl + python3）、远程 AI 自主规划安装 Prompt 模板，并将 bensz-nsfc 版本管理与 NSFC 编译命令改为各自小节
+- 更新 `AGENTS.md`：在 `scripts/` 目录结构中新增 `install.py` 条目，在分层模型中补充 `scripts/install.py` 说明，将工作流中"NSFC 安装/版本管理问题"扩展为"LaTeX 包安装问题"并加入远程安装入口
+- 重构根级 `README.md` 的 `## 📋 模板列表`：改为由自动生成区块接管，不再手写维护模板状态、下载地址与最新 Release 信息
+- 优化 `scripts/update_readme_template_list.py` 生成口径：README 模板列表顶部说明不再把用户引导到泛化的 GitHub Release 页面，`最新稳定版` 列改为默认直达对应模板的具体 zip 下载链接（优先标准包，其次 Overleaf 包）
+- 精简 `scripts/update_readme_template_list.py` 生成结果：移除 README 模板列表中与下载列重复的 `最新稳定版` 列，仅保留模板状态、标准包、Overleaf 包与说明四类核心信息
+- 继续精简 `scripts/update_readme_template_list.py` 生成结果：移除 README 模板列表中信息密度较低的 `说明` 列，仅保留模板、状态、标准包与 Overleaf 包四类核心字段
+- 更新 `README.md` 与 `docs/nsfc-usage-guide.md`：新增 `bensz-nsfc` 设计原理文档入口，并将 NSFC 使用说明中的延伸阅读改为只引用当前仓库里真实存在的文档与包级说明
+
+### Fixed（修复）
+
+- 修复 `.github/workflows/update-template-list.yml` 在 `2026-03-24` 之后持续失败的问题：`scripts/test_install_architecture.py` 不再沿用 `thesis-ucas-doctor` 根目录仍含 `chapter1.tex` 的旧假设，改为校验当前 `extraTex/` 单一真相结构与 Release 打包结果一致，避免 README 模板列表同步工作流被过时的 UCAS 项目结构断言误拦截；同时重新同步根级 `README.md` 到最新正式 Release `v4.0.9`
+- 修复 `packages/bensz-thesis/styles/bthesis-style-thesis-sysu-doctor.tex` 的 `subsection` 竖向留白问题：SYSU 博士论文模板现显式启用 `\raggedbottom` 以避免页内内容较少时被齐底机制放大留白，并额外使用 `titlesec` 的 `\titlespacing*{\subsection}{0pt}{4pt}{2pt}` 精确收紧小节标题前后距，使标题与上下文衔接更紧凑
+- 修复 `.github/workflows/update-template-list.yml` 的回归测试路径失效问题：将 `test_install_architecture.py` 与 `test_update_readme_template_list.py` 从已忽略的 `tests/` 迁回 `scripts/`，并同步更新 README 模板列表工作流的 `pytest` 入口，避免 GitHub Actions 因找不到测试文件而以 `exit code 4` 失败
+- 修复根目录 `tests/` 的版本控制边界：`./tests` 现重新恢复为完全忽略目录，不再特意放行单个回归测试文件；避免本地测试记录、临时压缩包与会话产物误上传到 GitHub
+- 修复 `bensz-cv` 公共包安装场景下的字体路径解析问题：`resume.cls`、`fontawesome.sty` 与中文字体支持样式现改为基于包文件绝对路径解析字体资源，保证仓库开发模式、已安装 `TEXMFHOME` 模式与像素级验收模式的版式一致
+- 修复 `packages/bensz-thesis/scripts/thesis_project_tool.py` 的缓存复用与 BibTeX 兼容问题：构建前会重建 `.latex-cache/`，不会再把旧 PDF 误判为新输出；针对 `bibtex + cache` 的 thesis 项目，会自动同步 `references/`、`bibtex-style/` 到缓存并规范化 `aux` 中的 `.bst` 样式名，保证 `thesis-sysu-doctor` 可稳定编译
+- 修复毕业论文 profile 选择逻辑：`thesis-sysu-doctor` 不再误用默认 SMU profile，保证两套源样式在迁移验收阶段都能与原始私有 PDF 做到像素级一致
+- 更新根级 `.gitignore`：新增 Microsoft Office 临时文件忽略规则，避免 `~$*.docx`、`~$*.xlsx`、`~$*.pptx` 等锁文件误入版本控制
+
+## [v4.0.0] - 2026-03-15
+
+### Added（新增）
+
+- 新增使用说明文档 `docs/nsfc-usage-guide.md`：面向普通用户说明 NSFC 模板的基本使用方法，并以 `projects/NSFC_Young/` 作为示例演示公共包安装、项目编译、正文编辑、参考文献维护、版本锁定与 Overleaf 使用；同时在根级 `README.md` 增加文档导读入口
+- 新增三个 NSFC 项目目录下的写标书专用 AI 指令文件：`projects/NSFC_General/AGENTS.md`、`projects/NSFC_General/CLAUDE.md`、`projects/NSFC_Local/AGENTS.md`、`projects/NSFC_Local/CLAUDE.md`、`projects/NSFC_Young/AGENTS.md`、`projects/NSFC_Young/CLAUDE.md`；内置文件-章节映射表、各章节写作要点、常用 LaTeX 命令速查、AI 技能调用指引、编译说明和工程原则，用户下载单个项目压缩包后无需额外配置即可让 AI 辅助写标书
+- 新增 `packages/bensz-nsfc/` 公共包源码目录：引入 `bensz-nsfc-common` 安装入口、`profiles/` 模板元信息、`impl/` 稳定实现目录、包级 README、示例文件与字体资源；同时预留 `packages/bensz-paper/`、`packages/bensz-thesis/` 目录，作为后续论文/毕业论文模板包位点
+- 新增 `packages/bensz-nsfc/scripts/install.py`、`packages/bensz-nsfc/scripts/validate_package.py`、`packages/bensz-nsfc/scripts/build_tds_zip.py`：分别负责 NSFC 公共包安装/锁定/切换、包结构校验与 TDS 打包
+- 新增迁移说明文档 `docs/migration-guide.md`：说明从旧版“大而全 @config.tex”迁移到公共包安装模式的最短路径
+- 新增 SCI 论文公共包 `packages/bensz-paper/`：引入 `bensz-paper.sty` 公共入口、`paper-sci-01` profile、PDF/DOCX 统一构建脚本、安装脚本、TDS 打包脚本与 `bpaper` launcher，并保留 `benszmanuscriptlatex.sty` 兼容入口
+- 新增 SCI 示例项目 `projects/paper-sci-01/`：采用 `artifacts/source/*.md` 作为正文单一真相来源，构建时自动生成 `.latex-cache/extraTex/*.tex`，并可同时输出 `main.pdf`、`main.docx`
+- 新增 `projects/paper-sci-01/AGENTS.md`、`projects/paper-sci-01/CLAUDE.md` 与 `projects/paper-sci-01/scripts/paper_build.py`：支持在完整仓库和单项目场景下调用 `bensz-paper` 官方构建链路
+
+### Changed（变更）
+
+- 更新 `projects/paper-sci-01/` 示例参考文献：新增 3 条与儿童肿瘤全景基因组学和结构变异图谱相关的真实文献，并在 Markdown 单一真相正文中补充对应引用，确保官方构建链路重新导出的 PDF 与 DOCX 参考文献列表不再只有 1 条
+- 重构 `projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`：三套项目入口改为“项目级参数面板 + 公共包加载入口”结构；集中列出当前可调格式参数、真实默认值与调参说明，并通过 `\NSFCProjectConfigBeforePackage` / `\NSFCProjectConfigAfterPackage` 明确保证项目层设置压过公共包默认值
+- 更新 `packages/bensz-nsfc/bensz-nsfc-core.sty`：新增项目级前置/后置配置钩子，显式固化 `profile 默认值 -> 兼容旧钩子 -> 项目级钩子` 的覆盖顺序
+- 同步修正 `docs/migration-guide.md` 与三个项目的 `references/reference.tex` 注释口径：`@config.tex` 现为项目级默认配置入口，参考文献标题下间距默认值统一更正为真实的 `10pt`
+- 将三个 NSFC 项目的构建入口脚本从 `code/nsfc_build.py` 迁移至 `scripts/nsfc_build.py`：`code/` 目录职责收敛为用户标书正文代码，构建脚本不应混入其中；同步更新三个项目 `AGENTS.md` 中的编译说明
+- 优化 `scripts/pack_release.py` Release 资产规则：每个 NSFC 项目现在默认同时生成普通 zip（如 `NSFC_Young-v3.5.2.zip`）与 Overleaf 专用 zip（如 `NSFC_Young-Overleaf-v3.5.2.zip`）；其中普通包继续保持“公共包单独安装”的轻量分发模式，Overleaf 包则额外内嵌 `bensz-nsfc` 运行时文件、共享字体与 `bst` 资源，并自动生成指向压缩包内相对路径的 `bensz-nsfc-runtime.def`，保证上传到 Overleaf 后可直接编译；同时同步更新 `README.md` 与 `AGENTS.md` 的 Release 口径
+- 重构 NSFC 脚本布局：将根目录 `scripts/` 下与 NSFC 公共包直接相关的 `install.py`、`nsfc_project_tool.py`、`validate_package.py`、`build_tds_zip.py` 统一迁移到 `packages/bensz-nsfc/scripts/`；根目录 `scripts/` 收敛为项目级脚本入口；并同步更新 `README.md`、`AGENTS.md`、`docs/migration-guide.md`、`packages/bensz-nsfc/README.md`、`packages/bensz-nsfc/package.json`、三个 NSFC 项目的 README / `.vscode/settings.json`、项目内 `code/nsfc_build.py` 启动器、重构计划文档与 `config.yaml`；普通项目 zip 不再重复打入整份 `packages/bensz-nsfc/`，项目侧改为优先通过 `kpsewhich bensz-nsfc-common.sty` 与常规 TEXMF 路径定位已安装包里的公共脚本；如需 Overleaf 独立可用，则由 `scripts/pack_release.py` 在 Overleaf 专用 zip 中补入最小运行时文件集合
+- 合并 `references/` 到 `docs/`：将 `references/latex-writing-guide.md` 移入 `docs/`，将”参考文献间距配置”技术内容合并进 `docs/migration-guide.md`，删除 `references/` 目录，消除重复职责
+- 重写 `AGENTS.md`：项目指令口径从”传统模板仓库”更新为当前真实的”NSFC 公共包 + 薄项目 + 安装/构建脚本 + AI Skills”架构；同步修正目录结构、任务分层、官方安装/构建/校验入口、Release 前检查与文档同步规则，并明确 `config.yaml` 仅作补充元信息、不得替代真实脚本接口与当前源码结构
+- 优化计划文档 `plans/重构-v202603101512.md`：将模板版本控制提升为重构主线，明确 `python packages/bensz-nsfc/scripts/install.py` 为核心包唯一官方安装入口，并把用户版本语义统一为 Git `tag/branch/commit`；新增基于 `ref + commit` 的 `.nsfc-version` 锁文件方案、任意历史版本安装/回退工作流、GitHub archive/Release 双来源获取策略，以及对应的测试矩阵、风险控制与发布口径；同时将仓库源码布局收敛为 `packages/bensz-nsfc` / `packages/bensz-paper` / `packages/bensz-thesis`，并由安装器映射到标准 `texmf/tex/latex/...` 目录；`ChineseResearchLaTeX` 仅作为项目名，不作为具体安装目录名；另外将 NSFC 可分发文件统一收敛为 `bensz-nsfc-*` 前缀，避免仅靠目录名导致的文件名冲突；内部版本号规则也调整为“包版本 `p_vYYYYMMDD` + 模板版本 `t_vYYYYMMDD`”，并明确 `\ProvidesPackage` 前导日期只是 LaTeX 标准发布日期字段，不属于项目版本号体系
+- 重构 `projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`：三套项目入口统一收敛为 `\usepackage[type=...]{bensz-nsfc-common}`，不再在项目层保留大段样式实现
+- 更新 `README.md` 与 `packages/bensz-nsfc/README.md`：文档口径统一切换到“先安装公共包，再编译项目”的工作流，并补充 `pin/sync/check/rollback` 使用方式
+- 重构 `packages/bensz-nsfc/` 与 `projects/NSFC_{General,Local,Young}`：将三套项目重复的 `fonts/` 与 `bibtex-style/` 收敛到 `packages/bensz-nsfc/assets/`，公共包新增包内资源解析与 `\NSFCBibliographyStylePath` 统一入口；项目目录和 Release 打包清单同步瘦身，校验脚本新增共享字体/BibTeX 资源检查与参考文献编译 smoke test
+- 新增 `packages/bensz-nsfc/scripts/nsfc_project_tool.py` 并更新三个 NSFC 项目的 `.vscode/settings.json`：将 PDF 渲染统一收敛到固定 Python CLI，自动生成 cache 内 `bensz-nsfc-runtime.def`、隔离 `.latex-cache/` 中间文件、清理根目录杂项产物，并保留 `main.pdf + .latex-cache/*.synctex.gz` 的 VS Code 友好体验；本次不引入 DOCX 渲染链路
+- 更新根级 `README.md` 与 `AGENTS.md`：项目口径从“NSFC + 预留论文位点”扩展为“NSFC 主线 + 首个 SCI 可验证链路”，新增 `bensz-paper` / `paper-sci-01` 的目录说明、构建入口与文档入口
+- 更新 `scripts/pack_release.py`：Release 打包现在可识别 SCI 项目，普通 zip 会保留 `artifacts/`、`scripts/`、`main.docx` 等必需文件；Overleaf zip 会按项目类型自动补入 `bensz-nsfc` 或 `bensz-paper` 运行时文件
+
+### Fixed（修复）
+
+- 修复根级 `scripts/install.py` 在安装 `bensz-fonts`、`bensz-paper`、`bensz-thesis`、`bensz-cv` 后刷新 TeX 文件数据库的误报问题：现统一改为优先执行 `mktexlsr <TEXMFHOME>`，必要时回退到 `texhash <TEXMFHOME>`，避免在 macOS/TeX Live 环境下因裸跑 `mktexlsr` 触碰系统树权限而错误提示“请手动刷新”
+- 修复 NSFC 模板重构后的版式回归风险：通过 `tests/重构-v202603101512/` 下的基线 PDF、4 步编译结果、页面 JPG 与逐页视觉对比，确认在官方安装路径下 `NSFC_General`、`NSFC_Local`、`NSFC_Young` 的输出 PDF 与重构前基线外观一致
+- 修复共享资源重构后的编译稳定性风险：XeLaTeX 现在直接从公共包解析共享字体，BibTeX 通过公共包输出的绝对路径样式入口加载 `gbt7714-nsfc.bst`，避免删除项目内重复资源后出现找不到字体或 `bst` 的问题
+- 修复 `scripts/pack_release.py` 的 Release 资产污染问题：打包 `projects/paper-sci-01/` 时不再把 `scripts/__pycache__/`、`.pyc`、`.latex-cache/` 等缓存/中间文件写入普通 zip 与 Overleaf zip；同时在根级 `README.md` 明确补充该过滤规则，保证发布资产更干净、可复现
+
+## [v3.5.1] - 2026-03-08
+
+### Changed（变更）
+
+- **nsfc-roadmap v1.0.6 → v1.0.7**：Nano Banana 模式新增”严禁图内总标题”硬约束；默认 prompt 不再注入总标题，且 `full/patch` 覆盖后仍会自动保留禁标题规则
+- **nsfc-schematic v1.0.6 → v1.0.7**：Nano Banana 模式新增”严禁图内总标题”硬约束；`full/patch` 覆盖后仍会自动保留禁标题规则
+- **nsfc-roadmap v1.0.5 → v1.0.6**：修复 Nano Banana 多轮自优化时 `full prompt override` 可能丢失字体/文字排版约束的问题；现在每轮真正发给 Gemini 的 prompt 都会自动补齐防扭曲字体护栏，并同步更新协议说明与回归测试
+- **nsfc-schematic v1.0.5 → v1.0.6**：修复 Nano Banana 多轮自优化时 `full prompt override` 可能丢失字体/文字排版约束的问题；现在每轮真正发给 Gemini 的 prompt 都会自动补齐防扭曲字体护栏，并同步更新协议说明与回归测试
+- **nsfc-reviewers v1.3.0 → v1.4.0**：评审新增”资助额度约束识别”规则；当研究内容/研究方法的短板明显来自青年基金常见 `30–40w`、面上项目常见 `50–60w` 的资助边界时，报告会明确说明”受基金所限”的缺陷归因，并同步给出”若资助不受限时的完整设计参考”
+- **nsfc-reviewers v1.2.1 → v1.3.0**：将默认评审组数从 `7` 调整为 `3`、最大组数从 `7` 调整为 `5`，避免默认触发 `49` 人次评审造成成本与等待时间过高；同时补齐技能元数据枚举与文档一致性校验
+- **nsfc-reviewers v1.2.0 → v1.2.1**：将默认评审团数量从 `2` 组调整为 `7` 组，并同步把最大组数调整为 `7`，使技能默认配置更贴近高仿真评审预演场景
+- **nsfc-reviewers v1.1.0 → v1.2.0**：每个评审组固定专家数从 5 位扩展为 7 位，并新增”科学意义与领域影响””可读性与论证清晰度”两类专家画像；组内共识阈值同步从至少 3 位提高到至少 4 位，更贴近现实函评的 5–7 位专家场景
+- **nsfc-reviewers v1.0.0 → v1.1.0**：评审报告默认新增”基于当前版本直接送审”的函评/会评判断，明确给出 `给过 / 不给过` 二元结论，并补充把握度、主要依据与翻盘关键，帮助用户更直观判断送审风险
+- **nsfc-qc v1.1.0 → v1.2.0**：英文缩写预检升级为”按 main.tex 实际渲染顺序 + 全文级缩写注册表”模型
+  - `skills/nsfc-qc/scripts/nsfc_qc_precheck.py`：新增 render stream / abbreviation registry，支持 `late_definition`、`conflicting_english_full_name`、`conflicting_chinese_full`、`repeated_same_definition`
+  - 新增工件：`abbreviation_registry.json`、`abbreviation_render_stream.jsonl`
+  - `skills/nsfc-qc/scripts/materialize_final_outputs.py` / `skills/nsfc-qc/scripts/run_parallel_qc.py`：final findings 与 thread prompt 同步到新 issue model
+  - `skills/nsfc-qc/SKILL.md` / `skills/nsfc-qc/README.md` / `skills/nsfc-qc/references/qc_checklist.md`：文档口径同步到”真实渲染顺序 + 全文唯一性”
+
+### Added（新增）
+
+- **nsfc-qc**：新增英文缩写检查优化计划文档 `skills/nsfc-qc/plans/英文缩写检查-v202603080812.md`，并显式放行该文件的版本控制；明确后续需按实际渲染顺序与全文级唯一性重构缩写检查
+
+### Fixed（修复）
+
+- **nsfc-length-aligner v0.3.0 → v0.3.1**：修复篇幅检查中间文件落点不稳定的问题，默认与推荐输出现统一收敛到工作目录 `.nsfc-length-aligner/`
+  - `skills/nsfc-length-aligner/scripts/check_length.py`：默认输出目录从 `<input>/_artifacts/nsfc-length-aligner/` 改为 `<input>/.nsfc-length-aligner/`；相对 `--out-dir` 改为相对 `--input` 工作目录解析，避免从仓库根目录启动时把报告误写到错误位置
+  - `skills/nsfc-length-aligner/config.yaml`：新增 `output_settings.intermediate_dir=.nsfc-length-aligner`，并默认排除 `.nsfc-length-aligner/`，避免复检误扫隐藏工作区
+  - `skills/nsfc-length-aligner/SKILL.md` / `skills/nsfc-length-aligner/README.md` / `README.md`：同步更新隐藏工作区约定与版本索引
+
+- **nsfc-budget v0.1.1 → v0.1.2**：修复输出目录根路径/隐藏工作区重叠风险、run 目录同秒冲突、空输出目录伪失败与 LaTeX 特殊字符未转义等问题
+  - `skills/nsfc-budget/scripts/init_budget_run.py` / `skills/nsfc-budget/scripts/render_budget_project.py`：拒绝 `output_dirname=.` 或与 `.nsfc-budget/` 重叠，避免 `--force` 误删工作目录或活动 run
+  - `skills/nsfc-budget/scripts/init_budget_run.py`：重复初始化同秒 run 时自动避让目录名冲突
+  - `skills/nsfc-budget/scripts/render_budget_project.py`：空输出目录可直接渲染；校验失败时终端报错附带首批错误摘要与 `validation_report.md` 路径
+  - `skills/nsfc-budget/scripts/render_budget_project.py`：补齐 `meta.project_type` / 金额 / 字数 / 容差等非法值校验，并自动转义 `%` / `#` / `&` / `_` 等常见 LaTeX 特殊字符
+  - `skills/nsfc-budget/SKILL.md` / `skills/nsfc-budget/README.md` / `skills/nsfc-budget/scripts/README.md`：同步配置引用与安全约束说明
+
+### Changed（变更）
+
+- **nsfc-qc v1.0.0 → v1.1.0**：元数据获取强制启用，文献真实性检查现为 QC 核心功能
+  - 移除 `--no-resolve-refs` 选项，`--resolve-refs` 默认启用且不可关闭
+  - 新增 URL 可访问性检查（HTTP HEAD 请求检查 `.bib` 中 `url` 字段）
+  - 新增 metadata 自动比对（bib title vs API title，支持 exact/fuzzy/mismatch 三级判断）
+  - 新增并发控制参数 `max_concurrent`（默认 5，可在 `config.yaml` 配置，避免 API 速率限制）
+  - 输出增强：`reference_evidence.jsonl` 新增 `url_check` 和 `title_comparison` 字段；`reference_evidence_summary.json` 新增 URL 检查与 title 比对统计
+  - 详见 [skills/nsfc-qc/CHANGELOG.md](skills/nsfc-qc/CHANGELOG.md#110---2026-03-07)
+
+### Added（新增）
+
+- **Budget_Justification 模板**：新增 `projects/Budget_Justification` LaTeX 模板，基于 `projects/NSFC_Young` 的项目骨架整理“国家自然科学基金项目预算说明书”版式；包含 `main.tex`、`extraTex/@config.tex`、预算科目占位文件、`code/test.sh` 与 `template/baseline.pdf`
+- **nsfc-budget skill**：新增 `skills/nsfc-budget`，用于基于 NSFC 标书正文或补充材料生成预算说明书 LaTeX 项目并渲染 `budget.pdf`；包含 `SKILL.md`、`config.yaml`、`README.md`、`CHANGELOG.md`、参考文档、初始化/渲染脚本与回归测试
+- **nsfc-budget v0.1.0 → v0.1.1**：补齐 `output_dirname` / `template_id` / `--spec` / 模板元数据路径的安全校验；渲染脚本改为从 `config.yaml` 与 `.template.yaml` 读取关键配置；新增金额一致性与 `--skip-compile` manifest 回归测试
+
+### Changed（变更）
+
+- **项目 README / skills README**：补充 `nsfc-budget` 的功能说明、使用场景与技能索引，保持文档与 `skills/` 新增能力同步
+- **Budget_Justification 模板**：将页面标题“预算说明书”恢复为黑体四号加粗；`skills/nsfc-budget/models/01/extraTex/@config.tex` 中 `\budgettitlefont` 改回黑体族，`\BudgetTitleFont` 调整为 `14pt` 四号标题，而正文强调文字仍保持与正文同字体
+- **Budget_Justification 模板**：调整 `skills/nsfc-budget/models/01/extraTex/@config.tex` 的中文加粗策略；标题与强调文字不再切换到黑体，改为继续使用与正文相同的中文字体并仅施加假粗体，减少“加粗即变黑体”的风格跳变
+- **Budget_Justification 模板**：优化 `skills/nsfc-budget/models/01/extraTex/@config.tex` 的注释排版；在注释块与对应命令之间补充空行，提升参数说明的可读性
+- **Budget_Justification 模板**：为 `skills/nsfc-budget/models/01/extraTex/@config.tex` 补充面向用户的中文注释，重点解释 `\BudgetCJKFakeBold`、`\BudgetLeftShift`、`\BudgetIndent`、`\BudgetBoxTopGapAdjust` 等可调参数的用途与调参参考，降低手工微调门槛
+- **Budget_Justification 模板**：将加粗程度参数迁移到 `skills/nsfc-budget/models/01/extraTex/@config.tex`；新增 `\BudgetCJKFakeBold`（默认 `1.8`）并直接作用于 `\budgettitlefont` / `\budgetboldfont`，以后可在样式配置文件里统一调节中文加粗程度
+- **Budget_Justification 模板**：将预算说明外框顶部至首个一级标题之间的留白抽为单独参数 `\BudgetBoxTopGapAdjust`，定义于 `skills/nsfc-budget/models/01/extraTex/@config.tex`；默认设为 `-2pt`，便于后续独立微调 `\begin{BudgetBox}` 与 `\BudgetSectionLine{...}` 之间的间隙
+- **Budget_Justification 模板**：微调标题与预算说明外框之间的垂直间距；将 `skills/nsfc-budget/models/01/main.tex` 中标题下方留白从 `0.18cm` 缩小到 `0.08cm`，使外框整体轻微上移
+- **Budget_Justification 模板**：统一一级标题行与正文首行的水平定位模型；`1.科学基金资助项目直接费用`、`2.直接费用中合作研究转拨资金`、`3.其他来源资金` 等标题改为与正文共用相同左移基准，仅在标题内容前保留 `2\ccwd` 缩进，减少标题与正文“看起来差一点”的错位感
+- **Budget_Justification 模板**：修正 `skills/nsfc-budget/models/01/extraTex/@config.tex` 的正文首行缩进计算时机；将 `2\ccwd` 改为按当前正文字号动态求值，并调整 `\justifying` 与 `\parindent` 的设置顺序，避免首行缩进意外大于 2 个中文字符
+- **Budget_Justification 模板**：微调预算说明书版式，新增正文首行缩进两字、加粗框线、收紧标题与外框间距，并关闭 `xeCJK` 中西文自动胶以改善 `1.1/1.2/1.3` 各段落的逐行断行对齐；同时将“设备费/业务费/劳务费”改为仅词语加粗
+- **Budget_Justification 模板**：改为手工逐行控行版式，按给定文本固定 `1 / 1.1 / 1.2 / 1.3 / 2 / 3` 的断句；所有正文行统一增加 2 个中文缩进；并将加粗范围改为“预算编制说明”提示语加粗、`设备费/业务费/劳务费` 不加粗
+- **Budget_Justification 模板**：修正缩进语义为“段落首行缩进”而非“每行缩进”，保持手工控行不变，仅首行保留 2 个中文缩进、续行顶格
+- **Budget_Justification 模板**：切换到 `make_latex_model` 的像素级交付模式；`main.tex` 直嵌 `template/baseline.pdf` 作为 LaTeX 包装壳，`code/test.sh` 先编译烟测再输出与官方基线完全一致的 `main.pdf`
+- **Budget_Justification 模板**：纠正上述错误实现，恢复为真正可编辑的 LaTeX 模板；`template/baseline.pdf` 仅作为 `make_latex_model` 的对齐基准，不再作为最终输出替身
+- **Budget_Justification 模板**：正文改为“段落排版 + `\linebreak{}` 精确断句”模式，按官方模板固定 1/1.1/1.2/1.3/2/3 各段的真实换行位置，同时保留两端对齐与可编辑性
+- **nsfc-abstract v2.0.1 → v2.1.0**：研究领域改为一句话（≤25汉字）；引号规范强化（只允许 `"..."`）；摘要正文新增纯文本约束；脚本层新增 field 字数硬校验（超限拒绝写入）
+- **nsfc-roadmap v0.11.4 → v1.0.0**：升级为正式稳定版；description 更新为更清晰的功能说明（强调可编辑 + 可嵌入双格式输出）
+- **nsfc-schematic v0.14.3 → v1.0.0**：升级为正式稳定版；description 更新为更清晰的功能说明（强调可编辑 + 可嵌入双格式输出）
+- **nsfc-roadmap / nsfc-schematic v1.0.0 → v1.0.1**：Nano Banana/Gemini PNG-only 模式在 4K PNG 之外自动生成 `*_compacted.png`（下采样 + PNG 压缩/量化择优），显著降低嵌入标书 PDF 的体积
+- **nsfc-roadmap / nsfc-schematic v1.0.1 → v1.0.2**：Nano Banana/Gemini PNG-only 模式支持多张“风格参考图”（`--style-ref` 可多次提供），用于生成与参考图相近的配色/线条/质感（不照抄内容结构；支持 png/jpg/jpeg/webp）
+- **nsfc-roadmap / nsfc-schematic v1.0.2 → v1.0.3**：风格参考图输入校验与格式识别增强（优先按文件头识别格式，避免扩展名误导）；参考图落盘证据改为 `basename + size + sha256`，避免绝对路径泄露本机目录信息
+- **nsfc-roadmap / nsfc-schematic v1.0.3 → v1.0.4**：导出并统一复用 `MAX_REFERENCE_IMAGES` 常量，避免“参考图上限=4”在多处重复硬编码导致潜在漂移
+- **nsfc-roadmap / nsfc-schematic v1.0.4 → v1.0.5**：严格锁定用户指定的图片比例（draw.io + Nano Banana 全流程）
+  - `skills/nsfc-roadmap/config.yaml` / `skills/nsfc-schematic/config.yaml`：新增 `renderer.canvas.lock_aspect_ratio=true`
+  - `skills/nsfc-roadmap/scripts/generate_roadmap.py`：实例级 `config_local`、探索阶段与 `ai_critic` 请求/状态管理统一遵守当前锁定比例；Nano Banana prompt override 持久化，避免多轮回退默认比例
+  - `skills/nsfc-schematic/scripts/spec_parser.py` / `skills/nsfc-schematic/scripts/generate_schematic.py`：显式 canvas 不再被 `canvas_fit` 偷改比例；auto-fix / AI spec 重写 / Nano Banana 多轮优化均保持锁定比例
+  - 新增回归测试：`skills/nsfc-roadmap/tests/比例锁定-v20260307/test_aspect_ratio_lock.py`、`skills/nsfc-schematic/tests/比例锁定-v20260307/test_aspect_ratio_lock.py`
+
+### Added（新增）
+
+- **scripts/pack_release.py**：新增 Release 打包脚本，自动为 `projects/` 下各子项目生成 zip 并可选上传到 GitHub Release（`--upload`）
+- **nsfc-ref-alignment v0.1.1**：新增 NSFC 标书“引用-参考文献”一致性核查技能（只读 + 报告制）
+  - `skills/nsfc-ref-alignment/scripts/run_ref_alignment.py`：抽取 `\cite{}` 等引用并核对 `.bib` 完整性（缺失 bibkey/重复条目/字段缺失/DOI 格式），中间产物隔离在 `.nsfc-ref-alignment/run_{timestamp}/`
+  - 默认仅输出审核报告（写入 `./references`），不直接修改标书正文或 `.bib`
+
+### Changed（变更）
+
+- **nsfc-schematic v0.13.1 → v0.14.0**：将 `evaluation.stop_strategy` 默认值从 `plateau` 改为 `ai_critic`，AI 闭环评价成为开箱即用的默认模式；如需无人值守自动收敛，可在 `config_local.yaml` 覆盖 `stop_strategy: plateau`
+- **nsfc-schematic v0.14.0 → v0.14.1**：增强 Nano Banana / Gemini PNG-only 模式的 prompt 字体与排版硬约束（禁止扭曲/旋转/艺术字；建议黑字+白底标签框），降低图片中文字“扭曲/不可读”风险
+- **nsfc-schematic v0.14.1 → v0.14.2**：Nano Banana / Gemini PNG-only 模式固定输出 4K 分辨率（长边>=3840px；按画布比例缩放并在必要时补白），并将导出分辨率检查口径改为“长边>=3840px”，避免与 spec 画布尺寸不一致造成误报
+- **nsfc-schematic v0.14.2 → v0.14.3**：Nano Banana + `ai_critic` 风格延续与配色建议增强
+  - `ai_critic_response.yaml`：新增 `style_continuity`（为 true 时下一轮把上一轮 PNG 作为参考图传入 Gemini，保证风格连续）与 `nano_banana_color_advice`（自动拼入下一轮 prompt）
+  - `skills/nsfc-schematic/scripts/nano_banana_client.py`：支持 `reference_png` 输入，并在 debug request 中省略 base64
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：证据包携带 `nano_banana_prompt.md`，并在风格延续时自动附加“风格延续”提示段落
+- **nsfc-schematic v0.9.0 → v0.10.0**：实例辅助优化（标题策略、标签可读性、空间利用率、形状统一）
+  - `skills/nsfc-schematic/config.yaml`：默认关闭图内标题；新增 `layout.shape_policy`、`renderer.drawio_border_mode` 及空间利用/标签净距阈值
+  - `skills/nsfc-schematic/scripts/routing.py` / `schematic_writer.py` / `render_schematic.py`：路由升级为双折线候选+代价函数，edge label 增加避障锚点与 offset，导出边框支持 adaptive
+  - `skills/nsfc-schematic/scripts/evaluate_schematic.py` / `measure_schematic.py`：新增内容 bbox 覆盖率/边距检查与 label 压字检查
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：auto-fix 改为“边标签优先、显式布局保守”，并放开 `config_local.layout.font.edge_label_size`
+  - `skills/nsfc-schematic/scripts/plan_schematic.py`：规划阶段默认无图内标题，并限制边标签长度/数量
+  - 文档同步：`skills/nsfc-schematic/README.md`、`skills/nsfc-schematic/SKILL.md`、`skills/nsfc-schematic/CHANGELOG.md`、`README.md`、`skills/README.md`
+
+- **nsfc-schematic v0.10.0 → v0.11.0**：规划阶段“中间文件托管”一致性 + 自优化闭环显式化
+  - `skills/nsfc-schematic/scripts/plan_schematic.py`：默认不再在 CWD 写出 `schematic-plan.md`；如需额外复制到 CWD，使用 `--also-write-workspace-plan`
+  - `skills/nsfc-schematic/config.yaml`：规划输出文件名统一为 `schematic-plan.md`（替代 `PLAN.md`）
+  - `skills/nsfc-schematic/scripts/plan_schematic.py` / `skills/nsfc-schematic/scripts/generate_schematic.py`：自动创建 `output_dir/.nsfc-schematic/.gitignore`（忽略 `/planning/` + `/runs/`），中间产物统一托管到 `.nsfc-schematic/`
+  - `skills/nsfc-schematic/SKILL.md` / `skills/nsfc-schematic/README.md`：补齐 “plateau 自动收敛” 与 “ai_critic 离线闭环” 的可执行 runbook
+  - `skills/nsfc-schematic/references/spec_examples/ai_critic_min.yaml`：新增最小闭环 spec 夹具
+
+- **nsfc-schematic v0.11.0 → v0.12.0**：P2 落地（auto-fix 可解释性 + spec 安全变体 + 显式布局降级策略）
+  - `skills/nsfc-schematic/config.yaml`：新增 `evaluation.spec_variants`（默认关闭），可对过长 label 做 wrap/truncate/candidates（仅改 label，不改 id/edges）
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：`config_local.yaml` 白名单放开 `evaluation.spec_variants`，支持单项目启用
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：`optimization_report.md` 每轮输出“下一轮 auto-fix 配置 delta”，并在显式布局比例较高时更保守修复/引导 ai_critic
+
+- **nsfc-schematic v0.12.0 → v0.12.1**：实例辅助优化（PDF 单页稳定 + 显式画布 fit-to-canvas + 回归夹具）
+  - `skills/nsfc-schematic/scripts/render_schematic.py`：PDF 导出启用 `--crop` 并提供兼容回退；SVG/PDF 固定 `--width/--height`；无 draw.io CLI 时 PDF 自动降级为 PNG→PDF
+  - `skills/nsfc-schematic/scripts/spec_parser.py`：显式 `schematic.canvas` 时不再自动扩画布（包括 `auto_expand_canvas`/`canvas_fit` 扩张路径），并在自动布局中基于可用宽度自动降列（支持 `cols=1`）
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：报告 Final 段落补齐 `schematic.pdf`；`config_local.color_scheme.name` 白名单对齐内置配色
+  - `skills/nsfc-schematic/references/spec_examples/seqccs_min.yaml`：新增最小回归夹具
+
+- **nsfc-schematic v0.12.1 → v0.12.2**：健壮性修复与跨平台 draw.io CLI 路径支持
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：修复 ai_critic 响应版本校验分支的 `NameError` 风险；修复 wrap label 的空白检测正则；TEX 术语抽取数量改为读取 `planning.extraction.max_terms`
+  - `skills/nsfc-schematic/scripts/render_schematic.py`：新增 `renderer.drawio.cli_path` 支持，并在无效值时降级为 warn+自动检测；draw.io CLI 路径下的 PNG 尺寸校正缺少 Pillow 时降级跳过（不阻断主流程）
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：`config_local.yaml` 白名单放开 `renderer.drawio.cli_path`（便于单项目覆盖）
+  - 文档同步：`skills/nsfc-schematic/README.md`、`skills/nsfc-schematic/SKILL.md`、`skills/nsfc-schematic/CHANGELOG.md`、`skills/nsfc-schematic/config.yaml`
+
+- **nsfc-schematic README.md**：新增「Gemini API 配置」章节，说明 Nano Banana 模式所需的环境变量（`GEMINI_BASE_URL`、`GEMINI_API`、`GEMINI_MODEL`）及连通性验证方法
+
+- **nsfc-schematic v0.12.2 → v0.12.3**：parallel-vibe 多方案并行对比（用于“开很多 run 反复优化”）
+  - `skills/nsfc-schematic/README.md` / `skills/nsfc-schematic/SKILL.md`：补齐 parallel-vibe 并行优化 runbook，并推荐用 `--run-tag` 标记不同策略来源
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：新增 `--run-tag`；扩展 `config_local.yaml` 白名单，放开 `renderer.internal_routing`、`layout.auto.*` 与 `evaluation.exploration.*`（便于线程级参数对比而不改全局配置）
+  - `skills/nsfc-schematic/config.yaml` / `skills/nsfc-schematic/CHANGELOG.md`：版本号更新至 `0.12.3`（单一真相来源）
+
+- **nsfc-schematic v0.12.3 → v0.13.0**：新增 Nano Banana/Gemini PNG-only 原理图模式（仅当用户主动要求）
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：新增 `--renderer`（默认 drawio；`nano_banana` 模式只交付 PNG，并避免每轮多候选导致成本乘法）
+
+- **nsfc-schematic v0.13.0 → v0.13.1**：自动布局可读性小幅提升（居中 + 标签字号）
+  - `skills/nsfc-schematic/scripts/spec_parser.py`：新增 `layout.canvas_fit.center_content`（默认 true），自动布局下将内容包围盒居中，减少单侧大留白/视觉重心偏移
+  - `skills/nsfc-schematic/config.yaml`：默认将 `layout.font.edge_label_size` 从 22 调整为 24
+
+- **nsfc-roadmap v0.10.1 → v0.11.0**：新增 Nano Banana/Gemini PNG-only 技术路线图模式（仅当用户主动要求）
+  - `skills/nsfc-roadmap/scripts/generate_roadmap.py`：新增 `--renderer`（默认 drawio；`nano_banana` 模式只交付 PNG）
+  - `skills/nsfc-schematic/scripts/nano_banana_check.py`：Gemini 配置连通性检查
+  - `skills/nsfc-schematic/scripts/nano_banana_generate_png.py`：独立的 PNG 生成器（便于调试）
+  - 文档同步：`skills/nsfc-schematic/README.md`、`skills/nsfc-schematic/SKILL.md`、`skills/nsfc-schematic/CHANGELOG.md`、`skills/nsfc-schematic/config.yaml`
+
+- **nsfc-roadmap v0.11.0 → v0.11.1**：Nano Banana + `ai_critic` 组合增强（宿主 AI 主导读图评估 + 可控 Gemini prompt）
+  - `skills/nsfc-roadmap/scripts/generate_roadmap.py`：`ai_critic_response.yaml` 支持 `nano_banana_prompt`（full/patch）与 `action: nano_banana_prompt_only`；证据包新增 `nano_banana_prompt.md`
+  - 文档同步：`skills/nsfc-roadmap/README.md`、`skills/nsfc-roadmap/SKILL.md`、`skills/nsfc-roadmap/CHANGELOG.md`、`skills/nsfc-roadmap/config.yaml`
+
+- **nsfc-roadmap v0.11.1 → v0.11.2**：Nano Banana（Gemini PNG-only）模式文字可读性优化（印刷体字体约束 + 禁扭曲）+ 默认更偏好 4K 输出
+  - `skills/nsfc-roadmap/scripts/generate_roadmap.py`：确定性 prompt 增强（字体/排版强约束，避免扭曲/乱码），并提示 `[kind]` 标签不应渲染为节点文字
+  - `skills/nsfc-roadmap/scripts/nano_banana_client.py`：图像尺寸选择更倾向 `IMAGE_SIZE_4K`（提升 A4 缩印可读性）
+- **nsfc-roadmap v0.11.2 → v0.11.3**：Nano Banana（Gemini PNG-only）模式固定输出 4K 分辨率（长边>=3840px；按画布比例缩放并在必要时补白），不再受 spec/画布尺寸影响
+  - 文档同步：`skills/nsfc-roadmap/README.md`、`skills/nsfc-roadmap/SKILL.md`、`skills/nsfc-roadmap/CHANGELOG.md`、`skills/nsfc-roadmap/config.yaml`
+- **nsfc-roadmap v0.11.3 → v0.11.4**：Nano Banana + `ai_critic` 风格延续与配色建议增强
+  - `ai_critic_response.yaml`：新增 `style_continuity`（为 true 时下一轮把上一轮 PNG 作为参考图传入 Gemini，保证风格连续）与 `nano_banana_color_advice`（自动拼入下一轮 prompt）
+  - `skills/nsfc-roadmap/scripts/nano_banana_client.py`：支持 `reference_png` 输入，并在 debug request 中省略 base64
+  - `skills/nsfc-roadmap/scripts/generate_roadmap.py`：在风格延续时自动附加“风格延续”提示段落，并将上一轮 PNG 作为参考图传入
+
+- **.gitignore**：新增忽略规则 `**/.nsfc-ref-alignment/`，避免运行 nsfc-ref-alignment 时产生的中间产物污染 `git status`
+- **projects/NSFC_{General,Local,Young}**：enumerate 列表换行后的续行增加 2 个中文字符缩进；中文字体伪粗体参数 `AutoFakeBold=3` 调整为 `AutoFakeBold=5`
+- **projects/NSFC_{General,Local,Young}/extraTex/1.1.立项依据.tex**：将正文中“括号序号罗列”自然改为 `enumerate` 列表，并用 `\ssssubtitle{}` 作为列表标签示例，避免用户不知道可用
+- **projects/NSFC_{General,Local,Young}/.vscode/settings.json**：优化 LaTeX Workshop 编译链路，强制将所有中间文件输出到 `.latex-cache/`，并在编译结束后复制 `main.pdf` 到项目根目录（根目录不再残留 `.aux/.log/.xdv/...` 等产物）
+- **projects/NSFC_{General,Local,Young}/.vscode/settings.json**：LaTeX Workshop 的 `xelatex/bibtex` 调用改为通过项目内 `code/tex-tool.sh` 解析可执行文件路径，降低 VS Code 未继承 PATH（尤其 macOS Finder 启动）导致的“找不到 xelatex/bibtex”概率
+- **AGENTS.md**：Release 发布流程步骤 4/5 合并，改为引用 `scripts/pack_release.py`，消除硬编码描述
+- **AGENTS.md**：Release 发布流程新增步骤 5「发布微信动态」，规范发布后的社区通知格式（100–200 字，含项目名、版本号、更新亮点、Release 地址）
+- **AGENTS.md**：新增「系统 Skill 保护」规则，禁止直接修改系统级 Skill（如 `~/.claude/skills/`、`~/.codex/skills/`），项目个性化需求应在项目目录内实现
+- **nsfc-humanization 0.1.3 → 0.2.0**：补齐列表/图表标题覆盖并提升输出自检能力
+  - `skills/nsfc-humanization/SKILL.md`：明确 `itemize/enumerate` 与 `\item` 的结构保护规则；将 `\caption{...}` 纳入可编辑自然语言范围；新增风格自评（最多 1 轮回修）
+  - `skills/nsfc-humanization/references/machine-patterns.md`：扩充机器味模式库与对比示例（模板句式堆叠、被动语态滥用、数字罗列无解读、目标/内容混同等）
+  - `skills/nsfc-humanization/config.yaml` / `skills/nsfc-humanization/README.md`：版本号更新至 0.2.0（单一真相来源）
+- **nsfc-humanization 0.2.0 → 0.4.0**：补齐章节/领域/强度/一致性机制，并提供可核查输出
+  - `skills/nsfc-humanization/SKILL.md`：新增 `section_type`/`field`/`strength`/`output_mode`/`self_eval_rounds`；支持 `diagnosis_only`；支持“变更摘要”与 STYLE_CARD（跨段落一致性）
+  - `skills/nsfc-humanization/README.md`：补充参数用法与 STYLE_CARD 工作流示例
+  - `skills/nsfc-humanization/references/machine-patterns.md`：补充 `field` 的领域表达偏好提示
+  - `skills/nsfc-humanization/config.yaml` / `skills/nsfc-humanization/CHANGELOG.md`：版本号更新至 0.4.0（单一真相来源）
+- **nsfc-code 0.1.6 → 1.0.0**：标记为正式稳定版本（`config.yaml` 版本号更新）
+- **nsfc-abstract 0.3.1 → 1.0.0**：标记为正式稳定版本（`config.yaml` 版本号更新）
+- **nsfc-abstract v1.0.0 → v1.0.1**：写入 `NSFC-ABSTRACTS.md` 时，中文与英文摘要分段之间不再插入空行（避免提交系统/表单里出现额外间距）
+- **nsfc-abstract v1.0.1 → v1.0.2**：`--strict` 校验/写入时，中文摘要不允许出现英文双引号 `"`（应使用中文引号 `“...”`）
+- **nsfc-abstract v1.0.2 → v1.0.3**：`--strict` 校验/写入时，中文摘要数字不允许出现千分位逗号（如 `1,000` / `1，000`，应写 `1000`）
+- **nsfc-abstract v1.0.3 → v2.0.0**：输出新增 `# 主要研究领域` 分段（英文摘要之后；默认 required，可用 `validate_abstract.py --no-field` 向后兼容旧输出）
+- **nsfc-abstract v2.0.0 → v2.0.1**：`write_abstracts_md.py` 限制 `--out` 仅允许单文件名（拒绝 `../` 等路径）避免越界写入；中文摘要含 `"` 或 `1,000/1，000` 时默认拒绝写入；`validate_abstract.py` 的 FIELD 修复提示与调试输出补齐
+- **nsfc-justification-writer 0.7.9 → 1.0.0**：标记为正式稳定版本（`config.yaml` 版本号更新）
+- **nsfc-research-content-writer 0.2.3 → 1.0.0**：标记为正式稳定版本（`config.yaml` 版本号更新；新增 `CHANGELOG.md`）
+- **nsfc-qc 0.2.1 → 1.0.0**：标记为正式稳定版本（`config.yaml` 版本号更新）
+- **nsfc-reviewers 0.5.0 → 1.0.0**：标记为正式稳定版本（`config.yaml` 版本号更新）
+- **nsfc-humanization 0.4.0 → 1.0.0**：标记为正式稳定版本（`config.yaml` 版本号更新）
+- **get-review-theme**：已为 v1.0.0 稳定版，无需升级
+- **nsfc-code 0.1.5 → 0.1.6**：修复脚本/文档口径不一致与工作区回灌风险
+  - `skills/nsfc-code/scripts/nsfc_code_rank.py`：新增 `--output-dir`（与 `SKILL.md` 示例对齐），并跳过 `.nsfc-code/`；TOML 解析优先用 `tomllib`（Python 3.11+）
+  - `skills/nsfc-code/SKILL.md`：修复 shell 代码块弯引号；`nsfc_code_new_report.py` 示例补齐 `--ts "${TS}"`
+  - `skills/nsfc-code/scripts/validate_skill.py`：smoke 校验改为 JSON 结构解析并覆盖 `--output-dir`
+  - 文档口径对齐：`README.md` / `skills/README.md` / `Prompts.md`
+- **nsfc-roadmap 0.9.1 → 0.10.0**：补齐 spec v2（稳定 id + 显式 edges）与紧凑布局能力，逼近 draw.io 上限
+  - `skills/nsfc-roadmap/scripts/spec.py`：新增 `box.id`、`edges`、`size_hint/layout_hint/style` 等可选字段（保持向后兼容）
+  - `skills/nsfc-roadmap/scripts/render_roadmap.py`：新增 `packed-three-column` 渲染器；draw.io 导出升级为稳定节点 id + 显式/自动连线；每轮输出 `layout_debug.json`/`edge_debug.json`
+  - `skills/nsfc-roadmap/config.yaml`：新增 `layout.auto_edges` 与 `layout.edge_density_limit`，并允许 `layout.template=packed-three-column`
+  - 新增轻量测试闭环：`skills/nsfc-roadmap/tests/实例辅助优化-v202602281042/`（PLAN/REPORT + spec v2 fixture）
+- **nsfc-roadmap 0.10.0 → 0.10.1**：修复 draw.io 导出 PDF 可能被切成多页/拼页（单页输出更稳定）
+  - `.drawio` 写入的 `pageWidth/pageHeight` 与 `renderer.canvas` 一致；PDF 导出强制 `--crop`
+- **nsfc-schematic 0.8.6 → 0.9.0**：对齐 roadmap 核心协议（spec v2 + 调试产物 + ai_critic 闭环 + 实例级配置）
+  - `skills/nsfc-schematic/scripts/spec_parser.py`：支持 `node.id` 可选稳定化与显式 `edges.id/kind/route`（含 `group.node` 路径引用）
+  - `skills/nsfc-schematic/scripts/schematic_writer.py`：每轮输出 `layout_debug.json` / `edge_debug.json`
+  - `skills/nsfc-schematic/scripts/generate_schematic.py`：新增 `.nsfc-schematic/ai/` 离线闭环（`ai_pack_round_XX`、`ai_critic_request.md`、`ai_critic_response.yaml`）与 `config_local.yaml` 白名单覆盖
+  - 文档同步：`skills/nsfc-schematic/SKILL.md`、`skills/nsfc-schematic/README.md`、`skills/nsfc-schematic/CHANGELOG.md`
+
+---
+
+## [v3.2.5] - 2026-02-22
+
+### Added（新增）
+
+- **nsfc-humanization v0.1.0**：新增 NSFC 标书去"机器味"润色技能
+  - 支持纯文本和 LaTeX 混合文本
+  - 硬性约束：格式零修改、语义零损失、只润色文字
+  - 包含"机器味"识别清单与"资深专家"风格模仿规范
+
+---
+
+## [v3.2.4] - 2026-02-22
+
+### Changed（变更）
+
+- **nsfc-qc v0.2.0 → v0.2.1**：新增术语一致性检查
+  - `nsfc_qc_precheck.py`：新增 `_detect_terminology_consistency()` 启发式检测英文术语大小写/连字符不一致，输出 `terminology_issues.csv` 与 `terminology_issues_summary.json`
+  - `run_parallel_qc.py`：术语文件纳入 snapshot 证据包，thread prompt 新增"术语一致性（必检）"指令
+  - `SKILL.md`：术语一致性提升为独立必检项（第 6 项），原"其它 QC"降为第 7 项
+
+---
+
+## [v3.2.3] - 2026-01-24
+  - 通过宿主 AI 的语义理解逐条核查引用是否与文献内容吻合
+  - 只在发现致命性引用错误时对"包含引用的句子"做最小化改写
+  - 支持 LaTeX、Markdown、Word 多格式文档
+  - 完美复用 systematic-literature-review 的 PDF/Word 渲染流程
+  - 错误优先级分级：P0（must_fix）、P1（warn_only）、P2（skip）
+
+### Changed（变更）
+
+- **systematic-literature-review v1.0.0 → v1.0.1**：Bug 修复与功能增强
+  - 新增 BibTeX 导出的 `abstract` 字段支持
+  - 修复 argparse help 文本中 `%` 未转义导致的崩溃问题
+  - 修复 DOI 链接显示与 LaTeX 编译环境问题
+
+### Fixed（修复）
+
+- 修复 systematic-literature-review 中 argparse help 文本 `%` 未转义导致程序崩溃
+- 修复 systematic-literature-review 中 DOI 链接显示问题，确保 LaTeX 编译环境兼容性
+
+### Updated（文档更新）
+
+- 更新 [README.md](README.md)：技能表格新增 check-review-alignment（v1.0.2），更新 systematic-literature-review 版本号至 v1.0.1
+- 更新 [skills/README.md](skills/README.md)：新增 check-review-alignment 完整技能说明（功能、使用场景、Prompt 模板、技能特点、核心原则），调整后续技能编号（8→9，9→10，10→11）
+
+---
+
+## [Unreleased]
+
+- `nsfc-justification-writer` 精简重构：改为语义写作与最小文件边界，默认 preview/diff，取消固定文件名、标题和开篇/四维度硬门槛；旧 `apply-section` 保留为 legacy 兼容入口。
+- `nsfc-justification-writer` auto-test-skill A/B 轮优化：修复目标歧义回退、路径/白名单校验、preview 结构变更阻断、缺失 bibkey 提示及 coach/review/HTML 的旧结构残留；新增边界回归测试。
+
+### Added（新增）
+
+- **nsfc-code v0.1.2**：新增 NSFC 申请代码推荐技能（只读）
+  - 读取标书正文内容，参考 `skills/nsfc-code/references/nsfc_code_recommend.toml`
+  - 输出 5 组推荐（申请代码1=主代码、申请代码2=次代码）及理由，写入 `NSFC-CODE-vYYYYMMDDHHmm.md`
+  - 提供候选粗排脚本 `skills/nsfc-code/scripts/nsfc_code_rank.py`（支持 `--prefix` 降噪、避免 `NSFC-*` 报告回灌）
+  - 提供报告骨架脚本 `skills/nsfc-code/scripts/nsfc_code_new_report.py`（固定结构 + 时间戳，降低手误）
+
+### Changed（变更）
+
+- **nsfc-humanization 0.1.0 → 0.1.2**：补齐结构保护规则与最小改动策略，修正示例避免“新增信息”，并增加提示词注入防护
+  - `skills/nsfc-humanization/SKILL.md`：新增 YAML frontmatter；新增“结构保护与可编辑范围”“强度控制”“结构/语义自检”；将“不确定性表达”限定为“仅原文已包含时才允许更自然表达”
+  - `skills/nsfc-humanization/SKILL.md`：新增提示词注入防护规则，并补充“整篇标书按段落/小节分批输入”的建议
+  - `skills/nsfc-humanization/references/machine-patterns.md`：修正会引入新场景/新实体的示例；新增 LaTeX token（`\cite/\ref/\eqref/数学模式`）保留示例
+  - `skills/nsfc-humanization/config.yaml`：版本号更新至 0.1.2（单一真相来源）
+  - `skills/nsfc-humanization/CHANGELOG.md`、`skills/nsfc-humanization/README.md`：同步版本号与变更记录（README 补齐推荐用法与 FAQ）
+  - `README.md`：技能版本表同步更新（先到 v0.1.2，后续更新见 0.1.3 条目）
+
+- **nsfc-humanization 0.1.2 → 0.1.3**：将“括号嵌套括号 + 分号罗列（数据来源/规模）”纳入机器味识别与高优先级改写策略
+  - `skills/nsfc-humanization/SKILL.md`：新增“括号嵌套与信息堆砌”识别项，并在执行流程中补充“括号重写优先级”（括号仅保留短提示，信息优先改写为连续句子流）
+  - `skills/nsfc-humanization/references/machine-patterns.md`：新增“括号嵌套与信息堆砌（数据来源/规模）”对比示例
+  - `skills/nsfc-humanization/config.yaml`、`skills/nsfc-humanization/CHANGELOG.md`、`skills/nsfc-humanization/README.md`：版本号更新至 0.1.3（单一真相来源）
+  - `README.md`：技能版本表同步更新为 v0.1.3
+
+- **nsfc-research-content-writer v0.2.2 → v0.2.3**：补充篇幅控制约束、差异化组织框架与任务结束提醒
+  - `skills/nsfc-research-content-writer/SKILL.md`：新增篇幅控制原则（12–15页/12000–15000字）、基础/应用研究框架建议，并在任务结束后提醒使用 `nsfc-roadmap` 生成技术路线图；强化创新点“少而精”与年度计划“推进逻辑”
+  - `skills/nsfc-research-content-writer/references/page_budget.md`：新增研究内容篇幅控制参考（页数/字数/图表策略）
+  - `skills/nsfc-research-content-writer/references/anti_patterns.md`：新增反模式 10（忽视页数控制，以字数为导向）
+  - `README.md`：同步版本号
+
+- **nsfc-schematic v0.8.5 → v0.8.6**：规划阶段默认改为“纯 AI 规划”（不再要求/默认单选 `template_ref`）
+  - `skills/nsfc-schematic/config.yaml`：新增 `planning.planning_mode=ai`，并将 `layout.template_ref` 默认置空（高级选项）
+  - `skills/nsfc-schematic/scripts/plan_schematic.py`：新增 `--mode template|ai`；AI 模式输出 `plan_request.json/plan_request.md` 并在宿主 AI 写入 `PLAN.md + spec_draft.yaml` 后复跑校验
+  - 文档口径对齐：`skills/nsfc-schematic/SKILL.md`、`skills/nsfc-schematic/README.md`
+
+- **nsfc-roadmap v0.9.0 → v0.9.1**：规划阶段默认改为“纯 AI 规划”（不再要求/引导必须选择 `template_ref`）
+  - `skills/nsfc-roadmap/config.yaml`：`planning.planning_mode` 默认由 `template` 改为 `ai`
+  - `skills/nsfc-roadmap/scripts/plan_roadmap.py`（AI 规划模式）：模型画廊仅用于学习结构/信息密度控制；request 协议不再要求 `template_ref`
+  - 文档口径对齐：`skills/nsfc-roadmap/SKILL.md`、`skills/nsfc-roadmap/README.md`
+
+- **nsfc-schematic v0.8.4 → v0.8.5**：规划阶段模板库扩展（新增 `model-06..model-13` 视觉参考）
+  - `skills/nsfc-schematic/references/models/`：将 `curated_*.png` 统一重命名为 `model-06..model-13`
+  - `skills/nsfc-schematic/references/models/templates.yaml`：新增 `model-06..model-13` 模板索引，确保可被 `--template-ref model-xx` 选择并进入模型画廊/Contact Sheet
+  - `skills/nsfc-schematic/scripts/plan_schematic.py`：规划草案保留分组 `role`，自检阶段按 `role` 识别输入/输出节点，避免分层模板触发误报 P0
+
+- **nsfc-schematic v0.8.3 → v0.8.4**：默认画布比例改为更接近 MacBook 的 16:10（更适合屏幕审阅）
+  - `skills/nsfc-schematic/config.yaml`：默认 `renderer.canvas` 高度调整（16:10）
+
+- **nsfc-schematic v0.8.2 → v0.8.3**：分组标题栏统一、画布比例更稳健、连线路由避让增强
+  - `skills/nsfc-schematic/scripts/schematic_writer.py`：分组容器改用 swimlane 渲染统一标题栏，改善长中文分组标题排版一致性
+  - `skills/nsfc-schematic/scripts/spec_parser.py`：新增可选“收缩到内容”画布拟合，避免极端比例与大量空白
+  - `skills/nsfc-schematic/scripts/schematic_writer.py`：连线路由加入分组标题栏避让与更保守的障碍 padding，降低遮挡风险
+  - `skills/nsfc-schematic/config.yaml`：默认画布更接近 A4 横版比例，并新增 `layout.canvas_fit` / `layout.routing` 配置项
+
+- **AGENTS.md**：在"变更边界"部分新增规则
+  - 当 `skills/` 目录内文件有变化时，需检查 `README.md` 是否需要同步更新
+
+- **nsfc-research-foundation-writer v0.1.0 → v0.1.1**：写入安全约束与只读自检脚本增强
+  - `SKILL.md`：补充参数说明与“只替换正文、不改标题层级”的写入安全约束；补充可选脚本自检入口
+  - `references/`：信息表去年份化；DoD 清单补齐 `.cls/.sty` 禁改约束；示例输出增加“不得编造细节”的说明
+  - `scripts/`：新增 `validate_skill.py`（结构一致性校验）与 `check_project_outputs.py`（项目输出轻量自检）
+  - `README.md`：移除年份绑定表述，补充 `output_mode` 与自检命令
+  - `skills/README.md`：同步移除年份绑定表述，补齐推荐 Prompt 模板的 `output_mode` 与禁改约束
+
+- **nsfc-justification-writer v0.7.7 → v0.7.8**：强化“科学问题/科学假设”写作闭环与信息表口径
+  - `references/`：新增科学问题与科学假设写作要点（瓶颈→约束→问题→假设闭环自检）
+  - `references/info_form.md` 与 `scripts/core/info_form.py`：信息表字段提示强化（科学问题≠研究目标、假设不写验证方式、瓶颈→约束映射）
+  - `scripts/core/writing_coach.py` 与 `assets/prompts/*.txt`：写作教练与诊断/评审提示加入“逻辑链闭环”检查要点
+  - `README.md`、`skills/README.md`：同步版本号与“科学问题/科学假设”措辞
+
+- **nsfc-justification-writer v0.7.8 → v0.7.9**：整合第三方“瘦身提质”约束的诊断预警（页数/字数/文献/开篇）
+  - `skills/nsfc-justification-writer/config.yaml`：新增 `constraints.*`（页数 6-10 推荐 6-8、字数 8000-10000、核心文献 30-50、开篇 300 字），并将兜底字数调整为 9000±800
+  - `skills/nsfc-justification-writer/scripts/core/diagnostic.py`：Tier1 增加预估页数、核心文献数量与开篇信号检查（启发式，默认不阻断写入）
+  - `skills/nsfc-justification-writer/scripts/run.py`：`test-session` 将 pytest/python 缓存隔离到会话目录，测试中间产物集中收口
+  - `skills/nsfc-justification-writer/SKILL.md`、`skills/nsfc-justification-writer/README.md`：同步写作约束口径
+  - `README.md`、`skills/README.md`：同步 nsfc-justification-writer 版本号
+
+- **nsfc-roadmap v0.8.0 → v0.8.1**：规划阶段对齐“立项依据 + 研究内容/技术路线”，并同步新增模板文档
+  - `scripts/extract_proposal.py`：`proposal_path` 场景同时提取立项依据与研究内容/技术路线，提升模板选择与路线图叙事的全面性
+  - `references/models/templates.yaml`：增加 `render_family`（概念 family 与可落地图骨架解耦，支持稳定回退）
+  - `references/models/README.md`、`skills/nsfc-roadmap/README.md`：补齐 `model-07..model-10` 与新增 family 的使用说明
+
+- **nsfc-roadmap v0.8.1 → v0.8.2**：密度/字号/配色纠偏（内容与渲染解耦），修复多轮优化“越改越差”的方向性问题
+  - `skills/nsfc-roadmap/scripts/generate_roadmap.py`：移除 P0/P1 触发时的“缩字号/扩画布/缩间距”自动修复逻辑；改为仅在 overflow 时减字号、在字号偏小时增字号，并避免密度驱动参数劣化
+  - `skills/nsfc-roadmap/config.yaml`：重校准拥挤阈值（P1=0.55，P0=0.65），避免对信息密集型路线图误判
+  - `skills/nsfc-roadmap/config.yaml`：固定画布高度约束（禁用 exploration 的 `height_px` 抖动），避免在优化循环中通过“拉长画布”掩盖内容拥挤问题
+  - `skills/nsfc-roadmap/scripts/evaluate_roadmap.py` / `skills/nsfc-roadmap/scripts/evaluate_dimension.py`：对齐拥挤提示文案与 P0/P1 判定口径（强调优先精简内容，不靠缩字号“过阈值”）
+  - `skills/nsfc-roadmap/scripts/generate_roadmap.py`：ai_critic request 增加“密度/字号/配色”纠偏约束；`config_local.color_scheme.name` 限制为 `{academic-blue, tint-layered}`，避免误切 `outline-print`
+  - 文档同步：`skills/nsfc-roadmap/SKILL.md`、`skills/nsfc-roadmap/README.md`、`skills/README.md`、根 `README.md` 更新相关说明与版本号
+
+- **nsfc-roadmap v0.8.2 → v0.9.0**：新增“视觉选型模式”（模型画廊 contact sheet）+ 模板索引最小化
+  - `skills/nsfc-roadmap/scripts/plan_roadmap.py`：规划阶段自动生成 `models_contact_sheet.png` / `models/` / `models_index.yaml`，并在 AI 规划请求中显式引导“先看图再选 template_ref”
+  - `skills/nsfc-roadmap/references/models/templates.yaml`：精简为最小机器索引（仅保留 `id/file/family/render_family`），避免硬编码叙事 token
+  - `skills/nsfc-roadmap/scripts/template_library.py` / `skills/nsfc-roadmap/scripts/generate_roadmap.py`：对齐最小 schema，去除对 `use_when/avoid/family tokens` 的依赖
+  - `skills/nsfc-roadmap/scripts/render_roadmap.py`：修复 classic 布局导出 `.drawio` 时的 `UnboundLocalError` 崩溃（主线 anchor 节点写入位置修正）
+  - 文档同步：`skills/nsfc-roadmap/references/models/README.md`、`skills/nsfc-roadmap/README.md`、`skills/nsfc-roadmap/SKILL.md`、`skills/README.md`、根 `README.md`
+
+- **nsfc-qc v0.1.1 → v0.1.2**：新增中文直引号排版预检（只读）
+  - `scripts/nsfc_qc_precheck.py`：检测 `"免疫景观"` 这类直引号写法，输出 `quote_issues.csv` 并在 `precheck.json` 中给出结构化统计与替换建议（``免疫景观''）
+  - `scripts/materialize_final_outputs.py`：metrics 聚合时纳入 `typography` 预检信息并补齐产物索引
+
+- **nsfc-qc v0.1.2 → v0.1.3**：引用真伪核查升级为“硬编码证据包 + AI 语义判断”，并将 4 步法隔离编译固定为 QC 最后一步
+  - `scripts/nsfc_qc_precheck.py`：新增 `--resolve-refs`（抓取标题/摘要/可选 OA PDF 片段）与标书引用上下文提取，输出 `reference_evidence.jsonl`
+  - `scripts/run_parallel_qc.py`：默认先跑预检并把证据包复制到 snapshot 的 `./.nsfc-qc/input/`，thread 可只读使用；新增 `--compile-last`
+  - `scripts/nsfc_qc_compile.py`：新增 4 步法隔离编译脚本（xelatex→bibtex→xelatex→xelatex），回填 metrics
+
+- **nsfc-qc v0.1.3 → v0.1.4**：实例隔离输出（deliver-dir + sidecar 工作区）+ 报告/JSON 一致性校验 + 路径可搬运性增强
+  - `scripts/nsfc_qc_run.py`：新增“一键实例隔离”运行器，默认输出到 `QC/{run_id}/` + `QC/{run_id}.nsfc-qc/`
+  - `scripts/run_parallel_qc.py`：支持 `--workspace-dir` 重定向中间产物；run_id 冲突自动后缀 `r1/r2...`；parallel-vibe 不可用/plan-only 也会落盘 final 输出
+  - `scripts/materialize_final_outputs.py`：支持 `--run-dir`；metrics/artifacts 路径改为相对 run_dir；把 precheck/compile 的确定性信号映射为“底线 findings”，并注入报告表格；新增 `final/validation.json`
+  - `scripts/nsfc_qc_precheck.py`、`scripts/nsfc_qc_compile.py`：compile.json 路径字段优先输出相对 out_dir（同时保留 *_abs）
+
+- **nsfc-qc v0.1.4 → v0.1.5**：默认工作区改为交付目录内隐藏目录（`.nsfc-qc/`），并减少交付目录中间文件噪声
+  - `scripts/nsfc_qc_run.py`：默认 workspace_dir 从 `QC/{run_id}.nsfc-qc/` 调整为 `QC/{run_id}/.nsfc-qc/`
+  - `scripts/nsfc_qc_run.py`：交付目录仅保留最终报告与结构化输出；预检/编译等中间 artifacts 保留在隐藏工作区 run 目录下
+
+- **nsfc-qc v0.1.5 → v0.1.6**：新增“全称与缩写规范”确定性预检（启发式）
+  - `scripts/nsfc_qc_precheck.py`：输出 `abbreviation_issues.csv`，并在 `precheck.json` 中给出结构化统计与建议（首次出现建议“中文全称（English Full Name, ABBR）”；后文尽量仅用 ABBR）
+  - `scripts/run_parallel_qc.py`：把 `abbreviation_issues.csv` 复制进 snapshot 的 `./.nsfc-qc/input/` 供 thread 只读引用
+  - `scripts/materialize_final_outputs.py`：将缩写预检信号映射为确定性 findings（P1/P2）并纳入 metrics 聚合与 artifacts 索引
+
+- **nsfc-qc v0.1.6 → v0.1.7**：thread 证据包目录统一到 `snapshot/.nsfc-qc/input/`（确保所有中间操作严格落在 `.nsfc-qc/` 下）
+  - `scripts/run_parallel_qc.py`：证据包路径统一为 `./.nsfc-qc/input/*`，确保所有中间操作严格落在 `.nsfc-qc/` 下
+
+- **nsfc-qc v0.1.7 → v0.1.8**：snapshot 最小化为仅拷贝 `*.tex/*.bib`（并跳过 `QC/` 等大目录），显著降低隐藏工作区体积与线程倍增开销
+  - `scripts/run_parallel_qc.py`：`_copy_snapshot()` 改为按扩展名白名单拷贝（`.tex/.bib`），避免全量 copytree
+  - `scripts/nsfc_qc_precheck.py`、`scripts/nsfc_qc_compile.py`：隔离编译 ignore 列表加入 `QC/`，避免把历史 QC 交付目录拷入编译工作区
+
+- **nsfc-qc v0.1.8 → v0.1.9**：移除“编译是否成功/PDF 页数”相关流程与输出，定位为“内容质量 QC”（标书写得怎么样）
+  - `scripts/nsfc_qc_run.py`、`scripts/run_parallel_qc.py`：移除 `--compile-last`
+  - `scripts/nsfc_qc_precheck.py`：移除 `--compile` 与隔离编译逻辑
+  - `scripts/materialize_final_outputs.py`、`templates/REPORT_TEMPLATE.md`：final 输出不再聚合 compile 信息；报告中页数改为提示用户自行编译核对
+
+- **nsfc-qc v0.1.9 → v0.2.0**：缩略语检查增强（误报过滤 + AI 友好摘要），并将缩略语规范升级为 thread 独立必检项
+  - `skills/nsfc-qc/scripts/nsfc_qc_precheck.py`：扩展 stoplist（Fig/Tab/Sec 等）与误报过滤（清除 `\\label/\\ref/\\cite` 参数与 `\\begin/\\end` 环境名；过滤 `V2` 这类版本 token）；新增 `abbreviation_issues_summary.json`
+  - `skills/nsfc-qc/scripts/run_parallel_qc.py`：将 `abbreviation_issues_summary.json` 纳入 snapshot 证据包，并在 thread prompt 中要求独立输出“缩略语规范”小节（按文件/行号给出建议）
+  - `skills/nsfc-qc/SKILL.md`：thread 统一任务新增“缩略语规范”独立必检项，预检产物清单补齐缩写相关产物
+  - `skills/nsfc-qc/references/qc_checklist.md`：缩略语规范独立成章，细化检查点与分级口径
+
+- 优化 [AGENTS.md](AGENTS.md)：有机整合外部 [huangwb8/skills](https://github.com/huangwb8/skills) 项目的 Skill 开发规范
+  - 新增"Skill 开发规范"章节，包含完整的目录结构、文档规范（SKILL.md/README.md/config.yaml）、版本管理、六大质量原则、文档更新与发布流程
+  - 融合外部规范的核心原则：SKILL.md ≤500 行、description ≤1024 字符（单行格式、融入负向约束）、移除版本标记、简洁标题（无序号前缀）
+  - 强调硬编码与 AI 功能划分、多轮自检、冗余残留检查、安全性审视、过度设计检查、通用性验证六大质量原则
+  - 重构文档结构：合并目录结构和项目概览、统一通用规范部分、整合 LaTeX 技术规范、明确化文档与版本管理、完善文档更新原则（有机更新哲学）
+  - 移除冗余内容（删除重复的"项目目标""默认语言""工程原则"等章节、自动生成的冗长目录树）
+  - 精简了 Codex CLI 特定说明，核心内容已融入通用规范
+
+- 更新 [CLAUDE.md](CLAUDE.md)：完善与 AGENTS.md 的关系说明
+  - 强调 AGENTS.md 为跨平台通用项目指令（Single Source of Truth）
+  - 明确 CLAUDE.md 通过 `@./AGENTS.md` 自动引用，修改 AGENTS.md 后无需任何同步操作
+
+- 更新 3 个 NSFC 标书模板 README：补充并优化“如何调整/自定义序号样式（enumerate 编号）”教程（含 3 套常用多级序号组合）
+  - [projects/NSFC_General/README.md](projects/NSFC_General/README.md)
+  - [projects/NSFC_Local/README.md](projects/NSFC_Local/README.md)
+  - [projects/NSFC_Young/README.md](projects/NSFC_Young/README.md)
+
+- **nsfc-schematic v0.7.0 → v0.8.0**：AI 自主化评估与 TEX 提取协议升级
+  - AI 主评估协议从“measurements.json 驱动”改为“spec+config+PNG 请求包驱动”（`ai_eval_request.md`/`ai_eval_response.json`）
+  - 新增 TEX → spec 的 AI 离线提取协议（`ai_tex_request.md`/`ai_tex_response.json`），无响应自动降级
+  - AI 主评估生效时默认跳过多维度启发式扣分，避免重复扣分导致口径漂移
+
+- **nsfc-schematic v0.8.0 → v0.8.1**：规划阶段引入“图类型模板库”与稳健默认值
+  - `references/models/templates.yaml`：新增 5 类常用图类型模板（线性/分层/反馈/并行/中心辐射）
+  - `plan_schematic.py`：`proposal_path` 场景综合提取“立项依据 + 研究内容”，并支持 `--template-ref` 强制指定模板
+  - `evaluation.evaluation_mode` 默认改为 `heuristic`（`ai` 作为可选增强），默认启用 PDF 导出（需 draw.io CLI）
+
+- **nsfc-schematic v0.8.1 → v0.8.2**：规划阶段新增“模型画廊”（skeleton/simple 优先）辅助视觉选型
+  - `skills/nsfc-schematic/references/models/templates.yaml`：为部分模板补充 `file/simple_file`（其中 `simple_file` 为骨架/模式图）
+  - `skills/nsfc-schematic/scripts/model_gallery.py`：新增 contact sheet 生成器（full + skeleton）
+  - `skills/nsfc-schematic/scripts/plan_schematic.py`：规划输出 `PLAN.md` 中增加模型画廊路径提示
+
+- 更新 `.gitignore`：忽略 `projects/**/.nsfc-qc/`（nsfc-qc 的运行产物与报告目录），避免污染工作区
+
+- 更新 `.gitignore`：修正 `/tests/` 仅忽略根目录 `tests/`，并放行 `skills/nsfc-justification-writer` 的 `plans/`、`tests/` 进入版本控制（中间产物目录仍默认忽略）
+
+### Added（新增）
+
+- **nsfc-qc**：新增实例辅助优化计划文档（目录隔离/相对路径/报告结构校验方案）
+  - [skills/nsfc-qc/plans/实例辅助优化-v202602170903.md](skills/nsfc-qc/plans/实例辅助优化-v202602170903.md)
+
+- **nsfc-roadmap**：新增路线图“画图经验”沉淀文档（模板共性规律 + family 选型 + 密度/字号优化经验）
+  - [skills/nsfc-roadmap/plans/画图经验-优化-v202602200803.md](skills/nsfc-roadmap/plans/画图经验-优化-v202602200803.md)
+
+- **nsfc-reviewers v0.5.0**：新增 NSFC 标书专家评审模拟技能（🚧 开发中）
+  - 模拟 5 位领域专家角色（创新性/可行性/基础与团队/严格综合/建设性）对标书进行多维度评审
+  - 支持并行多组评审（最多 5 组，依赖 parallel-vibe），无 parallel-vibe 时自动降级到单组模式
+  - 6 维度加权评审：创新性 25%、假说 20%、方法 20%、基础 15%、团队 10%、成果 10%
+  - 问题分级输出：P0（致命）→ P1（重要）→ P2（建议），含证据锚点
+  - 跨组共识聚合（默认 60% 共识阈值），自动升级严重度
+  - 强制输出整理：中间过程自动归档到 `.nsfc-reviewers/`，最终交付清晰可见
+  - 包含 5 个脚本、7 个参考资料文件、完整的 plans 和 tests 目录
+
+- **nsfc-roadmap v0.8.0**：新增 NSFC 技术路线图生成技能（🚧 开发中）
+  - 从 NSFC 标书自动生成可打印、A4 可读的技术路线图
+  - 输出 `.drawio`（可编辑）与 `.svg`/`.png`/`.pdf`（交付）
+  - 内置 6 个参考模板（model-01 ~ model-06）
+  - 多轮评估-优化（默认 5 轮），三维度自检（Structure/Visual/Readability）
+  - "平台期停止"策略：基于 PNG 哈希与分数提升阈值自动停止
+  - 支持规划模式（先审阅 `roadmap-plan.md` 再生成）与 AI 自主闭环模式
+  - 包含 13 个脚本、模板库（templates.yaml + 6 张参考图）
+
+- **nsfc-schematic v0.7.0**：新增 NSFC 原理图/机制图生成技能（🚧 开发中）
+  - 将标书中的研究机制、算法架构、模块关系转成原理图
+  - 分组结构：输入层 → 处理层 → 输出层（柔性）+ 任意连线
+  - 节点文案自动扩容，避免导出后文字溢出/遮挡
+  - 正交路由，确定性几何计算避免连线穿字
+  - 多轮评估-优化（默认 5 轮），三维度自检（结构/视觉/可读性）
+  - 元素层级保护：分组底层 → 连线中层 → 节点顶层
+  - 离线 AI 评估协议：脚本生成证据包，AI 自主评分
+  - 包含 14 个脚本、设计原则参考、spec 示例、配色库
+
+- **nsfc-abstract v0.2.0**：NSFC 标书中英文摘要生成技能（英文为中文的忠实翻译；中文≤400字、英文≤4000字符），输出写入工作目录 `NSFC-ABSTRACTS.md`；新增"字数超限闭环处理"说明，并增强确定性长度校验/写入脚本（JSON/diff 输出、严格模式不写入）
+- **nsfc-abstract v0.3.0**：新增"标题建议"输出（默认 1 个推荐标题 + 5 个候选标题及理由），并在校验/写入脚本中加入标题分段的确定性检查；新增标题写作规则参考文档 `skills/nsfc-abstract/references/title-rules.md`
+- **nsfc-qc v0.1.1**：新增 NSFC 标书只读质量控制技能（多线程独立 QC + 标准化报告）
+  - 中间文件统一归档到 `project_root/.nsfc-qc/`（包含 parallel-vibe 产物），不污染标书目录
+  - 多线程（默认 5 threads，默认串联）独立检查：文风生硬、引用假引/错引风险、篇幅与章节分布、逻辑清晰度等
+  - 确定性脚本可生成标准化 final 输出骨架（report/metrics/findings），即使 threads 尚未运行也可落盘
+  - `--compile` 路径在缺少 TeX 工具链时自动降级（记录 `missing_tools`），不崩溃
+
+### Updated（文档更新）
+
+- 更新 [README.md](README.md)：技能生态系统新增"质量保障与图表生成"分类，技能表格新增 nsfc-reviewers（v0.5.0）、nsfc-roadmap（v0.8.0）、nsfc-schematic（v0.7.0），均标记为 🚧 开发中
+- 更新 [skills/README.md](skills/README.md)：新增 nsfc-reviewers/nsfc-roadmap/nsfc-schematic 三个完整技能说明（功能、使用场景、Prompt 模板、技能特点），调整后续技能编号（8→12，9→13，10→14），更新推荐工作流（新增图表生成与专家评审环节）和技能依赖关系
+
+- 更新 [README.md](README.md)：技能表格更新 nsfc-abstract（v0.2.0）
+- 更新 [README.md](README.md)：nsfc-abstract 版本号与描述更新至 v0.3.0（加入"标题建议"输出）
+- 更新 [skills/README.md](skills/README.md)：新增 nsfc-abstract 小节说明与可选长度校验命令，并调整后续技能编号
+
+### Removed（移除）
+
+- 移除 `skills/nsfc-bib-manager/` 技能，并同步更新相关文档/脚本中对该技能的引用：`README.md`、`skills/README.md`、`skills/nsfc-justification-writer/*`、`skills/transfer_old_latex_to_new/config.yaml`（改为“提供 DOI/链接并手动补齐 references/*.bib”的流程表述）
+
+### Changed（变更）
+
+- **nsfc-research-content-writer v0.2.1 → v0.2.2**：完善技能自检与可追溯测试基础设施
+  - 补齐 `templates/`、`plans/`、`tests/`，提供 A/B 轮计划与测试报告模板，支持确定性会话创建脚本
+  - 配置集中化：`config.yaml` 补齐 `skill_info.description`，新增 `checks`（risk_phrases/subgoal_markers_min）
+  - 脚本优化：抽出 `_yaml_utils.py` 复用 YAML 片段解析；`check_project_outputs.py` 读取配置并增强子目标 marker 识别；`create_test_session.py` 强化会话 ID 校验
+  - 文档一致性：移除本 skill 及 `skills/README.md` 中的年份限定表述
+
+- **nsfc-justification-writer**：目录结构与可移植性收口（解决“目录管理太乱”）
+  - 资源统一归档到 `assets/`（prompts/templates/examples/presets），并在代码中加入新路径优先 + 旧路径兼容回退
+  - 移除仅用于说明的 `config/` 兼容占位目录（旧路径 `config/presets/` 仍可由用户按需自行创建）
+  - 文档统一归档到 `references/docs/`，补齐索引与“路径提示”（仓库根目录/skill 目录两种运行方式）
+  - 实现模块统一托管到 `scripts/core/`（不再保留根级 `core/` 目录），入口脚本统一从 `scripts/` 调用
+  - Python 单测统一放在 `tests/pytest/`，`tests/` 同时承载 pytest 测试与 auto-test-skill 会话；更新 `tests/README.md` 解释分工
+  - runs/cache 默认落点统一到 `tests/_artifacts/` 并被 gitignore，避免运行产物污染仓库
+  - 新增 `scripts/run.py test-session`：每次测试自动创建 `tests/<session>/` 子目录并记录 `TEST_PLAN.md`/`TEST_REPORT.md`
+  - 修复单测与实现行为不一致（SLR 目录检测与配置校验 guardrails）
+
+- 统一 skills 作者口径：将 `skills/*/SKILL.md` 的 `metadata.author` 与 `skills/*/config.yaml` 的 `skill_info.author` 固定为 `Bensz Conan`
+
+- 调整 NSFC_General 模板的段后距与标题间距逻辑：移除全局 `\parskip=7.8pt`，改为 `\parskip=0pt` 并在 `\subsection` 的 `titlespacing` 中显式给出 7.8pt 的标题后间距，避免 `\NSFCBodyText` 改写 `\parskip` 导致 `\section`/`\subsection` 垂直间距前后不一致
+- 更新 NSFC_General 的样式微调文档：说明默认不使用 `\parskip`，并同步标题间距示例到最新配置
+- 更新三套 NSFC 正文项目的 README 间距调节指南：突出说明如何设置正文间距、参考文献间距，以及 `\subsubsubsection` 与更低层级标题的前后间距（并补齐 `projects/NSFC_Local/README.md`）
+- **NSFC_Local / NSFC_Young**：迁移 NSFC_General 的标题间距与参考文献兼容性优化：对齐 `titlesec` 的 `\titlespacing*{\section}`/`\titlespacing*{\subsection}`；引入 `etoolbox` 并新增 `\NSFCHasCite` 检测逻辑，为“无引用也可跑 bibtex / 可选隐藏空参考文献”提供基础：`projects/NSFC_Local/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`
+
+### Changed（变更）
+
+- **NSFC_General / NSFC_Young / NSFC_Local**：优化参考文献配置的关注点分离，将 `\NSFCBibStyle` 与 `\NSFCBibDatabase` 定义从 `extraTex/@config.tex` 移至 `references/reference.tex`，使参考文献专用配置与通用样式配置解耦：`projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`、`projects/NSFC_General/references/reference.tex`、`projects/NSFC_Young/references/reference.tex`、`projects/NSFC_Local/references/reference.tex`
+- **NSFC_General / NSFC_Young / NSFC_Local**：正文 `extraTex` 段间距改为紧凑模式（在 `\\NSFCBodyText` 中将 `\\parskip` 设为 `0pt`），使段间距与行间距观感一致：`projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`
+- **NSFC_General / NSFC_Young / NSFC_Local**：参考文献样式新增可调参数并统一实现：标题与上文/标题与条目/条目间距（`\NSFCBibTitleAboveSkip/\NSFCBibTitleBelowSkip/\NSFCBibItemSep`）+ 参考文献条目行宽（`\NSFCBibTextWidth`，用于跨项目消除换行差异）；参考文献标题不再走 `\section*`（避免 titlesec 对 `\section` 的 spacing 差异影响参考文献），改为在 `thebibliography` 内部手工排版并显式设置 list 间距，确保"参考文献相关参数一致时"渲染效果一致：`projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`
+- **NSFC_General / NSFC_Young / NSFC_Local**：参考文献间距参数改为“两层架构”管理：`extraTex/@config.tex` 仅提供基础默认值（统一为 `10pt/0pt/0pt/397.16727pt`），用户在 `references/reference.tex` 中按需用 `\\setlength` 覆盖并附示例注释，降低升级覆盖风险：`projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`、`projects/NSFC_General/references/reference.tex`、`projects/NSFC_Young/references/reference.tex`、`projects/NSFC_Local/references/reference.tex`、`references/README.md`
+- **NSFC_General / NSFC_Young / NSFC_Local**：将 `\NSFCBibTextWidth` 的推荐默认值统一按 Young 的最窄有效行宽设置，默认情况下三套项目的参考文献换行更接近一致：`projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`
+- **NSFC_General / NSFC_Young / NSFC_Local**：`references/reference.tex` 统一为"样式/数据库均由 @config.tex 控制"的写法：使用 `\\NSFCBibStyle/\\NSFCBibDatabase` 指定 bst 与 bib，并加入间距调节提示注释；同时对齐 General 的参考文献排版（与 Local/Young 一致采用 `\\begin{spacing}{1}` + `\\wuhao`）：`projects/NSFC_General/references/reference.tex`、`projects/NSFC_Young/references/reference.tex`、`projects/NSFC_Local/references/reference.tex`
+- **NSFC_Young / NSFC_Local**：示例图片不再使用子图并排，改为两张图分开展示，便于审阅与排版微调：`projects/NSFC_Young/extraTex/2.1.研究内容.tex`、`projects/NSFC_Local/extraTex/1.3.方案及可行性.tex`
+- **transfer_old_latex_to_new**：核心模块迁移到 `scripts/core/` 并统一导入路径；文档从 `docs/` 归档到 `references/`，同步修复引用链接；清理已跟踪的 `__pycache__` 缓存目录。
+- **transfer_old_latex_to_new**：资源处理支持 `figure_handling=link/skip`，并补齐超出项目根目录资源的扫描提示。
+- **transfer_old_latex_to_new v1.4.1**：资源扫描支持 `exclude_dirs` 与无扩展名图片解析；`\\import/\\includefrom` 路径解析更完整；`\\cite*` 家族引用提取更全面；`link` 策略下避免覆盖已有非软链接文件。
+- **transfer_old_latex_to_new**：配置指南补充预留字段说明（cache/output.deliverables/backup_location）。
+- 重构三个 NSFC 正文项目的 `extraTex/*.tex` 示例正文（保持原有主题与提纲结构不变），并统一段首缩进与代码展示风格：`projects/NSFC_Young/`, `projects/NSFC_General/`, `projects/NSFC_Local/`
+
+### Fixed（修复）
+
+- **NSFC_General / NSFC_Young / NSFC_Local**：修复“参考文献”标题配色与最新 Release 不一致的问题：在自定义 `thebibliography` 标题渲染中补回 `MsBlue`，保持现有参考文献间距/行宽/条目样式不变：`projects/NSFC_General/extraTex/@config.tex`、`projects/NSFC_Young/extraTex/@config.tex`、`projects/NSFC_Local/extraTex/@config.tex`
+- **transfer_old_latex_to_new**：CacheManager 对不可 JSON 序列化的结果不再抛异常，仅落 L1 缓存。
+- **transfer_old_latex_to_new**：资源扫描与复制增加路径越界保护，避免不受控写入与异常。
+- **transfer_old_latex_to_new**：批量 AI 响应解析不完整时自动回退，避免静默丢失结果。
+- **transfer_old_latex_to_new**：资源扫描补充排除目录统计并输出提醒，避免隐式漏拷资源。
+- 修复 [references/README.md](references/README.md) 与根级 `config.yaml` 的辅助文档列表不一致问题：移除对不存在文件的引用，并修正文档中 LaTeX 命令的反斜杠显示。
+- 修复正文“提示语/标题”排版异常：保留模板的全局 `\\parindent=0pt`，改为在 `extraTex` 正文中通过 `\\NSFCBodyText` 启用段首缩进 2em，避免与 `main.tex` 的 `\\hspace*{2em}`/`\\linebreak{}` 叠加导致换行错位：`projects/NSFC_Young/extraTex/@config.tex`, `projects/NSFC_General/extraTex/@config.tex`, `projects/NSFC_Local/extraTex/@config.tex`
+- 示例内容整合仓库素材：正文中引用 `projects/*/figures/*` 与 `projects/*/code/test.sh`（`\\includegraphics` + `\\lstinputlisting`），并统一 `listings` 样式为 `codestyle01`
+- 篇幅控制：三套项目 PDF 均落在 12–14 页；对 Young/General/Local 将两张示例图合并为子图，代码清单做片段截取；并移除 General 示例中过多的 `\\NSFCBlankPara` 额外留白以避免无意义增页
+
+### Changed（变更）
+
+- **complete_example v1.4.0 → v1.4.1**：路径解析与编译验证加固（更少污染、更可复现）
+  - `skill_controller.py`：`project_name` 支持“项目名/项目路径”两种输入；新增 projects/ 边界校验，拦截路径穿越；缺失 `main.tex` 时明确报错
+  - `skill_controller.py`：默认 `target_files` 改为自动扫描 `extraTex/*.tex`（排除 `@config.tex`），避免模板文件名变更导致示例/默认流程失效
+  - `format_guard.py`：编译产物写入 `run_dir/_latex_build/`（使用 `-output-directory`），降低对项目根目录的污染；批量 apply 后统一编译验证，失败自动回滚
+  - `format_guard.py`：bibtex 运行优先使用相对路径参数，规避 TeX 安全策略对绝对路径输出的限制
+  - `security_manager.py`：读取 `config.yaml:security.*` 覆盖默认黑白名单；统一使用 posix 路径匹配；忽略注释行的格式注入误报
+  - `basic_usage.py` / `advanced_usage.py` / `SKILL.md`：更新示例 `target_files` 默认示例路径
+
+- **complete_example v1.3.0 → v1.4.0**：中间文件存储机制重构（项目级隐藏目录）
+  - **项目隔离**：所有中间文件存储在目标项目的 `.complete_example` 隐藏目录中
+  - **硬编码保证**：通过硬编码方式确保所有运行时文件（备份、日志、分析结果等）都存放在项目级目录
+  - **路径变更**：
+    - 旧路径：`skills/complete-example/runs/<run_id>/`
+    - 新路径：`{project_path}/.complete_example/<run_id>/`
+  - **配置更新**：`config.yaml` 中 `run_management.runs_root` 改为 `{project_path}/.complete_example`
+  - **代码更新**：
+    - `skill_controller.py`：`_create_run_directory()` 改为接收 `project_path` 参数
+    - `format_guard.py`：更新注释中的路径说明
+    - `advanced_usage.py`：更新提示信息中的路径说明
+  - **文档更新**：`SKILL.md` 中所有 `runs/` 路径引用改为 `.complete_example/`
+  - **Git 忽略**：`.gitignore` 新增 `projects/**/.complete_example/` 规则
+  - **优势**：
+    - ✅ 项目间完全隔离，每个项目有独立的中间文件存储
+    - ✅ 便于项目迁移和备份（中间文件随项目一起移动）
+    - ✅ 删除项目时自动清理所有相关中间文件
+    - ✅ 隐藏目录设计，不污染项目结构
+
+- **complete_example v1.2.0 → v1.3.0**：智能资源分配与篇幅控制优化
+  - **新增 `ResourceAllocator`**：智能资源分配器，确保项目中所有 figures 和 code 素材被充分利用
+  - **轮询分配策略**：将所有图片和代码随机分配到各个章节（示例无需理解语义）
+  - **篇幅自动控制**：估算最终 PDF 页数，自动调整章节字数以达到 12-14 页目标
+  - **配置参数**：新增 `page_control` 配置节，包含目标页数、每页字数、各种元素占用的页数等
+  - **资源利用率目标**：figures 和 code 的 100% 利用率（所有素材都分配到章节）
+  - **新增方法**：`AIContentGenerator.generate_section_content_with_allocation()` 支持预分配资源和目标字数
+  - **分配方案可视化**：资源分配结果保存至 `.complete_example/<run_id>/analysis/resource_allocation.json`
+
+- **NSFC_Local**：对齐 2026 地区基金 Word 正文模板（提纲页/边距/标题缩进/段后距）
+  - `projects/NSFC_Local/extraTex/@config.tex`：启用 `\\raggedbottom`；`geometry` 设为 `L3.20/R2.94/T2.67/B2.91 cm`；标题缩进统一为 `\\NSFCTitleIndent=28pt`；`\\NSFCSubsection` 使用 `parshape` 复刻"首行缩进、续行回到左边距"；新增 `\\NSFCSubsectionAfterSkip` 并调小默认段后距以让提纲与正文衔接更紧凑
+  - `projects/NSFC_Local/main.tex`：标题文字与空格/标点按 2026 模板归一；补齐提纲标题/提示语的加粗位置（与 Word 模板一致）；使用 `\\linebreak{}` 精确对齐标题换行，使 PDF 中每行标题文字与 Word 模板一致；微调提纲区块前后间距以贴近分页观感
+  - `projects/NSFC_Local/template/2026年最新word模板-5.地区科学基金项目-正文.docx`：由同名 `.doc` 转换生成，供标题一致性验证与基准管理使用
+
+- **complete_example v1.0.0 → v1.2.0**：多元示例占位符（表格/公式）+ 模板渲染与安全加固
+  - 新增本地启发式 LLM 回退：无 API Key 也可生成可解析 JSON 与可落盘示例内容
+  - 补齐离线模式对"方案及可行性"类小节（研究方法/技术路线/关键技术/可行性分析）的示例内容生成，便于一键填充模板
+  - 新增占位符支持：`{{TABLE:...}}` / `{{INLINE_MATH:...}}` / `{{DISPLAY_MATH:...}}` / `{{EQUATION:...|label}}` / `{{ALIGN:...}}`
+  - 新增安全模板渲染器：避免 LaTeX 模板中 `{...}` 被误解析为 Python format 占位符导致 KeyError
+  - 修复文献占位符冲突：reference 占位符统一为 `references:<citekey>`，避免同一 `.bib` 多条目覆盖
+  - 安全加固：拒绝项目目录外文件写入；章节层级约束（input tex 禁止 `\\section/\\subsection`）落地；扩展格式注入黑名单（含 `\\newcommand` 等）
+  - 修复自动清理二次命中问题，并避免自动清理路径直接 `print` 污染输出
+  - LLMClient 支持 `temperature` dict 配置（analysis/generation/refinement），避免真实 LLM 路径温度参数类型错误
+  - 运行路径解析更稳健：可从任意工作目录正确定位 `projects/<name>`
+
+- **make_latex_model v2.7.1 → v2.7.2**：AI 驱动迭代闭环（最小可用版）与像素对比结构化产物
+  - 新增 AI 优化器核心模块：`core/{ai_optimizer,diff_analyzer,decision_reasoner,parameter_executor,history_memory}.py` 与 `prompts/analysis_template.txt`
+  - `enhanced_optimize.py`：新增 `--ai/--ai-mode`；像素对比改为解析 `--json-out` 输出并落盘 `diff_features.json`
+  - `compare_pdf_pixels.py`：新增 `--json-out/--features-out`；0 页 PDF 显式失败；条纹特征归一化（提升根因推断稳定性）
+  - 修复 LaTeX 替换的 `re.sub` 转义风险（避免 `\\newcommand`/`\\renewcommand` 被误解析），并修正 `sync_config.py` 的字号解析正则
+  - 加固 `--project` 参数解析与路径边界校验（限制在仓库 `projects/` 下）
+  - **SKILL.md 瘦身**：将“可执行细节流程/FAQ”迁移到 `skills/make_latex_model/docs/{WORKFLOW,FAQ}.md`，`SKILL.md` 仅保留边界/入口/验收标准
+  - 新增可追溯的 auto-test-skill A/B 轮会话文档：`skills/make_latex_model/plans/` 与 `skills/make_latex_model/tests/`
+
+- **make_latex_model v2.7.2 → v2.8.0**：脚本托管与项目级工作空间隔离重构
+  - 核心模块迁移：`skills/make_latex_model/core/` → `skills/make_latex_model/scripts/core/`，并统一导入路径为 `scripts.core.*`
+  - 工作空间迁移：产物统一落在 `projects/<project>/.make_latex_model/`（`baselines/iterations/reports/cache/backup`），并生成 `workspace_manager.json` 元数据
+  - 向后兼容：检测旧的技能级 workspace 与 `artifacts/` 产物，自动复制到新工作空间（可通过 `workspace.auto_migrate_legacy` / `workspace.verbose_migration` 控制）
+  - 迭代上限提升：`iteration.max_iterations` 15 → 30，`no_improvement_limit` 3 → 5
+  - 安全加固：关键入口脚本补齐 projects/ 边界校验（防路径遍历），并更新 `analyze_pdf.py`/`run_validators.py`/`generate_baseline.py`/`optimize.py` 等入口的一致性
+  - 文档同步：更新 `skills/make_latex_model/{SKILL.md,README.md,docs/WORKFLOW.md,scripts/README.md}` 的路径与迭代说明
+  - auto-test-skill：新增 A/B 轮会话 `v202601271524`，并强制闭环 P0-P2
+
+- **make_latex_model v2.8.0 → v2.9.0**：PDF 单源标题对齐 + 加粗解析统一 + 逐段像素对齐落地
+  - 新增 `skills/make_latex_model/scripts/extract_headings_from_pdf.py`：从 PDF 基准提取标题文字/加粗片段/跨行换行点
+  - `skills/make_latex_model/scripts/compare_headings.py`：支持 PDF 作为输入源（.docx 保留为 deprecated 兼容），并复用统一格式解析器修复加粗识别误报
+  - 新增 `skills/make_latex_model/scripts/optimize_heading_linebreaks.py`：根据 PDF 标题跨行位置自动插入 `\\linebreak{}`（严格匹配后才改写）
+  - 新增 `skills/make_latex_model/scripts/core/latex_format_parser.py`：统一解析 `\\textbf{}` / `{\\bfseries ...}` / 嵌套命令等常见格式，供对比与验证器复用
+  - 新增逐段对齐链路：`scripts/core/paragraph_alignment.py` + `scripts/{extract_paragraphs,match_paragraphs,compare_paragraph_images}.py`；`compare_pdf_pixels.py` 增加 `--mode paragraph` 与段落级特征输出；`diff_analyzer.py` 识别 paragraph mode 特征并给出更贴近段距/缩进/行距的根因推断
+  - `enhanced_optimize.py`/`run_ai_optimizer.py`：基准 PDF 选择更稳健（优先 `baseline.pdf`，兼容 `word.pdf`），并支持从配置传递像素对比 mode/dpi/tolerance/min_similarity
+  - 文档与配置同步：`skills/make_latex_model/{SKILL.md,config.yaml,docs/WORKFLOW.md,scripts/README.md}`
+
+- **make_latex_model**：增强 NSFC 系模板的基准选择与验证稳定性
+  - `skills/make_latex_model/scripts/compare_headings.py`：忽略被注释的标题；同时识别 `\\NSFCSubsection{}`；支持嵌套花括号标题（用于 `\\textbf{...}` 等局部加粗）；Word 标题样式缺失时回退到“文本模式”提取；支持生成 HTML 报告；格式对比时保留空格边界（避免 `1.~` 等空白差异误报）
+  - `skills/make_latex_model/scripts/{generate_baseline.py,core/validators/heading_validator.py}`：模板目录存在多份 Word 文件时，优先选择“年份最大”的模板（同年优先 `.docx`）
+  - `skills/make_latex_model/scripts/validate.sh`：基于 `projects/<project>/.make_latex_model/baselines/word_analysis.json` 自动校验边距；Word 模板选择与年份排序对齐
+  - `skills/make_latex_model/scripts/prepare_main.py`：新增 `--add-placeholders`（可选）用于像素对齐调试，默认保持“只注释 input 行”的语义
+  - `skills/make_latex_model/scripts/compare_pdf_pixels.py`：JSON 输出字段强制转换为基础类型（提升跨平台可读性/可序列化稳定性）
+
+- **NSFC_Local**：补充“深度学习在医疗影像分析中的应用”示例内容（CNN 架构 + 数据增强策略）
+  - 更新 `projects/NSFC_Local/extraTex/1.2.内容目标问题.tex`：研究内容/目标/关键问题
+  - 更新 `projects/NSFC_Local/extraTex/1.3.方案及可行性.tex`：研究方法/技术路线/关键技术/可行性分析
+  - 更新 `projects/NSFC_Local/extraTex/1.4.特色与创新.tex`：特色与创新点
+  - 更新 `projects/NSFC_Local/extraTex/1.5.研究计划.tex`：三年计划与预期结果
+
+- **NSFC_Local**：对齐 2026 年“地区科学基金项目-正文”Word 模板版式与提纲
+  - 更新 `projects/NSFC_Local/main.tex`：同步“报告正文（2026 版）”与三大部分提纲标题文字；微调标题区与三大部分之间的垂直间距以贴近 2026 PDF 观感
+  - 更新 `projects/NSFC_Local/extraTex/@config.tex`：对齐页面边距；新增 `\raggedbottom` 避免页高拉伸；统一标题缩进；`\\NSFCSubsection` 使用 `parshape` 复刻首行缩进/续行回到左边距，并对齐段后距
+  - 新增 `projects/NSFC_Local/template/2026年最新word模板-5.地区科学基金项目-正文.docx`：由 2026 `.doc` 转换，便于标题一致性自动校验
+
+- **make_latex_model**：标题一致性校验更稳健
+  - 更新 `skills/make_latex_model/scripts/core/validators/heading_validator.py`：模板目录存在多份 `.docx` 时，优先选择文件名中年份最大的那份（否则取字典序最后），避免误用旧年份模板
+
+- **systematic-literature-review v1.0.5 → v1.0.6**：运行提速与上下文/目录膨胀治理（按最小改动落地）
+  - API 缓存默认开启但使用 `mode=minimal`（新增 `config.yaml:cache.api.{enabled,mode}`），避免 `.systematic-literature-review/cache/api` 文件爆炸
+  - 摘要补齐默认后移到选文后（新增 `config.yaml:search.abstract_enrichment.stage=post_selection`），降低检索阶段耗时与 cache 膨胀
+  - 选文策略引入 `selection.target_refs`（默认 midpoint），避免候选库大时“天然打满 max_refs”
+  - 写作阶段新增证据卡（`evidence_cards_{topic}.jsonl`）与生成脚本 `build_evidence_cards.py`，压缩证据包字段与摘要长度
+  - 新增 `run_pipeline.py`（幂等 work_dir 生成，避免 `{topic}/{topic}` 嵌套目录）与 `reconcile_state_from_outputs.py`（产物反推 state 修复工具）
+
+- **systematic-literature-review v1.0.6 → v1.0.7**：写作负面约束 + work_dir 路径隔离（防止“参见类堆砌引用”与跨 run 污染）
+  - `skills/systematic-literature-review/SKILL.md`：新增“写作负面约束（禁止模式）”，显式禁止“本节补充阅读可参见：\cite{...}”等业余写法
+  - `skills/systematic-literature-review/references/expert-review-writing.md`：补齐“写作负面约束”章节；将“文献利用率”从硬门槛调整为提示项（不再驱动“必须用完所有文献”）
+  - `skills/systematic-literature-review/scripts/validate_no_process_leakage.py`：新增“参见类堆砌引用”模式检测（高危）
+  - `skills/systematic-literature-review/scripts/path_scope.py`：新增统一的路径隔离校验模块（scope_root）
+  - `skills/systematic-literature-review/scripts/pipeline_runner.py`：统一 work_dir 绝对路径；设置 `SYSTEMATIC_LITERATURE_REVIEW_SCOPE_ROOT`；阶段3提示增强（隔离警告）
+  - 核心脚本新增 `--scope-root`（可选，默认读 env）并对 I/O 路径做准入校验：`dedupe_papers.py`、`select_references.py`、`multi_query_search.py`、`openalex_search.py`、`plan_word_budget.py`、`update_working_conditions_data_extraction.py`、`generate_validation_report.py`、`compile_latex_with_bibtex.py`、`convert_latex_to_word.py`
+  - `skills/systematic-literature-review/scripts/validate_citation_distribution.py`：新增 `--min-ref-util`（默认不启用硬门槛），避免“为达利用率而强行堆砌引用”
+
+- **systematic-literature-review v1.0.7 → v1.0.8**：质量可观测性 + 更稳健的回滚与路径解析
+  - `skills/systematic-literature-review/scripts/generate_validation_report.py`：新增"摘要覆盖率（selected_papers）"统计，避免无感引用缺摘要文献
+  - `skills/systematic-literature-review/scripts/pipeline_runner.py`：验证报告阶段透传 selected_papers 与摘要阈值，确保摘要覆盖率可见
+  - `skills/systematic-literature-review/scripts/select_references.py`：`min_abstract_chars` 默认值与 `config.yaml` 对齐（兜底 80）；BibTeX 转义增强（补充 `^`/`~`）
+  - `skills/systematic-literature-review/scripts/path_scope.py`：异常不再静默吞掉；候选路径为空时显式报错；支持 `SYSTEMATIC_LITERATURE_REVIEW_PATH_SCOPE_DEBUG=1` 输出解析结果
+  - `skills/systematic-literature-review/scripts/multi_language.py`：新增 `--auto-restore`，编译失败/需要 AI 修复时自动回滚到编译前备份并保留 `.broken` 副本
+  - `skills/systematic-literature-review/scripts/openalex_search.py`：ASCII fallback 触发条件更保守并增加日志，避免搜索语义被无声降级
+  - `skills/systematic-literature-review/scripts/validate_counts.py`：明确数字计数口径，新增 `words_digits` 与 `words_total_including_digits`
+  - 文档同步：`skills/systematic-literature-review/SKILL.md`、`skills/systematic-literature-review/references/ai_scoring_prompt.md` 明确"低分不分配子主题"，并同步多语言回滚提示
+
+- **systematic-literature-review v1.0.8 → v1.0.9**：工作目录隔离机制增强（AI 临时脚本托管 + Pipeline 自动整理 + A 轮批判性测试修复）
+  - `skills/systematic-literature-review/scripts/pipeline_runner.py`：新增 `scripts_dir` 目录创建及 `SYSTEMATIC_LITERATURE_REVIEW_SCRIPTS_DIR` 环境变量，供 AI 临时脚本存放；Pipeline 完成后自动调用 `organize_run_dir.py --apply` 整理工作目录；改进自动整理日志，区分"无需整理"与"整理失败"
+  - `skills/systematic-literature-review/scripts/path_scope.py`：新增 `require_scope` 装饰器，可强制校验函数的 Path 参数都在 scope_root 内；新增 URL 排除逻辑（`http://`/`https://` 开头的参数不校验）；新增短别名支持（`SLR_SCOPE_ROOT`、`SLR_PATH_SCOPE_DEBUG`）
+  - `skills/systematic-literature-review/scripts/validate_workdir_cleanliness.py`（新增）：校验工作目录根部整洁性，检测中间文件泄漏；非隐藏子目录视为 unexpected（严格隔离）
+  - `skills/systematic-literature-review/scripts/organize_run_dir.py`：`FINAL_SUFFIXES` 补充 `_验证报告.md`；新增 AI 临时脚本（`temp_*.py`/`debug_*.py`/`analysis_*.py`）识别与移动到 `scripts/` 目录
+  - `skills/systematic-literature-review/scripts/api_cache.py`：`DEFAULT_CACHE_DIR` 改为函数动态获取，环境变量未设置时禁用缓存（避免相对路径导致跨 run 污染）；`CacheStorage` 新增 `enabled` 标志
+  - `skills/systematic-literature-review/config.yaml`：`layout` 新增 `scripts_dir_name: "scripts"`
+  - `skills/systematic-literature-review/SKILL.md`：新增"文件操作规范（工作目录隔离）"章节，明确 AI 临时脚本与中间文件的存放约定；修正示例代码中 `os.environ.get()` 的类型错误
+
+### Updated（文档更新）
+
+- 更新 [skills/README.md](skills/README.md)：优化 systematic-literature-review 技能描述
+  - 更新版本号到 v1.0.8，并同步“摘要覆盖率/多语言自动回滚/低分不分配子主题”等口径
+- 更新 [README.md](README.md)：优化 systematic-literature-review 文献调研阶段描述
+  - 更新技能表格版本号到 v1.0.8
+- 更新 `skills/systematic-literature-review/SKILL.md` 与 `skills/systematic-literature-review/README.md`：补齐新配置与工具脚本说明
+- 新增 systematic-literature-review auto-test 会话：`skills/systematic-literature-review/plans/v202601251218.md`、`skills/systematic-literature-review/plans/B轮-v202601251218.md` 及对应 `tests/` 目录
+- 新增 systematic-literature-review auto-test 会话：`skills/systematic-literature-review/plans/v202601251439.md`、`skills/systematic-literature-review/plans/B轮-v202601251439.md` 及对应 `tests/` 目录
+- 新增审计与优化计划：`skills/systematic-literature-review/plans/文献-优化-v202601251308.md`（针对异种器官移植-02，补全可审计中间产物与 work_dir 隔离建议）
+- 更新 [README.md](README.md)：优化 Skills 快速安装说明
+  - 新增 `@install` 快捷方式（推荐）：无需手动执行 git 命令，AI 自动克隆并安装
+  - 保留手动安装方法作为标准流程备选方案
+  - 更新安装命令为 `install-bensz-skills this skill install skills in this project to Codex and Claude Code`
+
+---
+
+## [v3.2.3] - 2026-01-24
+  - AGENTS.md 作为通用规范的唯一真相来源
+  - CLAUDE.md 采用硬链接模式：包含 AGENTS.md 完整内容 + Claude Code 特定说明
+  - 添加 `<!-- HARD_LINK_START -->` / `<!-- HARD_LINK_END -->` 标记同步区域
+  - 优化章节组织：项目概览 → 核心工作流 → 工程原则 → 通用规范 → LaTeX 技术规范 → 文档与版本管理
+  - 使用分隔线（---）区分主要章节，提升文档"呼吸感"
+
+- **NSFC_Young/NSFC_General README**：新增"样式微调指南"章节，包含行距/段落间距、标题间距、字体大小、标题颜色、列表格式、页面边距等常见微调方法的详细说明，并附带快速微调清单和代码示例
+
+- **nsfc-research-content-writer v0.2.0**：补齐“研究内容→特色与创新→年度计划”的可验证闭环写作约束与参考材料
+  - 更新 `skills/nsfc-research-content-writer/SKILL.md`：补齐 `output_mode` 语义、写入安全约束、`S1–S4` 回溯口径与写作小抄索引
+  - 更新 `skills/nsfc-research-content-writer/README.md`、`skills/README.md`、`README.md`：补齐“先预览再写入”的推荐工作流与 Prompt 字段，版本同步为 v0.2.0
+  - 更新 `skills/nsfc-research-content-writer/references/info_form.md`：补齐任务分解/创新坐标系/年度硬约束/风险备选输入项
+  - 更新 `skills/nsfc-research-content-writer/references/dod_checklist.md`：DoD 可操作化（2.1↔2.2↔2.3 可回溯与覆盖检查）
+  - 新增参考资料：`skills/nsfc-research-content-writer/references/subgoal_triplet_examples.md`、`skills/nsfc-research-content-writer/references/relative_coordinate_examples.md`、`skills/nsfc-research-content-writer/references/yearly_plan_template.md`、`skills/nsfc-research-content-writer/references/anti_patterns.md`、`skills/nsfc-research-content-writer/references/validation_menu.md`、`skills/nsfc-research-content-writer/references/terminology_sheet.md`
+  - 新增开发者校验脚本：`skills/nsfc-research-content-writer/scripts/validate_skill.py`
+  - 新增可追溯的 A/B 轮计划与测试会话目录：`skills/nsfc-research-content-writer/plans/`、`skills/nsfc-research-content-writer/tests/`
+
+### Changed（变更）
+
+- **systematic-literature-review v1.0.1 → v1.0.2**：表格样式规范化与导出链路加固（避免固定列宽溢出；template override 搜索目录生效；运行目录隔离更稳健）
+- **systematic-literature-review v1.0.2 → v1.0.3**：检索源优化与自动降级（OpenAlex 主力 + Semantic Scholar 语义增强 + Crossref 兜底），新增速率限制/退避/健康监控保护与降级日志，单一查询检索在结果不足时自动补齐
+- **systematic-literature-review v1.0.3 → v1.0.4**：摘要补充默认启用并加有限重试；对“摘要仍缺失”的条目标记低参考价值并在选文时尽量避免纳入最终参考文献
+- **systematic-literature-review v1.0.4 → v1.0.5**：检索与摘要补齐的可控性/可复现性加固
+  - `multi_query_search.py`：未提供查询时不再静默回退到硬编码查询，改为直接报错（避免误跑无关主题）
+  - `openalex_search.py`：摘要补齐默认跟随 `config.yaml`，并支持 CLI 显式覆盖；补齐请求复用 `--cache-dir`
+  - `multi_source_abstract.py`：补齐请求接入 `api_cache.py` 缓存，减少重复请求与限流风险；修复 OpenAlex `abstract_inverted_index=null` 导致的崩溃
+  - `select_references.py`：摘要长度阈值默认跟随 `config.yaml:search.abstract_enrichment.min_abstract_chars`，保证“补齐判定/选文规避”口径一致
+  - 文档同步：更新 `README.md`、`skills/README.md` 中的 skill 版本号展示
+- **systematic-literature-review**：补充 LaTeX 表格样式最佳实践（列宽基于 `\textwidth` 按比例分配，避免固定 `p{}` 宽度溢出），并在写作前提示中加入强约束
+- **systematic-literature-review**：加固导出链路与运行隔离（移除危险 `.gz` 清理项；template override 同级目录加入 TEXINPUTS/BSTINPUTS；PDF 输出跨卷移动更稳健；pipeline 子脚本统一 `cwd=work_dir` 且失败信息更可定位）
+
+- **NSFC_General（2026）**：对齐 `projects/NSFC_General/template/2026年最新word模板-1.面上项目-正文-v2.pdf` 的页面边距（更新 `projects/NSFC_General/extraTex/@config.tex` 中 `geometry` 的右/上/下边距参数）
+- **NSFC_General（2026）**：微调标题与正文提示语的版式间距（加粗 `\section` 标题、调整 `\section` 缩进到 2em，增大“提纲提示语”与首个 `\section` 之间的垂直间距，对部分 `\subsection` 标题内关键词加粗，并减小“（四）其他需要说明的情况”与首个 `\subsection` 之间的局部空白）
+- **NSFC_Young（2026）**：对齐 `projects/NSFC_Young/template/2026年最新word模板-青年科学基金项目（C类）-正文-v2.pdf` 的页面边距与正文行距体系（更新 `projects/NSFC_Young/extraTex/@config.tex` 的 `geometry`、固定行距 22pt/段后 7.8pt、标题缩进与 `\frenchspacing`；同步修正 `projects/NSFC_Young/main.tex` 的提纲标题文字与断行，并按 v2 模板将“其他需要说明的情况”收敛为 `5. 其他。`）
+- **NSFC_Young（2026）**：加粗 `\section` 标题，微调“提纲提示语”与首个 `\section` 的间距，减小 `\section` 与 `\subsection` 的间隙，进一步收紧段落间距（含 `\subsubsection` 后首段；避免 `\indent` 形成空段落造成额外空白），并对部分长标题用 `\linebreak{}` 精确控制断行（更贴近 Word 模板观感）
+- **NSFC_Local（2026）**：对齐 `projects/NSFC_Local/template/2026年最新word模板-5.地区科学基金项目-正文.pdf` 的页面边距（更新 `projects/NSFC_Local/extraTex/@config.tex` 中 `geometry` 的右/上/下边距参数）
+
+- **nsfc-research-content-writer v0.2.1**：补齐 auto-test 流水线脚手架与开发者自检闭环，强化 guardrails/targets/文档契约的一致性门禁
+  - 新增 `skills/nsfc-research-content-writer/templates/`：A轮计划/B轮检查/TEST_PLAN/TEST_REPORT 模板（支持 A/B 轮 `--kind` 正确复跑）
+  - 新增 `skills/nsfc-research-content-writer/scripts/create_test_session.py`：自建 A/B 轮会话骨架（不再依赖外部脚本）
+  - 新增 `skills/nsfc-research-content-writer/scripts/check_project_outputs.py`：对 `project_root` 的只读输出自检（存在性、最小内容启发式、风险词扫描、严格门禁开关）
+  - 新增 `skills/nsfc-research-content-writer/scripts/run_checks.py`：一键串联 `validate_skill.py` + 输出自检（支持 `--fail-on-risk-phrases`）
+  - 更新 `skills/nsfc-research-content-writer/scripts/validate_skill.py`：增加 templates/plans/tests/scripts 门禁、guardrails↔targets 一致性校验、README/SKILL 关键入口防回退
+  - 新增 `skills/nsfc-research-content-writer/references/output_skeletons.md`：三个输出文件最小结构骨架（含 `Sx/Ty/Vz` 回溯约定）
+  - 新增/更新可追溯会话：`skills/nsfc-research-content-writer/plans/v202601142307.md` ~ `skills/nsfc-research-content-writer/plans/v202601142314.md`、`skills/nsfc-research-content-writer/plans/B轮-v202601142315.md` 与对应 `tests/` 目录
+
+- **nsfc-justification-writer v0.7.7**：强化"科学问题与假说为核心"的设计理念，防止用方法学术语稀释立项依据主线
+  - 更新 `references/dod_checklist.md`：新增"方法学术语使用规范（重要）"章节，明确禁止用方法术语撑段落主线，并提供检查方法
+  - 更新 `references/theoretical_innovation_guidelines.md`：新增"方法学术语误用警示"章节，提供常见误用模式对比表格和检查清单
+  - 更新 `prompts/writing_coach.txt`：在写作教练约束中增加"方法学术语使用规范"，引导用户聚焦科学问题
+  - 新增 `references/methodology_term_examples.md`：提供详细的"方法术语撑主线"vs"科学问题驱动"四段闭环对比示例，含快速检查清单和学科适配参考
+  - 更新 `SKILL.md`：在相关设计说明中新增 `methodology_term_examples.md` 引用
+
+- **nsfc-justification-writer v0.7.6**：修复 P0 语法阻断并补齐 `style.mode` 写作导向开关（见下方 Changed/Fixed）
+
+- 新增 `plans/v202601101300.md`：对 `skills/nsfc-justification-writer`「理论创新导向优化」做源代码审查，记录 P0 语法阻断缺陷与一致性改进建议
+
+- 新增 `skills/nsfc-justification-writer/core/style.py`：写作导向（`style.mode`）统一入口，并提供可注入到 Prompt 的最小“写作导向”约束文本
+- 新增 `tests/v202601101300/`：nsfc-justification-writer 轻量测试会话目录（含 `TEST_PLAN.md`、`TEST_REPORT.md`、测试输出与 `override.yaml`）
+
+- **nsfc-justification-writer 理论创新导向优化**（v0.7.5）：新增 `references/theoretical_innovation_guidelines.md`，默认优先关注科学问题/假说的可证伪性、理论贡献的清晰性、验证维度的完备性（理论证明/定理/数值验证），而非工程落地细节
+  - 更新 `references/dod_checklist.md`：在验收标准中新增"理论创新导向（默认）"要求
+  - 更新 `references/info_form.md`：引导用户提供理论层面的信息（如"假设过强/框架不统一/因果缺失/界不紧"等理论瓶颈）
+  - 更新 `templates/phrase_patterns.md`：新增理论创新导向的常用句式（如"理论空白/认知缺失/假设过强/框架不统一/因果缺失"等）
+  - 更新 `prompts/writing_coach.txt`：在写作教练提示中融入理论创新导向
+  - 更新 `core/writing_coach.py`：修改 `_suggest_questions()` 和 `_copyable_prompt()`，引导用户关注理论层面的问题
+  - 更新 `core/review_advice.py`：修改 `_fallback_review_markdown()`，评审问题聚焦理论层面的瓶颈和验证方式
+  - 更新 `SKILL.md`：在"目标输出（契约）"中新增"理论创新导向（默认）"说明，更新"推荐 `\\subsubsection` 标题与内容映射"表格
+
+- 新增 `skills/nsfc-justification-writer/core/review_integration.py`：systematic-literature-review 集成模块，支持只读访问 systematic-literature-review 生成的文献综述目录
+  - 目录检测：`detect_slr_directory(path)` 识别 systematic-literature-review 目录（支持运行中的 pipeline 和已完成的输出目录）
+  - 目录分析：`analyze_review_directory(path)` 返回目录结构信息（.tex/.bib 文件列表、只读状态）
+  - 引用验证：`validate_citation_consistency(tex_path, bib_path)` 检查 .tex 中的引用与 .bib 中的定义是否一致
+  - 内容提取：`extract_citation_keys_from_bib()` 和 `extract_citations_from_tex()` 从文件中提取引用信息
+- 新增 `skills/nsfc-justification-writer/tests/test_review_integration.py`：systematic-literature-review 集成模块的单元测试
+- 新增 `skills/nsfc-justification-writer/scripts/validate_review_integration.py`：systematic-literature-review 集成功能验证脚本
+- 更新 `skills/nsfc-justification-writer/config.yaml`：新增 `slr_integration` 配置节（启用/禁用集成、标记文件夹名称、只读保护、引用验证、文件模式）
+- 更新 `skills/nsfc-justification-writer/SKILL.md`：新增"systematic-literature-review 集成（可选）"章节，说明识别标准、只读访问约束、使用场景和核心功能
+
+- 更新 [README.md](README.md)：新增"技能生态系统"章节，按功能阶段分类展示多个 AI 技能（文献调研/标书准备/标书写作/模板开发）
+- 更新 [README.md](README.md)：新增"推荐工作流"章节，展示完整的文献调研与标书写作工作流（含 Mermaid 流程图）
+- 更新 [README.md](README.md)：技能表格新增"版本"列，显示各技能的版本号（v2.7.1、v0.7.3、v1.4.0 等）
+- 更新 [skills/README.md](skills/README.md)：新增"技能依赖关系"章节，说明技能之间的协作关系和推荐使用顺序
+- 更新 [skills/README.md](skills/README.md)：新增 nsfc-bib-manager 完整技能说明（功能、使用场景、Prompt 模板、技能特点）
+- 新增 [CLAUDE.md](CLAUDE.md) 和 [AGENTS.md](AGENTS.md)：新增"技能版本号管理规范"章节，规定所有技能版本号统一通过 config.yaml 管理（Single Source of Truth）
+- 新增 `skills/nsfc-bib-manager/config.yaml`：添加技能版本信息（v1.0.0）
+- 新增 `skills/get-review-theme/config.yaml`：添加技能版本信息（v1.0.0）
+- 更新 `skills/systematic-literature-review/config.yaml`：添加技能版本信息（v1.0.0）
+- 更新 `skills/transfer_old_latex_to_new/config.yaml`：添加 skill_info 节，统一版本号为 v1.4.0
+- **跨项目标准化**：将"技能版本号管理规范"有机融入 `/Volumes/2T01/winE/PythonCloud/Agents/pipelines/skills` 的 [AGENTS.md](/Volumes/2T01/winE/PythonCloud/Agents/pipelines/skills/AGENTS.md)，建立统一的技能版本管理标准（config.yaml 作为 SSoT，语义化版本命名，版本同步机制）
+
+### Changed（变更）
+
+- 更新 `skills/nsfc-justification-writer/config.yaml`：新增 `style.mode=theoretical|mixed|engineering`（默认 `theoretical`）
+- 更新 `skills/nsfc-justification-writer/prompts/writing_coach.txt`、`skills/nsfc-justification-writer/prompts/review_suggestions.txt`：引入 `{style_preamble}` 注入，确保“理论创新导向/工程导向”约束在 AI 可用时也显式生效
+- 更新 `skills/nsfc-justification-writer/core/writing_coach.py`、`skills/nsfc-justification-writer/core/review_advice.py`：将 `style.mode` 贯通到回退路径与 Prompt 填充，减少 AI/回退口径不一致
+- 更新 `skills/nsfc-justification-writer/SKILL.md`、`skills/nsfc-justification-writer/README.md`：补充 `style.mode` 使用说明
+
+- 更新 [README.md](README.md)：删除"快速开始指南"章节，保持文档简洁（详细使用示例请查阅各技能的 README.md）
+- 更新 [README.md](README.md)：技能表格从 7 个扩展到 10 个，新增 nsfc-bib-manager、get-review-theme、guide-updater、complete-example
+- 更新 [README.md](README.md)：修正技能状态：nsfc-bib-manager、get-review-theme、nsfc-justification-writer 均为 🚧 开发中
+- 更新 [README.md](README.md)：更新 systematic-literature-review、nsfc-bib-manager、get-review-theme 版本号为 v1.0.0
+- 更新 [skills/README.md](skills/README.md)：修正技能状态：nsfc-bib-manager、get-review-theme、nsfc-justification-writer 均为 🚧 开发中；guide-updater 为 ✅ 稳定（v1.0.0）
+- 更新 [skills/README.md](skills/README.md)：技能编号从 9 个扩展到 10 个，新增 nsfc-bib-manager（编号 8），其他编号相应顺延
+- 更新 [skills/README.md](skills/README.md)：新增"推荐工作流"章节，展示从文献调研到标书写作的完整流程（get-review-theme → systematic-literature-review → guide-updater → nsfc系列skills），并新增 get-review-theme 与 guide-updater 两个技能的说明，同时更新"技能类型说明"表
+
+- 更新 `plans/v202601100803.md`：将"代码审查报告"重构为可执行的改进计划，去除时间线表述，补齐目标/范围/交付物/验收标准，并声明计划文档不记录版本历史（统一在 `CHANGELOG.md`）
+
+- 新增 `plans/v202601100912.md`：审阅 `nsfc-justification-writer` 的安全措施与潜在缺陷，重点指出 `guardrails` 可能被 override 置空导致白名单失效，并给出按优先级排序的改进建议与验收标准
+
+- 更新 `skills/nsfc-justification-writer/core/config_loader.py`：加固 `guardrails`（强校验 + 校验关闭时仍强制安全兜底），无 PyYAML 时跳过强校验并给出明确提示，新增 `prompts.*` 指向 skill_root 外路径的风险 warning
+- 更新 `skills/nsfc-justification-writer/core/security.py`：`build_write_policy()` 不允许“空策略”，缺失/无效配置时回退到最小写入白名单与默认禁止规则
+- 更新 `skills/nsfc-justification-writer/core/editor.py`、`skills/nsfc-justification-writer/core/versioning.py`、`skills/nsfc-justification-writer/core/hybrid_coordinator.py`、`skills/nsfc-justification-writer/scripts/run.py`：备份/回滚优先按目标相对路径定位（并兼容旧版按文件名回退），`apply_result.json` 记录 `target_relpath`，Crossref DOI 校验增加“将联网”的提示，`validate-config` 在无 PyYAML 时友好降级
+- 新增 `tests/v202601100912/`：轻量测试计划/报告与脚本，验证 P0–P2 修复（所有中间文件限定在测试目录树内）
+
+- 更新 [AGENTS.md](AGENTS.md) 和 [CLAUDE.md](CLAUDE.md)：在"变更记录规范"中新增"Skill 文档编写原则"子章节，明确 Skill 文档（SKILL.md）应始终展示最新状态，不包含版本标记等对 AI 执行无用的元信息；包括内容优先于版本、简洁标题、单一职责等原则及设计公式
+
+- 更新 [AGENTS.md](AGENTS.md) 和 [CLAUDE.md](CLAUDE.md)：在"核心工作流/执行流程"中新增"计划制定原则"，要求任务按优先级从上到下罗列，不使用时间限制表述（如"第1-2周"、"第3-4周"等）；同时更新 CLAUDE.md 的"任务管理"章节同步此原则
+
+- 更新 [README.md](README.md)：在"AI 模型配置建议"中补充 Claude Code + Claude 4.5 Opus "比较昂贵"的提示，新增 Codex CLI + GPT-5.2 Medium 的推荐组合，并在"API 获取建议"中补充 Packycode Codex 站点说明与扩写 DMXAPI 介绍
+- 更新 [AGENTS.md](AGENTS.md)：修正目录结构，移除不存在的根级 `scripts/`，并说明脚本主要位于 `skills/*/scripts/`
+- 更新 [CLAUDE.md](CLAUDE.md)：修正目录结构，移除不存在的根级 `scripts/`，并说明脚本主要位于 `skills/*/scripts/`
+- 更新 `skills/make_latex_model/README.md`：补充“优先用 Prompt 调用 Skill”的推荐用法，并将脚本流程作为备选
+- **nsfc-justification-writer v0.2.0** - 升级信息表与文档，并补齐可复现的“诊断→写入→验收”闭环
+  - 更新 `skills/nsfc-justification-writer/references/info_form.md`：8 项信息表（必填/选填标识），与 `extraTex/1.1.立项依据.tex` 的 4 个 `\subsubsection` 对齐
+  - 更新 `skills/nsfc-justification-writer/config.yaml` 与 `skills/nsfc-justification-writer/SKILL.md`：加入字数参数、术语 alias_groups、Tier1/Tier2（可选）诊断说明
+
+- **nsfc-justification-writer v0.3.0** - 落地改进计划（P1–P3），主推“渐进式写作引导”
+  - 更新 `skills/nsfc-justification-writer/scripts/run.py`：新增 `init/coach/review/refs` 与 `diff/rollback/list-runs` 子命令，`diagnose` 支持 `--html-report`
+  - 更新 `skills/nsfc-justification-writer/core/term_consistency.py`：术语矩阵改为“按章节统计命中次数”，并识别“同章内不一致”
+  - 更新 `skills/nsfc-justification-writer/core/reference_validator.py` 与 `skills/nsfc-justification-writer/core/diagnostic.py`：增加 DOI 缺失提示（可核验性增强）
+  - 更新 `skills/nsfc-justification-writer/core/hybrid_coordinator.py`：`apply-section` 默认严格拒绝“缺失 bibkey 的 \\cite{...}”（防止幻觉引用）
+  - 更新 `skills/nsfc-justification-writer/README.md`、`skills/nsfc-justification-writer/SKILL.md`、`skills/nsfc-justification-writer/scripts/README.md`：补齐渐进式写作闭环与新命令用法
+
+- **nsfc-justification-writer v0.4.0** - 对齐配置/示例/体验与可扩展性
+  - 更新 `skills/nsfc-justification-writer/SKILL.md`：补齐“4 段闭环”与 4 个 `\\subsubsection` 标题的映射表，并修正工作流编号
+  - 更新 `skills/nsfc-justification-writer/templates/structure_template.tex`：为每个 `\\subsubsection` 增加写作要点注释
+  - 更新 `skills/nsfc-justification-writer/core/example_matcher.py` 与 `skills/nsfc-justification-writer/examples/`：引入 `*.metadata.yaml` 关键词元数据，扩展多学科示例与匹配逻辑
+  - 更新 `skills/nsfc-justification-writer/templates/html/report_template.html`：新增“点击行号复制/复制页面链接”的交互与更清晰的定位说明
+  - 更新 `skills/nsfc-justification-writer/core/config_loader.py`、`skills/nsfc-justification-writer/config/presets/`、`skills/nsfc-justification-writer/scripts/run.py`：支持 `--preset` 学科预设与用户 `override.yaml` 配置覆盖（可用 `--no-user-override` 关闭）
+  - 更新 `skills/nsfc-justification-writer/tests/`：补齐 diagnostic/writing_coach/example_matcher 单测与 integration 流程用例
+  - 新增 `skills/nsfc-justification-writer/docs/`：补齐教程与架构说明
+
+- **nsfc-justification-writer v0.5.0** - 按改良计划完成 P0–P2（稳定性/体验/可扩展性）
+  - 更新 `skills/nsfc-justification-writer/core/config_loader.py` 与 `skills/nsfc-justification-writer/scripts/run.py`：新增 `validate-config` 配置校验命令，并默认做关键字段类型校验（可用 `NSFC_JUSTIFICATION_WRITER_DISABLE_CONFIG_VALIDATION=1` 关闭）
+  - 更新 `skills/nsfc-justification-writer/core/ai_integration.py`、`skills/nsfc-justification-writer/core/hybrid_coordinator.py` 与 `skills/nsfc-justification-writer/scripts/run.py`：Tier2 支持分块处理与 `.cache/ai` 缓存（`--chunk-size/--max-chunks/--fresh`）
+  - 更新 `skills/nsfc-justification-writer/core/term_consistency.py` 与 `skills/nsfc-justification-writer/config.yaml`：跨章节一致性升级为“研究对象/指标/术语”三维矩阵（`terminology.dimensions`）
+  - 更新 `skills/nsfc-justification-writer/core/reference_validator.py`、`skills/nsfc-justification-writer/core/diagnostic.py` 与 `skills/nsfc-justification-writer/core/bib_manager_integration.py`：修复 bib DOI 解析并新增 DOI 格式异常提示，`refs` 支持可选 Crossref 联网校验（`--verify-doi crossref`）
+  - 更新 `skills/nsfc-justification-writer/examples/` 与 `skills/nsfc-justification-writer/core/example_matcher.py`：新增 chemistry/biology/math 示例与领域加权提示
+  - 新增 `skills/nsfc-justification-writer/docs/workflows/`：补齐典型工作流文档（已有草稿迭代、引用/DOI 核验）
+  - 更新 `skills/nsfc-justification-writer/tests/`：补齐 AI 集成/配置校验/分块与缓存/术语维度等测试用例
+
+- **nsfc-justification-writer v0.6.0** - 按 v202601091932 完成“AI 主导 + 优雅降级”的全缺陷修复
+  - 新增 `skills/nsfc-justification-writer/core/io_utils.py`：流式读取与按 `\\subsubsection` 边界分块（降低大文件峰值内存）
+  - 更新 `skills/nsfc-justification-writer/core/latex_parser.py`：替换正则解析为更稳健的结构解析（支持嵌套花括号/可选短标题/更可靠的注释剥离），并新增“标题候选 + AI 语义匹配”能力
+  - 更新 `skills/nsfc-justification-writer/core/hybrid_coordinator.py` 与 `skills/nsfc-justification-writer/scripts/run.py`：`apply-section` 增强错误提示与修复建议，新增 `--suggest-alias`；Tier2 对超大文件优先流式分块
+  - 更新 `skills/nsfc-justification-writer/core/term_consistency.py`、`skills/nsfc-justification-writer/core/writing_coach.py` 与 `skills/nsfc-justification-writer/config.yaml`：新增 `terminology.mode=auto|ai|legacy`，AI 可用时叠加语义一致性检查并自动回退到矩阵规则
+  - 更新 `skills/nsfc-justification-writer/core/prompt_templates.py` 与 `skills/nsfc-justification-writer/core/config_loader.py`：Prompt 支持“路径或多行内联文本”，并支持按 `--preset` 变体覆盖（如 `prompts.tier2_diagnostic_medical`）
+  - 更新 `skills/nsfc-justification-writer/core/example_matcher.py`：AI 语义示例推荐（带理由）+ 关键词 fallback
+  - 更新 `skills/nsfc-justification-writer/config.yaml`、`skills/nsfc-justification-writer/core/config_loader.py` 与 `skills/nsfc-justification-writer/SKILL.md`：版本升级至 v0.6.0，并同步文档
+
+- **nsfc-justification-writer v0.6.1** - 按 v202601092056 解决 P0–P2（安全/准确性/可维护性）
+  - 更新 `skills/nsfc-justification-writer/core/config_loader.py` 与 `skills/nsfc-justification-writer/scripts/run.py`：无 PyYAML 时不再静默退化；内置安全兜底（guardrails 默认生效）并在 CLI 输出配置加载警告
+  - 更新 `skills/nsfc-justification-writer/core/reference_validator.py` 与 `skills/nsfc-justification-writer/tests/test_reference_validator.py`：引用解析剔除注释与 `verbatim|lstlisting|minted` 环境，减少缺失 bibkey 误报
+  - 新增 `skills/nsfc-justification-writer/core/quality_gate.py`，并更新 `skills/nsfc-justification-writer/core/hybrid_coordinator.py`、`skills/nsfc-justification-writer/scripts/run.py`：`apply-section --strict-quality` 对"本次新增正文"启用质量闸门（危险命令/绝对化表述可阻断；放宽引用约束时会提示建议开启）
+  - 更新 `.gitignore` 与 `skills/nsfc-justification-writer/scripts/README.md`：明确并忽略 `runs/`、`.cache/` 等运行产物，避免污染工作区
+  - 更新 `skills/nsfc-justification-writer/core/wordcount.py`、`skills/nsfc-justification-writer/core/diagnostic.py`、`skills/nsfc-justification-writer/scripts/run.py`：字数统计新增 `cjk_strip_commands` 口径（粗剔除命令/数学/类代码环境），并在输出中注明口径说明
+  - 更新 `skills/nsfc-justification-writer/config.yaml`、`skills/nsfc-justification-writer/README.md` 与 `skills/nsfc-justification-writer/SKILL.md`：移除误导性的 `ai.min_success_rate_to_enable` 配置项，并明确 AI 可用性取决于 responder 注入（不可用自动回退）
+
+- **nsfc-justification-writer v0.7.0** - 按 v202601100716 完成代码审查与清理（P0/P1 任务）
+  - **配置 SSoT 重构**：确立 `config.yaml` 为单一真相来源（Single Source of Truth），精简 `core/config_loader.py` 的 `DEFAULT_CONFIG`（从约 100 行 → 10 行，仅保留安全关键项 guardrails），在两文件顶部添加 SSoT 声明注释
+  - **残留代码清理**：删除未使用的 `core/intent_parser.py` 模块和 `prompts/intent_parse.txt`，移除 `core/errors.py` 中的 `NSFCJustificationWriterError` 基类（`SkillError` 直接继承 `Exception`），删除 `config.yaml` 中的 `latex_style_contract` 和 `quality_contract` 未使用配置项
+  - **代码精简**：`core/config_loader.py`（-79 行，-20%）、`core/prompt_templates.py`（-19 行，-11%）、`config.yaml`（-18 行，-11%）
+
+- **nsfc-justification-writer v0.7.1** - 按 v202601100716 完成 P2（可维护性/类型安全/文档）
+  - 新增 `config.yaml` 的 `limits` 配置节：统一管理文件大小阈值、AI 输入上限、写作教练预览长度、字数目标范围
+  - 新增 `skills/nsfc-justification-writer/core/config_access.py` 与 `skills/nsfc-justification-writer/core/limits.py`：消除 `config.get(... ) or {}` 访问模式，并替换硬编码阈值
+  - 更新 `skills/nsfc-justification-writer/core/__init__.py`：补齐聚合导出并声明为内部入口
+  - 新增设计说明：`skills/nsfc-justification-writer/references/dimension_coverage_design.md`、`skills/nsfc-justification-writer/references/boastful_expression_guidelines.md`
+  - 轻量测试：新增 `tests/v202601100716/`（fixture + override + TEST_PLAN/TEST_REPORT）
+
+- **nsfc-justification-writer v0.7.2** - 按 `plans/v202601100803.md` 完成 P0–P2（异常边界/Prompt SSoT/日志口径/配置访问统一）
+  - 更新 `skills/nsfc-justification-writer/config.yaml` 与 `skills/nsfc-justification-writer/SKILL.md`：版本升级至 v0.7.2，并明确版本号呈现策略（口径集中）
+  - 更新 `skills/nsfc-justification-writer/core/config_loader.py` 与 `skills/nsfc-justification-writer/README.md`：放宽 `terminology.dimensions` 为空 dict 的校验边界，并与文档口径一致
+  - 更新 `skills/nsfc-justification-writer/core/prompt_templates.py` 与 `skills/nsfc-justification-writer/prompts/*.txt`：Prompt 改为文件单一来源，移除内联重复模板，并提供缺失提示兜底
+  - 更新 `skills/nsfc-justification-writer/scripts/run.py` 与新增 `skills/nsfc-justification-writer/core/logging_utils.py`：统一 CLI 与核心模块的日志口径（stderr、级别随 `--verbose` 控制），减少 `print`/`logging` 混用
+  - 更新 `skills/nsfc-justification-writer/core/*`：收紧多处 `except Exception`（优先使用更具体异常；必要处保留堆栈/日志），提升可诊断性
+  - 更新 `skills/nsfc-justification-writer/core/*`：统一配置访问到 `core/config_access.py` 的 `get_*` 辅助方法，减少重复样式
+  - 轻量测试：新增 `tests/v202601100803/`（fixture + override + TEST_PLAN/TEST_REPORT）
+
+- **nsfc-justification-writer v0.7.3** - 落地 `plans/v202601100850.md` 的可选改进（文档透明度/AI 自检/预设示例）
+  - 更新 `skills/nsfc-justification-writer/SKILL.md`：新增“AI 功能清单（是否需要 AI / Fallback 行为）”表格，并补充 `check-ai` 自检命令入口
+  - 更新 `skills/nsfc-justification-writer/scripts/run.py`、`skills/nsfc-justification-writer/scripts/README.md`：新增 `check-ai` 子命令，用于诊断当前是否处于 responder 未注入的降级模式
+  - 更新 `skills/nsfc-justification-writer/config/presets/medical.yaml`、`skills/nsfc-justification-writer/config/presets/engineering.yaml`：补齐更丰富的 `terminology.dimensions` 示例（降低用户配置门槛）
+  - 更新 `skills/nsfc-justification-writer/docs/architecture.md`、`skills/nsfc-justification-writer/README.md`：同步预设覆盖口径说明与术语维度定制示例
+  - 更新 `skills/nsfc-justification-writer/config.yaml`：版本升级至 v0.7.3
+
+- **transfer_old_latex_to_new** - 脚本目录结构优化
+  - 移动 `demo_core_features.py` → [scripts/demo.py](skills/transfer_old_latex_to_new/scripts/demo.py)：演示脚本归位到 scripts/ 目录
+  - 移动 `run_tests.py` → [scripts/quicktest.py](skills/transfer_old_latex_to_new/scripts/quicktest.py)：快速测试工具重命名并归位
+  - 更新两个脚本的路径引用(`Path(__file__).parent.parent`)以适配新位置
+  - 新增 [scripts/README.md](skills/transfer_old_latex_to_new/scripts/README.md)：文档化所有脚本用途与使用场景
+  - 技能根目录更清爽,仅保留配置文件和文档
+
+- **transfer_old_latex_to_new** - LaTeX 中间文件隔离优化
+  - 修改 [compiler.py](skills/transfer_old_latex_to_new/core/compiler.py)：使用 `-output-directory` 参数将 LaTeX 编译中间文件(.aux/.log/.bbl/.blg/.out/.toc 等)重定向到 `runs/<run_id>/logs/latex_aux/` 目录
+  - 编译成功后自动复制 `main.pdf` 到项目根目录,方便用户查看
+  - 项目目录保持清洁,不再产生编译"垃圾"文件
+  - 更新 [SKILL.md](skills/transfer_old_latex_to_new/SKILL.md)：文档化目录结构与编译隔离机制
+
+- **transfer_old_latex_to_new v1.3.1** - 易用性与可测试性增强
+  - 新增一键迁移脚本：[scripts/migrate.sh](skills/transfer_old_latex_to_new/scripts/migrate.sh)（analyze→apply→(可选)compile）
+  - CLI 增强：[scripts/run.py](skills/transfer_old_latex_to_new/scripts/run.py) 支持 `--runs-root` 隔离 runs 输出，并补充路径校验与更友好的错误提示
+  - 进度反馈：[migrator.py](skills/transfer_old_latex_to_new/core/migrator.py) 集成进度条（rich 可用则使用，否则回退到文本）
+  - 文档拆分：新增 [docs/](skills/transfer_old_latex_to_new/docs/) 并精简 [SKILL.md](skills/transfer_old_latex_to_new/SKILL.md)
+
+- **transfer_old_latex_to_new v1.4.0** - P1 质量保障落地
+  - 新增配置校验工具：[scripts/validate_config.py](skills/transfer_old_latex_to_new/scripts/validate_config.py)（类型/范围/编译序列等常见错误提前拦截）
+  - runs 管理子命令：[scripts/run.py](skills/transfer_old_latex_to_new/scripts/run.py) 新增 `runs list/show/delete`（迁移历史可追溯，删除需 `--yes`）
+  - 文档补齐：新增 [docs/faq.md](skills/transfer_old_latex_to_new/docs/faq.md) 与 [docs/case_study_2025_to_2026.md](skills/transfer_old_latex_to_new/docs/case_study_2025_to_2026.md)
+  - 运行更干净：脚本默认不写 `__pycache__`（避免在项目目录产生中间文件）
+
+## [0.7.0] - 2026-01-09
+
+### Added（新增）
+- **nsfc-justification-writer**：新增“内容维度覆盖检查”AI（价值/现状/科学问题/切入点），不依赖标题用词；新增“吹牛式表述”AI 语义识别（绝对化/填补空白/无依据夸大/自我定性），输出改写建议
+- **nsfc-justification-writer**：新增字数解析器（优先解析用户意图/信息表中的目标字数/区间/±容差，兜底才用配置），coach 在 `--stage auto` 支持 AI 阶段判断
+
+### Changed（变更）
+- **nsfc-justification-writer**：默认 `strict_title_match=false`，结构检查以“至少 4 小节 + 内容维度覆盖”为主；质量配置改为高风险示例提示 + 可选 AI 语义阻断，写入质量闸门在 AI 可用时叠加语义检查
+- **nsfc-justification-writer 文档**（README/SKILL）：同步新版工作流与能力亮点，明确 AI 依赖“原生智能环境”无需外部 API Key
+
+### Added（新增）
+
+- 新增 `make_latex_model` 入口文档：`skills/make_latex_model/README.md`
+
+- 新增迁移验证记录：`tests/v202601081624/TEST_REPORT.md`
+
+- 新增 NSFC 2026 新模板写作 Skill 迁移建议计划（已脱敏）：`plans/v202601081910.md`
+
+- 新增 nsfc-justification-writer v0.6.0 代码审查与改良计划：`plans/v202601092056.md`
+
+- **nsfc-justification-writer v0.2.0** - 硬编码确定性能力与配套脚本
+  - 新增脚本入口：`skills/nsfc-justification-writer/scripts/run.py`（diagnose/wordcount/terms/apply-section）
+  - 新增核心模块：`skills/nsfc-justification-writer/core/`（结构解析、引用核验、字数统计、术语矩阵、安全写入、可观测性）
+  - 新增单元测试：`skills/nsfc-justification-writer/tests/`（pytest）
+  - 新增示例与模板：`skills/nsfc-justification-writer/examples/`、`skills/nsfc-justification-writer/templates/`
+  - 新增诊断示例：`skills/nsfc-justification-writer/references/diagnostic_examples.md`
+
+- **nsfc-justification-writer v0.3.0** - 渐进式写作与可视化/版本能力
+  - 新增渐进式写作引导：`skills/nsfc-justification-writer/core/writing_coach.py`（coach）
+  - 新增交互式信息表收集：`skills/nsfc-justification-writer/core/info_form.py`（init --interactive）
+  - 新增评审建议生成：`skills/nsfc-justification-writer/core/review_advice.py`（review）
+  - 新增 HTML 诊断报告：`skills/nsfc-justification-writer/core/html_report.py`、`skills/nsfc-justification-writer/templates/html/report_template.html`
+  - 新增版本 diff/回滚：`skills/nsfc-justification-writer/core/versioning.py`
+  - 新增示例推荐：`skills/nsfc-justification-writer/core/example_matcher.py`（coach --topic / examples）
+  - 新增 prompts 外部化：`skills/nsfc-justification-writer/prompts/`
+  - 新增端到端测试：`skills/nsfc-justification-writer/tests/e2e/test_cli_flow.py`
+
+- 新增 NSFC 2026 新模板写作主技能（MVP，按新板块契约落到 `extraTex/*.tex`）
+  - `skills/nsfc-justification-writer/`：对应 `（一）立项依据`
+  - `skills/nsfc-research-content-writer/`：对应 `（二）研究内容`（并编排创新点与年度计划）
+  - `skills/nsfc-research-foundation-writer/`：对应 `（三）研究基础`（并编排工作条件与风险应对）
+
+- 新增 `transfer_old_latex_to_new` v1.3.0 详细改进计划：`plans/v202601081102.md`
+  - **核心修复**：移除所有 AI 功能占位符，实现真实的 AI 集成
+  - **AI 集成层**：创建 `core/ai_integration.py`，利用 Claude Code/Codex 当前环境（无需额外配置）
+  - **迁移策略**：实现一对多/多对一迁移（`core/strategies.py`）
+  - **模块集成**：集成 `ContentOptimizer`、`ReferenceGuardian`、`WordCountAdapter` 到主流程
+  - **CLI 扩展**：添加 `--optimize`、`--adapt-word-count`、`--ai-enabled` 选项
+  - **实施计划**：4 个 Sprint，预计 6-8 小时
+  - **问题诊断**：彻底代码审查发现 AI 功能虚假实现、依赖不存在模块、迁移策略不完整
+
+- 新增 `transfer_old_latex_to_new` v1.3.0 优化计划：`plans/v202601081002.md`
+  - **性能优化**：引入分层缓存机制、批量 AI 调用、并行化处理（预期性能提升 5-10 倍）
+  - **质量保证**：建立测试体系（pytest，目标覆盖率 80%）
+  - **用户体验**：实时进度反馈、细粒度错误恢复、简化配置（预设模板）
+  - **高级功能**：智能版本检测、AI 写作风格评分、插件化架构
+  - **用户痛点彻底解决**（3 个新增优化项）：
+    - ✅ **优化项 12：字数自动适配** - 自动检测旧字数 → 新字数，调用 AI 或写作技能扩展/精简
+    - ✅ **优化项 13：引用强制保护** - AI 调用前强制保护所有引用，输出后验证并自动修复
+    - ✅ **优化项 14：AI 智能优化写作** - AI 自动识别并修复冗余、逻辑、证据、清晰度、结构问题
+  - **分阶段实施计划**：5 个阶段，预计 10-13 周（新增 3 个核心优化项）
+
+- 新增 `transfer_old_latex_to_new` 工程化落地优化计划：`plans/v202601080843.md`
+- **transfer_old_latex_to_new（MVP 可执行闭环）**
+  - 新增可执行脚本入口：`skills/transfer_old_latex_to_new/scripts/run.py`（`analyze/apply/compile/restore`）
+  - 新增 `runs/<run_id>/` 工作空间：结构分析、迁移计划、日志、交付物与快照备份集中管理
+  - 新增核心模块：结构分析、映射生成、迁移执行（原子写入+白名单保护）、编译日志摘要、交付物生成
+  - 新增最小烟雾测试：`skills/transfer_old_latex_to_new/tests/test_smoke.py`
+
+- **transfer_old_latex_to_new v1.1.0** - 🤖 AI 驱动映射引擎：让 AI 真正理解文件映射关系
+  - **移除硬编码相似度公式**：不再使用固定权重（`0.7 * stem + 0.2 * title + 0.1 * content`）计算相似度
+  - **AI 语义判断**：让 AI 真正理解文件内容（文件名、章节结构、内容语义、迁移合理性）后判断映射关系
+  - **映射引擎重构**：
+    - 新增 `_build_file_context()`: 为 AI 构建文件上下文（路径、结构、摘要、预览）
+    - 新增 `_ai_judge_mapping()`: AI 判断映射关系的异步函数（占位符，待集成实际 AI 调用）
+    - 新增 `compute_structure_diff_async()`: 异步版本的结构差异分析
+    - 保留 `_fallback_score_pair()`: 当 AI 不可用时使用简单启发式规则
+  - **配置文件优化**：
+    - 移除硬编码权重配置（`title_similarity_weight`、`content_similarity_weight` 等）
+    - 新增 `mapping.strategy`: `ai_driven`（AI 语义判断）/ `fallback`（简单启发式）
+    - 新增 `mapping.thresholds`: AI 判断阈值（high/medium/low）
+    - 新增 `mapping.fallback`: 回退策略配置（文件名匹配、包含关系、Jaccard 相似度）
+  - **文档更新**：
+    - SKILL.md 新增"AI 语义判断"章节，详细说明 AI 判断流程和判断维度
+    - README.md 更新核心能力，突出"AI 语义映射"
+  - **版本升级**：v1.0.0 → v1.1.0
+
+- **transfer_old_latex_to_new v1.2.0** - 📦 资源文件智能处理：保证引用完整性
+  - **核心问题解决**：迁移过程自动处理资源文件（图片、代码等），保证引用完整性
+  - **新增资源文件扫描**：
+    - 新增 `core/resource_manager.py` 模块：资源文件扫描、复制、完整性验证
+    - 支持资源类型：
+      - 图片：`\includegraphics{figures/fig1.pdf}`
+      - 代码：`\lstinputlisting{code/algo.py}`
+      - 其他文件：`\import{path}{file}`
+
+### Fixed（修复）
+
+- **systematic-literature-review**：修复参考文献 DOI 链接显示逻辑——当 BibTeX 同时包含 `doi` 与 `url`（如 OpenAlex）时，PDF 参考文献优先显示 `https://doi.org/{doi}`，并将 DOI resolver 升级为 HTTPS；BibTeX 保留原始 `url` 用于追溯
+  - 更新 `skills/systematic-literature-review/latex-template/gbt7714-nsfc.bst`：`output.url.or.doi` 改为 DOI 优先，`cap.doi.url` 改为 `https://doi.org/`
+  - 更新 `skills/systematic-literature-review/scripts/select_references.py`：生成 BibTeX 时同步转义 `%/_/#/$` 等常见 LaTeX 特殊字符，降低 BibTeX/LaTeX 编译阻断风险
+  - 更新 `skills/systematic-literature-review/scripts/compile_latex_with_bibtex.py`：修复 `TEXINPUTS/BSTINPUTS` 未保留 TeX 默认搜索路径导致 `article.cls not found`；并在 env 注入时改用 `shlex.quote()`，避免路径包含空格/单引号导致 shell 命令拼接失败
+  - 更新 `skills/systematic-literature-review/SKILL.md`：补充“DOI 链接显示”说明
+
+- **systematic-literature-review**：修复 `validate_review_tex.py` 与 `validate_citation_distribution.py` 在 `--help` 下因未转义 `%` 导致 `argparse` 崩溃的问题
+  - 更新 `skills/systematic-literature-review/scripts/validate_review_tex.py`：对 help 文本中的 `70%/25%/<5%` 做 `%%` 转义
+  - 更新 `skills/systematic-literature-review/scripts/validate_citation_distribution.py`：对 epilog 文本中的目标百分比做 `%%` 转义（保留 `%(prog)s` 占位符）
+
+- **make_latex_model**：修复 `skills/make_latex_model/scripts/analyze_pdf.py` 在未指定 `--project/--output` 时输出路径类型错误导致无法保存 `*_analysis.json`
+- **make_latex_model**：修复 `skills/make_latex_model/scripts/prepare_main.py` 预处理时误注释 `\input{extraTex/@config.tex}` 导致“仅标题”编译失败
+
+- 修复 `skills/nsfc-justification-writer/core/writing_coach.py`、`skills/nsfc-justification-writer/core/review_advice.py` 的字符串未转义导致的 `SyntaxError`，恢复脚本入口可运行性
+- 更新 `skills/nsfc-justification-writer/core/config_loader.py`：新增 `style` 配置字段的轻量校验，避免无效取值静默生效
+
+- **transfer_old_latex_to_new** - 修复 `compile_project()` 在 `-output-directory` 隔离中间文件时，`bibtex` 因工作目录切换导致无法定位 `.bst/.bib` 的问题
+  - 在 `bibtex` 步骤注入 `BSTINPUTS/BIBINPUTS` 搜索路径（指向项目根目录），确保可读取 `bibtex-style/` 与 `references/`
+  - 编译成功判定纳入 `bibtex` 返回码，避免“引用未生成但仍显示成功”
+
+- **transfer_old_latex_to_new** - 修复 `ReferenceGuardian.restore_references()` 在 Python 3.12 下替换 `\\ref/\\cite` 等内容时触发 `re.error: bad escape` 的问题
+  - **增强迁移流程**（`core/migrator.py`）：
+    - 第一步：迁移 `.tex` 内容文件
+    - 第二步：扫描旧项目的资源文件
+    - 第三步：复制资源文件到新项目（只复制缺失的，避免覆盖）
+    - 第四步：验证新项目中的资源引用完整性
+  - **LaTeX 工具增强**（`core/latex_utils.py`）：
+    - 新增 `extract_graphics()`: 提取图片引用
+    - 新增 `extract_lstinputlisting()`: 提取代码文件引用
+    - 新增 `extract_imports()`: 提取 LaTeX import 路径
+    - 新增 `extract_all_resource_paths()`: 提取所有外部资源文件路径
+  - **配置优化**：
+    - `migration.figure_handling`: `copy`（复制，默认推荐）/ `link`（软链接）/ `skip`（跳过）
+  - **结果报告增强**：
+    - `ApplyResult` 新增 `resources` 字段，包含资源处理详情
+    - 扫描摘要：总资源数、缺失数、涉及目录
+    - 复制摘要：复制数、跳过数、失败数、创建的目录
+    - 验证摘要：有效资源数、缺失资源数、损坏的引用
+  - **文档更新**：
+    - SKILL.md 新增"资源文件处理"章节
+    - 核心模块索引新增"资源管理"模块
+  - **版本升级**：v1.1.0 → v1.2.0
+
+- **complete_example v1.1.0** - 🔒 安全增强：系统文件保护与格式注入扫描
+  - **SecurityManager 模块**：统一的安全检查和访问控制
+    - 系统文件黑名单保护（`main.tex`、`@config.tex` 绝对禁止修改）
+    - SHA256 哈希校验（检测文件是否被外部篡改）
+    - 格式注入检测（扫描并自动清理危险的格式指令）
+    - 白名单模式匹配（只允许编辑符合正则表达式的文件）
+    - 违规报告生成（详细的安全违规日志）
+  - **FormatGuard 增强**：集成 SecurityManager 进行预检查
+    - 编辑前自动进行系统文件检查和完整性校验
+    - 应用前自动进行格式注入检查和清理
+    - 支持自动清理模式（默认启用）
+  - **配置文件更新**：新增 `security` 配置节
+    - 系统文件黑名单和白名单配置
+    - 格式关键词黑名单配置
+    - 文件完整性校验配置
+    - 内容安全扫描配置
+  - **文档更新**：
+    - SKILL.md 新增"分层安全保护"章节
+    - 详细说明三层安全架构（系统文件/用户内容/内容扫描）
+    - 配置示例和使用说明
+
+- **complete_example v1.0.0** - AI 增强版 LaTeX 示例智能生成器
+  - **核心功能**：AI 驱动的示例内容生成，支持用户自定义叙事提示
+  - **用户提示机制**：允许通过 `narrative_hint` 参数指定研究主题、方法、场景，AI 根据提示编造合理的示例内容
+  - **运行目录隔离**：所有运行输出（备份、日志、分析结果）放在 `skills/complete-example/runs/<run_id>/` 目录中，完全不对项目目录造成污染
+  - **架构设计**：AI 负责"语义理解"，硬编码负责"结构保护"，有机协作
+  - **核心模块**：
+    - `SemanticAnalyzer`：AI 语义分析器（章节主题理解、资源相关性推理）
+    - `AIContentGenerator`：AI 内容生成器（叙述性文本生成、自我优化）
+    - `ResourceScanner`：资源扫描器（figures、code、references）
+    - `FormatGuard`：格式守护器（格式保护、哈希验证、自动回滚）
+    - `CompleteExampleSkill`：主控制器（完整工作流协调）
+  - **工具模块**：LLM 客户端、LaTeX 解析、BibTeX 解析、文件操作
+
+### Fixed（修复）
+
+- 修复并落地 `transfer_old_latex_to_new`（对齐 `plans/v202601081102.md` 的核心问题）
+  - 新增 `skills/transfer_old_latex_to_new/core/ai_integration.py`：统一 AI 接口，未接入真实 AI 时优雅降级
+  - 修复错误导入：移除 `get_ai_config` 与 `skill_core` 依赖，避免运行时 `ModuleNotFoundError`
+  - 集成可选后处理：`apply_plan()` 支持 `--optimize` 内容优化与 `--adapt-word-count` 字数适配
+  - CLI 扩展：`skills/transfer_old_latex_to_new/scripts/run.py` 新增 `--no-ai/--optimize/--adapt-word-count`
+  - 同步更新文档与测试：保证默认环境下功能可用且用法一致
+  - **使用示例**：基本用法、高级用法（医疗影像、材料科学、临床试验、传统 ML）
+  - **配置文件**：完整的 YAML 配置（LLM、参数、运行管理、资源扫描、格式保护、AI 提示词）
+  - **测试框架**：单元测试、集成测试、AI 能力测试
+  - **文档**：SKILL.md、README.md、设计计划 [plans/v202601071300.md](plans/v202601071300.md)
+
+- **make_latex_model v2.7.0** - 全自动化工作流程优化
+  - **PDF 基准获取增强**：
+    - 步骤 2.1 改为"获取 Word PDF 基准"（原"生成 Word PDF 基准"）
+    - 新增"方案 0：用户已提供 PDF"作为首选方案（最快，零操作）
+    - 调整 LibreOffice 为"方案 1"，Microsoft Word COM 为"方案 2"
+    - 渲染质量对比表格新增"用户已提供 PDF"条目
+    - Q1 常见问题同步更新：支持用户已提供 PDF 或自动生成
+  - **文档优化**：
+    - 移除所有"在 Microsoft Word 中打开模板"等手动操作说明
+    - Q1 重写：强调完全自动化的工作流程
+    - 删除步骤 2.3"手动测量（备用方案，不推荐）"章节（AI 无法执行）
+    - 删除"迁移说明"章节（工作空间管理章节）
+    - 步骤 2.5 新增 `--auto-convert` 自动转换 .doc 为 .docx
+    - 移除年份偏倚：将所有具体年份（2026）改为通用表述（2025/最新模板/YYYY-MM-DD）
+    - 修正标题层级：移除所有子章节的冗余编号前缀（如 3.5.1→、4.1→、5.0→）
+  - **核心理念**：本技能为全自动化技能，用户无需手动操作任何 GUI 工具
+
+- **make_latex_model v2.6.0** - 文档格式优化
+  - 移除 SKILL.md 中所有主要章节标题前的序号（如 `## 1)` → `##`）
+  - 更新文档目录中的锚点链接以匹配新的标题格式
+  - 提升文档可读性和链接稳定性
+
+- **make_latex_model v2.5.0** - HTML 可视化报告与自动修复建议
+  - **Phase 2: HTML 报告增强**：
+    - 新增 `render_formatted_text_html()`：将格式片段渲染为 HTML（加粗用 `<b>` 标签）
+    - 新增 `generate_html_report_with_format()`：生成包含格式对比的 HTML 报告
+    - HTML 报告支持：
+      - 加粗文本可视化（`<b>` 标签深蓝色显示）
+      - 并排对比（Word vs LaTeX）
+      - 格式差异高亮（黄色背景 + 详细位置标注）
+      - 响应式设计，最大宽度 1400px
+      - 四种统计卡片：完全匹配、文本差异、格式差异、仅在一方
+  - **Phase 3: 自动修复建议**：
+    - 新增 `generate_latex_fix_suggestions()`：生成 LaTeX 修复代码
+    - `compare_headings.py` 新增 `--fix-file` 参数：输出修复建议到指定文件
+    - 自动生成可直接复制的 `\section{}` 和 `\subsection{}` 代码
+    - 根据 Word 格式生成正确的 `\textbf{}` 标记
+  - **命令行增强**：
+    - `--check-format` 模式下支持 HTML 报告（移除"后续版本增强"的临时提示）
+    - 新增 `--fix-file` 参数，与 `--check-format` 配合使用
+  - **文档更新**：
+    - SKILL.md 步骤 2.5 新增 HTML 可视化报告使用说明（第 5 条）
+    - SKILL.md 步骤 2.5 新增 LaTeX 修复建议使用说明（第 6 条）
+    - description 更新：添加"HTML 可视化报告、LaTeX 自动修复建议"
+  - **完整实现计划 v202601060836**：
+    - ✅ Phase 1（核心功能）：100% 完成
+    - ✅ Phase 2（可视化增强）：100% 完成
+    - ✅ Phase 3（自动修复建议）：100% 完成
+
+- **make_latex_model v2.4.0** - 标题格式对比功能增强
+  - **格式对比核心功能**：
+    - 新增 `extract_formatted_text_from_word()`：从 Word 段落提取格式化文本片段（加粗信息）
+    - 新增 `extract_formatted_text_from_latex()`：从 LaTeX 代码解析 `\textbf{}` 格式
+    - 新增 `compare_formatted_text()`：对比 Word 和 LaTeX 的格式一致性
+  - **命令行参数扩展**：
+    - `compare_headings.py` 新增 `--check-format` 参数：启用格式（加粗）对比
+    - 支持向后兼容：默认行为保持不变，仅检查文本内容
+  - **报告增强**：
+    - 新增 `generate_text_report_with_format()`：生成包含格式差异的文本报告
+    - 格式差异报告显示：Word 和 LaTeX 的加粗位置对比、具体差异位置标注
+  - **文档更新**：
+    - SKILL.md 步骤 2.5 新增格式对比使用说明
+    - description 更新：添加"标题格式对比（加粗）"功能描述
+
+- **make_latex_model v2.3.0** - 迭代优化闭环与工作空间重构
+  - **工作空间管理（Phase 0）**：
+    - 新增 `core/workspace_manager.py`：统一管理 skill 工作目录，避免污染用户项目目录
+    - 工作空间结构：`workspace/{project}/baseline/`、`iterations/`、`reports/`、`cache/`、`backup/`
+    - 支持旧路径自动迁移和缓存清理策略
+  - **基础功能增强（Phase 1）**：
+    - 新增 `scripts/prepare_main.py`：预处理 main.tex，自动注释/恢复 `\input{}` 行
+    - 新增 `scripts/generate_baseline.py`：自动检测模板文件，使用 Word/LibreOffice 转换为 PDF
+    - 新增 `scripts/convergence_detector.py`：综合判断迭代优化是否达到停止条件
+    - 新增 `scripts/enhanced_optimize.py`：一键式迭代优化入口
+  - **智能调整（Phase 2）**：
+    - 新增 `scripts/intelligent_adjust.py`：分析像素差异，根据差异特征推断参数调整建议
+  - **配置扩展**：
+    - `config.yaml` 新增 `workspace` 配置节（工作空间路径、清理策略）
+    - `config.yaml` 新增 `iteration` 配置节（最大迭代、收敛阈值、调整粒度、像素对比配置）
+    - `config.yaml` 新增 `baseline` 配置节（转换器优先级、质量验证）
+  - **文档更新**：
+    - SKILL.md 新增「0.7) 工作空间说明」章节
+    - SKILL.md 新增「3.5) 迭代优化闭环」章节
+
+### Changed（变更）
+
+- **项目指令文档** - 新增 LaTeX 编译4步法规范
+  - **CLAUDE.md 和 AGENTS.md**：新增「LaTeX 编译规范」章节
+    - 说明 PDF 渲染4步法：`xelatex → bibtex → xelatex → xelatex`
+    - 每步的作用说明（生成辅助文件、处理参考文献、解析文献引用、确保交叉引用正确）
+    - 使用原则：修改参考文献后必须完整执行4步，仅修改正文时可省略 bibtex 步骤
+  - **有机整合**：与现有「LaTeX 标题换行控制」章节并列，形成完整的 LaTeX 操作规范
+
+- **项目指令文档** - 指令规范精炼与一致性增强
+  - **CLAUDE.md 和 AGENTS.md**：精炼「项目目标」「联网与搜索」表述，补充“不自动清理/删除 `.DS_Store`”边界，并统一核心章节一致性提示
+
+### Changed（变更）
+
+- **make_latex_model v2.7.1** - 修复验证器运行入口
+  - 修复 `scripts/run_validators.py` 的导入路径，避免 `validators` 相对导入报错
+
+- **make_latex_model v2.2.1** - SKILL.md 文档结构优化（方案 A）
+  - **P1 文档优化**：
+    - 合并重复的验证清单：4.3 节改为引用第 6 节，减少约 30 行重复内容
+    - 整合 Q1、Q1.1、Q2 为一个完整的"Word 打印 PDF"问题，消除主题重复
+    - 整合 AI 决策点规范（0.7 节）到第 3 节执行流程的相应步骤中，提升上下文连贯性
+    - 新增文档目录结构，提升导航性
+  - **优化效果**：
+    - 消除约 50+ 行重复内容
+    - 提升信息密度和可读性
+    - 保持单文档结构，便于 AI 理解
+
+- **make_latex_model v2.2.0** - 架构澄清：AI 与硬编码协调改进
+  - **P0 架构澄清**：
+    - 在 SKILL.md 中新增「0.6) 执行模式说明」章节：明确硬编码工具与 AI 规划的执行边界
+    - 在 SKILL.md 中新增「0.7) AI 决策点规范」章节：定义 4 个关键决策点的输入、逻辑和输出
+    - 新增 `scripts/check_state.py`：项目状态检查工具，AI 执行前必须运行的预检查脚本
+    - 在「执行流程」中新增「步骤 0：预检查」，强制 AI 在优化前执行状态检查
+
+### Added（新增）
+
+- **make_latex_model**：新增 `check_state.py` 状态检查工具
+  - 检查项目是否已初始化（@config.tex 存在）
+  - 检查是否有 Word PDF 基准文件
+  - 检测基准来源（Word PDF / QuickLook / 未知）
+  - 检查编译状态和 PDF 分析结果
+  - 生成状态报告并导出 JSON 供 AI 读取
+
+### Changed（变更）
+
+- 更新 `AGENTS.md` 与 `CLAUDE.md` 的目录结构示例，使 `skills/` 示例与当前仓库实际技能（`make_latex_model`）一致
+- **make_latex_model**：融入 `analyze_pdf.py` 工具到工作流
+- **make_latex_model v2.1.1** - 代码库优化与配置清理
+  - **P0 紧急修复**：
+    - 修复 SKILL.md 版本号不一致（v1.4.0 → v2.1.0）
+    - 清理已追踪的系统垃圾文件（.DS_Store 和 __pycache__）
+    - 优化 .gitignore 配置（新增虚拟环境、技能输出目录、macOS 补充规则）
+  - **P1 核心优化**：
+    - 实施配置继承方案：删除 base.yaml 中重复的 validation.tolerance 和 validation.acceptance_priority 配置
+    - 统一颜色定义到单一数据源：在 config.yaml 中新增 style_reference.colors 配置，从 base.yaml 中删除重复的颜色定义
+  - **P2 次要改进**：
+    - 统一 config.yaml 和 SKILL.md 的技能描述文本
+    - 清理 output 目录中的运行时生成文件，添加 README.md 说明文档
+  - 在 `SKILL.md` 步骤 2 中新增 "2.2 自动提取样式参数" 小节
+  - 在 `scripts/README.md` 中新增 `analyze_pdf.py` 工具文档（作为工具 #1）
+  - 优化 `analyze_pdf.py`：添加依赖检查、文件验证、改进输出格式
+  - 调整工具编号：`validate.sh` (#2)、`benchmark.sh` (#3)、`extract_headings.py` (#4)、`compare_headings.py` (#5)
+
+### Added（新增）- Skills
+
+- **make_latex_model v2.1.0** - 核心功能完善与工作流优化
+  - **验证器插件系统（任务 1.1）**：
+    - 实现 `CompilationValidator`：编译状态验证（第一优先级）
+    - 实现 `StyleValidator`：样式参数验证（行距、颜色、边距、字号、标题格式）
+    - 实现 `HeadingValidator`：标题文字验证（集成 compare_headings.py）
+    - 实现 `VisualValidator`：视觉相似度验证（PDF 页面尺寸、每行字数统计）
+    - 新增 `scripts/run_validators.py`：Python 验证器运行器
+  - **PDF 像素对比工具（任务 1.2）**：
+    - 新增 `scripts/compare_pdf_pixels.py`：像素级 PDF 对比工具
+    - 支持批量对比多页 PDF
+    - 生成 HTML 差异报告和差异热图
+    - 计算差异像素比例（changed_ratio）
+  - **样式配置双向同步工具（任务 1.3）**：
+    - 新增 `scripts/sync_config.py`：LaTeX 配置解析与同步工具
+    - 解析 `@config.tex` 中的颜色、字号、边距、行距、标题格式
+    - 对比 PDF 分析结果与 LaTeX 配置
+    - 支持自动修改和预览模式
+  - **一键式优化流程（任务 2.1）**：
+    - 新增 `scripts/optimize.py`：完整优化流程自动化
+    - 8 步流程：分析 Word PDF → 提取标题 → 对比样式 → 生成建议 → 应用修改 → 编译 → 验证 → 生成报告
+    - 新增 `scripts/optimize.sh`：Shell 脚本入口
+  - **交互式配置向导（任务 2.2）**：
+    - 新增 `scripts/setup_wizard.py`：交互式项目配置向导
+    - 引导用户完成项目信息、模板选择、优化级别、Word 模板、高级选项
+    - 自动生成项目结构和配置文件
+  - **Windows 兼容性改进（任务 3.1）**：
+    - 新增 `scripts/validate.bat`：Windows 验证脚本
+    - 新增 `scripts/benchmark.bat`：Windows 性能测试脚本
+    - 新增 `scripts/optimize.bat`：Windows 优化脚本
+  - **字体路径自动检测（任务 3.2）**：
+    - 新增 `core/font_detector.py`：跨平台字体检测模块
+    - 支持 macOS/Windows/Linux 三大操作系统
+    - 自动检测常见中文字体（KaiTi、SimSun、SimHei 等）
+    - 自动检测常见英文字体（Times New Roman、Arial 等）
+
+- **make_latex_model v2.0.0** - 通用化重构
+  - **核心架构重构**：实现配置与代码分离，支持任意 LaTeX 模板
+  - **分层配置系统**：
+    - `config.yaml`：技能默认配置
+    - `templates/`：模板配置目录（支持继承）
+    - `.template.yaml`：项目本地配置
+  - **新增核心模块**：
+    - `core/config_loader.py`：配置加载器（支持三层合并和继承）
+    - `core/template_base.py`：模板基类
+    - `core/validator_base.py`：验证器基类
+  - **模板配置**：
+    - `templates/nsfc/base.yaml`：NSFC 基础模板
+    - `templates/nsfc/young.yaml`：青年基金模板
+    - `templates/nsfc/general.yaml`：面上项目模板
+    - `templates/nsfc/local.yaml`：地区基金模板
+  - **工具脚本重构**（支持命令行参数）：
+    - `validate.sh --project PATH [--template NAME]`
+    - `extract_headings.py --file PATH [--project PATH] [--config PATH]`
+  - **向后兼容**：现有 NSFC 项目无需修改即可继续使用
+  - **测试覆盖**：新增向后兼容性测试 `tests/test_backward_compat.py`
+
+- **make_latex_model v1.4.0** - 标题文字对齐功能
+  - 新增自动化工具：
+    - `scripts/extract_headings.py`：从 Word/LaTeX 提取标题文字
+    - `scripts/compare_headings.py`：对比标题文字差异，生成 HTML 可视化报告
+  - 修订核心目标：明确"标题文字对齐"与"样式参数对齐"的双重目标
+  - 修订绝对禁区：允许修改 `main.tex` 中的标题文本，禁止修改正文内容
+  - 集成到 `validate.sh`：自动检查标题文字一致性
+  - 解决问题：修复了对"样式对齐"的理解偏差，现在同时关注样式参数和标题文字分布
+
+## [1.0.0] - 2026-01-05
+
+### Added（新增）
+
+- 初始化 AI 项目指令文件
+- 生成 `CLAUDE.md`（Claude Code 项目指令）
+- 生成 `AGENTS.md`（OpenAI Codex CLI 项目指令）
+- 配置项目工程原则和工作流
+
+### Changed（变更）
+
+---
+
+## 记录规范
+
+每次修改 `CLAUDE.md` 或 `AGENTS.md` 时，请按以下格式追加记录：
+
+```markdown
+## [版本号] - YYYY-MM-DD
+
+### Changed（变更）
+- 修改了 XXX 章节：原因是 YYY，具体变更内容是 ZZZ
+
+### Added（新增）
+- 新增了 XXX 功能/章节：用途是 YYY
+
+### Fixed（修复）
+- 修复了 XXX 问题：表现是 YYY，修复方式是 ZZZ
+```
+
+### 版本号规则（可选）
+
+- **主版本号**：重大架构变更
+- **次版本号**：新增功能或章节
+- **修订号**：修复问题或微调
+
+### 变更类型说明
+
+| 类型 | 说明 |
+|------|------|
+| Added | 新增的功能或章节 |
+| Changed | 对现有功能或内容的变更 |
+| Deprecated | 即将移除的功能（警告） |
+| Removed | 已移除的功能 |
+| Fixed | 修复的问题 |
+| Security | 安全相关的修复 |
+
+---
+
+## 模板版本历史
+
+### 2025-03-12：v2.5.0 重大更新
+
+> :warning: 修复：面上、地区基金"3.正在承担的与本项目相关的科研项目"段落结尾缺少分号
+
+![mQW1QFdXDq](https://chevereto.hwb0307.com/images/2025/03/12/mQW1QFdXDq.png)
+
+### 2025-03-01：v2.4.6
+
+- 优化：`\kaishu` → `\templatefont` 增强字体兼容性
+- 优化：改善 `subsubsection` 序号显示
+- 修复：系统 TimesNewRoman 适用于 macOS/Overleaf
+
+### 2025-01-25：v2.4.2
+
+- 修复：面上和地区基金 `font/` 文件夹缺失
+- 修复：面上模板 `(建议 8000 字以下)` 未加粗
+- 优化：增强 Overleaf/macOS 平台兼容
+
+### 2025-01-24：2025 版发布
+
+完整更新说明详见博客文章《[国家自然科学基金的 LaTeX 模板](https://blognas.hwb0307.com/skill/5762)》。
