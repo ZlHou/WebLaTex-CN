@@ -1,0 +1,56 @@
+# Auxiliary files
+*.aux
+*.auxlock
+*.bak
+*.bbl
+*.bcf
+*.blg
+*.dpth
+*.fdb_latexmk
+*.fls
+*.glg
+*.glo
+*.gls
+*.hd
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.md5
+*.out
+*.run.xml
+*.sav
+*.synctex.gz
+*.synctex(busy)
+*.thm
+*.toc
+
+# Generated files (plain text)
+*.cls
+*.def
+*.ins
+*.sty
+
+# Generated files (binary)
+*.dvi
+*.pdf
+*.xdv
+
+# Folders
+.vscode/
+build/
+release/
+thesis/
+
+# Other
+.DS_Store
+*.zip
+*.otf
+source/*.md
+source/*.sh
+source/fduthesis-code.*
+source/fduthesis-en.*
+test/*.sh
+test/latexmkrc

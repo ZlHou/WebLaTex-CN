@@ -1,0 +1,20 @@
+% 换字体后下标上移动，解释见https://github.com/latex3/unicode-math/issues/645#issuecomment-2557118577
+\documentclass{article}
+%\usepackage{unicode-math}
+%\setmathfont{xits-math.otf}
+\begin{document}
+	$\begin{array}{*{17}c}
+%   \lmoustache&
+%   \rmoustache&
+  \arrowvert &
+  \Arrowvert &
+  \bracevert  
+	\\[4pt]
+	%
+	% \Bigg\lmoustache&
+	% \Bigg\rmoustache&
+  \Bigg\arrowvert &
+	\Bigg\Arrowvert &
+	\Bigg\bracevert
+	\end{array}$
+\end{document}

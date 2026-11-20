@@ -1,0 +1,42 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+\ExplSyntaxOn
+%%-----------------------------------------------------------------------------%
+\NewDocumentEnvironment{acknowledgements}{}{%               % 致谢
+    \nwpuBodyFont                                           %
+    \phantomsection\chapter*{\texorpdfstring{\nwpu@page@ack}{\nwpu@page@ack@pdf}}%
+    \markboth{\nwpu@page@ack}{\nwpu@page@ack}               %
+    \addcontentsline{toc}{chapter}{\texorpdfstring{\nwpu@page@ack}{\nwpu@page@ack@pdf}}%
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}   %
+}{\par \cleardoublepage}                                    %
+%%-----------------------------------------------------------------------------%
+\NewDocumentEnvironment{thesisappendix}{}{%                  % 附录
+    \nwpuBodyFont                                           %
+    \bool_if:NF \l__nwpu_thesis_appendix_mode_bool          %
+      {
+        \appendix                                           %
+        \global\bool_set_true:N \l__nwpu_thesis_appendix_mode_bool %
+      }
+    \int_gincr:N \l__nwpu_thesis_appendix_count_int           %
+    \refstepcounter{chapter}                                %
+    \phantomsection\chapter*{\texorpdfstring{\nwpu@appendixtitle{\thechapter}}{\nwpu@appendixpdftitle{\thechapter}}}%
+    \markboth{\nwpu@appendixtitle{\thechapter}}{\nwpu@appendixtitle{\thechapter}}%
+    \addcontentsline{toc}{chapter}{\texorpdfstring{\nwpu@appendixtitle{\thechapter}}{\nwpu@appendixpdftitle{\thechapter}}}%
+}{\par \cleardoublepage}                                    %
+%%-----------------------------------------------------------------------------%
+\NewDocumentEnvironment{accomplishments}{}{%                 % 参加科研情况
+    \nwpuBodyFont                                           %
+    \phantomsection\chapter*{\texorpdfstring{\nwpu@page@acp}{\nwpu@page@acp@pdf}}%
+    \markboth{\nwpu@page@acp}{}                             %
+    \addcontentsline{toc}{chapter}{\texorpdfstring{\nwpu@page@acp}{\nwpu@page@acp@pdf}}%
+}{\cleardoublepage}                                       %
+%%-----------------------------------------------------------------------------%
+\NewDocumentEnvironment{designsummary}{}{%                   % 毕业设计小结（本科）
+    \nwpuDesignSummaryFont                                  %
+    \phantomsection\chapter*{毕业设计小结}                  %
+    \markboth{毕业设计小结}{毕业设计小结}                   %
+    \addcontentsline{toc}{chapter}{毕业设计小结}            %
+}{\par \cleardoublepage}                                    %
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOff

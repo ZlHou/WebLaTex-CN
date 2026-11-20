@@ -1,0 +1,477 @@
+% !TeX program = xelatex
+% Standalone handbook; organization and visual conventions follow SUEPTeX.
+\documentclass[a4paper,oneside,openany,zihao=-4,fontset=fandol]{ctexbook}
+\usepackage[margin=2.5cm,headheight=16pt]{geometry}
+\usepackage{fontspec,booktabs,longtable,tabularx,array,enumitem,fvextra,xcolor,fancyhdr,graphicx}
+\usepackage[unicode,bookmarksnumbered,colorlinks=true,hypertexnames=false]{hyperref}
+\setmainfont{TeX Gyre Termes}
+\setmonofont{Latin Modern Mono}
+\definecolor{manualblue}{HTML}{24516B}
+\definecolor{manualgray}{HTML}{657078}
+\definecolor{manualtoc}{HTML}{E91E63}
+\hypersetup{allcolors=manualblue,pdftitle={CSEE LaTeX3 论文模板使用指南}}
+\DefineVerbatimEnvironment{Code}{Verbatim}{fontsize=\small,breaklines=true,
+  frame=lines,rulecolor=\color{manualgray},framesep=3mm}
+\newcommand{\file}[1]{\texttt{\detokenize{#1}}}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\emergencystretch}{2em}
+\setlist{nosep,leftmargin=2em}
+\linespread{1.15}\raggedbottom
+\ctexset{chapter={format=\Large\bfseries\raggedright,beforeskip=12pt,afterskip=24pt},
+  section={format=\large\bfseries}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small CSEE 模板使用指南}
+\fancyhead[R]{\small\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\begin{document}
+\begin{titlepage}
+  \centering
+  \vspace*{2cm}
+  {\color{manualblue}\fontsize{34}{42}\selectfont\bfseries CSEE\par}
+  \vspace{0.5cm}
+  {\Large LaTeX3 论文模板\par}
+  \vspace{2cm}
+  {\Huge\bfseries 使用指南\par}
+  \vspace{0.8cm}
+  {\large 基于《中国电机工程学报》Word 样稿\par}
+  \vfill
+  {\large 模板版本 0.1.0\par}
+  \vspace{0.3cm}
+  {2026 年 10 月 8 日\par}
+  \vspace{1cm}
+  \begin{minipage}{0.85\textwidth}\small
+  版式依据：官方word文档。本项目为非官方模板。
+  本指南说明当前接口与实际实现，不代表期刊后续修订的投稿要求。
+  \end{minipage}
+\end{titlepage}
+\frontmatter
+\chapter{阅读本指南}
+第一次使用时，请从第 1 章开始，先编译现有示例，再替换论文内容。
+第 2 至第 5 章介绍信息配置、正文、图表与文末材料；第 6 章列出排错方法；
+第 7 章说明与 Word 的核对结果及尚存差异；第 8 章供维护模板时查阅。
+
+代码框中的内容可复制到相应文件。除特别说明外，命令均在项目根目录执行。
+命令中的文件名和路径应保持原样；示例中的作者、单位、研究结论及文献需要替换。
+本指南采用单栏书籍版式，论文采用双栏版式，二者字体设置互相独立。
+
+本文所说的 Word“二级标题”对应论文中的 \file{\section}，
+“三级标题”对应 \file{\subsection}，“四级标题”对应 \file{\subsubsection}。
+不要将 Word 样式级别与 LaTeX 命令名称混淆。
+
+\begingroup\linespread{1}\small\hypersetup{linkcolor=manualtoc,linktoc=all}
+\tableofcontents\endgroup
+\mainmatter
+\chapter{第一次编译}
+\section{环境与文件}
+本机已使用 TeX Live 2026 验证。论文推荐 XeLaTeX，也支持 LuaLaTeX；
+不能使用 pdfLaTeX。完整 TeX Live 可提供 CTEX、fontspec、newtxmath、
+graphicx、booktabs 等依赖，示例的绘图另用 TikZ。
+
+\begin{longtable}{P{0.30\textwidth}P{0.63\textwidth}}
+\toprule 文件 & 用途\\\midrule\endhead
+\file{csee.cls} & 文档类，控制论文版式与接口。\\
+\file{main.tex} & 完整论文示例，建议以此为起点。\\
+\file{csee-doc.tex} & 本指南的独立 LaTeX 源文件。\\
+\file{.latexmkrc} & 默认 XeLaTeX，输出目录为 \file{build/}。\\
+\file{tests/} & 完整示例、接口与字体版式验证稿。\\
+\file{tools/verify.ps1} & Windows 下的编译与交叉引用检查。\\
+\file{build/} & PDF、日志及辅助文件，编译时生成。\\
+\bottomrule
+\end{longtable}
+
+\section{编译论文与指南}
+在包含 \file{main.tex} 的目录打开终端：
+\begin{Code}
+latexmk main.tex
+latexmk csee-doc.tex
+\end{Code}
+论文产物为 \file{build/main.pdf}，指南为 \file{build/csee-doc.pdf}。
+latexmk 会根据目录和引用需要自动重复编译。只编译论文时执行第一条即可。
+没有 latexmk 时，论文可连续运行两次：
+\begin{Code}
+xelatex -interaction=nonstopmode -halt-on-error main.tex
+xelatex -interaction=nonstopmode -halt-on-error main.tex
+\end{Code}
+这种方式输出到当前目录。本指南含目录，直接编译时应重复运行，直到不再提示重编译。
+编辑器应以主文件为编译目标，选择 XeLaTeX。
+
+\section{独立使用与字体选择}
+把 \file{csee.cls} 与论文主文件放在同一个目录，并复制论文用到的图片。
+若要保留相同的构建命令和输出目录，同时复制 \file{.latexmkrc}。
+无需复制原始 Word、指南或测试文件。
+
+\begin{Code}
+\documentclass{csee}                   % 自动选择字体
+% 或选择下列其中一种，不能同时使用多个 documentclass：
+% \documentclass[fontset=windows]{csee}
+% \documentclass[fontset=fandol]{csee}
+\end{Code}
+\file{auto} 检测到 SimSun 时选择 Windows 字体，否则选择 Fandol。
+Windows 模式要求宋体、黑体、楷体、仿宋、Times New Roman 和 Arial 均可用；
+自动检测仅检查 SimSun，不会逐项检查所有字体。
+Fandol 模式使用 Fandol 中文字体与 TeX Gyre 西文字体，可跨平台编译，
+但字形与 Word 指定字体存在差异。严格核对原稿时应使用 Windows 模式。
+
+致谢正文在 Windows 模式下统一使用系统楷体 \file{KaiTi}；
+Fandol 模式使用 Fandol 楷体。
+
+\chapter{填写论文信息}
+\section{最小可用示例}
+新建 UTF-8 编码的 \file{paper.tex}，与文档类放在一起：
+\begin{Code}
+\documentclass{csee}
+\cseesetup{
+  title = {中文题名},
+  title-en = {English Title},
+  authors = {张三},
+  authors-en = {ZHANG San},
+  affiliations = {（某某大学，北京市 100000）},
+  affiliations-en = {(XX University, Beijing 100000, China)},
+  abstract-en = {English abstract.},
+  keywords-en = {power system; measurement},
+  abstract = {中文摘要。},
+  keywords = {电力系统；测量},
+}
+\begin{document}
+\maketitle
+\makeabstract
+\section{引言}
+这里填写正文。
+\end{document}
+\end{Code}
+运行 \file{latexmk paper.tex}。\file{\maketitle} 只调用一次，
+它输出通栏题名并进入双栏排版；\file{\makeabstract} 随后输出双栏摘要。
+中文题名不能为空。其他空字段会省略相应内容，但完整投稿稿件仍须自行填写必要信息。
+
+\section{键值配置表}
+所有字段在导言区通过 \file{\cseesetup} 设置。
+键值之间用英文逗号，值用花括号包围；正文中的逗号放在花括号内。
+\begin{longtable}{P{0.32\textwidth}P{0.61\textwidth}}
+\toprule 字段 & 内容与注意事项\\\midrule\endhead
+\file{title}, \file{title-en} & 中英文题名；英文大小写由作者控制。\\
+\file{authors}, \file{authors-en} & 中英文作者姓名，可用上标标注单位。\\
+\file{affiliations}, \file{affiliations-en} & 单位、地址、邮编；中文外括号自行填写。\\
+\file{abstract}, \file{abstract-en} & 中英文摘要，不需重复写“摘要”或 ABSTRACT 标签。\\
+\file{keywords}, \file{keywords-en} & 中文关键词用全角分号，英文用英文分号。\\
+\file{article-id} & 文章编号；期刊尚未提供时按实际投稿要求处理。\\
+\file{clc} & 中图分类号，例如 \file{TM\hspace{0.25em}73}。\\
+\file{document-code} & 文献标志码。\\
+\file{subject-code} & 学科分类号。\\
+\file{funding}, \file{funding-en} & 中英文基金信息，显示在首页左栏无标号脚注中。\\
+\file{short-title} & 奇数页页眉的短题名，需控制长度。\\
+\file{editor} & 责任编辑姓名；未提供时留空。\\
+\bottomrule
+\end{longtable}
+
+\section{多作者、多单位与基金}
+作者单位序号不自动推断；中英文姓名与单位需要分别填写。
+长单位可用 \file{\\} 显式换行。
+\begin{Code}
+\cseesetup{
+  authors = {张三\textsuperscript{1}，李四\textsuperscript{2}},
+  authors-en = {ZHANG San\textsuperscript{1}, LI Si\textsuperscript{2}},
+  affiliations = {（1．某某大学，北京市 100000；\\
+    2．某某研究院，江苏省南京市 210000）},
+  funding = {某某科研项目（项目编号）。},
+  funding-en = {Project supported by the XX Program (Grant No. XX).},
+  short-title = {张三等：论文短题名},
+}
+\end{Code}
+基金字段为空时不输出对应基金内容。英文基金可独立使用。
+模板不自动翻译姓名、单位、基金与摘要。
+
+\chapter{正文、标题与数学}
+\section{标题级别与混排}
+\begin{longtable}{P{0.23\textwidth}P{0.70\textwidth}}
+\toprule 命令 & 当前论文样式\\\midrule\endhead
+\file{\section} & Word 二级标题：小四黑体 12 bp，英文和数字 Arial；段前、段后各 6 bp，换行后顶格，无悬挂缩进。\\
+\file{\subsection} & Word 三级标题：五号黑体 10.5 bp，英文和数字 Arial；段前、段后均为 0，换行后顶格。\\
+\file{\subsubsection} & Word 四级标题：五号宋体 10.5 bp，英文和数字 Times New Roman；段前、段后均为 0。\\
+\bottomrule
+\end{longtable}
+上述 Arial、宋体等字体名称对应 Windows 模式。Word 中的 pt 是 PostScript 点，
+模板用 LaTeX 的 bp 保持物理尺寸；1 bp 等于 1/72 英寸。
+自动编号由命令生成，不要在标题文本中再次输入编号。
+
+希腊字母用数学命令输入，不把它们改成 Arial 字母。数学字体由 newtxmath 提供。
+标题的 PDF 书签需要纯文字版本时，可使用：
+\begin{Code}
+\section{信号模型 ABC123
+  \texorpdfstring{$\theta\omega\rho\omega\Delta$}{theta omega rho omega Delta}}
+\subsection{误差分析 DEF456}
+\subsubsection{计算步骤}
+\end{Code}
+正文使用五号宋体和 Times New Roman，首行缩进 0.74 cm。
+自然段之间留一空行即可，不用空格模拟缩进，也不用 \file{\\} 结束普通段落。
+每页 42 行采用基线间距近似，含标题、图表和公式时不会严格占满 42 行。
+
+\section{公式、单位与交叉引用}
+\begin{Code}
+设初始相位为 $\varphi$，采样信号为
+\begin{equation}
+  x(t)=A\cos(2\pi ft+\varphi).
+  \label{eq:signal}
+\end{equation}
+式(\ref{eq:signal})中的频率为 \qty{50}{\hertz}。
+测量结果为 \num{12345.87908}。
+\end{Code}
+变量用数学斜体，单位和说明性下标用正体，例如 \file{x_{\mathrm{rms}}}。
+\file{\qty} 与 \file{\num} 来自已加载的 siunitx，可统一数字分组和单位间距。
+公式编号由 \file{equation} 生成，不需手工输入。
+
+多行公式使用 \file{aligned}，换行位置由作者确定。
+按原稿要求，换行的运算符保留在上一行末：
+\begin{Code}
+\begin{equation}
+  \begin{aligned}
+    E ={}& (a_1+a_2+a_3) +{}\\
+         & (b_1+b_2+b_3).
+  \end{aligned}
+\end{equation}
+\end{Code}
+
+\section{列表、定义和定理}
+\begin{Code}
+\begin{enumerate}
+  \item 采集数据。
+  \item 分析误差。
+\end{enumerate}
+\begin{cseedefinition}[测量误差]\label{def:error}
+测量值与参考值之差称为测量误差。
+\end{cseedefinition}
+\begin{cseetheorem}\label{thm:bound}
+若各项误差均有界，则有限项误差之和有界。
+\end{cseetheorem}
+\end{Code}
+列表输出 1）、2）等编号；定义和定理分别计数。
+给对象设置唯一的 \file{\label}，用 \file{\ref} 引用其编号。
+
+\chapter{插入图表}
+\section{单栏图片与双语题注}
+\begin{Code}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\columnwidth]{figures/result.pdf}
+  \cseecaption{测量结果}{Measurement Results}
+  \label{fig:result}
+\end{figure}
+图\ref{fig:result}给出了测量结果。
+\end{Code}
+先准备 \file{figures/result.pdf}，也可使用 PNG 或 JPEG。
+\file{\cseecaption} 自动生成中文、英文题注及一致的编号，不需再输入“图 1”或“Fig. 1”。
+\file{\label} 必须放在题注后面，以取得正确编号。
+图题放在图形下方；表题放在表格上方。
+
+图题采用小五号、14 bp 行距。图内文字属于图片内容，模板无法修改其字体。
+应在绘图软件中设置中文六号宋体、英文 Times New Roman；主线 0.75 bp，
+副线 0.5 bp。导出后还需考虑缩放对字号和线宽的影响。
+
+\section{三线表}
+\begin{Code}
+\begin{table}[htbp]
+  \centering
+  \cseecaption{算法比较}{Comparison of Algorithms}
+  \label{tab:comparison}
+  \begin{tabular}{lcc}
+    \toprule
+    算法 & 频率/Hz & 误差/\% \\
+    \midrule
+    DFT  & 50 & 0.10 \\
+    DPMA & 50 & 0.02 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{Code}
+\file{tabular} 与 \file{tabular*} 内默认六号、14 bp 行距。
+\file{\toprule}、\file{\bottomrule} 为 0.75 bp，\file{\midrule} 为 0.5 bp。
+表格太宽时先缩短列标题、调整列宽或改成跨栏表，不宜整体缩小到无法阅读。
+
+\section{跨栏与浮动位置}
+跨栏图片使用 \file{figure*}，跨栏表格使用 \file{table*}，
+宽度相对于 \file{\textwidth} 设置。单栏对象使用 \file{\columnwidth}。
+\begin{Code}
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/wide.pdf}
+  \cseecaption{系统结构}{System Structure}
+  \label{fig:wide}
+\end{figure*}
+\end{Code}
+图表是浮动体，位置由 LaTeX 根据空间决定；\file{[htbp]} 是位置偏好。
+双栏跨栏图表通常出现在页顶，可能移到后续页。
+正文应通过编号引用图表，避免写“如下图”依赖固定位置。
+
+\chapter{致谢、文献、附录与简介}
+\section{致谢}
+直接使用专用环境，不另写一个 \file{\section{致谢}}：
+\begin{Code}
+\begin{cseeacknowledgements}
+本文中实验方案的制定和实验数据的测量记录工作是在
+×××集团有限公司等工作人员的大力支持下完成的，
+在此向他(她)们表示衷心的感谢。
+\end{cseeacknowledgements}
+\end{Code}
+“致谢”居中，黑体五号；正文楷体五号，首行缩进 0.74 cm。
+目前按 Word 样段设为 32.3 bp 行距。字体选择见第 1 章。
+环境结束后恢复原来的正文样式，不会把楷体和致谢行距带到参考文献中。
+
+\section{参考文献与引用}
+模板提供手工著录接口，引用输出方括号上标。
+\begin{Code}
+已有研究\cite{paper,book}表明该方法可行。
+\begin{thebibliography}{99}
+  \bibitem{paper}
+  作者．论文题名[J]．期刊名，2020，40(1)：1-8．
+  \bibitem{book}
+  作者．书名[M]．北京：出版社，2020：1-20．
+\end{thebibliography}
+\end{Code}
+按首次引用顺序排列 \file{\bibitem}；模板不自动排序文献条目。
+\file{cite} 可对同一次引用中的序号排序并压缩连续编号。
+原稿采用 GB/T 7714—2005 著录形式，中英文对照及标点需作者按原稿填写。
+以上条目只演示语法，不可作为真实文献引用。
+正文文献字号为小五号、14 bp 行距，悬挂缩进 0.63 cm。
+
+\section{附录}
+\begin{Code}
+\appendix
+\section{补充推导}
+\begin{equation}
+  y=kx+b.\label{eq:app-a}
+\end{equation}
+\section{补充数据}
+\begin{equation}
+  z=x+y.\label{eq:app-b}
+\end{equation}
+\end{Code}
+\file{\appendix} 后依次用 \file{\section} 创建附录 A、B 等。
+图、表、公式分别按附录重置为 A1、B1 等，正文采用小五号、14 bp 行距。
+附录标题为小五号黑体，英文及数字使用 Arial，段前、段后各 3 bp。
+
+\section{作者简介与责任编辑}
+\begin{Code}
+\begin{cseebiography}[portrait.jpg]{张三}
+（1990—），男，博士，研究方向为电力系统测量；
+E-mail：\url{author@example.com}。
+\end{cseebiography}
+\cseeeditor
+\end{Code}
+不使用照片时去掉方括号参数。照片须先裁为 11:14，像素不少于 260×330，
+该比例下输出为 2.2×2.8 cm。模板保留比例，不自动裁切；其他比例将不能填满目标尺寸。
+带照片的单条简介整体排版，不能跨页。
+\file{\cseeeditor} 仅在 \file{editor} 字段非空时输出责任编辑信息。
+
+\chapter{写作流程与排错}
+\section{建议的写作流程}
+先编译完整示例，确认本机字体和环境正常；然后复制主文件并替换题名、作者和摘要。
+逐节填写正文，再加入公式、图表、引用和文末材料。
+每次加入复杂对象后编译并查看 PDF，便于定位首次出现的问题。
+定稿前检查所有示例文字、基金编号、作者邮箱和虚构文献是否已经替换。
+
+篇幅较长时，可以把各节拆成文件，由主文件加载：
+\begin{Code}
+% 主文件正文中：
+\input{sections/introduction}
+\input{sections/method}
+% sections/method.tex 直接从 \section{方法} 开始，
+% 不再写 \documentclass 或 document 环境。
+\end{Code}
+
+\section{常见问题}
+\begin{longtable}{P{0.31\textwidth}P{0.62\textwidth}}
+\toprule 现象 & 处理方式\\\midrule\endhead
+提示不能使用当前引擎 & 切换到 XeLaTeX 或 LuaLaTeX，检查编辑器的主文件设置。\\
+找不到 \file{csee.cls} & 将类文件与主文件放在一起，确认编译工作目录。\\
+找不到中文或西文字体 & 安装 Windows 模式需要的字体，或显式使用 \file{fontset=fandol}。\\
+致谢字体不正确 & Windows 模式使用系统 KaiTi；检查是否误选 Fandol 模式或在正文中覆盖了字体。\\
+引用显示问号 & 检查标签拼写、重复标签和引用键；至少编译两次或使用 latexmk。\\
+标题公式引发 PDF 书签警告 & 用 \file{\texorpdfstring} 提供纯文字书签，见第 3 章。\\
+图片文件找不到 & 检查路径、大小写、后缀；路径相对于主文件的编译工作目录。\\
+表格或公式越过栏边 & 阅读日志中的 Overfull 提示，拆行或调整对象宽度。\\
+图表移到后续页 & 属于浮动排版；减少对象高度、调整源码位置或改用跨栏环境。\\
+页眉文字过长 & 缩短 \file{short-title}，避免完整长题名挤占页码。\\
+目录未更新 & 再编译指南；latexmk 会自动处理多轮编译。\\
+\bottomrule
+\end{longtable}
+
+\section{特殊字符}
+\verb|%| 开始注释，\file{&} 分隔表格列，\file{_} 在数学模式中表示下标。
+普通文本中用相应的转义写法：
+\begin{Code}
+50\%  A\&B  file\_name  \#1  \$100
+\textbackslash{}  \{文字\}
+\end{Code}
+排错时先看日志中第一条错误，不要仅根据最后一条级联错误修改文件。
+
+\chapter{与原始 Word 的核对记录}
+本章以提供的 Word 文件及已导出的参考资料为依据。
+“已核对”表示检查了当前实现或输出，不表示每页断行与 Word 完全相同。
+原 Word 保存的上边距约 2.7 cm，与文末说明的 3.2 cm 冲突；模板采用文字要求 3.2 cm。
+
+\section{已实现与核对的项目}
+\begin{longtable}{P{0.27\textwidth}P{0.66\textwidth}}
+\toprule 项目 & 当前结果\\\midrule\endhead
+A4 与双栏 & 上 3.2、下 2.5、左右 2.0 cm；栏间距 0.78 cm；题名通栏。\\
+正文 & 宋体与 Times New Roman，10.5 bp；首行缩进 0.74 cm。\\
+二级标题 & 输出确认 SimHei 12 bp、Arial 12 bp；换行后的中文回到栏左边缘；配置段前后各 6 bp。\\
+三级标题 & 输出确认 SimHei 10.5 bp、Arial 10.5 bp；换行顶格；配置段前后为 0。\\
+标题希腊字母 & 使用数学模式后保持数学字形，未被替换为 Arial；随所在标题字号调整。\\
+致谢 & 标题 SimHei 10.5 bp；本机正文实际使用 KaiTi 10.5 bp，基线间距 32.3 bp。\\
+页眉 & 首页两条 0.48 bp 横线，净间隔 0.48 bp；后续页为 0.72 bp 横线。文字和横线按参考 PDF 的垂直位置校正。\\
+附录标题 & 小五号黑体与 Arial，9 bp，段前后各 3 bp。\\
+参考文献标题 & 段前后各 4 bp；设置限定在参考文献环境内。\\
+双语图表题 & 9 bp、14 bp 行距，中英文共享对象编号。\\
+表格 & 表内 7.5 bp，顶底线 0.75 bp、栏目线 0.5 bp。\\
+数学字号 & 正文 10.5 bp、上下标 6.5 bp、次级上下标 4.5 bp。\\
+附录编号 & 已编译检查正文、附录 A/B 的图、表、公式编号及交叉引用。\\
+\bottomrule
+\end{longtable}
+
+\section{尚存差异与人工检查项}
+以下项目仍需在追求严格复刻时处理，当前不宣称全部满足 Word：
+\begin{longtable}{P{0.27\textwidth}P{0.66\textwidth}}
+\toprule 项目 & 差异或限制\\\midrule\endhead
+Word 文档网格 & 42 行以基线近似，45 字等网格和断行无法由 LaTeX 完全复现。\\
+数学符号级别 & 使用 newtxmath；未逐一复刻 MathType 的旧字形及大符号 15/12 bp 级别。\\
+图片与作者照片 & 图片内部字体需绘图时设置；作者简介采用并排块，不复刻 Word 全部文字环绕行为。\\
+内容规范 & 英文大小写、符号定义、标点、单位、文献完整性与中英文对照均需作者校对。\\
+\bottomrule
+\end{longtable}
+
+\chapter{实现与维护}
+\section{文档类结构}
+\file{csee.cls} 使用 \file{\ProvidesExplClass} 声明类，
+以 CTEX 的 \file{ctexart} 为基础。
+类选项由 \file{l3keys2e} 处理，论文信息保存在 expl3 属性表中；
+\file{\cseesetup} 通过键值接口更新信息。
+题名、摘要与可选字段使用 LaTeX3 条件逻辑生成，标题排版由 CTEX 控制。
+标准图表、引用与公式继续使用 LaTeX 的成熟接口，便于普通论文直接迁移。
+
+本指南参考 SUEPTeX 的封面、目录、首次编译、配置表、示例、排错和实现说明组织方式。
+它是独立的 \file{ctexbook} 文档，可直接编译；类文件与示例继续保持现有文件组织。
+
+\section{运行验证}
+在 Windows PowerShell 中执行：
+\begin{Code}
+.\tools\verify.ps1
+\end{Code}
+脚本分别编译 Windows 字体的 XeLaTeX 完整示例、Fandol 字体的 XeLaTeX/LuaLaTeX
+完整示例，以及两种引擎的接口验证稿。每份运行两次，并检查日志与正文、附录 A/B 编号。
+LuaLaTeX 字体缓存写入 \file{build/texmf-var/}。
+
+\file{tests/style-audit.tex} 另用于核对中英文标题字号、数学希腊字母和换行顶格：
+\begin{Code}
+xelatex -interaction=nonstopmode -halt-on-error -output-directory=build tests/style-audit.tex
+xelatex -interaction=nonstopmode -halt-on-error -output-directory=build tests/style-audit.tex
+\end{Code}
+检查 \file{build/style-audit.pdf}，同时查看日志。
+编译成功不能代替视觉检查；修改版式后应重新查看首页、后续页、长标题、
+致谢和附录，并更新本指南的核对记录。
+
+\section{修改范围与交付检查}
+常规写作只修改主文件和图片；统一版式调整才修改类文件。
+修改类文件前保留原版本，并用完整示例及验证稿比较输出。
+更新接口后同步维护 \file{README.md}、\file{README_en.md} 和本指南。
+提交论文前再按期刊实际要求核对；本指南的版本日期固定记录本次实现时间。
+\end{document}

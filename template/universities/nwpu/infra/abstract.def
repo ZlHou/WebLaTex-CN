@@ -1,0 +1,156 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn
+\NewDocumentEnvironment{abstract}{}
+  {
+    \pagenumbering{Roman}                                       % 页码使用大写罗马字母
+    \setcounter{page}{1}                                        % 页码从 1 开始
+    \nwpu_if_bachelor:TF                                        % 本科论文摘要格式
+      {
+        \nwpuBachelorAbstractFont                               % 小四，20pt 基线距
+        \cs_set_protected:Npn \sep {\unskip，\ignorespaces}     % 本科：逗号
+        \nwpu@apply@abstract@chs@format
+        \chapter*{摘\hspace{0.5em}要}                                        %
+      }
+      {                                                         % 硕博论文摘要格式
+        \cs_set_protected:Npn \sep {\unskip\!；\ignorespaces}   % 硕博：分号
+        \nwpuBodyFont                                           %
+        \chapter{摘{\quad}要}                                    %
+        \markboth{摘{\quad}要}{}                                  %
+      }
+  }
+  {
+    \nwpu_if_bachelor:TF                                        % 本科：恢复正文章节格式
+      {
+        \nwpu@apply@chapter@format
+      }
+      {}
+    \vfill\nwpuFundingFont
+    \nwpu_if_bachelor:TF
+      { \noindent }
+      { \indent }
+    \nwpu@chs@funding\par\cleardoublepage
+  }
+
+\NewDocumentEnvironment{keywords}{}
+  {
+    \nwpu_if_bachelor:TF                                        % 本科关键词格式
+      {
+        \vspace{\nwpuKeywordBeforeSkip} \par\noindent{\nwpuKeywordFont 关键词：}%
+      }
+      {                                                         % 硕博关键词格式
+        \vspace{\nwpuKeywordBeforeSkip} \par{\nwpuKeywordFont 关键词：}   %
+      }
+    \ignorespaces
+  }
+  {}
+
+\cs_new_protected:Npn \nwpu_keywords_print:nn #1#2
+  {
+    \clist_set:Nn \l_tmpa_clist { #2 }
+    \clist_use:Nn \l_tmpa_clist { #1 }
+  }
+
+\NewDocumentCommand{\keywordslist}{m}
+  {
+    \begin{keywords}
+      \nwpu_keywords_print:nn { \sep } { #1 }
+    \end{keywords}
+  }
+
+%%-----------------------------------------------------------------------------%
+%% 英文摘要及关键词
+%%-----------------------------------------------------------------------------%
+\NewDocumentEnvironment{engabstract}{}
+  {
+    \nwpu_if_bachelor:TF                                        % 本科论文英文摘要格式
+      {
+        \nwpuBachelorAbstractFont                               % 小四，20pt 基线距
+        \cs_set_protected:Npn \ensep {\unskip, ~\ignorespaces}  % 本科：逗号+空格
+        \nwpu@apply@abstract@eng@format
+        \chapter*{ABSTRACT}                                     %
+      }
+      {                                                         % 硕博论文英文摘要格式
+        \cs_set_protected:Npn \ensep {\unskip\!; ~\ignorespaces}% 硕博：分号+空格
+        \nwpuBodyFont                                           %
+        \chapter[ABSTRACT]{\nwpuEngAbstractTitleFont Abstract}%
+        \markboth{Abstract}{}                                    %
+      }
+  }
+  {
+    \nwpu_if_bachelor:TF                                        % 本科：恢复正文章节格式
+      {
+        \nwpu@apply@chapter@format
+      }
+      {}
+    \vfill\nwpuFundingFont
+    \nwpu_if_bachelor:TF
+      { \noindent }
+      { \noindent }
+    \nwpu@eng@funding\par\cleardoublepage
+  }
+
+\NewDocumentEnvironment{engkeywords}{}
+  {
+    \nwpu_if_bachelor:TF                                        % 本科英文关键词格式
+      {
+        \vspace{\nwpuKeywordBeforeSkip} \par\noindent \textbf{KEY~WORDS：}%
+      }
+      {                                                         % 硕博英文关键词格式
+        \vspace{\nwpuKeywordBeforeSkip} \par\noindent \textbf{Key~words：}%
+      }
+    \ignorespaces
+  }
+  {}
+
+\NewDocumentCommand{\engkeywordslist}{m}
+  {
+    \begin{engkeywords}
+      \nwpu_keywords_print:nn { \ensep } { #1 }
+    \end{engkeywords}
+  }
+
+%%-----------------------------------------------------------------------------%
+%% 公式变量说明
+%%-----------------------------------------------------------------------------%
+\NewDocumentEnvironment{eqvariables}{}
+  {
+    \par\noindent\nwpuEquationVariablesFont\ignorespaces
+  }
+  {
+    \par
+  }
+
+%%=============================================================================%
+%% 目录页
+%%-----------------------------------------------------------------------------%
+\cs_set_eq:NN \nwpu@old@toc \tableofcontents                    % 目录
+\cs_gset_protected:Npn \tableofcontents
+  {
+    \nwpuBodyFont\phantomsection                                 %
+    \bookmark[dest=\HyperLocalCurrentHref, level=0]{\contentsname}
+    { \hfuzz=\nwpuTocHfuzz \nwpu@old@toc } \cleardoublepage     %
+  }
+
+\cs_set_eq:NN \nwpu@old@lof \listoffigures                      % 图目录
+\cs_gset_protected:Npn \listoffigures
+  {
+    \nwpuBodyFont\phantomsection                                 %
+    \addcontentsline{toc}{chapter}{\listfigurename}              %
+    \nwpu@old@lof \cleardoublepage                               %
+  }
+
+\cs_set_eq:NN \nwpu@old@lot \listoftables                       % 表目录
+\cs_gset_protected:Npn \listoftables
+  {
+    \nwpuBodyFont\phantomsection                                 %
+    \addcontentsline{toc}{chapter}{\listtablename}               %
+    \nwpu@old@lot \cleardoublepage                               %
+  }
+
+\str_if_eq:VnF \l__nwpu_bibindent_tl { hanging } {
+    \DeclareFieldFormat{labelnumberwidth}{[#1]}
+}
+\ExplSyntaxOff

@@ -1,0 +1,79 @@
+% !Mode:: "TeX:UTF-8"
+
+% 默认为本科生开题报告
+% 如需修改为硕士/博士开题报告，请将bachelor替换为master/doctor
+\documentclass[bachelor, ktreport, twoside, color]{buaathesis}
+% openany, oneside
+% 参考文献
+\usepackage{gbt7714}
+% 参考文献输出方式，numerical为按照出现顺序，authoryear为按照作者姓名和年份
+\citestyle{numerical}
+% \citestyle{authoryear}
+
+\begin{document}
+
+% 开题文件类型，如果为文献综述请自行更改
+\ktclass{开题报告}
+
+% 学院中英文名称
+\school{(学院名)}{(Name of School)}
+
+% 专业中英文名
+\major{(专业名)}{(Name of Major)}
+
+% 研究方向名称（仅研究生）
+\direction{(研究方向)}
+
+% 论文中英文标题（注意，无论是否有子标题，必须包含3个以上的大括号）
+\thesistitle{北京航空航天大学学位论文\LaTeX{}模板}{}{}
+
+% 学号
+\studentID{(学号)}
+
+% 作者中英文名
+\thesisauthor{(姓名)}{(Name)}
+
+% 导师中英文名
+\teacher{(导师姓名)}{(Name of Tutor)}
+
+% 毕设答辩时间
+\thesisdate{(年)}{(月)}
+
+% 页眉页脚样式
+\pagestyle{mainmatter}
+
+% 封面、任务书、声明
+\maketitle
+
+% 前言页眉页脚样式
+\pagestyle{frontmatter}
+
+% % 摘要，仅文献综述需要
+% \include{data/abstract}
+
+% 目录
+\tableofcontents
+
+% 正文页码样式
+\mainmatter
+% 正文页眉页脚样式
+\pagestyle{mainmatter}
+
+% 正文
+\include{data/chapter1-intro}
+\include{data/chapter2-config}
+\include{data/chapter3-download}
+\include{data/chapter4-basic}
+\include{data/chapter5-usage}
+\include{data/chapter6-implement}
+\include{data/conclusion}
+
+% 参考文献
+\include{data/reference}
+
+% 附录
+\appendix
+\include{data/appendix1-faq}
+\include{data/appendix2-contactus}
+
+\end{document}

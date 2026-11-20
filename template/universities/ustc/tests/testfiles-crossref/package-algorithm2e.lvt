@@ -1,0 +1,46 @@
+\input{regression-test.tex}
+\documentclass[fontset=fandol]{ustcthesis}
+
+\usepackage{algorithm2e}
+
+
+\begin{document}
+
+\START
+\showoutput
+
+\frontmatter
+\listofalgorithms
+\clearpage
+\OMIT
+
+\mainmatter
+\chapter{标题}
+\clearpage
+
+\TIMO
+\begin{algorithm}
+  \SetKwInOut{Input}{输入}
+  \SetKwInOut{Output}{输出}
+
+  \Input{两个非负整数 $a$ 和 $b$}
+  \Output{$a$ 和 $b$ 的最大公约数 $\gcd(a, b)$}
+  \BlankLine
+
+  \While{$b \neq 0$}{
+    \eIf{$a > b$}{
+      $a \gets a - b$\;
+    }{
+      $b \gets b - a$\;
+    }
+  }
+
+  \Return $a$\;
+
+  \caption{欧几里得算法}
+  \label{alg:euclid}
+\end{algorithm}
+
+\clearpage
+\OMIT
+\end{document}

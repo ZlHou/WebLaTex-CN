@@ -1,0 +1,37 @@
+% 个人信息设置
+\input{content/thesis/undergraduate/info}
+\addbibresource{content/thesis/undergraduate/reference.bib}
+
+\begin{document}
+
+\frontmatter
+
+% 封皮页及标题页
+\maketitle
+
+% 摘要
+\input{content/thesis/undergraduate/abstract}
+
+% 目录
+\tableofcontents
+
+\mainmatter
+
+% 各章节
+\input{content/thesis/undergraduate/chapters}
+
+% 参考文献
+\printbibliography
+
+\backmatter
+
+% 致谢（盲审模式下自动隐藏）
+\ifblindreview{}{\input{content/thesis/undergraduate/acknowledgements}}
+
+% 毕业设计小结
+\input{content/thesis/undergraduate/designsummary}
+
+% 附录
+\input{content/thesis/undergraduate/appendix}
+
+\end{document}

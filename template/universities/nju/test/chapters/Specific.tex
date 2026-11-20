@@ -1,0 +1,192 @@
+\chapter{学科特殊环境}
+
+\section{代码}
+% the listings package
+
+\subsection{行内代码}
+
+一共有三种方法可以生成行内代码：
+\begin{itemize}
+    \item 使用 \texttt{\textbackslash verb} 抄录环境：\verb!<Your code>!
+    \item 使用 \texttt{\textbackslash lstinline} 行内代码环境：\lstinline[basicstyle=\tt]+<Your code>+
+    \item 使用简写的行内代码环境：|<Your code>|
+\end{itemize}
+在前两者中，只要使用在代码中未出现的符号将代码包括在内即可。
+
+\subsection{代码块}
+
+代码示例。在构建 \textsf{njuvisual} 宏包时，使用 inkscape 程序从矢量图导出的 \textsf{tikz} 曲线代码并不美观，需要缩进、对齐，因而拜托鄢老师编写了如下的 Python 脚本。
+\begin{lstlisting}[language=Python,morekeywords={startswith,endswith,split,strip,join,find,append,replace}]
+def deal_tuple(s):
+if s.startswith("("):
+    # s be like (x,y)
+    return "( {0:>9}, {1:>9} )".format(*s[1:-1].split(","))
+else:
+    return s
+
+
+indent = len(".. controls (    0.0000,    0.0000 )") - 1
+
+
+def deal_line(s):
+    s = " ".join(map(deal_tuple, s.split()))
+    if s.find(")") != -1:
+        s = " " * (indent - s.find(")")) + s
+    return s
+
+
+try:
+    while True:
+        s = input().strip()
+        if s.startswith("\path"):
+            l = []
+            while not s.endswith(";"):
+                l.append(s)  # use this instead of += for speedup
+                s = input().strip()
+            l.append(s[:-1])  # remove trailing ;
+            # NOTE: all strings in l should be newline-free
+            head, rp, body = " ".join(l).replace(".. controls", "\n.. controls").replace(
+                "--", "\n--").replace(")(", ")\n(").replace("cycle(", "cycle\n(").partition("]")
+
+            # force the program to keep newlines added manually
+            result = "\n".join(map(deal_line, body.splitlines()))
+
+            print(head, rp, "\n", result, ";", sep="")
+        else:
+            print(s)
+except EOFError as e:
+    pass
+\end{lstlisting}
+
+\section{算法块}
+
+使用 {algorithm} 和 {algorithmic} 的算法示例\footnote{两者均位于 \textsf{algorithms} 下}。
+
+\begin{algorithm}[htbp]
+    \caption{Lanczos Algorithm}
+    \begin{algorithmic}
+        \STATE - Choose an initial state $\vec{b}_0$ and a maximum iteration number $m$
+        \FOR{$n=0,\ldots m$}
+        \STATE - Construct the space $K = \spn\{\vec{b}_0 , \ldots \vec{b}_n \}$
+        \STATE - Obtain $\vec{C} = \hat{H} \vec{b}_n$
+        \IF{$\vec{C} \in K$}
+        \STATE Set $\vec{b}_{n+1}$ to a random vector orthogonal to $K$
+        \ELSE
+        \STATE Orthogonalize $\vec{C}$ against $K$, yielding $\vec{b}_{n+1}$
+        \ENDIF\ENDFOR
+    \end{algorithmic}
+\end{algorithm}
+
+
+\section{物理}
+% the physics package
+
+\begin{equation}
+    \expval{A}{\Psi}
+\end{equation}
+
+
+\section{化学}
+
+\subsection{化学式}
+
+1972年，R. J. Fiela、E. Koros、R. Noyes等通过实验对BZ振荡反应作了解释。其主要思想
+是：系统中存在着两个受溴离子浓度控制的过程A和B，当$[\ce{Br-}]$高于临界浓度$[\ce{Br-}]_\text{crit}$时发生
+A过程，当$[\ce{Br-}]$低于$[\ce{Br-}]_\text{crit}$时发生B过程。也就是说$[\ce{Br-}]$起着开关作用，它控制着从A到
+B过程，再由B到A过程的转变。在A过程，由于化学反应$[\ce{Br-}]$降低，当$[\ce{Br-}]$低于$[\ce{Br-}]_\text{crit}$
+时，B过程发生。在B过程中，\ce{Br-}再生，$[\ce{Br-}]$增加，当$[\ce{Br-}]$再次高于$[\ce{Br-}]_\text{crit}$时，A过程再次
+发生。这样系统就在A过程与B过程间往复振荡。下面用\ce{BrO3- - Ce^{3+} - MA - H2SO4}系统为例
+加以说明。\cite{qiujinhengetal2010}
+
+% 当$[\ce{Br-}]$足够高时，发生下列A过程：
+% \begin{equation}
+%     \ce{BrO3- + Br- + 2H+ ->[k_1] HBrO2 +HOBr}
+% \end{equation}
+% \begin{equation}
+%     \ce{HBrO2 + Br- + H+ ->[k_2] 2HOBr}
+% \end{equation}
+% 其中第一步是速率控制步，当达到准定态时，有
+% \begin{equation*}
+%     \left[\ce{HBrO2}\right] =\frac{k_1}{k_2}\left[\ce{BrO3-}\right]\left[\ce{H+}\right]
+% \end{equation*}
+
+% 当$[\ce{Br-}]$低时，\ce{Ce^{3+}}被氧化发生下列B过程：
+% \begin{equation}
+%     \ce{BrO3- + HBrO2 + 2H+ ->[k_3] 2HBrO2 + H2O}
+% \end{equation}
+% \begin{equation}
+%     \ce{BrO2 + Ce^{3+} + H+ ->[k_4] HBrO2 + Ce^{4+}}
+% \end{equation}
+% \begin{equation}
+%     \ce{2HBrO2 ->[k_5] BrO3- + HOBr + H+}
+% \end{equation}
+
+% 反应(3)是速率控制步，经反应(3)、反应(4)将自催化产生\ce{HBrO2}，达到准定态
+% 时，有
+% \begin{equation*}
+%     [\ce{HBrO2}] \approx \frac{k_3}{2k_5}[\ce{BrO3-}][\ce{H+}]
+% \end{equation*}
+
+% 由反应(2)和反应(3)可以看出：\ce{Br}和\ce{BrO3-}是竞争\ce{HBrO2}的。当$k_2[\ce{Br-}]>k_3[\ce{BrO3-}]$时，自催化过程不可能发生。自催化是BZ振荡反应中必不可少的步骤，否则该振荡不
+% 能发生。\ce{Br-}的临界浓度为
+% \begin{equation*}
+%     [\ce{Br-}]_\text{crit} =\frac{k_3}{k_2}[\ce{BrO3-}] =\num{5e-6}[\ce{BrO3-}]
+% \end{equation*}
+% \ce{Br-}的再生可通过下列过程实现：
+% \begin{equation}
+%     \ce{4Ce^{4+} + BrCH(COOH)2 +H2O + HOBr ->[k_6] Br- + 4Ce^{3+} + 3CO2 + 6H+}
+% \end{equation}
+% 该系统的总反应为
+% \begin{equation}
+%     \ce{2H+ + 2BrO3- + 2CH2(COOH)2 ->  BrCH(COOH)2 + 3CO2 + 4H2O}
+% \end{equation}
+% 振荡的控制物种是\ce{Br-}。
+
+
+\subsection{结构式}
+
+% \begin{figure}[H]
+%   \centering
+%   \chemfig{[:18]*5(-=(-CHO)-N-=)}
+% \end{figure}
+
+\schemestart
+  \setchemfig{chemfig style=blue} \chemname[3ex]{\chemfig{[:-60]*6(-=)([:90]*6(=-EDG))}}{Diene}
+  \hspace{10mm}
+  \setchemfig{chemfig style=red} \chemname[3ex]{\chemfig{[:-60]*6(=)([::90]-EWG)}}{Dienophile}
+  \hspace{10mm}
+  \arrow(.mid east--.mid west)[,1.5]
+  \hspace{10mm}
+  \chemfig{[:-60]*6(=[,,,,blue]-[,,,,blue]--[,,,,red](<[,,,,red]{\color{red}E}|{\color{red}WG})-(<[,,,,blue]{\color{blue}EDG})-[,,,,blue])}
+\schemestop
+
+% pkg modiagram
+% \begin{modiagram}[names,distance=5cm,names-style={draw=black}]
+% \atom[C]{left}{
+%   2s = {3.6;pair},
+%   2p = {6.3;up,up},
+%   label = {
+%     2sleft = {2s},
+%     2pyleft = {2p}
+%   }
+% }
+% \atom[O]{right}{
+%   2s = {0;pair},
+%   2p = {4.8;pair,up,up},
+%   label = {
+%     2sright = {2s},
+%     2pyright = {2p}
+%   }
+% }
+% \molecule[CO]{
+%   2sMO = {0.4;pair,pair},
+%   2pMO = {0.2/0.5,0.5/0.2;pair,pair,pair},
+% }
+% \node[right] at (2sigma.45) {$3\sigma$};
+% \node[right] at (2sigma*.-45) {$4\sigma$};
+% \node[right] at (2piz.45) { $1\pi$};
+% \node[right] at (2psigma.45) {$5\sigma$};
+% \node[right] at (2piz*.45) {$2\pi$};
+% \node[right] at (2psigma*.45) {$6\sigma$};
+% \EnergyAxis[title=Energy]
+% \end{modiagram}

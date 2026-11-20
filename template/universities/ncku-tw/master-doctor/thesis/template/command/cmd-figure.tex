@@ -1,0 +1,130 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+
+% ----------------------------------------------------------------------------
+%
+% http://tex.stackexchange.com/questions/34312/how-to-create-a-command-with-key-values
+%
+% 用\begin{figure} .. \end{figure}
+% 可能會出現問題
+% http://www.tex.ac.uk/cgi-bin/texfaq2html?label=ouparmd
+%
+% ----------------------------------------------------------------------------
+
+\DeclareDocumentCommand{\SetFigureCaptionAndLabel}{+m +m}
+{
+  \SetFloatCaptionAndLabel{#1}{#2}%
+} % End of \DeclareDocumentCommand{}
+
+\DeclareDocumentCommand{\SetFigureCaption}{+m}
+{
+  \ifthenelse{\equal{#1}{\empty}}{}%
+    {\IfNoValueF{#1}{\caption{#1}\NCKUPrivateFreezeCurrentLabelName{#1}}}
+} % End of \DeclareDocumentCommand{}
+
+\DeclareDocumentCommand{\SetImageLabel}{+m}
+{
+  \ifthenelse{\equal{#1}{\empty}}{}{\IfNoValueF{#1}{\label{#1}}}
+} % End of \DeclareDocumentCommand{}
+
+% -----------------------------------------------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / insert-figure }
+  {
+    scale   .tl_set_e:N = \TmpValueScale,
+    angle   .tl_set_e:N = \TmpValueAngle,
+    caption .tl_set_e:N = \TmpValueCaption,
+    label   .tl_set_e:N = \TmpValueLabel,
+    pos     .tl_set_e:N = \TmpValuePosition,
+    align   .tl_set_e:N = \TmpValueAlign,
+    opacity .tl_set_e:N = \TmpValueOpacity,
+  }
+
+% Reset every value on each call, then apply the caller's overrides. The public
+% optional argument uses the literal token \empty when omitted, so skip that
+% sentinel instead of handing it to l3keys as a key name.
+\cs_new_protected:Npn \ncku_insert_figure_keys_set:n #1
+  {
+    \keys_set:nn { ncku / insert-figure }
+      {
+        scale = 1.0,
+        angle = 0,
+        caption = \empty,
+        label = \empty,
+        pos = H,
+        align = \empty,
+        opacity = 0.4,
+      }
+    \tl_if_eq:nnF {#1} {\empty}
+      { \keys_set:nn { ncku / insert-figure } {#1} }
+  }
+\cs_new_eq:NN \NCKUPrivateSetInsertFigureKeys
+  \ncku_insert_figure_keys_set:n
+\ExplSyntaxOff
+
+% Insert a single column image
+\newcommand{\InsertFigure}[2][\empty]
+{%
+  % Parse the input
+  \NCKUPrivateSetInsertFigureKeys{#1}%
+  %
+  \begin{figure}[H]%
+  \NCKUPrivateDisplayFramedFloatContent{\TmpValueOpacity}{%
+    \makebox[\textwidth]{%
+      \includegraphics[
+        scale=\TmpValueScale,
+        angle=\TmpValueAngle]{#2}%
+    }%
+  }%
+  % Set Caption and Label
+  \SetFigureCaptionAndLabel{\TmpValueCaption}{\TmpValueLabel}
+  \end{figure}%
+} % End of \newcommand{}
+
+% -----------------------------------------------------------------
+
+\def\ValueFigureNameDefault{Figure}
+\def\ValueFigureNameCustom{Figure} % Default
+\def\UseFigureNameDefault{%
+  \renewcommand{\figurename}{\ValueFigureNameDefault}}
+\def\UseFigureNameCustom{%
+  \renewcommand{\figurename}{\ValueFigureNameCustom}}
+\newcommand{\SetCustomFigureName}[1]{%
+  \renewcommand{\ValueFigureNameCustom}{#1}}
+
+\UseFigureNameCustom % Default
+
+% Default style
+\newcommand{\UseFigureCaptionDefaultStyle}
+{%
+  \captionsetup*[figure]{labelfont=bf, textfont=normalfont}%
+} % End of \newcommand{}
+
+% Style for Extended Abstract
+\newcommand{\UseFigureCaptionExtendedAbstractStyle}
+{%
+  \captionsetup*[figure]{font=bf}%
+  \renewcommand{\thefigure}{\arabic{figure}}%
+} % End of \newcommand{}
+
+\UseFigureCaptionDefaultStyle % Default
+
+% -----------------------------------------------------------------

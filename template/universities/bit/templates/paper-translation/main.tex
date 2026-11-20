@@ -1,0 +1,113 @@
+%%
+% BIThesis 本科毕业设计论文翻译模板 —— 使用 XeLaTeX 编译 The BIThesis Template for Bachelor Paper Translation
+% This file has no copyright assigned and is placed in the Public Domain.
+% Compile with: xelatex -> biber -> xelatex -> xelatex
+%%
+
+% 请勿删除下面两行注释，以免影响编译。
+% !TeX program = xelatex
+% !BIB program = biber
+
+
+\documentclass[type=bachelor_translation]{bithesis}
+
+% 此处仅列出常用的配置。全部配置用法请见「bithesis.pdf」手册。
+\BITSetup{
+  cover = {
+    % 封面需要「北京理工大学」字样图片，如无必要请勿修改该项。
+    headerImage = images/header.pdf,
+    % 封面标题需要“华文细黑”，如无必要请勿修改该项。
+    xiheiFont = STXIHEI.TTF,
+    % 官方模板采用了固定的下划线宽度。我们采用以下两个选项来达成这个效果。
+    % 如果你想要使用自动计算的下划线宽度，也可以删去以下两个选项。
+    autoWidth = false,
+    valueMaxWidth = 20em,
+  },
+  info = {
+    title = 北京理工大学本科生毕业设计（论文）题目,
+    titleEn = {The Subject of Undergraduate Graduation Project (Thesis) of Beijing Institute of Technology},
+    % 注意，这里要写的是毕设的大标题，不是你要翻译的文献的标题。
+    %
+    % 想要删除某项封面信息，直接删除该项即可。
+    % 想要让某项封面信息留空（但是保留下划线），请传入空白符组成的字符串，如"{~}"。
+    % 如需要换行，则用 “\\” 符号分割。
+    school = 计算机学院,
+    major = 计算机科学与技术,
+    author = 惠计算,
+    class = 0596xxxx,
+    studentId = 11xxxxxxxx,
+    supervisor = 张哈希,
+    translationTitle = 填写你的外文翻译中文题目,
+    translationOriginTitle = 填写你的外文翻译原英文题目,
+    keywords = {北京理工大学；本科生；毕业设计（外文翻译）——请在“main.tex”开头设置},
+    % 如果你的毕设为校外毕设，请将下面这一行语句解除注释（删除第一个百分号字符）并填写你的校外毕设导师名字
+    % externalSupervisor = 左偏树,
+  },
+  style = {
+    % 页眉若要按信息与电子学院的要求，删掉“外文翻译”几字，请解除下一行的注释。
+    % head = {北京理工大学本科生毕业设计（论文）},
+    %
+    % 开启该选项后，将用 Times New Roman 的开源字体 TeX Gyre Termes 作为正文字体。
+    % 这个选项适用于以下情况：
+    % 1. 不想在系统中安装 Times New Roman。
+    % 2. 在 Linux/macOS 下遇到 `\textsc` 无法正常显示的问题。
+    % betterTimesNewRoman = true,
+  },
+  misc = {
+    % 微调表格行间距
+    tabularRowSeparation = 1.25,
+  },
+}
+
+% 大部分关于参考文献样式的修改，都可以通过此处的选项进行配置。
+% 详情请搜索「biblatex-gb7714-2015 文档」进行阅读。
+\usepackage[
+  backend=biber,
+  style=gb7714-2015,
+  gbalign=gb7714-2015,
+  gbnamefmt=lowercase,
+  gbpub=false,
+  doi=false,
+  url=false,
+  eprint=false,
+  isbn=false,
+]{biblatex}
+
+% 参考文献引用文件位于 misc/ref.bib
+\addbibresource{misc/ref.bib}
+
+% 若要按计算机学院要求，添加“北京理工大学”水印，请参考
+% https://bithesis.bitnp.net/faq/watermark.html
+
+% 文档开始
+\begin{document}
+
+% 标题页面：如无特殊需要，本部分无需改动
+\MakeCover
+
+% 前置内容定义
+\frontmatter
+% 摘要：在相应 TeX 文件撰写
+\input{chapters/0_abstract.tex}
+
+\MakeTOC
+
+% 正文开始
+\mainmatter
+
+% 在这里引用各章 TeX 文件，按需添加
+\input{chapters/1_chapter1.tex}
+
+% 后置内容
+\backmatter
+
+% 结论：在相应 TeX 文件撰写
+\input{misc/1_conclusion.tex}
+% 参考文献：
+% 添加文献时，请按 BibTeX 格式添加至 misc/ref.bib，并在正文所需位置使用 \cite{…} 引用。
+% 如无特殊需要，无需改动相应 TeX 文件。
+\input{misc/2_reference.tex}
+% 附录：在相应 TeX 文件撰写；不需要时可删除
+\input{misc/3_appendix.tex}
+
+\end{document}

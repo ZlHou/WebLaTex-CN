@@ -1,0 +1,18 @@
+\input{regression-test}
+\documentclass[degree=doctor, fontset=fandol]{ustcthesis}
+
+\input{info}
+\ustcsetup{
+  secret-level = {control},
+  secret-year  = {2},
+}
+
+\begin{document}
+\START
+\showoutput
+
+\declarationoforiginality
+
+\clearpage
+\OMIT
+\end{document}

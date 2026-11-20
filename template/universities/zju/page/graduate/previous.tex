@@ -1,0 +1,17 @@
+% Previous part
+\cleardoublepage{}
+\pagenumbering{Roman}
+\thispagestyle{previous}
+\pagestyle{previous}
+\resetpagecounter{}
+
+\inputpage{correction}
+\ifthenelse{\equal{\BlindReview}{true}}
+{
+}
+{
+    \inputpage{acknowledgement}
+}
+\inputpage{preface}
+\inputpage{abstract}
+\inputpage{term-translation}

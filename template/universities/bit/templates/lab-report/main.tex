@@ -1,0 +1,85 @@
+%%
+% BIThesis 实验报告模板 The BIThesis Template for Experiment Report
+% This file has no copyright assigned and is placed in the Public Domain.
+% Compile with: xelatex -> biber -> xelatex -> xelatex
+%%
+
+% 请勿删除下面两行注释，以免影响编译。
+% !TeX program = xelatex
+% !BIB program = biber
+
+\documentclass[]{bitreport}
+
+% 将你的相关信息替换如下示例
+\BITSetup{
+  cover = {
+    % 在封面中载入有「北京理工大学校徽」的图片，如无必要请勿改动。
+    imagePath = { assets/bit_logo_with_text.pdf },
+    %% 使用以下参数来自定义封面日期
+    % date = {2022年5月9日}
+  },
+  info = {
+    % 想要删除某项封面信息，直接删除该项即可。
+    % 想要让某项封面信息留空（但是保留下划线），请传入空白符组成的字符串，如"{~}"。
+    % 如需要换行，则用 “\\” 符号分割。
+    title = {通信课程实验报告},
+    school = {计算机学院},
+    major = {计算机科学与技术},
+    class = {07111701},
+    studentId = {1120171224},
+    author = {惠计算},
+    supervisor = {张哈希},
+  }
+}
+
+%% 参考文献
+\usepackage[style=gb7714-2015,backend=biber]{biblatex}
+% Required by `figure`.
+\usepackage{float,graphicx}
+
+\addbibresource{misc/refs.bib}
+
+\begin{document}
+
+% 制作封面
+\MakeCover
+
+\section{实验目的}
+\begin{enumerate}
+  \item 验证抽样原理
+  \item 观察了解 PAM 信号形成过程
+  \item 了解混沌效应形成原因
+\end{enumerate}
+
+\section{实验仪器}
+\begin{enumerate}
+  \item ZH7001 通信原理综合实验系统
+  \item 20MHz 双踪示波器
+  \item 函数信号发生器
+\end{enumerate}
+
+\section{实验原理}
+利用抽样脉冲把一个连续信号变为离散时间样值的过程称为抽样，抽样后的信号称为脉冲调幅（PAM）信号。抽样定理指出，一个频带受限的信号 $m(t)$，如果他的最高频率为 $f_h$，那么可以唯一的由频率大于或等于 $2f_h$ 的样值序列所决定，即可以由抽样序列无失真地还原原始信号，抽样序列保留原始信号的全部信息。
+
+\section{实验过程}
+\subsection{近似理想抽样脉冲序列测量}
+函数信号发生器产生正弦信号，频率为 1 KHz,输出电平为 1Vp-p。
+
+波形图如下图\ref{波形图}。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.63\textwidth]{assets/p1.jpg}
+  \caption{波形图}
+  \label{波形图}
+\end{figure}
+
+\subsection{理想抽样信号重建观察}
+理想抽样信号
+
+\section{实验总结}
+通过这次实验，我从中知道了抽样原理。
+
+\printbibliography[heading=bibliography,title=参考文献]
+
+\end{document}

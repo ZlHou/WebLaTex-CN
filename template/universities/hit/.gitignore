@@ -1,0 +1,92 @@
+# ============================================================
+# Build directories
+# ============================================================
+/build/
+/ctan/
+dist/
+auto/
+node_modules/
+
+# ============================================================
+# LaTeX auxiliary files
+# ============================================================
+*.aux
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.dvi
+*.fdb_latexmk
+*.fls
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.loe
+*.toe
+*.thm
+*.vrb
+*.hd
+*.xdv
+*.synctex.gz
+*.nav
+*.snm
+*.acn
+*.acr
+*.alg
+
+# ============================================================
+# Generated LaTeX files
+# ============================================================
+*.cls
+*.sty
+*.cfg
+*.bst
+*.ist
+*.eps
+*.pdf
+
+# ============================================================
+# Temporary files and archives
+# ============================================================
+*~
+*.bak
+*.zip
+*.curlopt
+.DS_Store
+.history
+.changes.raw
+
+# ============================================================
+# GNU Global / editor temporary files
+# ============================================================
+/GPATH
+/GRTAGS
+/GTAGS
+/_region_.prv/
+/_region_.synctex.gz
+/_region_.tex
+/main.synctex.gz
+/linkfigure
+
+# ============================================================
+# Project-specific generated files
+# ============================================================
+/RELEASE_NOTES.md
+/examples/**/wiseref.dtx
+/examples/**/wiseref.ins
+/examples/**/wiseref-LICENSE
+
+# ============================================================
+# Exceptions: files that must be tracked
+# ============================================================
+!empty-resolution.pdf
+!gbt7714-numerical-quanjiao.bst
+/tests/output/
+**/__pycache__/

@@ -1,0 +1,189 @@
+# 南方科技大学研究生学位论文模板 sustechthesis (SUSTech Thesis Template for Graduate Students)
+
+[![Actions Status](https://github.com/SUSTech-CRA/sustech-master-thesis/actions/workflows/verify-compile.yml/badge.svg)](https://github.com/SUSTech-CRA/sustech-master-thesis/actions/workflows/verify-compile.yml)
+[![GitHub downloads](https://img.shields.io/github/downloads/SUSTech-CRA/sustech-master-thesis/total)](https://github.com/SUSTech-CRA/sustech-master-thesis/releases)
+[![Download Analysis](https://img.shields.io/badge/Download-Analysis-blue.svg)](https://qii404.me/github-release-statistics/?repo=/SUSTech-CRA/sustech-master-thesis/)
+[![GitHub commits](https://img.shields.io/github/commits-since/SUSTech-CRA/sustech-master-thesis/latest)](https://github.com/SUSTech-CRA/sustech-master-thesis/commits/master)
+[![GitHub release](https://img.shields.io/github/v/release/SUSTech-CRA/sustech-master-thesis?&label=%E5%8F%91%E5%B8%83%E7%89%88)](https://github.com/SUSTech-CRA/sustech-master-thesis/releases/latest)
+[![GitHub pre-release](https://img.shields.io/github/v/release/SUSTech-CRA/sustech-master-thesis?include_prereleases&label=%E5%BC%80%E5%8F%91%E7%89%88-%E9%A2%84%E6%9E%84%E5%BB%BA)](https://github.com/SUSTech-CRA/sustech-master-thesis/releases/tag/dev-latest)
+
+## 下载
+
+推荐下载 **[发布版](https://github.com/SUSTech-CRA/sustech-master-thesis/releases/latest)** 或 **[开发版-预构建](https://github.com/SUSTech-CRA/sustech-master-thesis/releases/tag/dev-latest)** 的模板，里面包括模板使用说明以及示例文档：
+
+* 模板使用说明（**sustechthesis.pdf**）
+* 学位论文示例文档（**sustechthesis-example.tex**）
+* 报告示例文档（**sustechthesis-example-report.tex**），包括开题报告、年度考核报告、专业学位研究生实践计划
+
+> 注：模板使用说明尚不完善，仅供参考。主要功能在 `sustech-setup.tex` 配置文件中已有注释说明。
+
+**发布版** 包含预生成的 `cls` 模板类文件和文档。**发布版** 一般会比 **开发版-预构建** 晚更新，如急需使用最新版可以使用 **开发版-预构建**。
+
+开发版仅供开发者和需要使用最新功能的高级 TeX 用户使用，不提供任何保证。开发版不含 `cls` 模板类文件，如需生成请参考[升级-开发版](#开发版)。
+
+下载途径：
+
+* 发布版：
+  * [GitHub Releases](https://github.com/SUSTech-CRA/sustech-master-thesis/releases/latest)：最新发布版的获取途径
+* 开发版：
+  * [预构建 Dev Build](https://github.com/SUSTech-CRA/sustech-master-thesis/releases/tag/dev-latest)：最新预构建的获取途径，根据开发版 master 分支构建
+  * [GitHub](https://github.com/SUSTech-CRA/sustech-master-thesis)：GitHub 上的源码仓库地址
+  * [SUSTech-Git](https://mirrors.sustech.edu.cn/git/liziwl/sustech-master-thesis)：南方科技大学自建 Git 服务上的源码仓库地址
+
+## 使用
+
+### 编译前的建议
+
+1. 在撰写论文时，我们不推荐使用原有的 `sustechthesis-example.tex` 这一名称。建议将其复制一份，改为其他的名字（如 `thesis.tex` 或 `main.tex`）。需要注意，如果使用了来自 `data` 目录中的 `tex` 文件，则重命名主文件后，其顶端的 `!TeX root` 选项也需要相应修改。
+2. 需要注意，如果更改了主文件的名称，则需要修改 `Makefile` 顶端的 `THESIS` 变量定义；或修改 `latexmk` 命令后的参数。
+3. 如果出现中文字体找不到的编译错误或期望与 Windows 下编译的字体一致，可以设置 `font` 和 `cjk-font` 参数 为 `external`，导入包内字体。
+4. ⚠️ 提交最终正式版本时，需要确保所有字体选择正确且被正确嵌入，以满足《规定》：
+   * Windows 中无需特别设定。其他系统（包括在线编辑器）设置 `font` 和 `cjk-font` 参数 为 `external`。
+
+### 切换文档类型
+
+模板默认生成南科大学位论文。如需生成报告，修改 `sustech-setup.tex` 中 `\thusetup{...}` 里的 `type` 参数：
+
+```latex
+\thusetup{
+  type = thesis,  % 改为 proposal、progress 或 practice
+}
+```
+
+| `type` | 文档类型 | 编译的主文档 |
+|---|---|---|
+| `thesis`（默认） | 学位论文 | `sustechthesis-example.tex` |
+| `proposal` | 开题报告 | `sustechthesis-example-report.tex` |
+| `progress` | 年度考核报告 | `sustechthesis-example-report.tex` |
+| `practice` | 专业学位研究生实践计划 | `sustechthesis-example-report.tex` |
+
+* 报告封面的中英文由主文档 `\documentclass[...]` 中的 `language` 参数切换：`chinese`（默认）或 `english`。
+* 实践计划需要额外填写 `industrial-supervisor`（业界导师）及其英文 `industrial-supervisor*`；培养层次 `training-level` 默认按 `degree` 显示“硕士”或“博士”，一般无需设置。
+
+### 使用 LaTeX 在线编辑器
+* 使用 [南科大 ShareLaTeX](https://sharelatex.cra.ac.cn/)（[校外地址](https://sharelatex-ext.cra.ac.cn/login)），使用方式与Overleaf相同，上传 zip 压缩包后，更改编译器为 `XeLaTeX`，并在主文档的头部 `\documentclass[degree=master,language=english,cjk-font=external]` 设置 `cjk-font` 参数 为 `external`。
+* 使用 [LoongTeX](https://www.loongtex.com/)，上传 zip 压缩包后，选择编译的主文档，并将编译选项设置为 `XeLaTeX`。
+* 使用 [TeXPage](https://www.texpage.com/)，上传 zip 压缩包后，选择编译的主文档，并将编译选项设置为 `XeLaTeX`。
+* 使用 [Overleaf](https://www.overleaf.com/)（需要科学上网保证稳定使用），上传 zip 压缩包后，更改编译器为 `XeLaTeX`
+  * ⚠️ 由于Overleaf将免费账户的超时时间缩短到20秒，而本项目的常规编译时间为30秒以上，因此如果您在使用免费账户，可能无法成功完成项目的编译。[Overleaf官方声明](https://www.overleaf.com/blog/changes-to-free-compile-timeouts-and-servers)
+
+### 使用 [VSCode](https://code.visualstudio.com/) + [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
+
+本项目已内置 VSCode 项目配置：
+* `latexmk for sustechthesis`：使用 `latexmk` 生成学位论文示例文档 sustechthesis-example.pdf
+* `build cls (sustechthesis style file)`：生成 cls 文件，仅供开发者使用。**发布版** 或 **开发版-预构建** 已包含 cls 文件，无需自行生成
+
+### 使用 Latexmk（Windows / Linux / macOS）
+1. `latexmk sustechthesis-example.tex` 生成学位论文示例文档 sustechthesis-example.pdf；
+2. `latexmk sustechthesis-example-report.tex` 生成报告示例文档 sustechthesis-example-report.pdf；
+3. `latexmk sustechthesis.dtx` 生成说明文档 sustechthesis.pdf；
+4. `latexmk -c` 清理编译生成的辅助文件；
+
+### 使用 Makefile 编译
+* `make thesis`     生成论文
+* `make report`     生成报告
+* `make all`        生成论文，与 `make thesis` 等效
+* `make clean`      删除示例文件的中间文件（不含 pdf）
+* `make cleanall`   删除示例文件的中间文件和 pdf
+* `make wordcount`  论文字数统计
+* `make doc`        生成文档
+* `make cls`        仅生成 cls 模板类文件
+
+### 使用 Docker 编译
+
+#### TeX Live
+TeX Live镜像比较大，但是兼容性较好。
+```shell
+# 进入容器
+docker run -it --rm \
+  -v "$(pwd)":/thesis \
+  -u $(id -u):$(id -g) \
+  -e XDG_CACHE_HOME="$(mktemp -d)" \
+  -w /thesis \
+  texlive/texlive:latest \
+  bash
+
+# 后续使用 Latexmk 或 Makefile 编译
+```
+
+#### MiKTeX
+MiKTeX 的镜像更小，拉取镜像时间更短，但是依赖包按需加载，首次编译时间较长，不支持Makefile，需要使用 Latexmk 编译。
+
+```shell
+# 进入容器
+docker run -it --rm \
+  -v miktex:/var/lib/miktex \
+  -v "$(pwd)":/thesis \
+  -e MIKTEX_UID=$(id -u) \
+  -w /thesis \
+  miktex/miktex:essential \
+  bash
+
+# 后续使用 Latexmk 编译
+```
+
+### 相关资料
+
+- [模板操作指南视频教程（Bilibili）](https://www.bilibili.com/video/BV1JU4y1g7bH)
+  - P1: LaTeX 写作模版获取，时长03:18
+  - P2: Overleaf 写作实操指南，时长39:33
+  - P3: LaTeX 入门及本地环境搭建指南，时长07:58
+- [模板使用培训材料（PDF）](https://github.com/SUSTech-CRA/latex-talk-master)
+
+## 模板结构
+
+### 文档内容
+* `sustech-setup.tex` 示例文档基本配置（论文标题、作者等元数据）
+* `sustechthesis-example.tex` 学位论文示例文档
+* `sustechthesis-example-report.tex` 报告示例文档，包括开题报告，年度考核报告，专业学位研究生实践计划
+* `data/` 示例文档章节具体内容
+* `figures/` 示例文档图片目录
+* `ref/` 示例文档参考文献目录
+
+### 样式控制
+* `sustechthesis.cls` 模板类文件，由同名 dtx 文件和 ins 文件生成（开发版不含，运行时生成）
+* `sustechthesis-*.bst` BIBTEX 参考文献表样式文件
+
+### 编译脚本
+* `Makefile` 构建脚本
+* `latexmkrc` latexmk 配置文件
+
+## 升级
+
+### 发布版
+
+下载发布版的 zip 包，复制其中的 `sustechthesis.*` 开头的文件，覆盖现有项目内的旧文件即可（必须包括 `dtx`、`ins`、`cls`）。
+
+### 开发版
+
+从 GitHub clone 项目源码或下载源码 zip 包，在项目目录下执行以下命令生成 `sustechthesis.cls` 等模板文件：
+
+```shell
+xetex sustechthesis.ins
+```
+
+## 更新日志
+
+每个版本的详细更新日志，请见 [CHANGELOG.md](CHANGELOG.md)。模板使用说明（sustechthesis.pdf）中也包含了这一内容。
+
+维护者发布正式版本时，请遵循 [RELEASE.md](RELEASE.md) 中的流程。
+
+## 问题反馈
+
+在遇到模板问题时，请按以下步骤排查：
+
+1. 在 [CHANGELOG.md](CHANGELOG.md) 查看该问题是否已经修复但未发布；
+   * 若是，则可以使用仓库中的[预构建的开发版](https://github.com/SUSTech-CRA/sustech-master-thesis/releases/tag/dev-latest)解决问题
+2. 在 [GitHub Issue](https://github.com/SUSTech-CRA/sustech-master-thesis/issues) 中搜索该问题的关键词；
+3. 在你确定这是一个新问题时：
+   * 对于模板 bug、请求新功能、文档笔误等提出新 [issue](https://github.com/SUSTech-CRA/sustech-master-thesis/issues/new/choose)
+4. 如果导师或院系有额外要求，请一同附上要求原文或格式（如《撰写规范》）截图。
+
+* 南科大研究生模板反馈群：320971126
+* 南科大LaTeX学习交流群：119667812
+
+## 致谢
+
+* 本模板基于清华大学模板 [ThuThesis v7.1.0](https://github.com/tuna/thuthesis/releases/tag/v7.1.0) 修改。
+* 本模板根据南方科技大学研究生院发布的 [《研究生学位论文写作指南》](https://gs.sustech.edu.cn/#/common/index?current_id=9&id=161&article_id=19) 编写，如有冲突以官网规定为准。
+  * 如果范例中存在与《写作指南》中的规定不符之处，以《写作指南》中的文字叙述为准。

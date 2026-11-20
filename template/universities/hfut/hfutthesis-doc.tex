@@ -1,0 +1,732 @@
+% !TeX encoding = UTF-8
+% !TeX program = xelatex
+% !TeX spellcheck = en_US
+
+%
+% Copyright (C) 2015-2021 by USTC TeX Users Group <https://github.com/ustctug>
+%
+% hfutthesis developed by HFUT TeX Users Group <https://github.com/HFUTTUG> on the 
+% base of ustcthesis <https://github.com/usthtug/ustcthesis>.
+
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%    https://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2008 or later.
+%.
+
+\documentclass[a4paper]{ltxdoc}
+
+\usepackage[UTF8]{ctex}
+\usepackage{unicode-math}
+\usepackage{caption}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[perpage]{footmisc}
+\usepackage{hypdoc}
+\usepackage{bicaption}
+\makeatletter
+
+% 设置字体
+\IfFileExists{/System/Library/Fonts/Times.ttc}{
+  \setmainfont{Times}
+  \setsansfont[Scale=MatchLowercase]{Helvetica}
+  \setmonofont[Scale=MatchLowercase]{Menlo}
+  \xeCJKsetwidth{‘’“”}{1em}
+}{}
+\unimathsetup{
+  math-style=ISO,
+  bold-style=ISO,
+}
+\IfFontExistsTF{xits-math.otf}{
+  \setmathfont[
+    Extension    = .otf,
+    BoldFont     = *bold,
+    StylisticSet = 8,
+  ]{xits-math}
+  \setmathfont[range={cal,bfcal},StylisticSet=1]{xits-math.otf}
+}{
+  \setmathfont[
+    Extension    = .otf,
+    BoldFont     = XITSMath-Bold,
+    StylisticSet = 8,
+  ]{XITSMath-Regular}
+  \setmathfont[range={cal,bfcal},StylisticSet=1]{XITSMath-Regular.otf}
+}
+
+% 定义一些命令用于写文档
+\newcommand\TeXLive{\TeX{} Live}
+\newcommand\unicodechar[1]{U+#1（\symbol{"#1}）}
+\DeclareRobustCommand\file{\nolinkurl}
+\DeclareRobustCommand\env{\texttt}
+\DeclareRobustCommand\pkg{\textsf}
+\DeclareRobustCommand\cls{\textsf}
+\DeclareRobustCommand\opt{\texttt}
+
+% 在 doc 的基础上增加 option 的描述
+\def\DescribeOption{\leavevmode\@bsphack\begingroup\MakePrivateLetters
+  \Describe@Option}
+\def\Describe@Option#1{\endgroup
+              \marginpar{\raggedleft\PrintDescribeOption{#1}}%
+              \SpecialEnvIndex{#1}\@esphack\ignorespaces}
+\@ifundefined{PrintDescribeOption}
+   {\def\PrintDescribeOption#1{\strut \MacroFont #1\ }}{}
+
+% 调整列表的格式
+\setlength\partopsep{\z@}
+\def\@listi{\leftmargin\leftmargini
+            \parsep \z@
+            \topsep \z@
+            \itemsep \z@}
+\let\@listI\@listi
+\@listi
+
+% listings 的样式
+\lstdefinestyle{lstshell}{
+  basicstyle      = \small\ttfamily,
+  backgroundcolor = \color{lightgray},
+  language        = bash,
+}
+\newcommand\shellcmd[1]{\colorbox{lightgray}{\lstinline[style=lstshell]|#1|}}
+\lstnewenvironment{shell}{\lstset{style=lstshell, gobble=2}}{}
+\lstnewenvironment{latex}{%
+  \lstset{
+    basicstyle = \small\ttfamily,
+    frame      = single,
+    gobble     = 2,
+    language   = [LaTeX]TeX,
+  }%
+}{}
+
+\hypersetup{
+  allcolors         = blue,
+  bookmarksnumbered = true,
+  bookmarksopen     = true,
+}
+\makeatother
+
+
+\begin{document}
+
+
+
+\title{\cls{hfutthesis} 使用说明}
+\author{
+  \href{https://github.com/HFUTTUG}{HFUTTUG}
+ }
+\date{v1.0.4\qquad 2022-04-09}
+\maketitle
+
+
+
+\section{简介}
+
+本模板 \cls{hfutthesis} 是合肥工业大学本科生和研究生学位论文的 \LaTeX{}
+模板， 按照最新版的《\href{http://xwgl.hfut.edu.cn/2021/0419/c1975a253949/page.htm}
+{合肥工业大学研究生学位论文写作规范}》和
+《\href{http://xcjwb.hfut.edu.cn/53/cc/c1144a21452/page.htm}
+{合肥工业大学本科毕业设计（论文）工作实施细则}》（以下统称《规范》）的要求编写，兼容最新版的 TeX Live、MacTeX 、MiKTeX 发行版，支持跨平台使用。
+
+本项目在 \href{https://github.com/ustctug/ustcthesis}
+{ustctug/ustcthesis} 基础上编写，\href{https://github.com/LaureatePoet}{LaureatePoet}和\href{https://github.com/HowardZorn}{Fw[a]rd} 基于合肥工业大学本科生和研究生学位论文的相关要求，开发了本模板的 v1.0.0 版本。
+
+下载地址：
+\begin{itemize}
+  \item GitHub Releases：\url{https://github.com/HFUTTUG/HFUT_Thesis/releases}
+  \item Overleaf 模板：\url{https://www.overleaf.com/latex/templates/hfut-thesis/ythwdqdkpvkp}
+\end{itemize}
+
+用户在使用 \pkg{hfutthesis} 模板前，应先阅读学校关于毕业论文的相关规定。
+如果在使用的过程中遇到问题，可以阅读
+\href{https://github.com/HFUTTUG/HFUT_Thesis/wiki}{常见问题}，
+或者在 \href{https://github.com/HFUTTUG/HFUT_Thesis/issues}{GitHub Issues}
+中反馈。
+
+\section{编译方法}
+
+
+\subsection{文件组成}
+本模板的主要文件如表~\ref{tab:files}：
+\begin{table}[htb]
+  \centering\small
+  \caption{模板的文件组成}
+  \label{tab:files}
+  \begin{tabular}{lll}
+    \toprule
+    类别     & 文件                      & 说明                         \\
+    \midrule
+    模板文件 & \file{hfutthesis.cls}     & 模板文件                     \\
+             & \file{hfutthesis-*.bst}   & \BibTeX{} 参考文献表格式     \\
+             & \file{hfutthesis-*.bbx}   & BibLaTeX 参考文献表格式      \\
+             & \file{hfutthesis-*.cbx}   & BibLaTeX 参考文献表格式      \\
+             & \file{figures/*.pdf} & 校名和校徽图片               \\
+    \midrule
+    使用说明 & \file{hfutthesis-doc.tex} & 模板使用说明的源代码         \\
+             & \file{hfutthesis-doc.pdf} & （你正在阅读的）模板使用说明 \\
+    \midrule
+    示例文档 & \file{main.tex}           & 主文档                       \\
+             & \file{hfutsetup.tex}      & 配置文件                     \\
+             & \file{chapters/*.tex}     & 示例文档的各个章节           \\
+             & \file{figures/}           & 放置图片的目录               \\
+             & \file{bib/hfut.bib}       & \BibTeX{} 示例数据库         \\
+    \midrule
+    其他     & \file{README.md}          & 基本说明                     \\
+             & \file{HFUT_Thesis.json}       & 更新日志                 \\
+             & \file{latexmkrc}          & latexmk 的配置文件           \\
+             & \file{Makefile}           & GNU make 的配置文件          \\
+             & \file{.vscode/}           & VS Code 的配置文件           \\
+             & \file{build.lua}          & l3build 的配置文件           \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+示例文档包括了常用的 \LaTeX{} 命令，建议新手从此入手，用自己的内容进行替换。
+
+
+\subsection{依赖宏包}
+
+本模板要求使用 TeX Live、MacTeX 或 MiKTeX 不低于 2017 年的发行版，
+推荐升级到最新的版本。
+
+模板直接依赖的宏包有：
+\pkg{amsthm},
+\pkg{graphicx},
+\pkg{booktabs},
+\pkg{longtable},
+\pkg{algorithm2e},
+\pkg{siunitx},
+\pkg{natbib},
+\pkg{hyperref}。
+
+另外，模板还对其他宏包提供了支持，包括：
+\pkg{amsmath},
+\pkg{biblatex},
+\pkg{nomencl}等。
+这些宏包并非必需，用户可以根据需要选择使用。
+模板在检测到这些宏包被调用后会自动进行配置。
+
+注意，本模板\emph{不}兼容的宏包有：
+\pkg{amsfonts},
+\pkg{amssymb},
+\pkg{bm},
+\pkg{cite},
+\pkg{mathrsfs},
+\pkg{newtx},
+\pkg{upgreek}。
+
+
+\subsection{开始编译}
+
+\begin{enumerate}
+
+\item GNU make \\
+Linux/Mac用户，可以直接使用 GNU make 工具，这是最简单的方法。
+编译论文 \file{main.pdf}：
+\begin{shell}
+  make
+\end{shell}
+编译说明文档 \file{hfutthesis-doc.pdf}：
+\begin{shell}
+  make doc
+\end{shell}
+另外还可以用 \shellcmd{make clean} 清理辅助文件。
+
+\item |latexmk| \\
+Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较简单的方法，
+配置文件由 \file{latexmkrc} 给出，其参数设置为 |-xelatex|，用户编译论文
+只需使用命令：
+\begin{shell}
+  latexmk -xelatex main.tex
+\end{shell}
+编译说明文档：
+\begin{shell}
+  latexmk -xelatex hfuthesis-doc.tex
+\end{shell}
+清理辅助文件可以用 \shellcmd{latexmk -c}。图形界面用户应参考编辑器的使用说明。
+
+\item 手动编译 \\
+手动编译是最繁琐的方法，用户可能需要运行多遍，以确保论文的交叉引用等信息全部正确。
+
+编译论文 \file{main.pdf}：
+\begin{shell}
+  xelatex main.tex
+  bibtex main.aux
+  xelatex main.tex
+  xelatex main.tex
+\end{shell}
+编译说明文档 \file{hfutthesis-doc.pdf}：
+\begin{shell}
+  xelatex hfutthesis-doc.tex
+  xelatex hfutthesis-doc.tex
+\end{shell}
+\end{enumerate}
+
+
+
+\section{模板设置}
+
+
+\subsection{文档类参数}
+\DescribeOption{degree}
+选择学位，支持 \opt{bachelor}（默认），\opt{master}，\opt{doctor}。
+\begin{latex}
+  \documentclass[degree=bachelor]{hfutthesis}
+\end{latex}
+
+\DescribeOption{degree-type}
+学位类型。可选：学术型 \opt{academic}（默认），专业型 \opt{professional}。
+\begin{latex}
+  \documentclass[degree-type=professional]{hfutthesis}
+\end{latex}
+
+\DescribeOption{language}
+论文全文的主要语言。可选：\opt{chinese}（默认），\opt{english}。
+\begin{latex}
+  \documentclass[language=english]{hfutthesis}
+\end{latex}
+
+\DescribeOption{output}
+输出 PDF 的类型：
+\begin{itemize}
+  \item \opt{print}（默认）：用于双面打印纸质论文
+  \item \opt{electronic}：单面，并保留超链接颜色
+\end{itemize}
+\begin{latex}
+  \documentclass[output=electronic]{hfutthesis}
+\end{latex}
+
+\DescribeOption{section-style}
+章节标题的样式。可选：\opt{chinese}（默认），\opt{english}。
+\begin{itemize}
+  \item \opt{chinese}：汉字序号
+  \item \opt{arabic}：数字序号
+\end{itemize}
+\begin{latex}
+  \documentclass[section-style=arabic]{hfutthesis}
+\end{latex}
+
+
+\subsection{字体设置}
+模板默认会自动根据操作系统配置合适的字体，
+\DescribeOption{fontset}
+用户也可以通过 \opt{fontset} 时指定使用预设的字库，如：
+\begin{latex}
+  \documentclass[fontset=windows]{hfutthesis}
+\end{latex}
+允许的选项有 \opt{auto}（默认）、\opt{windows}、\opt{mac}、\opt{ubuntu}、\opt{fandol}和\opt{none}。
+具体使用的字体见表~\ref{tab:fontset}。
+用户也可以设置为 \opt{none} 并自行配置字体。
+
+\begin{table}[htb]
+  \centering
+  \caption{模板预设的字体}
+  \label{tab:fontset}
+  \begin{tabular}{cccc}
+    \toprule
+    \opt{windows} & \opt{mac}    & \opt{ubuntu} & \opt{fandol} \\
+    \midrule
+    Times New Roman  & Times New Roman & TeX Gyre Termes & TeX Gyre Termes \\
+    SimSun            & SimSun           & TeX Gyre Heros  & TeX Gyre Heros  \\
+    Courier          & Menlo           & TeX Gyre Cursor & TeX Gyre Cursor \\
+    中易宋体         & 华文宋体        & 思源宋体        & Fandol 宋体     \\
+    中易黑体         & 华文黑体        & 思源黑体        & Fandol 黑体     \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+然而自动配置的字体只能保证编译通过，但是还存在一些问题：
+\begin{enumerate}
+  \item 在其他平台上配置的 TeX Gyre 系列字体，虽然在风格上比较接近 Times 和 Arial，
+    但是毕竟跟《规范》的字体不完全一致；
+  \item Fandol 字库的字形较少，常常出现缺字的情况；
+  \item 华文字库和 Fandol 字库虽然不违反《规范》的要求，
+    但是其字形跟中易字库有所差别，可能被审查老师认为格式不符合要求。
+\end{enumerate}
+
+所以建议在提交最终版前使用 Windows 平台的字体进行编译。
+
+\subsection{更多设置}
+\DescribeOption{\textbackslash hfut@define@key}
+本模板对接口进行了初始化定义，如有更个性的需求，可在\file{hfutthesis.cls}中查看接口及缺省值并进行修改，如：
+\begin{latex}
+  \hfut@define@key{
+  degree = {
+    choices = {
+      doctor,
+      master,
+      bachelor,
+    },
+    default = bachelor,
+  },
+  ...
+  }
+\end{latex}
+修改\opt{default}的值为\opt{doctor}、\opt{master}和\opt{bachelor}，即可修改学位默认类型。
+
+\begin{latex}
+  \hfut@define@key{
+  ugtype = {
+    default = {论文},
+  },
+  ... 
+  }
+\end{latex}
+修改\opt{default}的值为“其他名称”，ugtype的默认值即修改为“其他名称”。
+
+
+\section{论文内容}
+\subsection{内容顺序}
+根据《规范》，研究生论文和本科生论文在内容的要求上有所差异，用户需要根据\file{main.tex}中的注释提示进行调整。
+
+研究生论文的内容按照以下顺序排列：
+
+\begin{description}
+  \item[maketitle] 封面，原创性声明及授权使用说明
+  \item[frontmatter] 致谢，摘要，目录，图、表清单，（符号说明）
+  \item[mainmatter] 正文章节，参考文献
+  \item[appendix] 附录
+  \item[backmatter] 已发表论文列表
+\end{description}
+
+本科生论文的内容按照以下顺序排列：
+
+\begin{description}
+  \item[maketitle] 封面，原创性声明和授权使用声明
+  \item[frontmatter] 摘要，目录，图、表清单，（符号说明）
+  \item[mainmatter] 正文章节，参考文献
+  \item[backmatter] （已发表论文列表），致谢
+  \item[appendix] 附录
+\end{description}
+
+注：
+\begin{itemize}
+  \item  示例文档 \file{main.tex} 中的致谢、目录等章节的顺序，是按照本科生论文的格式组织内容的，因此研究生需要手动调整顺序。
+  \item  在某些部分中，本科生、硕士生和博士生的内容要求有细微的差异，需根据\file{main.tex}中的注释进行修改。例如，博士学位论文在原创性声明前有专家清单页，需去除注释。
+\end{itemize}
+ 
+
+
+\subsection{封面}
+
+“封面”的名字让人有些混淆，它既可以指由印刷厂统一制作的硬皮封面（cover），也可
+以指书打开后的第一页（title page）。在这里指的是后者，所以本模板从 title page
+开始。
+
+\DescribeMacro{\maketitle}
+\DescribeMacro{\copyrightpage}
+封面和声明页分别由 \cs{maketitle} 和 \cs{copyrightpage} 命令生成，
+其中的各项信息在\file{hfutsetup.tex}中的\cs{hfutsetup} 中修改，如：
+\begin{latex}
+  \hfutsetup{
+    title  = {论文中文题目},
+    title* = {Thesis English Title},
+  }
+\end{latex}
+模板提供的选项见表~\ref{tab:covercmds}（部分），
+\begin{table}[htb]
+  \centering\small
+  \caption{录入封面信息的命令}
+  \label{tab:covercmds}
+  \begin{tabular}{lll}
+    \toprule
+    命令                & 命令（英文）         & 说明       \\
+    \midrule
+    \opt{title}         & \opt{title*}         & 论文标题   \\
+    \opt{stuID}         & -                    & 学号   \\
+    \opt{author}        & \opt{author*}        & 作者姓名   \\
+    \opt{speciality}    & \opt{speciality*}    & 学科专业   \\
+    \opt{supervisor}    & \opt{supervisor*}    & 导师姓名   \\
+    \opt{secret-level}  & \opt{secret-level*}  & 密级       \\
+    \opt{secret-year}   & -                    & 保密年限   \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+有几点说明：
+\begin{itemize}
+  \item \cs{hfutsetup} 使用 \pkg{kvsetkeys} 机制，配置项之间不能有空行，否则会报错。
+  \item 其中带 |*| 后缀的选项用于设置英文封面。
+  \item 导师姓名 \opt{supervisor} 允许多个姓名，使用“,”（西文逗号 U+002C）隔开。
+  \item 完成时间 \opt{date}默认为当前日期，如需更改请取消注释并使用 ISO 格式。
+\end{itemize}
+
+
+\subsection{摘要和章节}
+对于特殊的章节，\cls{hfutthesis} 还提供了相应的环境：
+\begin{itemize}
+  \item 中文摘要：\env{abstract}
+  \item 英文摘要：\env{abstract*}
+  \item 符号说明：\env{notation}
+  \item 致谢：    \env{acknowledgements}
+  \item 发表成果：\env{publications}
+\end{itemize}
+
+摘要的关键词应使用 \cs{hfutsetup} 的接口进行设置，
+只要在摘要结束前即可，比如：
+\begin{latex}
+  \begin{abstract}
+    这里是摘要。
+    \hfutsetup{keywords = {论文；摘要；关键词}}
+  \end{abstract}
+\end{latex}
+
+目录和图、表清单可以使用命令自动生成：
+\begin{itemize}
+  \item 目录：  \cs{tableofcontents}
+  \item 图清单：\cs{listoffigures}
+  \item 表清单：\cs{listoftables}
+\end{itemize}
+
+
+\subsection{浮动体}
+
+学士学位论文要求图表中文标题，请使用\cs{caption}\marg{中文标题}；硕博学位论文要求图表中英文标题，请使用\cs{bicaption}\marg{\{中文标题\}\{English title\}}。例如
+
+\begin{table}[h]
+  \centering
+   \caption{中文标题} % 默认：学士学位论文 图表中文标题
+  \label{tab:exampletable-zh}
+  \begin{tabular}{cl}
+    \toprule
+    类型   & 描述                                       \\
+    \midrule
+    挂线表 & 挂线表也称系统表、组织表，用于表现系统结构 \\
+    无线表 & 无线表一般用于设备配置单、技术参数列表等   \\
+    卡线表 & 卡线表有完全表，不完全表和三线表三种       \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \centering
+  \bicaption{中文标题}{English Title} % 硕博学位论文 图表中英文标题
+   \label{tab:exampletable-zh-en}
+  \begin{tabular}{cl}
+    \toprule
+    类型   & 描述                                       \\
+    \midrule
+    挂线表 & 挂线表也称系统表、组织表，用于表现系统结构 \\
+    无线表 & 无线表一般用于设备配置单、技术参数列表等   \\
+    卡线表 & 卡线表有完全表，不完全表和三线表三种       \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\DescribeMacro{\note}
+本模板还提供了 \cs{note}\marg{notes} 命令，用于在图表中添加注释。
+
+关于图片的并排，推荐使用较新的 \pkg{subcaption} 宏包，不建议使用
+\pkg{subfigure} 或 \pkg{subfig}。
+
+更多的表格样式参见 \pkg{booktabs}（三线表）、\pkg{longtable}（跨页表格）。
+
+算法可以使用 \pkg{algorithms} 宏包或者较新的 \pkg{algorithm2e}。
+
+\subsection{数学}
+
+《规范》要求数字和字母统一采用 Times New Roman体，与\TeX{} 默认的美国数学学会（AMS）的使用习惯可能有所出入。
+
+\DescribeOption{math-font}
+模板使用默认使用 XITS Math 作为数学字体。
+用户也可以使用 \opt{math-font} 选项切换其他数学字体，可选：
+\opt{stix}（STIX Two Math）、
+\opt{libertinus}（Libertinus Math）、
+\opt{newcm}（New Computer Modern Math）、
+\opt{cm}（Computer Modern Math）、
+\opt{lm}（Latin Modern Math）。
+
+其中 \opt{lm} 和 \opt{newcm} 的字形比较搭配 TeX 原生的 Computer Modern 字体，
+但与《规范》要求的西文字体 Times New Roman 并不搭配。
+可能会造成正文和公式中的数字字体不一致，需要谨慎使用。
+
+\DescribeOption{math-style}
+用户可以通过设置 \opt{math-style} 选择数学符号样式（可选：
+\opt{GB}（中文默认），\opt{TeX}（英文默认）和 \opt{ISO}），比如：
+\begin{latex}
+  \hfutsetup{
+    math-style = ISO,
+  }
+\end{latex}
+
+用户也可以逐项修改数学样式。
+\newcommand\dif{\mathop{}\!\mathrm{d}}
+\begin{enumerate}
+  \item \DescribeOption{uppercase-greek}
+    大写希腊字母的正/斜体，可选：\opt{italic}、\opt{upright}。
+    有限增量符号 $\increment x$ 固定使用正体，推荐使用 \cs{increment} 表示。
+  \item \DescribeOption{less-than-or-equal}
+    小于等于号和大于等于号的字形，可选：\opt{slanted}、\opt{horizontal}。
+    这将控制 \cs{le}、\cs{ge}、\cs{leq} 和 \cs{geq} 的符号
+    是“$\leqslant$、$\geqslant$”还是“$\leq$、$\geq$”。
+  \item \DescribeOption{integral}
+    积分号的正/斜体，可选：\opt{upright}、\opt{slanted}。
+    该选项需要字体的支持，目前仅限 \opt{xits}、\opt{stix}、
+    \opt{libertinus} 和 \opt{newcm}。参考下文关于数学字体的选择。
+  \item \DescribeOption{integral-limits}
+    积分号上下限的位置，可选：\opt{true}（在上下）、\opt{false}（在右侧）。
+    这个设置只影响行间公式，行内公式统一居右侧，不受影响。
+  \item \DescribeOption{partial}
+    偏微分符号的正/斜体，可选：\opt{upright}、\opt{slanted}。
+  \item \DescribeOption{math-ellipsis}
+    省略号 \cs{dots} 的样式，可选：\opt{centered}（按照中文的习惯固定居中）、
+    \opt{lower} 和 \opt{AMS}（取决于前后符号的位置）。
+    其他的省略号命令如 \cs{lots}、\cs{cdots} 则不受影响。
+  \item \DescribeOption{real-part}
+    实部 \cs{Re} 和虚部 \cs{Im} 的字体，可选：\opt{roman} 和 \opt{fraktur}。
+\end{enumerate}
+
+如果数学符号选择国标样式 |math-style = GB|，相当于设置了
+\begin{latex}
+  \hfutsetup{
+    uppercase-greek    = italic,
+    less-than-or-equal = slanted,
+    integral           = upright,
+    integral-limits    = true,
+    partial            = upright,
+    math-ellipsis      = centered,
+    real-part          = roman,
+  }
+\end{latex}
+
+另外，国标的数学样式与 AMS 还有些差异，但无法在模板中统一设置。用户需要在写作时进行处理。
+\begin{enumerate}
+  \item 数学常数和特殊函数名用正体，如 $\uppi = 3.14\dots$；$\symup{i}^2 = -1$；
+    $\symup{e} = \lim_{n \to \infty} \left( 1 + \frac{1}{n} \right)^n$。
+  \item 微分号使用正体，比如 $\dif y / \dif x$。
+  \item 向量、矩阵和张量用粗斜体（\cs{symbf}），如 $\symbf{x}$、$\symbf{\Sigma}$、$\symbfsf{T}$。
+  \item 自然对数用 $\ln x$ 不用 $\log x$。
+\end{enumerate}
+
+需要注意，上述关于数学符号风格的设置在设置数学字体（\opt{math-font}）时才会生效。
+
+以上字体都是 OpenType 格式的字体，需要配合
+\href{http://mirrors.ctan.org/macros/latex/contrib/unicode-math/unicode-math.pdf}{\pkg{unicode-math}}
+宏包使用。
+全部数学符号的命令参考
+\href{http://mirrors.ctan.org/macros/latex/contrib/unicode-math/unimath-symbols.pdf}{\pkg{unimath-symbols}}。
+注意，\pkg{unicode-math} 宏包与 \pkg{amsfonts}、\pkg{amssymb}、\pkg{bm}、
+\pkg{mathrsfs}、\pkg{upgreek} 等宏包\emph{不}兼容。
+模板作了处理，用户可以直接使用这些宏包的命令，如 \cs{bm}、\cs{mathscr}、
+\cs{uppi}。
+
+另外，模板还为 `math-font` 提供了传统的 Type 1 字体 \opt{newtx}。
+该选项会调用 \pkg{newtxmath} 宏包。
+但是，如果西文字体已经使用了 OpenType 的 Times New Roman，
+混用 Type 1 字体可能会导致问题，尤其是使用 \pkg{siunitx} 宏包时。
+该选项还处于测试阶段，需要谨慎使用。
+
+\subsection{参考文献}
+
+参考文献支持使用 \BibTeX{} 或 BibLaTeX 生成。默认使用\BibTeX{}生成，用户可以根据需求在\file{hfutsetup.tex}中选择合适的方式。
+
+
+\subsubsection{\BibTeX}
+
+\BibTeX{} 是 \LaTeX{} 处理参考文献的传统的方式。
+在本模板中需要载入 \pkg{natbib} 宏包，
+然后按照“顺序编码制”格式选择参考文献格式风格：
+\begin{latex}
+  % HFUT学位论文样例 参考文献的著录格式
+  \usepackage[sort]{natbib}
+  \bibliographystyle{hfutthesis-numerical}
+\end{latex}
+
+\begin{latex}
+  % gbt7714-2015 参考文献的著录格式
+  \usepackage[sort]{natbib}
+  \bibliographystyle{gbt7714-numerical}
+\end{latex}
+
+\begin{latex}
+  % 备用方案
+  \usepackage[sort]{natbib}
+  \bibliographystyle{hfutthesis-graduate}
+\end{latex}
+
+并且在生成参考文献表的位置使用 \cs{bibliography} 设置 \file{.bib} 数据库的路径。
+然后使用 \file{bibtex} 编译生成 \file{.bbl} 文件。
+这里使用参考文献样式（\file{.bst} 文件）是在
+\href{https://ctan.org/pkg/gbt7714}{\pkg{gbt7714}}
+的基础上进行了少量修改。
+
+顺序编码制的文内引用标注分为两种样式：
+\begin{enumerate}
+  \item 上标样式（\opt{super}）， 如“张教授\textsuperscript{[2-3]}认为……
+    形成了多种物理模型\textsuperscript{[7,9,11-13]}”。
+  \item 与正文平排（\opt{inline}），文献序号作为叙述文字的一部分，
+    如“张教授\textsuperscript{[4]}认为……根据文献[4]\textsuperscript{101-105}”。
+\end{enumerate}
+\textbf{模板默认为上标样式}，也可以根据需要修改：
+
+\DescribeOption{cite-style}
+参考文献的样式。可选：\opt{super}（默认），\opt{inline}。
+\begin{itemize}
+  \item \opt{super}：上标样式
+  \item \opt{inline}：与正文平排
+\end{itemize}
+\begin{latex}
+  \documentclass[cite-style=inline]{hfutthesis}
+\end{latex}
+或者
+\begin{latex}
+  \hfutsetup{
+    cite-style = inline,
+  }
+\end{latex}
+
+\paragraph{与 \pkg{chapterbib} 的兼容性}
+如果在每一章添加独立的参考文献，可以使用 \pkg{chapterbib} 宏包。
+需要注意以下几点：
+\begin{enumerate}
+  \item \pkg{chapterbib} 宏包与 \pkg{natbib} 的载入顺序不重要。
+  \item 根据 \pkg{natbib} 的文档，\opt{sectionbib} 参数（将参考文献的标题改为节标题）
+    需要传给 \pkg{natbib} 而不是 \pkg{chapterbib}。
+    模板作了设置，如载入 \pkg{chapterbib}，\pkg{natbib} 就会有 \opt{sectionbib} 的效果。
+  \item 每章的内容需要写在单独的 \file{tex} 文件，并且在主文档中使用 \cs{include}，
+    不带 \file{.tex} 后缀。
+  \item 每章都要使用 \cs{bibliographystyle} 和 \cs{bibliography} 命令。
+\end{enumerate}
+
+用户可在\file{hfutthesis-numeric.bst}中的load.config函数中来自定义更详细的样式，表\ref{canshu}列出了一些常用的参数值，\# 1表示被启用，\# 0则不启用。
+\textbf{默认值遵循《\href{http://xwgl.hfut.edu.cn/2021/0419/c1975a253949/page.htm}{合肥工业大学研究生学位论文写作规范}》，与国标的配置有部分出入。}
+有关国标的配置可参考\href{https://ctan.org/pkg/gbt7714}{\pkg{gbt7714}}。
+
+\begin{table}
+  \caption{参考文献表样式的配置参数}\label{canshu}
+  \begin{tabular}{lcl}
+    \hline 参数值 & 默认值 & 功能 \\
+    \hline uppercase.name & \#0 & 将著者姓名转为大写 \\
+     sentence.case.title & \#1 & 将西文的题名转为 sentence case \\
+    link.title &\#0 & 在题名上添加 url 的超链接 \\
+    show.mark & \#0 & 显示文献类型标识 \\
+    italic.jounal & \#1 & 西文期刊名使用斜体 \\
+    show.missing.address.publisher & \#0 & 出版项缺失时显示“出版者不详” \\
+    show.url & \#1 & 显示 url \\
+    show.doi & \#1 & 显示 doi \\
+    show.note & \#0 & 显示 note 域的信息 \\
+    \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{BibLaTeX}
+
+BibLaTeX 是较新的参考文献处理方案。
+需要在载入宏包时通过选择样式（\opt{style}），
+并且在导言区使用 \cs{addbibresource} 设置数据库的路径，
+最后在参考文献表的位置使用 \cs{printbibliography} 输出。
+
+对于顺序编码制，文献引用标注默认为上标样式。
+如果要切换为与正文平排，一种方法是使用 \cs{parencite}，
+另一种是载入 \pkg{biblatex} 时统一设置。
+\begin{latex}
+  \usepackage[bibstyle=hfutthesis-numeric,
+  citestyle=hfutthesis-inline]{biblatex}
+\end{latex}
+
+使用 BibLaTeX 必须用 \file{biber} 编译生成参考文献表。
+这里的样式是在 \href{https://ctan.org/pkg/biblatex-gb7714-2015}{biblatex-gb7714-2015}
+的基础上进行了少量修改。
+一些额外用法可以参考该宏包的文档。
+
+\end{document}

@@ -1,0 +1,159 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+
+% ----------------------------------------------------------------------------
+
+\DeclareDocumentCommand{\SetTableCaptionAndLabel}{+m +m}
+{%
+  \SetFloatCaptionAndLabel{#1}{#2}%
+} % End of \DeclareDocumentCommand{}
+
+\DeclareDocumentCommand{\SetTableCaptionStarAndLabel}{+m +m}
+{%
+  \ifthenelse{\equal{#1}{\empty}}{}%
+  {%
+    \caption*{#1}%
+    \NCKUPrivateFreezeCurrentLabelName{#1}%
+    \ifthenelse{\equal{#2}{\empty}}{}{\label{#2}}%
+  }%
+} % End of \DeclareDocumentCommand{}
+
+\newcommand{\DisplayTableContent}[5]
+{%
+  \NCKUPrivateDisplayFramedFloatContent{#4}{%
+    \ifthenelse{\equal{#1}{0.0}}%
+    {%
+      \makebox[\textwidth]%
+      {%
+        \setlength{\tabcolsep}{#2}%
+        \renewcommand{\arraystretch}{#3}%
+        #5%
+      }%
+    }{%
+      \makebox[\textwidth]%
+      {%
+        \resizebox{#1\paperwidth}{!}%
+        {%
+          \setlength{\tabcolsep}{#2}%
+          \renewcommand{\arraystretch}{#3}%
+          #5%
+        }%
+      }%
+    }%
+  }%
+} % End of \newcommand{}
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / insert-table }
+  {
+    scale        .tl_set_e:N = \TmpValueScale,
+    nomtitle     .tl_set_e:N = \TmpValueNomTitle,
+    caption      .tl_set_e:N = \TmpValueCaption,
+    label        .tl_set_e:N = \TmpValueLabel,
+    pos          .tl_set_e:N = \TmpValuePosition,
+    tabcolsep    .tl_set_e:N = \TmpValueTabColSep,
+    arraystretch .tl_set_e:N = \TmpValueArrayStretch,
+    opacity      .tl_set_e:N = \TmpValueOpacity,
+  }
+
+% Reset every value on each call, then apply the caller's overrides. The public
+% optional argument uses the literal token \empty when omitted.
+\cs_new_protected:Npn \ncku_insert_table_keys_set:n #1
+  {
+    \keys_set:nn { ncku / insert-table }
+      {
+        scale = 0.0,
+        nomtitle = \empty,
+        caption = \empty,
+        label = \empty,
+        pos = top,
+        tabcolsep = 6pt,
+        arraystretch = 1,
+        opacity = 0.4,
+      }
+    \tl_if_eq:nnF {#1} {\empty}
+      { \keys_set:nn { ncku / insert-table } {#1} }
+  }
+\cs_new_eq:NN \NCKUPrivateSetInsertTableKeys
+  \ncku_insert_table_keys_set:n
+\ExplSyntaxOff
+
+\newcommand{\InsertTable}[2][\empty]
+{%
+  % Parse the input
+  \NCKUPrivateSetInsertTableKeys{#1}%
+  %
+  \begin{table}[H]%
+  %
+    \ifthenelse{\equal{\TmpValuePosition}{top}}%
+    {%
+      \ifthenelse{\equal{\TmpValueNomTitle}{\empty}}%
+        {\SetTableCaptionAndLabel{\TmpValueCaption}{\TmpValueLabel}}%
+        {\SetTableCaptionStarAndLabel{\TmpValueNomTitle}{\TmpValueLabel}}%
+      \DisplayTableContent{%
+        \TmpValueScale}{\TmpValueTabColSep}{%
+        \TmpValueArrayStretch}{\TmpValueOpacity}{#2}%
+    }%
+    {%
+      \DisplayTableContent{%
+        \TmpValueScale}{\TmpValueTabColSep}{%
+        \TmpValueArrayStretch}{\TmpValueOpacity}{#2}%
+      \ifthenelse{\equal{\TmpValueNomTitle}{\empty}}%
+        {\SetTableCaptionAndLabel{\TmpValueCaption}{\TmpValueLabel}}%
+        {\SetTableCaptionStarAndLabel{\TmpValueNomTitle}{\TmpValueLabel}}%
+    }%
+  \end{table}%
+} % End of \newcommand{}
+
+% -----------------------------------------------------------------
+
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% -----------------------------------------------------------------
+
+\def\ValueTableNameDefault{Table}
+\def\ValueTableNameCustom{Table} % Default
+\def\UseTableNameDefault{%
+  \renewcommand{\tablename}{\ValueTableNameDefault}}
+\def\UseTableNameCustom{%
+  \renewcommand{\tablename}{\ValueTableNameCustom}}
+\newcommand{\SetCustomTableName}[1]{%
+  \renewcommand{\ValueTableNameCustom}{#1}}
+
+\UseTableNameCustom % Default
+
+% Default style
+\newcommand{\UseTableCaptionDefaultStyle}
+{%
+  \captionsetup*[table]{labelfont=bf, textfont=normalfont}%
+} % End of \newcommand{}
+
+% Style for Extended Abstract
+\newcommand{\UseTableCaptionExtendedAbstractStyle}
+{%
+  \captionsetup*[table]{font=bf}%
+  \renewcommand{\thetable}{\arabic{table}}%
+} % End of \newcommand{}
+
+\UseTableCaptionDefaultStyle % Default
+
+% -----------------------------------------------------------------

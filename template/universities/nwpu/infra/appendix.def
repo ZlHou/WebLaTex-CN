@@ -1,0 +1,115 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+%% 附录处理
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn
+\msg_new:nnn { nwputhesis } { patch-hyperref }
+  { Failed~to~patch~hyper@makecurrent~for~appendix~references. }
+\msg_new:nnn { nwputhesis } { patch-appendix-toggle }
+  { Failed~to~patch~appendix~toggle. }
+\msg_new:nnn { nwputhesis } { patch-subappendices-toggle }
+  { Failed~to~patch~subappendices~toggle. }
+%% \patchcmd 和 \apptocmd 需要在标准 catcode 下运行
+\ExplSyntaxOff
+\patchcmd{\hyper@makecurrent}{%                             % 附录章节引用补丁
+    \ifx\Hy@param\Hy@chapterstring                          %
+        \let\Hy@param\Hy@chapapp\fi}{\iftoggle{inappendix}{%% 修复附录中章节引用
+        \@checkappendixparam{chapter}%                      %
+        \@checkappendixparam{section}%                      %
+        \@checkappendixparam{subsection}%                   %
+        \@checkappendixparam{subsubsection}%                %
+        \@checkappendixparam{paragraph}%                    %
+        \@checkappendixparam{subparagraph}%                 %
+    }{}}{}{\ClassError{nwputhesis}{Failed~to~patch~hyper@makecurrent}{}}
+\ExplSyntaxOn
+\tl_new:N \l__nwpu_check_appendix_param_tmp_tl
+\cs_new_protected:Npn \@checkappendixparam #1{%             %
+    \tl_set:Nn \l__nwpu_check_appendix_param_tmp_tl {#1}%   %
+    \tl_if_eq:NNT \Hy@param \l__nwpu_check_appendix_param_tmp_tl %
+        { \tl_set_eq:NN \Hy@param \Hy@appendixstring }      %
+}                                                           %
+\ExplSyntaxOff
+\newtoggle{inappendix}\togglefalse{inappendix}              %
+\apptocmd{\appendix}{\toggletrue{inappendix}}{}{\ClassError{nwputhesis}{Failed~to~patch~appendix~toggle}{}}
+\apptocmd{\subappendices}{\toggletrue{inappendix}}{}{\ClassError{nwputhesis}{Failed~to~patch~subappendices~toggle}{}}
+\appto\appendix{\addtocontents{toc}{\protect\setcounter{tocdepth}{0}}}
+\appto\listoffigures{\addtocontents{lof}{\protect\setcounter{tocdepth}{1}}}
+\appto\listoftables{\addtocontents{lot}{\protect\setcounter{tocdepth}{1}}}
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn%
+\bool_new:N \l__nwpu_thesis_appendix_mode_bool
+\bool_set_false:N \l__nwpu_thesis_appendix_mode_bool
+\int_new:N \l__nwpu_thesis_appendix_count_int
+\int_new:N \l__nwpu_thesis_appendix_total_int
+\int_set:Nn \l__nwpu_thesis_appendix_total_int { 1 }
+\cs_new_protected:Npn \nwpuSetAppendixTotal #1{%
+    \int_set:Nn \l__nwpu_thesis_appendix_total_int {#1}%
+}
+\cs_new_protected:Npn \nwpu@chs@appendixname #1{附录~#1}%    % 目录附录中文标题
+\cs_new_protected:Npn \nwpu@eng@appendixname #1{Appendix~#1}% % 目录附录英文标题
+\cs_new_protected:Npn \nwpu@appendixname #1{%               % 附录标题
+    \nwpu_if_chinese:TF
+        { \nwpu@chs@appendixname{#1} }
+        { \nwpu@eng@appendixname{#1} }
+}
+\cs_new:Npn \nwpu@ifappendixletter #1#2{%                   % 附录是否显示字母
+    \nwpu_if_bachelor:TF
+      {
+        \int_compare:nNnTF { \l__nwpu_thesis_appendix_total_int } > { 1 }
+            { #1 }
+            { #2 }
+      }
+      { #1 }
+}
+\cs_new_protected:Npn \nwpu@appendixtitle #1{%              % 附录显示标题
+    \nwpu@ifappendixletter{\nwpu@appendixname{#1}}{\nwpu@page@app}%
+}
+\nwpu_if_chinese:TF                                        % 附录 PDF 书签标题
+  { \cs_new:Npn \nwpu@appendixpdftitle #1 {附录~#1} }
+  { \cs_new:Npn \nwpu@appendixpdftitle #1 {Appendix~#1} }
+\cs_new:Npn \nwpu@appendixprefix {%                         % 附录编号前缀
+    \nwpu@ifappendixletter{\Alph{chapter}}{}%
+}
+\cs_new:Npn \nwpu@appendixequationprefix {%                 % 附录公式编号前缀
+    \nwpu_if_bachelor:TF
+        { 附 }
+        { \nwpu@ifappendixletter{\nwpu@appendixprefix-}{} }
+}
+\cs_new:Npn \nwpu@appendixtableprefix {%                    % 附录表编号前缀
+    \nwpu_if_bachelor:TF
+        { 附 }
+        { \nwpu@ifappendixletter{\nwpu@appendixprefix-}{} }
+}
+\cs_new:Npn \nwpu@appendixfigureprefix {%                   % 附录图编号前缀
+    \nwpu_if_bachelor:TF
+        { 附 }
+        { \nwpu@ifappendixletter{\nwpu@appendixprefix-}{} }
+}
+\cs_new:Npn \nwpu@appendixalgorithmprefix {%                % 附录算法编号前缀
+    \nwpu_if_bachelor:TF
+        { 附 }
+        { \nwpu@ifappendixletter{\nwpu@appendixprefix-}{} }
+}
+\AtEndDocument{%
+    \immediate\write\@auxout{%
+        \string\nwpuSetAppendixTotal{\int_use:N \l__nwpu_thesis_appendix_count_int}%
+    }%
+}
+\cs_set_eq:NN \nwpu@old@appendix \appendix                   % 保护原有附录环境
+\cs_gset_protected:Npn \appendix {%                          % 在原有基础上定制
+    \nwpu@old@appendix                                       %
+    \setcounter{chapter}{0}                                  % 重置章节编号
+    \cs_gset:Npn \thechapter {\Alph{chapter}}                %
+    \cs_gset:Npn \thesection {%
+        \nwpu@ifappendixletter{\nwpu@appendixprefix.}{}\arabic{section}}
+    \cs_gset:Npn \theequation {%
+        \nwpu@appendixequationprefix\arabic{equation}}
+    \cs_gset:Npn \thetable {%
+        \nwpu@appendixtableprefix\arabic{table}}%
+    \cs_gset:Npn \thefigure {%
+        \nwpu@appendixfigureprefix\arabic{figure}}
+    \cs_gset:Npn \thealgorithm {%
+        \nwpu@appendixalgorithmprefix\arabic{algorithm}}
+}                                                            %
+\ExplSyntaxOff

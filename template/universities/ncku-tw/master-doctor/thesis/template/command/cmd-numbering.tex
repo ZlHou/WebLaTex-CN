@@ -1,0 +1,1109 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+
+% Some helper function use for counter
+
+% ----------------------------------------------------------------------------
+
+%    tiangan (天干: 甲乙丙丁戊癸, 正常範圍是 1–10, 超出範圍的數位將輸出空值)
+%    arabic (阿拉伯數字)
+%    roman (小寫的羅馬數字)
+%    Roman (大寫的羅馬數字)
+%    alph (小寫字母)
+%    Alph (大寫字母)
+
+%    計數器名  (用途)
+%    part 	(部序號)
+%    chapter 	(章序號)
+%    section 	(節)
+%    subsection 	(小節)
+%    subsubsection 	(小小節)
+%    paragraph 	(段)
+%    subparagraph 	(小段)
+%    figure 	(插圖序號)
+%    table 	(表格序號)
+%    equation 	(公式序號)
+%    page 	(頁碼計數器)
+%    footnote 	(註腳序號)
+%    mpfootnote 	(小頁環境中註腳計數器)
+
+% ----------------------------------------------------------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / setup-title-format-string }
+  {
+    BeginText .tl_set_e:N = \TmpValueBeginText,
+    EndText .tl_set_e:N = \TmpValueEndText,
+    CNumStyle .tl_set_e:N = \TmpValueCNumStyle,
+    CCounterName .tl_set_e:N = \TmpValueCCounterName,
+    SNumStyle .tl_set_e:N = \TmpValueSNumStyle,
+    SCounterName .tl_set_e:N = \TmpValueSCounterName,
+    SSNumStyle .tl_set_e:N = \TmpValueSSNumStyle,
+    SSCounterName .tl_set_e:N = \TmpValueSSCounterName,
+    SSSNumStyle .tl_set_e:N = \TmpValueSSSNumStyle,
+    SSSCounterName .tl_set_e:N = \TmpValueSSSCounterName,
+    SepAtIndex .tl_set_e:N = \TmpValueSepAtIndex,
+    SepBetweenCnS .tl_set_e:N = \TmpValueSepBetweenCnS,
+    SepBetweenSnSS .tl_set_e:N = \TmpValueSepBetweenSnSS,
+    SepBetweenSSCnSSS .tl_set_e:N = \TmpValueSepBetweenSSCnSSS,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_setup_title_format_string_set_keys:n #1
+  {
+    \tl_clear:N \TmpValueBeginText
+    \tl_clear:N \TmpValueEndText
+    \tl_clear:N \TmpValueCNumStyle
+    \tl_clear:N \TmpValueCCounterName
+    \tl_clear:N \TmpValueSNumStyle
+    \tl_clear:N \TmpValueSCounterName
+    \tl_clear:N \TmpValueSSNumStyle
+    \tl_clear:N \TmpValueSSCounterName
+    \tl_clear:N \TmpValueSSSNumStyle
+    \tl_clear:N \TmpValueSSSCounterName
+    \tl_clear:N \TmpValueSepAtIndex
+    \tl_clear:N \TmpValueSepBetweenCnS
+    \tl_clear:N \TmpValueSepBetweenSnSS
+    \tl_clear:N \TmpValueSepBetweenSSCnSSS
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / setup-title-format-string } {#1} }
+  }
+\ExplSyntaxOff
+
+% Route the remaining numbering families to independent l3keys parsers.
+\ExplSyntaxOn
+\cs_new_protected:Npn \NCKUPrivateSetRemainingNumberingKeys #1#2
+  {
+    \str_case_e:nnF {#1}
+      {
+        {SetupTitleNumberFormatString}
+          { \ncku_numbering_setup_title_format_string_set_keys:n {#2} }
+        {STitleNumberFormat}
+          { \ncku_numbering_section_title_format_set_keys:n {#2} }
+        {SSTitleNumberFormat}
+          { \ncku_numbering_subsection_title_format_set_keys:n {#2} }
+        {SSSTitleNumberFormat}
+          { \ncku_numbering_subsubsection_title_format_set_keys:n {#2} }
+        {AppendixCTitleNumberFormat}
+          { \ncku_numbering_appendix_chapter_title_format_set_keys:n {#2} }
+        {AppendixSTitleNumberFormat}
+          { \ncku_numbering_appendix_section_title_format_set_keys:n {#2} }
+        {AppendixSSTitleNumberFormat}
+          { \ncku_numbering_appendix_subsection_title_format_set_keys:n {#2} }
+        {AppendixSSSTitleNumberFormat}
+          { \ncku_numbering_appendix_subsubsection_title_format_set_keys:n {#2} }
+        {SetupGeneralAppendixNumberFormatString}
+          { \ncku_numbering_general_appendix_number_format_string_set_keys:n {#2} }
+      }
+      { }
+  }
+\ExplSyntaxOff
+
+% Append a parsed key value without retaining the reusable parser scratch macro.
+\makeatletter
+\newcommand\NCKUPrivateAppendFrozenValue[2]
+{%
+  \begingroup
+  \protected@edef\NCKUPrivateAppendNext{%
+    \endgroup
+    \noexpand\appto\noexpand#1{#2}}%
+  \NCKUPrivateAppendNext
+} % End of \newcommand{}
+
+% Freeze the counter name while leaving the counter value dynamic.
+\newcommand\NCKUPrivateAppendCounterFormatter[3]
+{%
+  \begingroup
+  \protected@edef\NCKUPrivateAppendNext{%
+    \endgroup
+    \noexpand\appto\noexpand#1{\noexpand#2{#3}}}%
+  \NCKUPrivateAppendNext
+} % End of \newcommand{}
+
+\newcommand\NCKUPrivateAppendCounterValueFormatter[3]
+{%
+  \begingroup
+  \protected@edef\NCKUPrivateAppendNext{%
+    \endgroup
+    \noexpand\appto\noexpand#1{\noexpand#2{\noexpand\value{#3}}}}%
+  \NCKUPrivateAppendNext
+} % End of \newcommand{}
+\makeatother
+
+% Append counter value in style to string. The selected style can arrive through
+% a parsed value macro, so use the expanding string-case form. Unknown or empty
+% styles deliberately remain no-ops, matching the public compatibility contract.
+\ExplSyntaxOn
+\newcommand\AppendCounterStringToFormatString[3]
+{
+  \str_case_e:nn {#2}
+  {
+    {ChiNum}
+      {\NCKUPrivateAppendCounterFormatter{#1}{\zhnum}{#3}}
+    {Tiangan}
+      {\NCKUPrivateAppendCounterValueFormatter{#1}{\zhtiangan}{#3}}
+    {Arabic}
+      {\NCKUPrivateAppendCounterFormatter{#1}{\arabic}{#3}}
+    {LowerRoman}
+      {\NCKUPrivateAppendCounterFormatter{#1}{\roman}{#3}}
+    {UpperRoman}
+      {\NCKUPrivateAppendCounterFormatter{#1}{\Roman}{#3}}
+    {LowerAlph}
+      {\NCKUPrivateAppendCounterFormatter{#1}{\alph}{#3}}
+    {UpperAlph}
+      {\NCKUPrivateAppendCounterFormatter{#1}{\Alph}{#3}}
+  }
+} % End of \newcommand{}
+\ExplSyntaxOff
+
+\newcommand\SetupTitleNumberFormatString[3]
+{%
+  \NCKUPrivateSetRemainingNumberingKeys{SetupTitleNumberFormatString}{#2}%
+  \renewcommand#3{}%
+  \NCKUPrivateAppendFrozenValue{#3}{\TmpValueBeginText}%
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{Chapter}} or %
+    test {\ifstrequal{#1}{AppendixChapter}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{Section}} or %
+    test {\ifstrequal{#1}{AppendixSection}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenCnS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSNumStyle}{\TmpValueSCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{SubSection}} or %
+    test {\ifstrequal{#1}{AppendixSubSection}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenCnS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSNumStyle}{\TmpValueSCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenSnSS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSSNumStyle}{\TmpValueSSCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{SubSubSection}} or %
+    test {\ifstrequal{#1}{AppendixSubSubSection}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenCnS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSNumStyle}{\TmpValueSCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenSnSS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSSNumStyle}{\TmpValueSSCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenSSCnSSS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSSSNumStyle}{\TmpValueSSSCounterName}%
+      }{}%
+  \NCKUPrivateAppendFrozenValue{#3}{\TmpValueEndText}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / chapter-title-format }
+  {
+    BeginText  .tl_set_e:N = \GetCTitleNumberFormatBeginText,
+    EndText    .tl_set_e:N = \GetCTitleNumberFormatEndText,
+    TextAlign  .tl_set_e:N = \GetCTitleNumberFormatTextAlign,
+    CNumStyle  .tl_set_e:N = \GetCTitleNumberFormatCNumStyle,
+    SepAtIndex .tl_set_e:N = \GetCTitleNumberFormatSepAtIndex,
+  }
+
+\cs_new_protected:Npn \ncku_chapter_title_format_set_keys:n #1
+  {
+    \tl_set:Nn \GetCTitleNumberFormatBeginText { Chapter~ }
+    \tl_clear:N \GetCTitleNumberFormatEndText
+    \tl_set:Nn \GetCTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetCTitleNumberFormatCNumStyle { Arabic }
+    \tl_set:Nn \GetCTitleNumberFormatSepAtIndex { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / chapter-title-format } {#1} }
+  }
+
+% Keep Chapter title-format parsing behind one private seam; all other
+% numbering key families remain on their existing implementation.
+\cs_new_protected:Npn \NCKUPrivateSetChapterTitleFormatKeys #1
+  { \ncku_chapter_title_format_set_keys:n {#1} }
+\ExplSyntaxOff
+
+\newcommand\GetChapterTitleNumberFormatString{}
+\newcommand\SetupChapterTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{Chapter}%
+  {%
+    BeginText=\GetCTitleNumberFormatBeginText,%
+    EndText=\GetCTitleNumberFormatEndText,%
+    CNumStyle=\GetCTitleNumberFormatCNumStyle,%
+    CCounterName=chapter,%
+  }{\GetChapterTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / section-title-format }
+  {
+    BeginText .tl_set_e:N = \GetSTitleNumberFormatBeginText,
+    EndText .tl_set_e:N = \GetSTitleNumberFormatEndText,
+    TextAlign .tl_set_e:N = \GetSTitleNumberFormatTextAlign,
+    CNumStyle .tl_set_e:N = \GetSTitleNumberFormatCNumStyle,
+    SNumStyle .tl_set_e:N = \GetSTitleNumberFormatSNumStyle,
+    SepAtIndex .tl_set_e:N = \GetSTitleNumberFormatSepAtIndex,
+    SepBetweenCnS .tl_set_e:N = \GetSTitleNumberFormatSepBetweenCnS,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_section_title_format_set_keys:n #1
+  {
+    \tl_clear:N \GetSTitleNumberFormatBeginText
+    \tl_clear:N \GetSTitleNumberFormatEndText
+    \tl_set:Nn \GetSTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetSTitleNumberFormatCNumStyle { Arabic }
+    \tl_set:Nn \GetSTitleNumberFormatSNumStyle { Arabic }
+    \tl_set:Nn \GetSTitleNumberFormatSepAtIndex { . }
+    \tl_set:Nn \GetSTitleNumberFormatSepBetweenCnS { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / section-title-format } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\GetSectionTitleNumberFormatString{}
+\newcommand\SetupSectionTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{Section}%
+  {%
+    BeginText=\GetSTitleNumberFormatBeginText,%
+    EndText=\GetSTitleNumberFormatEndText,%
+    CNumStyle=\GetSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetSTitleNumberFormatSNumStyle,%
+    SepAtIndex=\GetSTitleNumberFormatSepAtIndex,%
+    SepBetweenCnS=\GetSTitleNumberFormatSepBetweenCnS,%
+    CCounterName=chapter,%
+    SCounterName=section,%
+  }{\GetSectionTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / subsection-title-format }
+  {
+    BeginText .tl_set_e:N = \GetSSTitleNumberFormatBeginText,
+    EndText .tl_set_e:N = \GetSSTitleNumberFormatEndText,
+    TextAlign .tl_set_e:N = \GetSSTitleNumberFormatTextAlign,
+    CNumStyle .tl_set_e:N = \GetSSTitleNumberFormatCNumStyle,
+    SNumStyle .tl_set_e:N = \GetSSTitleNumberFormatSNumStyle,
+    SSNumStyle .tl_set_e:N = \GetSSTitleNumberFormatSSNumStyle,
+    SepAtIndex .tl_set_e:N = \GetSSTitleNumberFormatSepAtIndex,
+    SepBetweenCnS .tl_set_e:N = \GetSSTitleNumberFormatSepBetweenCnS,
+    SepBetweenSnSS .tl_set_e:N = \GetSSTitleNumberFormatSepBetweenSnSS,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_subsection_title_format_set_keys:n #1
+  {
+    \tl_clear:N \GetSSTitleNumberFormatBeginText
+    \tl_clear:N \GetSSTitleNumberFormatEndText
+    \tl_set:Nn \GetSSTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetSSTitleNumberFormatCNumStyle { Arabic }
+    \tl_set:Nn \GetSSTitleNumberFormatSNumStyle { Arabic }
+    \tl_set:Nn \GetSSTitleNumberFormatSSNumStyle { Arabic }
+    \tl_set:Nn \GetSSTitleNumberFormatSepAtIndex { . }
+    \tl_set:Nn \GetSSTitleNumberFormatSepBetweenCnS { . }
+    \tl_set:Nn \GetSSTitleNumberFormatSepBetweenSnSS { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / subsection-title-format } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\GetSubSectionTitleNumberFormatString{}
+\newcommand\SetupSubSectionTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{SubSection}%
+  {%
+    BeginText=\GetSSTitleNumberFormatBeginText,%
+    EndText=\GetSSTitleNumberFormatEndText,%
+    CNumStyle=\GetSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetSSTitleNumberFormatSSNumStyle,%
+    SepAtIndex=\GetSSTitleNumberFormatSepAtIndex,%
+    SepBetweenCnS=\GetSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetSSTitleNumberFormatSepBetweenSnSS,%
+    CCounterName=chapter,%
+    SCounterName=section,%
+    SSCounterName=subsection,%
+  }{\GetSubSectionTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / subsubsection-title-format }
+  {
+    BeginText .tl_set_e:N = \GetSSSTitleNumberFormatBeginText,
+    EndText .tl_set_e:N = \GetSSSTitleNumberFormatEndText,
+    TextAlign .tl_set_e:N = \GetSSSTitleNumberFormatTextAlign,
+    CNumStyle .tl_set_e:N = \GetSSSTitleNumberFormatCNumStyle,
+    SNumStyle .tl_set_e:N = \GetSSSTitleNumberFormatSNumStyle,
+    SSNumStyle .tl_set_e:N = \GetSSSTitleNumberFormatSSNumStyle,
+    SSSNumStyle .tl_set_e:N = \GetSSSTitleNumberFormatSSSNumStyle,
+    SepAtIndex .tl_set_e:N = \GetSSSTitleNumberFormatSepAtIndex,
+    SepBetweenCnS .tl_set_e:N = \GetSSSTitleNumberFormatSepBetweenCnS,
+    SepBetweenSnSS .tl_set_e:N = \GetSSSTitleNumberFormatSepBetweenSnSS,
+    SepBetweenSSCnSSS .tl_set_e:N = \GetSSSTitleNumberFormatSepBetweenSSCnSSS,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_subsubsection_title_format_set_keys:n #1
+  {
+    \tl_clear:N \GetSSSTitleNumberFormatBeginText
+    \tl_clear:N \GetSSSTitleNumberFormatEndText
+    \tl_set:Nn \GetSSSTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetSSSTitleNumberFormatCNumStyle { Arabic }
+    \tl_set:Nn \GetSSSTitleNumberFormatSNumStyle { Arabic }
+    \tl_set:Nn \GetSSSTitleNumberFormatSSNumStyle { Arabic }
+    \tl_set:Nn \GetSSSTitleNumberFormatSSSNumStyle { Arabic }
+    \tl_set:Nn \GetSSSTitleNumberFormatSepAtIndex { . }
+    \tl_set:Nn \GetSSSTitleNumberFormatSepBetweenCnS { . }
+    \tl_set:Nn \GetSSSTitleNumberFormatSepBetweenSnSS { . }
+    \tl_set:Nn \GetSSSTitleNumberFormatSepBetweenSSCnSSS { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / subsubsection-title-format } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\GetSubSubSectionTitleNumberFormatString{}
+\newcommand\SetupSubSubSectionTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{SubSubSection}%
+  {%
+    BeginText=\GetSSSTitleNumberFormatBeginText,%
+    EndText=\GetSSSTitleNumberFormatEndText,%
+    CNumStyle=\GetSSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetSSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetSSSTitleNumberFormatSSNumStyle,%
+    SSSNumStyle=\GetSSSTitleNumberFormatSSSNumStyle,%
+    SepAtIndex=\GetSSSTitleNumberFormatSepAtIndex,%
+    SepBetweenCnS=\GetSSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetSSSTitleNumberFormatSepBetweenSnSS,%
+    SepBetweenSSCnSSS=\GetSSSTitleNumberFormatSepBetweenSSCnSSS,%
+    CCounterName=chapter,%
+    SCounterName=section,%
+    SSCounterName=subsection,%
+    SSSCounterName=subsubsection,%
+  }{\GetSubSubSectionTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / appendix-chapter-title-format }
+  {
+    BeginText .tl_set_e:N = \GetAppendixCTitleNumberFormatBeginText,
+    EndText .tl_set_e:N = \GetAppendixCTitleNumberFormatEndText,
+    TextAlign .tl_set_e:N = \GetAppendixCTitleNumberFormatTextAlign,
+    CNumStyle .tl_set_e:N = \GetAppendixCTitleNumberFormatCNumStyle,
+    SepAtIndex .tl_set_e:N = \GetAppendixCTitleNumberFormatSepAtIndex,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_appendix_chapter_title_format_set_keys:n #1
+  {
+    \tl_set:Nn \GetAppendixCTitleNumberFormatBeginText { Appendix~ }
+    \tl_clear:N \GetAppendixCTitleNumberFormatEndText
+    \tl_set:Nn \GetAppendixCTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetAppendixCTitleNumberFormatCNumStyle { UpperAlph }
+    \tl_set:Nn \GetAppendixCTitleNumberFormatSepAtIndex { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / appendix-chapter-title-format } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\GetAppendixChapterTitleNumberFormatString{}
+\newcommand\SetupAppendixChapterTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{AppendixChapter}%
+  {%
+    BeginText=\GetAppendixCTitleNumberFormatBeginText,%
+    EndText=\GetAppendixCTitleNumberFormatEndText,%
+    CNumStyle=\GetAppendixCTitleNumberFormatCNumStyle,%
+    CCounterName=appendixchapter,%
+  }{\GetAppendixChapterTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / appendix-section-title-format }
+  {
+    BeginText .tl_set_e:N = \GetAppendixSTitleNumberFormatBeginText,
+    EndText .tl_set_e:N = \GetAppendixSTitleNumberFormatEndText,
+    TextAlign .tl_set_e:N = \GetAppendixSTitleNumberFormatTextAlign,
+    CNumStyle .tl_set_e:N = \GetAppendixSTitleNumberFormatCNumStyle,
+    SNumStyle .tl_set_e:N = \GetAppendixSTitleNumberFormatSNumStyle,
+    SepAtIndex .tl_set_e:N = \GetAppendixSTitleNumberFormatSepAtIndex,
+    SepBetweenCnS .tl_set_e:N = \GetAppendixSTitleNumberFormatSepBetweenCnS,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_appendix_section_title_format_set_keys:n #1
+  {
+    \tl_clear:N \GetAppendixSTitleNumberFormatBeginText
+    \tl_clear:N \GetAppendixSTitleNumberFormatEndText
+    \tl_set:Nn \GetAppendixSTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetAppendixSTitleNumberFormatCNumStyle { UpperAlph }
+    \tl_set:Nn \GetAppendixSTitleNumberFormatSNumStyle { Arabic }
+    \tl_set:Nn \GetAppendixSTitleNumberFormatSepAtIndex { . }
+    \tl_set:Nn \GetAppendixSTitleNumberFormatSepBetweenCnS { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / appendix-section-title-format } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\GetAppendixSectionTitleNumberFormatString{}
+\newcommand\SetupAppendixSectionTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{AppendixSection}%
+  {%
+    BeginText=\GetAppendixSTitleNumberFormatBeginText,%
+    EndText=\GetAppendixSTitleNumberFormatEndText,%
+    CNumStyle=\GetAppendixSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetAppendixSTitleNumberFormatSNumStyle,%
+    SepAtIndex=\GetAppendixSTitleNumberFormatSepAtIndex,%
+    SepBetweenCnS=\GetAppendixSTitleNumberFormatSepBetweenCnS,%
+    CCounterName=appendixchapter,%
+    SCounterName=appendixsection,%
+  }{\GetAppendixSectionTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / appendix-subsection-title-format }
+  {
+    BeginText .tl_set_e:N = \GetAppendixSSTitleNumberFormatBeginText,
+    EndText .tl_set_e:N = \GetAppendixSSTitleNumberFormatEndText,
+    TextAlign .tl_set_e:N = \GetAppendixSSTitleNumberFormatTextAlign,
+    CNumStyle .tl_set_e:N = \GetAppendixSSTitleNumberFormatCNumStyle,
+    SNumStyle .tl_set_e:N = \GetAppendixSSTitleNumberFormatSNumStyle,
+    SSNumStyle .tl_set_e:N = \GetAppendixSSTitleNumberFormatSSNumStyle,
+    SepAtIndex .tl_set_e:N = \GetAppendixSSTitleNumberFormatSepAtIndex,
+    SepBetweenCnS .tl_set_e:N = \GetAppendixSSTitleNumberFormatSepBetweenCnS,
+    SepBetweenSnSS .tl_set_e:N = \GetAppendixSSTitleNumberFormatSepBetweenSnSS,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_appendix_subsection_title_format_set_keys:n #1
+  {
+    \tl_clear:N \GetAppendixSSTitleNumberFormatBeginText
+    \tl_clear:N \GetAppendixSSTitleNumberFormatEndText
+    \tl_set:Nn \GetAppendixSSTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetAppendixSSTitleNumberFormatCNumStyle { UpperAlph }
+    \tl_set:Nn \GetAppendixSSTitleNumberFormatSNumStyle { Arabic }
+    \tl_set:Nn \GetAppendixSSTitleNumberFormatSSNumStyle { Arabic }
+    \tl_set:Nn \GetAppendixSSTitleNumberFormatSepAtIndex { . }
+    \tl_set:Nn \GetAppendixSSTitleNumberFormatSepBetweenCnS { . }
+    \tl_set:Nn \GetAppendixSSTitleNumberFormatSepBetweenSnSS { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / appendix-subsection-title-format } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\GetAppendixSubSectionTitleNumberFormatString{}
+\newcommand\SetupAppendixSubSectionTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{AppendixSubSection}%
+  {%
+    BeginText=\GetAppendixSSTitleNumberFormatBeginText,%
+    EndText=\GetAppendixSSTitleNumberFormatEndText,%
+    CNumStyle=\GetAppendixSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetAppendixSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetAppendixSSTitleNumberFormatSSNumStyle,%
+    SepAtIndex=\GetAppendixSSTitleNumberFormatSepAtIndex,%
+    SepBetweenCnS=\GetAppendixSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetAppendixSSTitleNumberFormatSepBetweenSnSS,%
+    CCounterName=appendixchapter,%
+    SCounterName=appendixsection,%
+    SSCounterName=appendixsubsection,%
+  }{\GetAppendixSubSectionTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / appendix-subsubsection-title-format }
+  {
+    BeginText .tl_set_e:N = \GetAppendixSSSTitleNumberFormatBeginText,
+    EndText .tl_set_e:N = \GetAppendixSSSTitleNumberFormatEndText,
+    TextAlign .tl_set_e:N = \GetAppendixSSSTitleNumberFormatTextAlign,
+    CNumStyle .tl_set_e:N = \GetAppendixSSSTitleNumberFormatCNumStyle,
+    SNumStyle .tl_set_e:N = \GetAppendixSSSTitleNumberFormatSNumStyle,
+    SSNumStyle .tl_set_e:N = \GetAppendixSSSTitleNumberFormatSSNumStyle,
+    SSSNumStyle .tl_set_e:N = \GetAppendixSSSTitleNumberFormatSSSNumStyle,
+    SepAtIndex .tl_set_e:N = \GetAppendixSSSTitleNumberFormatSepAtIndex,
+    SepBetweenCnS .tl_set_e:N = \GetAppendixSSSTitleNumberFormatSepBetweenCnS,
+    SepBetweenSnSS .tl_set_e:N = \GetAppendixSSSTitleNumberFormatSepBetweenSnSS,
+    SepBetweenSSCnSSS .tl_set_e:N = \GetAppendixSSSTitleNumberFormatSepBetweenSSCnSSS,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_appendix_subsubsection_title_format_set_keys:n #1
+  {
+    \tl_clear:N \GetAppendixSSSTitleNumberFormatBeginText
+    \tl_clear:N \GetAppendixSSSTitleNumberFormatEndText
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatTextAlign { Left }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatCNumStyle { UpperAlph }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatSNumStyle { Arabic }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatSSNumStyle { Arabic }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatSSSNumStyle { Arabic }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatSepAtIndex { . }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatSepBetweenCnS { . }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatSepBetweenSnSS { . }
+    \tl_set:Nn \GetAppendixSSSTitleNumberFormatSepBetweenSSCnSSS { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / appendix-subsubsection-title-format } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\GetAppendixSubSubSectionTitleNumberFormatString{}
+\newcommand\SetupAppendixSubSubSectionTitleNumberFormatString
+{%
+  \SetupTitleNumberFormatString{AppendixSubSubSection}%
+  {%
+    BeginText=\GetAppendixSSSTitleNumberFormatBeginText,%
+    EndText=\GetAppendixSSSTitleNumberFormatEndText,%
+    CNumStyle=\GetAppendixSSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetAppendixSSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetAppendixSSSTitleNumberFormatSSNumStyle,%
+    SSSNumStyle=\GetAppendixSSSTitleNumberFormatSSSNumStyle,%
+    SepAtIndex=\GetAppendixSSSTitleNumberFormatSepAtIndex,%
+    SepBetweenCnS=\GetAppendixSSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetAppendixSSSTitleNumberFormatSepBetweenSnSS,%
+    SepBetweenSSCnSSS=\GetAppendixSSSTitleNumberFormatSepBetweenSSCnSSS,%
+    CCounterName=appendixchapter,%
+    SCounterName=appendixsection,%
+    SSCounterName=appendixsubsection,%
+    SSSCounterName=appendixsubsubsection,%
+  }{\GetAppendixSubSubSectionTitleNumberFormatString}%
+} % End of \newcommand{}
+
+% ----------------------------------------------------------------------------
+
+\newcommand\SetupGeneralFigureNumberFormatString
+{%
+  \renewcommand\GetGeneralFigureNumberFormatString{}%
+  \AppendCounterStringToFormatString{%
+    \GetGeneralFigureNumberFormatString}{%
+    Arabic}{chapter}%
+  \appto\GetGeneralFigureNumberFormatString{.}
+  \AppendCounterStringToFormatString{%
+    \GetGeneralFigureNumberFormatString}{Arabic}{figure}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\newcommand\SetupGeneralTableNumberFormatString
+{%
+  \renewcommand\GetGeneralTableNumberFormatString{}%
+  \AppendCounterStringToFormatString{%
+    \GetGeneralTableNumberFormatString}{%
+    Arabic}{chapter}%
+  \appto\GetGeneralTableNumberFormatString{.}
+  \AppendCounterStringToFormatString{%
+    \GetGeneralTableNumberFormatString}{Arabic}{table}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\newcommand\SetupGeneralEquationNumberFormatString
+{%
+  \renewcommand\GetGeneralEquationNumberFormatString{}%
+  \AppendCounterStringToFormatString{%
+    \GetGeneralEquationNumberFormatString}{%
+    Arabic}{chapter}%
+  \appto\GetGeneralEquationNumberFormatString{.}
+  \AppendCounterStringToFormatString{%
+    \GetGeneralEquationNumberFormatString}{Arabic}{equation}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\newcommand\SetupAppendixFigureNumberFormatString
+{%
+  \renewcommand\GetAppendixFigureNumberFormatString{}%
+  \AppendCounterStringToFormatString{%
+    \GetAppendixFigureNumberFormatString}{%
+    Arabic}{appendixchapter}%
+  \appto\GetAppendixFigureNumberFormatString{.}
+  \AppendCounterStringToFormatString{%
+    \GetAppendixFigureNumberFormatString}{Arabic}{figure}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\newcommand\SetupAppendixTableNumberFormatString
+{%
+  \renewcommand\GetAppendixTableNumberFormatString{}%
+  \AppendCounterStringToFormatString{%
+    \GetAppendixTableNumberFormatString}{%
+    Arabic}{appendixchapter}%
+  \appto\GetAppendixTableNumberFormatString{.}
+  \AppendCounterStringToFormatString{%
+    \GetAppendixTableNumberFormatString}{Arabic}{table}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\newcommand\SetupAppendixEquationNumberFormatString
+{%
+  \renewcommand\GetAppendixEquationNumberFormatString{}%
+  \AppendCounterStringToFormatString{%
+    \GetAppendixEquationNumberFormatString}{%
+    Arabic}{appendixchapter}%
+  \appto\GetAppendixEquationNumberFormatString{.}
+  \AppendCounterStringToFormatString{%
+    \GetAppendixEquationNumberFormatString}{Arabic}{equation}%
+} % End of \newcommand{}
+
+% ---------------------------
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / numbering / general-appendix-number-format-string }
+  {
+    CNumStyle .tl_set_e:N = \TmpValueCNumStyle,
+    CCounterName .tl_set_e:N = \TmpValueCCounterName,
+    SNumStyle .tl_set_e:N = \TmpValueSNumStyle,
+    SCounterName .tl_set_e:N = \TmpValueSCounterName,
+    SSNumStyle .tl_set_e:N = \TmpValueSSNumStyle,
+    SSCounterName .tl_set_e:N = \TmpValueSSCounterName,
+    SSSNumStyle .tl_set_e:N = \TmpValueSSSNumStyle,
+    SSSCounterName .tl_set_e:N = \TmpValueSSSCounterName,
+    SepBetweenCnS .tl_set_e:N = \TmpValueSepBetweenCnS,
+    SepBetweenSnSS .tl_set_e:N = \TmpValueSepBetweenSnSS,
+    SepBetweenSSCnSSS .tl_set_e:N = \TmpValueSepBetweenSSCnSSS,
+    FigureNumStyle .tl_set_e:N = \TmpValueFigureNumStyle,
+    FigureCounterName .tl_set_e:N = \TmpValueFigureCounterName,
+    FigureSep .tl_set_e:N = \TmpValueFigureSep,
+    TableNumStyle .tl_set_e:N = \TmpValueTableNumStyle,
+    TableCounterName .tl_set_e:N = \TmpValueTableCounterName,
+    TableSep .tl_set_e:N = \TmpValueTableSep,
+    EquationNumStyle .tl_set_e:N = \TmpValueEquationNumStyle,
+    EquationCounterName .tl_set_e:N = \TmpValueEquationCounterName,
+    EquationSep .tl_set_e:N = \TmpValueEquationSep,
+  }
+
+\cs_new_protected:Npn \ncku_numbering_general_appendix_number_format_string_set_keys:n #1
+  {
+    \tl_clear:N \TmpValueCNumStyle
+    \tl_clear:N \TmpValueCCounterName
+    \tl_clear:N \TmpValueSNumStyle
+    \tl_clear:N \TmpValueSCounterName
+    \tl_clear:N \TmpValueSSNumStyle
+    \tl_clear:N \TmpValueSSCounterName
+    \tl_clear:N \TmpValueSSSNumStyle
+    \tl_clear:N \TmpValueSSSCounterName
+    \tl_clear:N \TmpValueSepBetweenCnS
+    \tl_clear:N \TmpValueSepBetweenSnSS
+    \tl_clear:N \TmpValueSepBetweenSSCnSSS
+    \tl_clear:N \TmpValueFigureNumStyle
+    \tl_clear:N \TmpValueFigureCounterName
+    \tl_set:Nn \TmpValueFigureSep { . }
+    \tl_clear:N \TmpValueTableNumStyle
+    \tl_clear:N \TmpValueTableCounterName
+    \tl_set:Nn \TmpValueTableSep { . }
+    \tl_clear:N \TmpValueEquationNumStyle
+    \tl_clear:N \TmpValueEquationCounterName
+    \tl_set:Nn \TmpValueEquationSep { . }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / numbering / general-appendix-number-format-string } {#1} }
+  }
+\ExplSyntaxOff
+
+\newcommand\SetupGeneralAppendixNumberFormatString[3]
+{%
+  \NCKUPrivateSetRemainingNumberingKeys{SetupGeneralAppendixNumberFormatString}{#2}%
+  \renewcommand#3{}%
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{Chapter}} or %
+    test {\ifstrequal{#1}{AppendixChapter}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{Section}} or %
+    test {\ifstrequal{#1}{AppendixSection}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenCnS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSNumStyle}{\TmpValueSCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{SubSection}} or %
+    test {\ifstrequal{#1}{AppendixSubSection}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenCnS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSNumStyle}{\TmpValueSCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenSnSS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSSNumStyle}{\TmpValueSSCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{SubSubSection}} or %
+    test {\ifstrequal{#1}{AppendixSubSubSection}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenCnS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSNumStyle}{\TmpValueSCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenSnSS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSSNumStyle}{\TmpValueSSCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueSepBetweenSSCnSSS}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueSSSNumStyle}{\TmpValueSSSCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{Figure}} or %
+    test {\ifstrequal{#1}{AppendixFigure}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueFigureSep}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueFigureNumStyle}{\TmpValueFigureCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{Table}} or %
+    test {\ifstrequal{#1}{AppendixTable}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueTableSep}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueTableNumStyle}{\TmpValueTableCounterName}%
+      }{}%
+  %
+  \ifboolexpr{%
+    test {\ifstrequal{#1}{Equation}} or %
+    test {\ifstrequal{#1}{AppendixEquation}} }
+      {%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueCNumStyle}{\TmpValueCCounterName}%
+        \NCKUPrivateAppendFrozenValue{#3}{\TmpValueEquationSep}%
+        \AppendCounterStringToFormatString{%
+          #3}{\TmpValueEquationNumStyle}{\TmpValueEquationCounterName}%
+      }{}%
+  %
+} % End of \newcommand{}
+
+\newcommand\GetGeneralChapterNumberingFormatString{}
+\newcommand\GetGeneralSectionNumberingFormatString{}
+\newcommand\GetGeneralSubSectionNumberingFormatString{}
+\newcommand\GetGeneralSubSubSectionNumberingFormatString{}
+\newcommand\GetGeneralFigureNumberFormatString{}
+\newcommand\GetGeneralTableNumberFormatString{}
+\newcommand\GetGeneralEquationNumberFormatString{}
+
+\newcommand\GetAppendixChapterNumberingFormatString{}
+\newcommand\GetAppendixSectionNumberingFormatString{}
+\newcommand\GetAppendixSubSectionNumberingFormatString{}
+\newcommand\GetAppendixSubSubSectionNumberingFormatString{}
+\newcommand\GetAppendixFigureNumberFormatString{}
+\newcommand\GetAppendixTableNumberFormatString{}
+\newcommand\GetAppendixEquationNumberFormatString{}
+
+% Sub-subsection titles are intentionally unnumbered by default, but their
+% public Start* helpers still need stable, non-empty reference values.
+\newcommand\GetGeneralSubSubSectionReferenceString{%
+  \ifx\GetSSSTitleNumberFormatSSSNumStyle\empty
+    \arabic{chapter}.\arabic{section}.\arabic{subsection}.\arabic{subsubsection}%
+  \else
+    \GetGeneralSubSubSectionNumberingFormatString%
+  \fi
+}
+\newcommand\GetAppendixSubSubSectionReferenceString{%
+  \ifx\GetAppendixSSSTitleNumberFormatSSSNumStyle\empty
+    \Alph{appendixchapter}.\arabic{appendixsection}.\arabic{appendixsubsection}.\arabic{appendixsubsubsection}%
+  \else
+    \GetAppendixSubSubSectionNumberingFormatString%
+  \fi
+}
+
+\newcommand\InitinalGeneralAppendixNumberingFormatString
+{%
+  \SetupGeneralAppendixNumberFormatString{Chapter}%
+  {%
+    CNumStyle=\GetCTitleNumberFormatCNumStyle,%
+    CCounterName=chapter,%
+  }{\GetGeneralChapterNumberingFormatString}%
+  %
+  \SetupGeneralAppendixNumberFormatString{Section}%
+  {%
+    CNumStyle=\GetSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetSTitleNumberFormatSNumStyle,%
+    SepBetweenCnS=\GetSTitleNumberFormatSepBetweenCnS,%
+    CCounterName=chapter,%
+    SCounterName=section,%
+  }{\GetGeneralSectionNumberingFormatString}%
+  %
+  \SetupGeneralAppendixNumberFormatString{SubSection}%
+  {%
+    CNumStyle=\GetSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetSSTitleNumberFormatSSNumStyle,%
+    SepBetweenCnS=\GetSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetSSTitleNumberFormatSepBetweenSnSS,%
+    CCounterName=chapter,%
+    SCounterName=section,%
+    SSCounterName=subsection,%
+  }{\GetGeneralSubSectionNumberingFormatString}%
+  %
+  \SetupGeneralAppendixNumberFormatString{SubSubSection}%
+  {%
+    CNumStyle=\GetSSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetSSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetSSSTitleNumberFormatSSNumStyle,%
+    SSSNumStyle=\GetSSSTitleNumberFormatSSSNumStyle,%
+    SepBetweenCnS=\GetSSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetSSSTitleNumberFormatSepBetweenSnSS,%
+    SepBetweenSSCnSSS=\GetSSSTitleNumberFormatSepBetweenSSCnSSS,%
+    CCounterName=chapter,%
+    SCounterName=section,%
+    SSCounterName=subsection,%
+    SSSCounterName=subsubsection,%
+  }{\GetGeneralSubSubSectionNumberingFormatString}%
+  %
+  \SetupGeneralAppendixNumberFormatString{AppendixChapter}%
+  {%
+    CNumStyle=\GetAppendixCTitleNumberFormatCNumStyle,%
+    CCounterName=appendixchapter,%
+  }{\GetAppendixChapterNumberingFormatString}%
+  %
+  \SetupGeneralAppendixNumberFormatString{AppendixSection}%
+  {%
+    CNumStyle=\GetAppendixSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetAppendixSTitleNumberFormatSNumStyle,%
+    SepBetweenCnS=\GetAppendixSTitleNumberFormatSepBetweenCnS,%
+    CCounterName=appendixchapter,%
+    SCounterName=appendixsection,%
+  }{\GetAppendixSectionNumberingFormatString}%
+  %
+  \SetupGeneralAppendixNumberFormatString{AppendixSubSection}%
+  {%
+    CNumStyle=\GetAppendixSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetAppendixSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetAppendixSSTitleNumberFormatSSNumStyle,%
+    SepBetweenCnS=\GetAppendixSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetAppendixSSTitleNumberFormatSepBetweenSnSS,%
+    CCounterName=appendixchapter,%
+    SCounterName=appendixsection,%
+    SSCounterName=appendixsubsection,%
+  }{\GetAppendixSubSectionNumberingFormatString}%
+  %
+  \SetupGeneralAppendixNumberFormatString{AppendixSubSubSection}%
+  {%
+    CNumStyle=\GetAppendixSSSTitleNumberFormatCNumStyle,%
+    SNumStyle=\GetAppendixSSSTitleNumberFormatSNumStyle,%
+    SSNumStyle=\GetAppendixSSSTitleNumberFormatSSNumStyle,%
+    SSSNumStyle=\GetAppendixSSSTitleNumberFormatSSSNumStyle,%
+    SepBetweenCnS=\GetAppendixSSSTitleNumberFormatSepBetweenCnS,%
+    SepBetweenSnSS=\GetAppendixSSSTitleNumberFormatSepBetweenSnSS,%
+    SepBetweenSSCnSSS=\GetAppendixSSSTitleNumberFormatSepBetweenSSCnSSS,%
+    CCounterName=appendixchapter,%
+    SCounterName=appendixsection,%
+    SSCounterName=appendixsubsection,%
+    SSSCounterName=appendixsubsubsection,%
+  }{\GetAppendixSubSubSectionNumberingFormatString}%
+  %
+} % End of \newcommand{}
+
+% ----------------------------------------------------------------------------
+
+% Setup all custom numbering format
+\newcommand\SetupNumberingFormat
+{%
+  \InitinalGeneralAppendixNumberingFormatString%
+  %
+%  \renewcommand{\thechapter}{\GetGeneralChapterNumberingFormatString}%
+%  \renewcommand{\thesection}{\GetGeneralSectionNumberingFormatString}%
+%  \renewcommand{\thesubsection}{\GetGeneralSubSectionNumberingFormatString}%
+%  \renewcommand{\thesubsubsection}{\GetGeneralSubSubSectionNumberingFormatString}%
+  %
+  \SetupGeneralFigureNumberFormatString%
+  \SetupGeneralTableNumberFormatString%
+  \SetupGeneralEquationNumberFormatString%
+  \renewcommand{\thefigure}{\GetGeneralFigureNumberFormatString}%
+  \renewcommand{\thetable}{\GetGeneralTableNumberFormatString}%
+  \renewcommand{\theequation}{\GetGeneralEquationNumberFormatString}%
+} % End of \newcommand{}
+
+% Setup all custom numbering format use in Appendix
+\newcommand\SetupAppendixNumberingFormat
+{%
+  %
+%  \renewcommand{\thechapter}{\GetAppendixChapterNumberingFormatString}%
+%  \renewcommand{\thesection}{\GetAppendixSectionNumberingFormatString}%
+%  \renewcommand{\thesubsection}{\GetAppendixSubSectionNumberingFormatString}%
+%  \renewcommand{\thesubsubsection}{\GetAppendixSubSubSectionNumberingFormatString}%
+  %
+  \SetupAppendixFigureNumberFormatString%
+  \SetupAppendixTableNumberFormatString%
+  \SetupAppendixEquationNumberFormatString%
+  \renewcommand{\thefigure}{\GetAppendixFigureNumberFormatString}
+  \renewcommand{\thetable}{\GetAppendixTableNumberFormatString}
+  \renewcommand{\theequation}{\GetAppendixEquationNumberFormatString}
+} % End of \newcommand{}
+
+% ----------------------------------------------------------------------------
+
+% Parse the setting based on title type
+% Chapter, Section, SubSection, SubSubSection
+\newcommand{\SetNumberingFormat}[2][\empty]
+{%
+  \ifthenelse{\equal{#1}{Chapter}}
+  {%
+    \NCKUPrivateSetChapterTitleFormatKeys{#2}%
+  }{}%
+  %
+  \ifthenelse{\equal{#1}{Section}}
+  {%
+    \NCKUPrivateSetRemainingNumberingKeys{STitleNumberFormat}{#2}%
+  }{}%
+  %
+  \ifthenelse{\equal{#1}{SubSection}}
+  {%
+    \NCKUPrivateSetRemainingNumberingKeys{SSTitleNumberFormat}{#2}%
+  }{}%
+  %
+  \ifthenelse{\equal{#1}{SubSubSection}}
+  {%
+    \NCKUPrivateSetRemainingNumberingKeys{SSSTitleNumberFormat}{#2}%
+  }{}%
+  %
+  \ifthenelse{\equal{#1}{AppendixChapter}}
+  {%
+    \NCKUPrivateSetRemainingNumberingKeys{AppendixCTitleNumberFormat}{#2}%
+  }{}%
+  %
+  \ifthenelse{\equal{#1}{AppendixSection}}
+  {%
+    \NCKUPrivateSetRemainingNumberingKeys{AppendixSTitleNumberFormat}{#2}%
+  }{}%
+  %
+  \ifthenelse{\equal{#1}{AppendixSubSection}}
+  {%
+    \NCKUPrivateSetRemainingNumberingKeys{AppendixSSTitleNumberFormat}{#2}%
+  }{}%
+  %
+  \ifthenelse{\equal{#1}{AppendixSubSubSection}}
+  {%
+    \NCKUPrivateSetRemainingNumberingKeys{AppendixSSSTitleNumberFormat}{#2}%
+  }{}%
+} % End of \newcommand{}
+
+% Default
+% Chapter: Chapter 1
+% Section: 1.1
+% SubSection: 1.1.1
+% SubSubSection: __EMPTY__
+\SetNumberingFormat[Chapter]{%
+  BeginText = {Chapter }, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {Arabic},
+  SepAtIndex = {.},
+} % End of \SetNumberingFormat{}
+
+\SetNumberingFormat[Section]{%
+  BeginText = {}, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {Arabic}, SNumStyle = {Arabic},
+  SepAtIndex = {.}, SepBetweenCnS = {.},
+} % End of \SetNumberingFormat{}
+
+\SetNumberingFormat[SubSection]{%
+  BeginText = {}, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {Arabic}, SNumStyle = {Arabic}, SSNumStyle = {Arabic},
+  SepAtIndex = {.}, SepBetweenCnS = {.}, SepBetweenSnSS = {.},
+} % End of \SetNumberingFormat{}
+
+\SetNumberingFormat[SubSubSection]{%
+  BeginText = {}, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {}, SNumStyle = {}, SSNumStyle = {}, SSSNumStyle = {},
+  SepAtIndex = {}, SepBetweenCnS = {},
+  SepBetweenSnSS = {}, SepBetweenSSCnSSS = {},
+} % End of \SetNumberingFormat{}
+
+% Default
+% Chapter: Appendix A
+% Section: A.1
+% SubSection: A.1.1
+% SubSubSection: __EMPTY__
+\SetNumberingFormat[AppendixChapter]{%
+  BeginText = {Appendix }, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {UpperAlph},
+  SepAtIndex = {.},
+} % End of \SetNumberingFormat{}
+
+\SetNumberingFormat[AppendixSection]{%
+  BeginText = {}, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {UpperAlph}, SNumStyle = {Arabic},
+  SepAtIndex = {.}, SepBetweenCnS = {.},
+} % End of \SetNumberingFormat{}
+
+\SetNumberingFormat[AppendixSubSection]{%
+  BeginText = {}, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {UpperAlph}, SNumStyle = {Arabic}, SSNumStyle = {Arabic},
+  SepAtIndex = {.}, SepBetweenCnS = {.}, SepBetweenSnSS = {.},
+} % End of \SetNumberingFormat{}
+
+\SetNumberingFormat[AppendixSubSubSection]{%
+  BeginText = {}, EndText = {},
+  TextAlign = {Left},
+  CNumStyle = {}, SNumStyle = {}, SSNumStyle = {}, SSSNumStyle = {},
+  SepAtIndex = {}, SepBetweenCnS = {},
+  SepBetweenSnSS = {}, SepBetweenSSCnSSS = {},
+} % End of \SetNumberingFormat{}
+
+% ----------------------------------------------------------------------------

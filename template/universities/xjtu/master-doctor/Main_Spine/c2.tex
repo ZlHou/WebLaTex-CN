@@ -1,0 +1,338 @@
+% !TeX root = ../main.tex
+
+\xchapter{浮动体：图表}{Floating: Figures, Tables}
+
+请先注意，在\LaTeX 中，图表不一定要像 Word 一样被固定在某个区域，程序会自动根据上下文为图片选择合适的位置，同时还有具有超链接的交叉引用自动定位图片位置，因此不要强求图片或表格一定处于某个位置。如非要定位，则应在浮动体环境中使用\clist{[H]}选项指定位置。
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+  \begin{enumerate}[leftmargin=0.5cm]
+    \item 图、表、公式等一律用阿拉伯数字分章连续编号，如 图1-3、表2-1、（3-2）等。图、表、公式等与正文之间间隔0.5行。
+
+    \item 图应有图题，表应有表题，并分别置于图号和表号之后，图号和图题应置于图下方的居中位置，表号和表题应置于表上方的居中位置。引用图或表应在图题或表题右上角标出文献来源。
+
+    \item 若图或表中有附注，采用英文小写字母顺序编号，附注写在图或表的下方。
+  \end{enumerate}
+\end{tcolorbox}
+
+\xsection{图}{Figures}
+
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+  \begin{enumerate}[leftmargin=0.5cm]
+    \item 插图须紧跟文述。在正文中，一般应先见图号及图的内容后再见图，一般情况下不能提前见图，特殊情况须延后的插图不应跨节；
+    \item 提供照片应大小适宜，主题明确，层次清楚，金相照片一定要有比例尺；
+    \item 图应具有“自明性”，即只看图、图题和图例，不阅读正文，就可理解图意。图中的标目是说明坐标轴物理意义的项目，它是由物理量的符号或名称和相应的单位组成。物理量的符号由斜体字母标注，单位的符号使用正体字母标注，量与单位间用斜线隔开。例如：$I/\SI{}{A}$，$\rho/\SI{}{kg\cdot m^{-3}}$，$F/\SI{}{N}$，$v/\SI{}{m\cdot s^{-1}}$等等；
+    \item 图中用字为五号，如排列过密，用五号字有困难时，可小于五号字，但不得小于七号字；
+    \item 图尺寸的\textbf{一般宽高比}应为 \SI{6.67}{cm}$\times$\SI{5.00}{cm}。特殊情况下，也可为 \SI{9.00}{cm}$\times$\SI{6.75}{cm}，或 \SI{13.5}{cm}$\times$\SI{9.00}{cm}。总之，一篇论文中，同类图片的大小应该一致，编排美观、整齐；
+    \item 一幅图如有若干幅\textbf{分图}，均应编分图号，用(a)，(b)，(c),...... 按顺序编排，且各分图的分题注直接列在各自分图的正下方，总题注列在所有分图的下方正中「
+  \end{enumerate}
+\end{tcolorbox}
+
+\xsubsection{单张图片的使用}{Single Figure}
+
+\begin{texcodeonly}[]{}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\textwidth]{xjtu.pdf}
+    \caption{校徽}
+  \end{figure}
+\end{texcodeonly}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.5\textwidth]{xjtu.pdf}
+  \caption{校徽}
+\end{figure}
+
+一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。一些图片下方的文字。
+
+\xsubsection{多张图片：应该使用 subcaption 而不是 subfigure}{Use subcaption instead of subfigure}
+
+\begin{texcodeonly}[]{}
+  \begin{figure}[h]
+    \begin{subfigure}[b]{0.49\linewidth}
+        \centering
+        \includegraphics[width=.5\textwidth]{xjtu.pdf}
+        \subcaption{校名}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\linewidth}
+        \centering
+        \includegraphics[width=.5\textwidth]{xjtu.pdf}
+        \subcaption{校名}
+        \label{subfigure:icon}
+    \end{subfigure}
+    \caption{校徽}
+    \label{fig:icon}
+  \end{figure}
+\end{texcodeonly}
+
+\begin{figure}[h]
+  \begin{subfigure}[b]{0.49\linewidth}
+      \centering
+      \includegraphics[width=.5\textwidth]{xjtu.pdf}
+      \subcaption{校名}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+      \centering
+      \includegraphics[width=.5\textwidth]{xjtu.pdf}
+      \subcaption{校名}
+      \label{subfigure:icon}
+  \end{subfigure}
+  \caption{校徽}
+  \label{figure:icon}
+\end{figure}
+
+\xsubsection{多张子图分页}{Break multiple figures}
+
+\newcommand{\subfigg}{
+  \begin{subfigure}[b]{0.49\linewidth}
+    \centering
+    \includegraphics[width=.5\textwidth]{xjtu.pdf}
+    \subcaption{校名}
+  \end{subfigure}
+}
+
+为了简化叙述，定义一个命令 \clist{\subfigg} 代表插入一个子图：
+\begin{texcodeonly}[]{}
+  \newcommand{\subfigg}{
+    \begin{subfigure}[b]{0.49\linewidth}
+      \centering
+      \includegraphics[width=.5\textwidth]{xjtu.pdf}
+      \subcaption{校名}
+    \end{subfigure}
+  }
+\end{texcodeonly}
+
+在\clist[columbiablue]{subfig}宏包中提供了\clist{\ContinuedFloat}命令，使一个浮动体环境与其内子图的编号跟随前一个子图，此时两个浮动体环境可以分别设置标题，若具有相同的标题，或后续图的标题设置为 \clist{（续）}，则可以实现子图分页的效果。同时，模板提供了 \clist{\floatcontinue} ，通过包装\clist{\ContinuedFloat}使得子图在此命令处断页，不产生图标题，并在下一页生成图题。此两种命令均可使用，按照喜欢或需求使用。
+\clearpage
+\subsubsection{使用 ContinuedFloat}
+
+\begin{texcodeonly}[]{}
+  \begin{figure}[h]
+    \subfigg    \subfigg
+    \caption{校徽}
+  \end{figure}
+  
+  \begin{figure}[H]
+    \ContinuedFloat
+    \subfigg    \subfigg
+    \subfigg    \subfigg
+    \caption{校徽} % 或 \caption{（续）}
+  \end{figure}
+\end{texcodeonly}
+
+\begin{figure}[h]
+  \subfigg    \subfigg
+  \caption{校徽}
+\end{figure}
+
+\begin{figure}[H]
+  \ContinuedFloat
+  \subfigg    \subfigg
+  \subfigg    \subfigg
+  \caption{校徽} % 或 \caption{（续）}
+\end{figure}
+
+\subsubsection{使用 floatcontinue}
+
+\begin{texcodeonly}[]{}
+  \begin{figure}[h]
+    \subfigg    \subfigg
+    \floatcontinue{tb}
+    \subfigg    \subfigg
+    \subfigg    \subfigg
+    \caption{校徽}
+  \end{figure}
+\end{texcodeonly}
+
+\begin{figure}[h]
+  \subfigg    \subfigg
+  \floatcontinue{tb}
+  \subfigg    \subfigg
+  \subfigg    \subfigg
+  \caption{校徽}
+\end{figure}
+
+
+\clearpage
+
+\xsection{表}{Tables}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+  \begin{enumerate}[leftmargin=0.5cm]
+    \item 如某个表需要转页接排，在随后的各页上应重复表的编号。编号后跟表题（可省略）和“（续）”，如表 1-1（续），续表均应重复表头和关于单位的陈述。表格的设计应紧跟文述。表的编排一般是内容和测试项目由左至右横读，数据依序竖读，应有自明性。若为大表或作为工具使用的表格，可作为附表在附录中给出，论文中的表格参数应标明量和单位的符号；
+    \item 表中各物理量及量纲均按国际标准(SI) 及国家规定的法定符号和法定计量单位标注；
+    \item 一律使用三线表，与文字齐宽，顶线与底线线粗为 $1.5$ pt，中线线粗是 $1$ pt；
+    \item 使用他人表格须注明出处。
+    \item 表中用字为五号字体。如排列过密，用五号字有困难时，可小于五号字，但不小于七号。
+    \item 表格必须通栏，即表格宽度与正文版面平齐。
+  \end{enumerate}
+\end{tcolorbox}
+
+
+\xsubsection{普通表格}{Normal Tables}
+
+
+考虑到使用成本、内容与样式分离。模板默认调用现代化的表格绘制宏包 \clist[columbiablue]{tabularray}。该宏包的使用方法请使用 \clist{texdoc tabularray}，网上也有此手册的中文翻译。请确保使用的发行版包含这一宏包（即更新至 2023 及以后的版本）。
+
+非跨页表格应使用 tblr 环境制作表格，使用 table 作为浮动体环境，使用 \clist{\toprule}，\clist{\midrule} 和 \clist{\bottomrule} 指定三线表的三条线：
+
+\begin{texcode}[]{}
+    \begin{table}[H]
+        \caption{tblr 基本用法}
+        \label{tbl:2-1}
+        \begin{tblr}{
+            % colspec={X[r,m,2]X[c,3]X[l,1]}
+            X[r,m,2]X[c,3]X[l,1]
+        }
+            \toprule
+            Head & Test & 测试 \\
+            \midrule
+            Class that has many accessor methods and accesses a lot of external data & ATFD is more than a few & 3 \\
+            1 & 2 & 3 \\
+            1 & 2 & 3 \\
+            \bottomrule
+        \end{tblr}
+    \end{table}
+\end{texcode}
+
+tblr 环境各列的对齐方式可以以键值对的方式在必选参数中设置，或者直接作为唯一必选参数（参考 tabularray 手册第 24 页）。列类型包括 c/l/r, t/b/m, X 等。c/l/r 为默认的三种对齐方式，t/b/m 指定单元格内容超过列宽时垂直方向的对齐方式， X 类型会自动调整列宽使全表宽度与页宽一致，X 类型列的水平、垂直对齐方式以类似 X[c] 的方式在 X 后的方括号内指定。X 类型后的方括号可以指定此列宽度与其他X类列宽度的相对大小，也可使用 \clist{wd=A}直接指定列宽。推荐使用 X 作为列类型。
+
+\begin{texcode}[]{}
+    \begin{tblr}{
+        colspec={|ll|X[c]|rr|},
+        cell{1}{1}={r=3,c=2}{r,m},
+        cell{1}{3}={r=2,c=3}{l,t},
+        cell{3}{Z}={}{red},
+        hline{4-6}={2pt,blue},
+    }
+        \hline
+        1-1 & 1-2 & 1-3 & 1-4 & 1-5 \\
+        \hline
+        2-1 & 2-2 & 2-3 & 2-4 & 2-5 \\
+        \hline
+        3-1 & 3-2 & MIDDLE & 3-4 & 3-5 \\
+        % \hline (4th)
+        4-1 & 4-2 & 4-3 & 4-4 & 4-5 \\
+        % \hline (5th)
+        5-1 & 5-2 & 5-3 & 5-4 & 5-5 \\
+        % \hline (6th)
+    \end{tblr}
+\end{texcode}
+
+tabularray 的优点在于格式和内容分离，使用更贴合人类习惯。单元格的合并，文字、背景、边框的样式都可以放在参数中设置。 \clist{cell{R}{C}={merge}{style}}用于设置单元格合并，其中 R,C 指定合并单元格左上角的位置，merge参数指定合并多少行多少列，style 调整合并后的单元格样式，其中 R,C 除了使用行号进行索引，可以使用 X,Y,Z 索引倒数第三、二、一行/列，可以使用 odd/even 选择 奇/偶列，还可以使用连字符(dash)选择区间，非常方便。
+
+\xsubsection{复杂表格}{Complicated tables}
+
+在三线表中可以加辅助线，以适应较复杂表格的需要，具体使用方法请自行阅读宏包：
+
+\begin{texcode}[]{}
+\begin{table}[H]
+  \centering
+  \caption{compare with other approachs}
+  \label{table:methodcompare}
+  \begin{tblr}{
+      colspec={*{7}{X[c]}},
+      cell{1}{1}={r=2}{c,m},
+      cell{1}{2,5}={c=3}{c,m},
+      hline{2,4,6}={1pt},
+      hline{1,3,Z}={1.5pt},
+      row{4,5}={rowsep=0pt},
+      row{Z}={m,font=\bfseries},
+  }
+    Model & trigger inditification & & & Event Extraction & & \\
+    & P(\%) & R(\%) & F1(\%) & P(\%) & R(\%) & F1(\%) \\
+    Baseline1 & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 \\
+    Baseline2  & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 \\
+    Baseline3  & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 \\
+    Our approach  & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 & 76.84 \\
+  \end{tblr}
+\end{table}
+\end{texcode}
+
+\xsubsection{长表格}{Long Tables}
+
+当表格过长时，使用\clist{longtblr}环境，此时不需要浮动体环境。在可选参数中需要设置\clist{theme=xjtu_std}，以调用预先设置好的续表样式，同时设置表格标题、label、脚注等，具体使用方法请自行阅读宏包。
+
+\begin{texcodeonly}[]{}
+    \begin{longtblr}[
+        theme = xjtu_std,
+        caption = {A Long Long Long Long Long Long Long Table },
+        entry = {Short Caption},
+        label = {tblr:test},
+        note{a} = {脚注},
+        note{$\dag$} = {还是脚注},
+        remark{Note} = {注释，即表格内没有标注符号的脚注},
+        remark{Source} = {还是注释},
+    ]{
+        colspec = {XX[c]X},
+        rowhead = 1, rowfoot = 0,
+    }
+    \toprule
+    Head & Head & Head \\
+    \midrule
+    Epsilon & Zeta\TblrNote{a} & Eta \\
+    Iota & Kappa\TblrNote{$\dag$} & Lambda \\
+    Nu & Xi & Omicron \\
+    \dots 
+    Foot & Foot & Foot \\
+    \bottomrule
+    \end{longtblr}
+\end{texcodeonly}
+
+\begin{longtblr}[
+        theme = xjtu_std,
+        caption = {A Long Long Long Long Long Long Long Table },
+        entry = {Short Caption},
+        label = {tblr:test},
+        note{a} = {脚注},
+        note{$\dag$} = {还是脚注},
+        remark{Note} = {注释，即表格内没有标注符号的脚注},
+        remark{Source} = {还是注释},
+    ]{
+        colspec = {XX[c]X},
+        rowhead = 1, rowfoot = 0,
+    }
+    \toprule
+    Head & Head & Head \\
+    \midrule
+    Head & Head & Head \\
+    Alpha & Beta & Gamma \\
+    Epsilon & Zeta\TblrNote{a} & Eta \\
+    Iota & Kappa\TblrNote{$\dag$} & Lambda \\
+    Nu & Xi & Omicron \\
+    Rho & Sigma & Tau \\
+    Phi & Chi & Psi \\
+    %
+    % ......
+    Alpha & Beta & Gamma \\
+    Epsilon & Zeta & Eta \\
+    Iota & Kappa & Lambda \\
+    Nu & Xi & Omicron \\
+    Rho & Sigma & Tau \\
+    Phi & Chi & Psi \\
+    % Foot & Foot & Foot \\
+    Alpha & Beta & Gamma \\
+    \midrule
+    Epsilon & Zeta & Eta \\
+    Iota & Kappa & Lambda \\
+    Nu & Xi & Omicron \\
+    Rho & Sigma & Tau \\
+    Phi & Chi & Psi \\
+    Foot & Foot & Foot \\
+    Alpha & Beta & Gamma \\
+    Epsilon & Zeta & Eta \\
+    Iota & Kappa & Lambda \\
+    Nu & Xi & Omicron \\
+    Rho & Sigma & Tau \\
+    Phi & Chi & Psi \\
+    Foot & Foot & Foot \\
+    Alpha & Beta & Gamma \\
+    Epsilon & Zeta & Eta \\
+    Iota & Kappa & Lambda \\
+    Nu & Xi & Omicron \\
+    Rho & Sigma & Tau \\
+    Phi & Chi & Psi \\
+    Foot & Foot & Foot \\
+    \bottomrule
+\end{longtblr}

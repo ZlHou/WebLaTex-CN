@@ -1,0 +1,69 @@
+% !TeX root = ../main.tex
+
+\xchapter{参考文献与交叉引用}{Crossreferences}
+
+注意，当引用时出现 [?] 时，可能有有多种原因造成，首先请确定是否使用了 biber 编译模板，再请注意查看辅助文件是否正常生成，此种问题大部分情况是使用不当而非模板设置造成的。
+
+\xsection{基于 Label 的引用}{Ref labels}
+
+% \xsubsection{引用公式}{Ref equations}
+
+% 引用公式使用 \clist{\eqref{label}} 命令，将引用公式的编号（带括号）：
+
+% \begin{texcode}[]{}
+%   如式 \eqref{eqn:c1:diff} 所示
+% \end{texcode}
+
+% \xsubsection{引用其他内容}{Ref other labels}
+
+基于 \clist{\label{}} 编号的引用，可以通过 \clist[columbiablue]{cleveref} 提供的 \clist{\cref} 实现，它可以通过识别 label 的类型，自动为引用添加前缀。具体的使用方法可以查看该宏包的文档。
+
+应当这样使用 \clist{\label{TYPE:NAME}}，其中 TYPE 指此标签的类型，应当使用模板提供的或自行指定；NAME 为此标签的名称，可以自行定义，不应当重复。模板为所有举例过的环境预设了类型，其中在\cref{section:Environments for math}中预设了 $12$种数学环境，则其 TYPE 与该环境的「环境」列保持一致，其余类型的定义见下：
+
+\begin{texcode}[]{}
+  如\cref{equation:c1:diff} 所示 \\
+  如\crefrange{equation:c1:exp}{equation:c1:diff} 所示 \\
+  如\cref{equation:c1:diff,equation:c1:exp,equation:c1:mdl:cstr_dis} 所示 \\
+  如\cref{figure:icon} 所示，如\cref{subfigure:icon} 所示 \\
+  如\cref{table:methodcompare} 所示 \\
+  如\cref{algorithm:SOH} 所示 \\
+  如\cref{listing:a_label} 所示 \\
+  如\cref{theorem:pt} 所示
+\end{texcode}
+
+模板只对数学公式设置了多种引用时的样式，并未对其他类型设置，如果有使用的需要，请自行查看手册与模板文件模仿修改。
+
+\xsection{参考文献}{References}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+  \begin{enumerate}[leftmargin=0.5cm]
+    \item 参考文献的著录格式应符合国家标准GB/T 7714-2015《文后参考文献著录规则》。参考文献中每条项目应齐全。
+    \item 参考文献里面标点符号：英文文献用半角,中文文献用全角。
+  \end{enumerate}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black]
+  \begin{enumerate}[leftmargin=0.5cm]
+    \item 文后著录的参考文献务必实事求是。论文中引用过的文献必须著录，未引用的文献不得出现。应遵循学术道德规范，避免涉嫌抄袭、剽窃等学术不端行为。
+    \item 参考文献一般应是作者亲自考察过的对学位论文有参考价值的文献，除特殊情况外，一般不应间接引用。
+    \item 参考文献应有权威性，要注意引用最新的文献。
+    \item 参考文献的数量：
+    博士学位论文，一般应在80篇以上，其中，期刊文献60篇以上，国外文献30篇以上，均以近5年的文献为主。
+    硕士学位论文，一般应在30篇以上，其中，期刊文献不少于20篇，国外文献不少于10篇，均以近5年的文献为主。
+  \end{enumerate}
+\end{tcolorbox}
+
+模板使用 biblatex 编译参考文献，默认采用顺序编码制，有多种引用参考文献的方式，请自行查阅 biblatex-gbt-7715-2015 宏包，即 \clist{texdoc biblatex-gbt-7714-2015}。
+
+在导言区使用\clist{\addbibresource{path/to/.bib file}}添加参考文献数据库，默认参考文献数据库位于 ./References/ 下。
+
+这里主要举例三种引用方式，使用 \clist{\cite{ref}} 的引用结果作为上标出现在正文中，使用 \clist{\parencite{ref}} 的引用结果作为正文内容（一个名词）出现在正文中，使用 \clist{\footfullcite{ref}} 的引用结果作为脚注内容在脚注部分出现。
+
+
+
+\begin{texcode}[]{}
+  这是一个比较常见的问题 \cite{barella_situ_2021}。可以发现 xxxx \cite{atta_enhanced_2021}。\\
+  文献\parencite{张燕2013电气自动化在电气工程中的应用探讨} 提出了 xxx，文献 \parencite{黄雪芳2012探讨电气工程中自动化技术的应用} 则提出了 yyy。
+\end{texcode}
+
+\footnote{这是脚注1}根据 zzz 发布的报告 \footfullcite{王磊2011电气自动化控制设备可靠性探究}，可以发现\footnote{这是脚注2}

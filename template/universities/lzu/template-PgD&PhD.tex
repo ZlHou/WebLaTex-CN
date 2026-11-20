@@ -1,0 +1,380 @@
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+
+% \documentclass[AutoFakeBold]{LZUThesis}
+\documentclass[AutoFakeBold]{LZUThesis-PgD&PhD}
+
+
+\begin{document}
+%=====%
+%
+%封皮页填写内容
+%
+%=====%
+
+
+
+\schoolcode{10730}
+\secret{公开}
+\cid{请修改成你自己专业相关的分类号，如23333}
+\yjsType{博士}
+% \yjsType{硕士}
+
+\yjsZsZy{\quad 学\quad 术\quad 学\quad 位\quad}
+% \yjsZsZy{\quad 专\quad 业\quad 学\quad 位\quad}
+
+
+% 标题样式 使用 \title{{}}; 使用时必须保证至少两个外侧括号
+%  如： 短标题 \title{{第一行}},
+% 	      长标题 \title{{第一行}{第二行}}
+%             超长标题\tiitle{{第一行}{...}{第N行}}
+\title{{中文}{标题}}
+
+% 标题样式 使用 \entitle{{}}; 使用时必须保证至少两个外侧括号
+%  如： 短标题 \entitle{{First row}},
+% 	      长标题 \entitle{{First row}{ Second row}}
+%             超长标题\entitle{{First row}{...}{ Next N row}}
+% 注意：  英文标题多行时 需要在开头加个空格 防止摘要标题处英语单词粘连。
+\entitle{{ English}{ Title}}
+
+\author{作者姓名}
+
+\major{一级学科·专业}
+% \major{专业学位类型·培养领域}
+
+\research{研究方向}
+
+\education{学历教育/同等学力人员申请博士学位}
+% \education{学历教育/同等学力人员申请硕士学位}
+% \education{学历教育/同等学力人员申请硕士学位/在职攻读硕士专业学位（非学历）}
+
+\advisor{xxx 教授/研究员}
+\codvisor{xxx 教授/研究员} %合作导师，可为空，但不可没有这一栏
+\elapse{2020 年 7 月\quad 至 \quad 2021 年 3 月}
+\defense{2021 年 5 月}
+
+\maketitle
+
+%======%
+%诚信说明页
+%授权说明书
+%======%
+% 如果超出边界，可以调整签字的宽度，现在是50，如果你不用，把下面的注释就好
+
+% 你的签名
+\mysignature{
+    % \raisebox{-5pt}{
+    % \includegraphics[width=40pt]{signature.pdf}
+    % }
+}
+% 你手写的日期
+\mytime{
+    % \raisebox{-5pt}{
+    % \includegraphics[width=40pt]{signature.pdf}
+    % }
+}
+% 老师的手写签名
+\supervisorsignature{
+    % \raisebox{-5pt}{
+    % \includegraphics[width=40pt]{signature.pdf}
+    % }
+}
+% 老师手写的时间
+\teachertime{
+    % \raisebox{-5pSt}{
+    % \includegraphics[width=40pt]{signature.pdf}
+    % }
+}
+% 老师手写的成绩
+\recommendedgrade{
+    % \raisebox{-5pt}{
+    % \includegraphics[width=40pt]{signature.pdf}
+    % }
+}
+
+\makestatement
+
+
+\frontmatter
+
+
+
+%中文摘要
+\ZhAbstract{空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页 空白页}{关键词1，关键词2}
+
+
+%英文摘要
+\EnAbstract{example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example example .
+    % \fontspec{Times New Roman} {Times New Roman}
+}{key-word-1,key-word-2}
+
+%生成目录
+% \tableofcontents
+% 下面这个包含图表目录
+\customcontent
+
+% % 部分同学需要专业术语注释表，* 表示不加入目录
+% \chapter*{专业术语注释表}
+% \begin{longtable}{lll}
+%   \caption*{缩略词说明}\\
+%   SS & Spread Spectrum & 扩展频谱 \\
+%   PAPR & Peak to Average Power Ratio & 峰均比\\
+%   DCSK & Differential Chaos Shift Keying &差分混移位键控\\
+%   dasd & fdhfudw eqwrqw fasfasfs fewev wqfwefew &\tabincell{l}{太长了\\换行一下}\\
+% \end{longtable}
+
+%文章主体
+\mainmatter
+
+\chapter{注意事项}
+
+\section{编译方式}
+
+ {\bfseries 编译方式:} xelatex --> biber --> xelatex--> xelatex，注意命令后面不包含.tex，而是直接 xelatex template 和 biber template
+
+如果你和我一样使用Atom编辑器，在配置好latex环境后，选择 文件--> 设置 --> 拓展 --> latex --> 设置 --> Engine，修改为XeLatex即可。
+
+\section{插入图片}
+
+\begin{figure}[hbt!]
+    \includegraphics[width=0.95\textwidth]{example-image-a}
+    \centering
+    \caption{示例图片A：多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字}
+    \label{fig:obj_dect}
+\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    \subfloat[111]{
+        \includegraphics[width=0.3\textwidth]{figures/lzu2007.png}
+    }
+    \subfloat[2222]{
+        \includegraphics[width=0.3\textwidth]{figures/lzu2020.png}
+    }
+    \caption{两个图：多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字多点字}
+    \label{fig_ldr}
+\end{figure}
+
+尽管对论文图片的大小没有具体的规定，但还是建议插入可以横向占满可写宽度的图片比较好看，一个示例如上图：
+
+% \begin{verbatim}
+% \begin{figure}[hbt!]
+%   \includegraphics[width=0.95\textwidth]{example-image-a}
+%   \centering
+%   \caption{示例图片A}
+%   \label{fig:example-a}
+% \end{figure}
+% \end{verbatim}
+
+
+
+\section{公式}
+
+\subsection{一般公式}
+\subsubsection{一般公式22}
+
+一般公式手敲即可。
+
+% \begin{verbatim}
+% \begin{equation}\label{eq:sip}
+%   a_1 + b_2 = 3
+% \end{equation}
+% \end{verbatim}
+
+
+\begin{equation}\label{eq:sip}
+    a_1 + b_2 = 3
+\end{equation}
+
+
+\subsection{多行公式}
+
+多行公式，对于不想要标号的部分，可以使用nonumber进行标注：
+
+% \begin{verbatim}
+% \begin{gather}\label{eq:add}
+% 1+1=2 \\
+% 2+2=4 \\
+% 3+3=6 \nonumber
+% \end{gather}
+% \end{verbatim}
+
+\begin{gather}\label{eq:add}
+    1+1=2 \\
+    2+2=4 \\
+    3+3=6 \nonumber
+\end{gather}
+
+\subsection{多情况公式}
+带括号的多种情况的公式，其中X为数学粗体。
+
+% \begin{verbatim}
+% \begin{equation}\label{eq:multi}
+%   \mathbf{X}=
+%     \begin{cases}
+%       k_n \quad & n \ = \ 1 \\
+%       \mathbf{X}_n \ = \mathbf{X}_{n-1}\ +\ (k_n-1)\times S_{n-1};
+%       \quad & n \geq \ 1\\
+%     \end{cases}
+% \end{equation}
+% \end{verbatim}
+
+\begin{equation}\label{eq:multi}
+    \mathbf{X}=
+    \begin{cases}
+        k_n \quad & n \ = \ 1  \\
+        \mathbf{X}_n \ = \mathbf{X}_{n-1}\ +\ (k_n-1)\times S_{n-1};
+        \quad     & n \geq \ 1 \\
+    \end{cases}
+\end{equation}
+
+\subsection{公式加粗、斜体、字体}
+
+公式、字母加粗、字体问题
+
+\begin{itemize}
+    \item[1.] 正文 \qquad \quad AHEMoS$\alpha \beta$
+    \item[2.] 公式 \qquad \quad $AHEMoS \alpha \beta$
+    \item[3.] mathbf \qquad $\mathbf{AHEMoS\alpha \beta}$
+    \item[4.] boldsymbol $\boldsymbol{AHEMoS\alpha \beta}$
+    \item[5.] mathbb \qquad $\mathbb{AHEMoS\alpha \beta}$
+          % \item [5. bm] $\bm{AHEMoS\alpha \beta}$
+\end{itemize}
+
+这个加粗、斜体、英文字体（含正文和公式内字体），有不同的处理方式，在 .cls 模板文件文件搜索 bm 查看详细说明
+
+
+测试不同情况：$\mathcal{P}\mathcal{T}$ 就是宋敏\songti{玥}这个玥编译不出来，一般linux上容易出现这个问题，问AI怎么自定义局部字体，或在windows环境编译
+
+\subsection{一些特殊符号}
+
+\begin{itemize}
+    \item 普朗克常量 hslash ：$\hslash$
+    \item 普朗克常量 hbar ：$\hbar$
+    \item 花体 mathscr ：$\mathscr{ABCFR}$
+    \item 花体 mathcal ：$\mathcal{ABCFR}$
+    \item Fraktur字母 ：$\mathfrak{ABCFR}$
+\end{itemize}
+
+
+\section{表格}
+
+三线表格式：
+
+测试测试测试测测试测试测试测试测试测试测试测试测测试测试测试测试测试测试测试测试测测试测试测试测试测试测试测试测试测测试测试测试测试测试测试测试测试测测试测试测试测试测试
+
+% \begin{verbatim}
+% \begin{table}[hbt!]\label{tbl:mole}
+%   \centering
+%   \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill}}cccccc}
+%     \toprule
+%         参数& m & n & \tabincell{c}{太长了\\换行一下\\原子数}  & 内径 & 长度\\
+%     \midrule
+%     数值 & 15 & 15  & 2880 & 2.3014nm & 9.95nm \\
+%     \bottomrule
+%   \end{tabular*}
+%   \caption{table example}
+% \end{table}
+% \end{verbatim}
+
+\begin{table}[hbt!]\label{tbl:mole}
+    \centering
+    \begin{tabular*}{0.9\textwidth}{@{\extracolsep{\fill}}cccccc}
+        \toprule
+        参数& m & n & \tabincell{c}{太长了\\换行一下\\原子数}  & 内径 & 长度\\
+        \midrule
+        数值 & 15 & 15  & 2880 & 2.3014nm & 9.95nm \\
+        \bottomrule
+    \end{tabular*}
+    \caption{table example}
+\end{table}
+
+
+\section{引用}
+
+\subsection{论文引用}
+
+建议以 web of science 或者文献官网导出的bib为准，请不要使用百度学术、谷歌学术的bib，错误很多，\cite{partl2016, tenne1992polyhedral, tussyadiah2015hotels}。
+
+\begin{itemize}
+    \item 原本科模板\cite{partl2016}
+    \item 中文“等”测试\cite{partl2021}
+    \item 大写字母测试\cite{partl2022-2}
+    \item 连接符号测试\cite{partl2022-3}
+    \item 中文空格测试\cite{partl2022}
+    \item 连续显示\cite{partl2021,partl2022-2,partl2022-3}
+    \item 右上角\supercite{partl2016,partl2021,partl2022-2}，如果全文需要，删除cls文件中的', citestyle=numeric' 内容
+    \item 中文参考文献 \cite{李刚2006基于动态光谱的脉搏血氧测量精度分析}
+    \item 标题中特殊符号，bib中双层大括号即可 \cite{PhysRevLett.108.024101}
+    \item 更多测试（zotero导出）\cite{huangInvestigationThermalRectification2024, wanModulatingThermalConductivity2024, wuThermalRectificationAsymmetric2024, xiaoMOFNanozymemediatedAcetylcholinesterasefree2024}
+\end{itemize}
+
+\section{图表引用}
+
+% \begin{verbatim}
+% 如\hyperref[tbl:mole]{表 1-1}所示。
+% \end{verbatim}
+
+使用label和hyperref进行引用，引用时用图标的意义命名，尽量少用类似tbl:3-1这样，而是eq:sum-up这样有意义的，如\hyperref[tbl:mole]{表 1-1}所示。
+
+\section{其他}
+
+
+伪代码
+
+\begin{algorithm}[H]
+    \caption{PMHSS 算法\label{Alg:PMHSS}}
+    \begin{algorithmic}[1]
+        \State 给定一个初值 $ x^{(0)} \in C^{n} $  和常数 $\alpha>0$
+        \For{$k = 1,2, \ldots $ 直到序列 $\{x^{(k)}\}_{k=0}^{\infty}$ 收敛}
+        \State 解方程: $(\alpha V+W)x^{(k+\frac{1}{2})}=(\alpha V-i T)x^{(k)}+b $
+        \State 解方程: $(\alpha V+T)x^{(k+1)}=(\alpha V+i W)x^{(k+\frac{1}{2})}-i b$
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+使用\textbackslash blank 来空行，\textbackslash blackpage 来空白页。
+空行用在在校成果罗列，空白页用来补充双页打印留白。
+
+无blank
+
+\blank
+
+间隔blank
+\blankpage
+
+
+
+
+%论文后部
+\backmatter
+
+
+%=======%
+%引入参考文献文件
+%=======%
+\printbib
+% \nocite{*} %显示数据库中有的，但是正文没有引用的文献
+
+
+
+\Achievements
+一、发表论文
+
+1.Article here sd
+
+\blank
+
+二、参与课题
+
+
+
+
+\Thanks
+
+这里是致谢页。
+
+
+
+\end{document}

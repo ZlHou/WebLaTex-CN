@@ -1,0 +1,125 @@
+\documentclass[type=master]{bithesis}
+
+\BITSetup{
+  % 在目录页中不显示摘要和主要符号对照表的标题。
+  TOC = {
+    abstract = false,
+    abstractEn = false,
+    symbols = false,
+  },
+  % 采用章节标题级别的附录格式
+  appendices / chapterLevel = true,
+  style = {
+    head = \BIThesis \isGraduateTF{研究生学位论文}{本科生毕业设计（论文）} \LaTeX 模板快速使用指南,
+    pageVerticalAlign = top,
+    % 开启 Windows 平台下的中易宋体伪粗体。
+    % windowsSimSunFakeBold = true,
+  },
+  misc/hideLinks = false,
+}
+
+\usepackage{booktabs}
+\usepackage{hologo}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{dirtree}
+\usepackage{upgreek}
+\usepackage{subcaption}
+
+\usepackage{relsize}
+\makeatletter
+\def\matex@ssize{\smaller\scshape}
+\DeclareRobustCommand{\BIThesis}{
+  \texorpdfstring{\mbox{
+      \kern-0.5em{B}\kern-0.05em
+      {I}\kern-0.05em
+      {T}\kern-0.1em
+      \raisebox{-0.38ex}{\matex@ssize {H}}\kern-0.1em
+      {\matex@ssize {E}}\kern-0.05em
+      \raisebox{-0.38ex}{\matex@ssize {S}}\kern-0.05em
+      {\matex@ssize {I}}\kern-0.05em
+      \raisebox{-0.35ex}{\matex@ssize {S}}\kern-0.5em
+      \kern 1ex
+     }}{BIThesis}
+}
+\makeatother
+
+\usepackage[
+  defernumbers=true,
+  backend=biber,
+  style=gb7714-2015,
+  gbalign=gb7714-2015,
+  gbnamefmt=lowercase,
+  gbpub=false,
+  gbannote=true,
+  gbpunctin=false,
+  doi=false,
+  url=false,
+  eprint=false,
+  isbn=false,
+]{biblatex}
+
+\addbibresource{reference/main.bib}
+
+\usepackage{cleveref}
+% https://bithesis.bitnp.net/faq/cleveref.html#customize
+\crefformat{equation}{式~#2(#1)#3}
+\crefrangeformat{equation}{式~#3(#1)#4 至~#5(#2)#6}
+\crefmultiformat{equation}{式~#2(#1)#3}{和~#2(#1)#3}{、#2(#1)#3}{和~#2(#1)#3}
+
+\ExplSyntaxOn
+
+\NewDocumentCommand{\getenv}{om}
+ {
+  \sys_get_shell:nnN { kpsewhich ~ --var-value ~ #2 } { } \l_tmpa_tl
+  \tl_trim_spaces:N \l_tmpa_tl
+  \IfNoValueTF { #1 }
+   {
+    \tl_use:N \l_tmpa_tl
+   }
+   {
+    \tl_set_eq:NN #1 \l_tmpa_tl
+   }
+ }
+
+ \tl_gset:Nn \GRADUATE {}
+ \getenv[\GRADUATE]{GRADUATE}
+
+  % 若为研究生，显示第一个参数；若为本科生，显示第二个参数。
+  % 命令内部不能使用 lstlisting 环境，原因如下。可用 \lstinputlisting 绕开。
+  % Verbatim material can't be placed in a macro argument because then the material got already parsed by TeX and the switching to verbatim mode comes to late.
+  % https://tex.stackexchange.com/a/122055
+ \NewDocumentCommand{\isGraduateTF}{ +m +m } {
+   \str_if_eq:VnTF \GRADUATE { true } { #1 } { #2 }
+ }
+
+\ExplSyntaxOff
+
+\begin{document}
+
+\input{chapters/cover.tex}
+
+\frontmatter
+
+\MakeTOC
+
+\mainmatter
+
+\input{chapters/ch0-quick-start.tex}
+\input{chapters/ch1-intro.tex}
+\input{chapters/ch2-template-usage.tex}
+\input{chapters/ch3-latex-syntax.tex}
+
+\backmatter
+
+\begin{bibprint}
+  \printbibliography[heading=none,notcategory=mypub,resetnumbers=true]
+\end{bibprint}
+
+\input{chapters/conclusion.tex}
+
+\input{chapters/appendices.tex}
+
+\input{chapters/acknowledgements.tex}
+
+\end{document}

@@ -1,0 +1,58 @@
+% <https://github.com/tuna/thuthesis/issues/1043>
+
+\input{regression-test}
+\documentclass[degree=doctor, fontset=fandol]{ustcthesis}
+
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+\START
+\showoutput
+
+式（3.1）\par
+
+\setcounter{chapter}{3}
+
+\TEST{Chinese fullwidth equation parentheses}{
+  式~\eqref{eq:example}\par
+  式 \eqref{eq:example}\par
+  式\eqref{eq:example}\par
+}
+
+\ustcsetup{eqn-paren-style = half}
+
+\TEST{Chinese halfwidth equation parentheses}{
+  式~\eqref{eq:example}\par
+  式 \eqref{eq:example}\par
+  式\eqref{eq:example}\par
+}
+
+\ustcsetup{eqn-paren-style = full}
+
+\ustcsetup{language = english}
+
+\TEST{English equation parentheses}{
+  equation~\eqref{eq:example}\par
+  equation \eqref{eq:example}\par
+  equation\eqref{eq:example}\par
+}
+
+\clearpage
+
+\begin{equation}
+  y = f(x)
+  \label{eq:example}
+\end{equation}
+
+% `showonlyrefs` 下 `\eqref` 必须是 robust/protected 的，
+% 否则在 caption 等移动参数中会报错。
+\begin{figure}
+  \caption{式 \eqref{eq:example}}
+\end{figure}
+
+\OMIT
+\end{document}

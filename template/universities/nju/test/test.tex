@@ -1,0 +1,273 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 本文档用于测试 njuthesis 是否正常工作
+% 其内容不具有任何参考意义
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifdefined\TEST\else
+  % 自行编译前需反注释以下任意命令
+  \documentclass{njuthesis}
+  % \documentclass[minimal]{njuthesis}
+  % \documentclass[type=master]{njuthesis}
+  % \documentclass[type=doctor]{njuthesis}
+  % \documentclass[type=postdoc]{njuthesis}
+  % \documentclass[oneside]{njuthesis}
+  % \documentclass[cjk-font=noto,latin-font=gyre]{njuthesis}
+  % \documentclass[cjk-font=source,latin-font=gyre]{njuthesis}
+  % \documentclass[cjk-font=founder,latin-font=gyre]{njuthesis}
+  % \documentclass[decl-page]{njuthesis}
+  % \documentclass[draft]{njuthesis}
+\fi
+
+\njusetup[info]{
+    title = {一种使用南京大学 \hologo{LaTeX} 模板\\编写毕业论文的经验性方法},
+    title* = {An Empirical Way of Composing Thesis with NJU \hologo{LaTeX} Template},
+    keywords = {我,就是,充数的,关键词},
+    keywords* = {Dummy,Keywords,Here,{it is}},
+    grade = {2018},
+    % student-id = {DZ18114514},
+    student-id = {189114514},
+    author = {周煜华},
+    author* = {Zhou~Yuhua},
+    department = {拉太赫科学与技术学院},
+    department* = {School~of~\hologo{LaTeX}},
+    major = {拉太赫语言学},
+    major* = {\hologo{LaTeX}~Linguistics},
+    field = {拉太赫语言在现当代的使用},
+    field* = {Contemporary~Usage~of~the~\hologo{LaTeX}~Language},
+    supervisor = {李成殿,教授},
+    supervisor* = {Professor Li Chengdian},
+    % supervisor-ii = {孙赫弥,副教授},
+    % supervisor-ii* = {Associate~professor~Sun~Hemi},
+    % submit-date = {2021-08-10},
+    % defend-date = {2021-09-19},
+    chairman = {张晓山~教授},
+    reviewer = {王瑞希~教授,郭德纲~副教授,华芈库~教授,戴菲菲~教授},
+    clc = {0175.2},
+    secret-level = {限制},
+    udc = {004.72},
+    supervisor-contact = {拉太赫科学与技术学院~枝江市结丘路~19~号~114514}
+}
+\njusetup[bib]{
+    % style = author-year,
+    resource = {test.bib},
+    option = {doi=false, isbn=false, url=false, eprint=false}
+}
+\njusetup[image]{
+    nju-emblem = {wug},
+    nju-name   = {name}
+}
+\njusetup[abstract/title-style]{natural}
+\njusetup{
+    abstract/toc-entry = false,
+    tableofcontents/toc-entry = false,
+    math/style = ISO
+}
+\njusetup[theorem]{
+    style       = remark,
+    header-font = \sffamily\bfseries,
+    body-font   = \ttfamily,
+    qed-symbol  = \ensuremath { \male },
+    counter     = section,
+    define,
+}
+
+\njusetup[footnote]{
+  style={circled},
+  circledtext-option={resize=none,boxcolor=blue,boxtype=ox+,boxfill=red!30}
+}
+
+% \addbibresource{test.bib}
+
+% \ctexset{
+%   contentsname   = { 目\qquad{}次 },
+%   listfigurename = { 插图清单 },
+%   listtablename  = { 表格清单 }
+% }
+
+\njusetname{notation}{术语表}
+\njusetname{tableofcontents}{目\qquad{}次}
+\njusetname{listoffigures}{插图清单}
+\njusetname{listoftables}{表格清单}
+\njusetname{abstract}[b]{我是摘要}
+\njusetname*{abstract}[b]{Abstract}
+% \njusetlength{coveruline}{330pt}
+\njusetformat{chapter}{\raggedleft\kaishu\zihao{-1}}
+
+% \usepackage{multirow,tabularray,wrapfig,subcaption}
+% \usepackage{listings,algorithm,algorithmic}
+% \usepackage{siunitx,physics,chemfig}
+% \usepackage[version=4]{mhchem}
+\usepackage{hologo,blindtext,zhlipsum,mathtools}
+
+% \setmonofont{cmun}[
+%   Extension      = .otf,
+%   UprightFont    = *btl,
+%   BoldFont       = *tb,
+%   ItalicFont     = *bto,
+%   BoldItalicFont = *tx,
+%   HyphenChar     = None]
+
+% \lstdefinestyle{njulisting}
+%   {
+%     basewidth    = 0.5 em,
+%     lineskip     = 3 pt,
+%     basicstyle   = \tiny\ttfamily,
+%     keywordstyle = \bfseries\ttfamily\color{njuviolet},
+%     commentstyle = \itshape\ttfamily\color{gray},
+%     stringstyle  = \color{njumagenta},
+%     numbers      = left,
+%     captionpos   = t,
+%     breaklines   = true,
+%     xleftmargin  = 2 em,
+%     xrightmargin = 2 em
+%   }
+% \lstset{
+%     style        = njulisting,
+%     flexiblecolumns
+%   }
+% % \lstMakeShortInline[
+% %   style=njulisting,
+% %   basicstyle=\normalsize\tt,
+% %   columns=fixed]|
+
+% \setchemfig{
+%   atom sep=14.4pt,
+%   double bond sep=2.6pt,
+%   bond style={line width=0.6pt},
+%   cram width=2.0pt,
+%   bond offset=1.6pt
+% }
+% \renewcommand*\printatom[1]{\small\ensuremath{\mathsf{#1}}}
+
+% https://tex.stackexchange.com/questions/33264/span-as-a-math-operator
+\DeclareMathOperator{\spn}{span}
+\NewDocumentCommand\mathbi{m}{\textbf{\em #1}}
+
+\begin{document}
+
+% \frontmatter
+\maketitle
+
+% \begin{preface}
+%   感慨万千，一时语塞。实在不知道写啥好，表演个朗诵课文吧。
+
+%   \zhlipsum[108-110][name=zhufu]
+
+%   \vspace{1cm}
+%   \begin{flushright}
+%     某人\\
+%     2021年初秋于扬州
+%   \end{flushright}
+% \end{preface}
+
+\begin{abstract}
+  \zhlipsum[76-90][name=zhufu]
+\end{abstract}
+
+\begin{abstract*}
+  \blindtext
+\end{abstract*}
+
+\raggedbottom
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter
+
+\begin{notation}[10cm]
+  \item[DMRG] 密度矩阵重整化群 (Density-Matrix Reformation-Group)
+  \item[DFT] 密度泛函理论 (Density functional theory)
+  \item[PCR] 聚合酶链式反应 (Polymerase Chain Reaction)
+  \item[HTTP] 超文本传输协议 (Hypertext Transfer Protocol)
+  \item[CSS] 层叠样式表 (Cascading Style Sheets)
+  \item[GUI] 图形用户界面 (Graphical User Interface)
+  \item[CLI] 命令行界面 (Command-Line Interface)
+  \item[IPO] 首次公开募股 (Initial Public Offering)
+  \item[CDO] 抵押债务证券 (Collateralized Debt Obligations)
+  \item[IPR] 国内称为贷款基础利率，美国、香港等地则称为最优惠贷款利率 (Loan Prime Rate)
+  \item[$k_\mathrm{B}$] 玻尔兹曼常数
+  \item[$h$] 普朗克常数
+  \item[$\hbar$] 约化普朗克常数
+  \item[$c$] 光速
+  \item[$x$] 坐标
+  \item[$p$] 动量
+  \item[$t$] 时间
+  \item[$\mu$] 约化质量
+  \item[$I$] 转动惯量
+  \item[呜呜呜] 特别长会怎样呢哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+  \item[呜呜呜] 特别长会怎样呢哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+  \item[呜呜呜] 特别长会怎样呢哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+  \item[呜呜呜] 特别长会怎样呢哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+\end{notation}
+
+\chapter[非常长的标题不好看]{如果标题非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长会怎样呢}
+\label{ch:longtitle}
+\section[还是用短点的吧]{如果标题非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常非常长会怎样呢}
+\cref{ch:longtitle}答案是使用可选参数：\verb+\chapter[短描述]{完整的长标题}+
+
+\zhlipsum[1-10][name=zhufu]
+
+\subsection{测试}
+
+\zhlipsum[11-20][name=zhufu]
+
+\section{列表环境}
+
+\begin{itemize}
+    \item 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+    \item 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+    \item 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+\end{itemize}
+
+\begin{enumerate}
+    \item 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+    \item 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+    \item 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+\end{enumerate}
+
+\begin{description}
+    \item[测试测试] 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测
+    \item[测试测试] 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测
+    \item[测试测试] 测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测
+\end{description}
+
+\chapter{脚注}
+
+测试脚注的编号效果%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+\footnote{测试测试测试测试测试测试测试测试测试测试测试测试}%
+
+\input{chapters/FigAndTab}
+% \input{chapters/Specific}
+\input{chapters/Mathematics}
+\input{chapters/Bibliography}
+
+\printbibliography
+
+\begin{acknowledgement}
+  感谢\href{https://git.nju.edu.cn/nju-lug/lug-introduction}{NJU Linux User Group}。
+\end{acknowledgement}
+
+% \appendix
+
+% \input{chapters/Achievements}
+% \input{chapters/Standard}
+
+\end{document}

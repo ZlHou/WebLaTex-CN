@@ -1,0 +1,196 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+% ------------------------------------------------
+%
+% 台灣國立成功大學(NCKU)碩博士論文排版設定
+%
+% 基礎於陳朝鈞老師所提供的模版中的'utdiss.sty'進行了重新編寫和修改,
+% 以對應模版設計和新版的LaTeX (如LaTeX 3).
+% 有關修改內容可參考 <https://github.com/wengan-li/ncku-thesis-template-latex> 中
+% 的CHANGELOG.md.
+% 對這檔案修改的版本和大約時間為:
+%         v1.0.0 [Oct 14, 2014 ] 和更早的時間
+%         v1.3.0 [Oct 26, 2016]
+%         v1.4.1 [May 19, 2016]
+%         v1.4.4 [May 25, 2016]
+%         v1.4.5 [June 2, 2016]
+%         v1.5.0 [Sep 11, 2016]
+%         v1.5.2 [Jan 14, 2017]
+%         v1.5.3 [Jul 11, 2018]
+%         v1.5.7 [Jun 23, 2019]
+%
+% 原生自utdiss.sty
+% utdiss.sty --- Version 2.1.1 (April 1992)
+% Doctoral Dissertation Format Macros for The Univ. of Texas at Austin
+%     By Young U. Ryu
+%     Modified by Glenn G. Lai for LaTeX2e (May 1995)
+%
+% ------------------------------------------------
+
+\RegisterTemplateStyle{ncku}
+
+% NCKU-owned college and department catalogue. Keep this profile-scoped so a
+% custom institution loads only the portable metadata contract from base/command.
+\input{./template/style/ncku/college}
+\input{./template/style/ncku/department}
+
+% NCKU cover/oral text policy. Renderers consume these profile tokens.
+\SetCoverStudentChiBothText{學生}
+\SetCoverStudentChiText{研究生}
+\SetCoverStudentEngText{Student}
+\SetCoverAdvisorChiText{指導老師}
+\SetCoverAdvisorEngText{Advisor}
+\SetCoverCoAdvisorChiText{共同指導}
+\SetCoverCoAdvisorEngText{Co-Advisor}
+\SetCoverAdvisorChiSuffix{博士}
+\SetCoverAdvisorEngPrefix{Dr.}
+\SetInstitutionLocationEng{Tainan, Taiwan, R.O.C.}
+\SetCoverDateChiPrefix{中華民國}
+\SetOralApprovalChiText{本論文業經審查及口試合格特此證明}
+\SetOralApprovedByEngText{Approved by}
+\SetOralCommitteeChiText{論文考試委員}
+\SetOralAdvisorChiText{指導教授}
+\SetOralChairChiText{系(所)主管}
+\SetOralChairEngText{Chairman}
+\SetOralDateChiPrefix{中華民國}
+\SetOralAuthorByEngText{by}
+\SetOralMasterSubmissionEngText{%
+  A thesis submitted to the graduate division in partial fulfillment\\%
+  of the requirements for the degree of Master of Science in%
+}
+\SetOralDoctoralSubmissionEngText{%
+  Submitted in partial fulfillment of the requirements\\%
+  for the degree of Doctor of Philosophy in%
+}
+\SetCoverMasterDateEng{\GetThesisMonthInEng \thinspace \GetThesisYear}
+\SetCoverDoctoralDateEng{%
+  \GetOralEngDay \thinspace \thinspace
+  \GetThesisMonthInEng \thinspace \thinspace \GetThesisYear%
+}
+
+% NCKU degree-examination committee ranges. Keep the generic renderer capable
+% of 2--9 signatures; this profile owns the degree-specific policy.
+\renewcommand{\ApplyCommitteeSizePolicy}[1]{%
+  \ifthenelse{\equal{\GetFlagDegreeType}{\ValueDegreeMaster}}%
+    {%
+      \ifthenelse{#1 < 3}
+        {\renewcommand{\CommitteeSize}{3}}
+        {\ifthenelse{#1 > 5}
+          {\renewcommand{\CommitteeSize}{5}}
+          {\renewcommand{\CommitteeSize}{#1}}}%
+    }%
+    {%
+      \ifthenelse{#1 < 5}
+        {\renewcommand{\CommitteeSize}{5}}
+        {\ifthenelse{#1 > 9}
+          {\renewcommand{\CommitteeSize}{9}}
+          {\renewcommand{\CommitteeSize}{#1}}}%
+    }%
+}
+
+% Preserve the historical NCKU Chinese-year rendering exactly.
+\renewcommand{\ApplyOralChiYearPolicy}[1]{%
+  \renewcommand{\OralChiYear}{\OralTaiwanYearResult}%
+}
+\renewcommand{\GetCoverMasterYearChi}{\GetThesisYearInTaiwanYear}
+\renewcommand{\GetCoverMasterYearNumInChi}{\zhnumber{\GetThesisYearInTaiwanYear}}
+\renewcommand{\GetCoverDoctoralYearChi}{\GetOralYearInTaiwanYear}
+\renewcommand{\GetCoverDoctoralYearNumInChi}{\GetOralYearInTaiwanYearNumInChi}
+
+% 頁面邊界
+
+% 國立成功大學各系(所)博碩士撰寫論文須知105.12.15 105學年度第2次教務會議修正
+% 論文封面及內頁紙張規格:寬21 公分,長29.6 公分 (即A4尺寸) 80磅模造紙。
+% 封面邊界:
+%     直式:上23mm、下30mm、左20mm、右20mm
+%     橫式:上37mm、下32mm、左28mm、右20mm
+% 內頁邊界:
+%     上23mm、下35mm(含頁碼)、左30mm、右25mm
+
+% 預設邊界為: 內頁邊界
+\geometry{a4paper,%
+  paperwidth=21cm,paperheight=29.7cm,%
+  top=2.3cm,bottom=3.5cm,left=3.0cm,right=2.5cm,%
+  %showframe,%
+  nohead%
+} % End of \geometry{}
+
+% API用來 '開始使用' 和 '停止使用' 封面邊界
+\newcommand{\EnableCoverPageStyle}{%
+  \newgeometry{%
+    top=2.3cm,bottom=3cm,left=2cm,right=2cm,%
+    nohead,nofoot%
+  }%
+} % End of \newcommand{}
+
+\newcommand{\DisableCoverPageStyle}{\restoregeometry}
+
+% ------------------------------------------------
+
+% 設定學校名字
+\SetUniversityName{國立成功大學}{National Cheng Kung University}
+
+% ------------------------------------------------
+
+% 預設前幾頁的頁碼是用羅馬數字
+\pagenumbering{roman}
+
+% ------------------------------------------------
+
+% 設定學校圖案版的浮水印樣子
+\SetWatermaskFigureStyle{%
+  \vfill%
+  \centering%
+  \includegraphics[]{./template/style/ncku/watermark-20160509_v2-a4.pdf}%
+  \vfill%
+} % End of \SetWatermaskFigureStyle{}
+
+% 設定學校文字版的浮水印樣子
+% \GetUniversityChiName: 拿學校中文名字
+% \GetUniversityEngName: 拿學校英文名字
+\SetWatermaskTextStyle{%
+  \vfill%
+  \centering%
+  \makebox(0,0){\rotatebox{45}{\textcolor[gray]{0.75}%
+    {\fontsize{2.0cm}{2.0cm}\selectfont{\GetUniversityChiName}}}}%
+  \vfill%
+} % End of \SetWatermaskTextStyle{}
+
+% 如有明確要求，可選擇啟用學校浮水印；正常學生／提交輸出預設不啟用.
+%\UseWatermarkFigureStyle
+%\UseWatermarkTextStyle
+
+% NCKU legacy oral-template certificates carry the institutional watermark:
+% the text style on the Chinese page and the logo figure on the English page.
+\renewcommand{\ApplyOralTemplateChiWatermarkPolicy}{\UseWatermarkTextStyle}
+\renewcommand{\ApplyOralTemplateEngWatermarkPolicy}{\UseWatermarkFigureStyle}
+
+% ------------------------------------------------
+
+% NCKU uses the oral qualification date as the authoritative cover date.
+% Customize policy hooks; public setter signatures and storage remain generic.
+\renewcommand{\ApplyOralDatePolicy}[3]
+{%
+  \SetThesisTaiwanYear{#1}%
+  \renewcommand{\ThesisYear}{#1}%
+  \renewcommand{\ThesisMonth}{#2}%
+} % End of \renewcommand{}
+
+\renewcommand{\ApplyCoverDatePolicy}[2]{}

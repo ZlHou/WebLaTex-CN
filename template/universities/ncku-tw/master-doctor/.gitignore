@@ -1,0 +1,24 @@
+**/Thumbs.db
+**/*.aux
+**/*.blg
+**/*.lof
+**/*.log
+**/*.lot
+**/*.out
+**/*.fdb_latexmk
+**/*.fls
+**/*.xdv
+reference/*.pdf
+thesis/*.pdf
+**/*.bbl
+**/*.synctex.gz*
+**/*.toc
+**/__pycache__/
+**/*.pyc
+**/*.DS_Store*
+**/*~
+*.synctex(busy)
+/build/
+
+# CodeGraph local index
+.codegraph/

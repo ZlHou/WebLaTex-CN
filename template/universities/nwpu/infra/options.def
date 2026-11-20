@@ -1,0 +1,248 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+%% 文档选项和基础文档类型控制
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn
+\bool_new:N \l__nwpu_lang_chs_bool                           % 中文版本标记
+\bool_new:N \l__nwpu_type_phd_bool                           % 博士版本标记
+\bool_new:N \l__nwpu_type_mst_bool                           % 硕士版本标记
+\bool_new:N \l__nwpu_type_bcl_bool                           % 本科版本标记
+\bool_new:N \l__nwpu_academic_bool                           % 学术学位标记
+\bool_new:N \l__nwpu_blindreview_bool                        % 盲评版本标记
+\bool_new:N \l__nwpu_font_winfonts_bool                      % 强制使用 Win 字体
+\bool_new:N \l__nwpu_font_fandol_bool                        % 强制使用 Fandol 字体
+\bool_new:N \l__nwpu_font_local_bool                         % 使用本地 fonts 目录字体
+\bool_new:N \l__nwpu_font_using_fandol_bool                  % 实际使用 Fandol 字体标记
+\bool_new:N \l__nwpu_fontset_explicit_bool                   % 用户显式指定了 fontset
+\bool_new:N \l__nwpu_colorcover_bool                         % 彩色封面封底标记
+\bool_new:N \l__nwpu_listfigures_bool                        % 图/表目录标记
+\bool_new:N \l__nwpu_printmode_bool                         % 双面印刷标记（仅本科）
+\bool_set_true:N \l__nwpu_listfigures_bool
+\bool_new:N \l__nwpu_class_loaded_bool                       % 类文件已完成加载
+\tl_new:N \l__nwpu_bibstyle_tl
+\tl_set:Nn \l__nwpu_bibstyle_tl { gb7714-2015 }               % 默认参考文献标准
+\tl_new:N \l__nwpu_bibindent_tl
+\tl_set:Nn \l__nwpu_bibindent_tl { firstline }                 % 默认参考文献缩进模式
+\bool_set_true:N \l__nwpu_lang_chs_bool
+\bool_set_true:N \l__nwpu_type_phd_bool
+\bool_set_true:N \l__nwpu_academic_bool
+\bool_new:N \l__nwpu_in_setup_bool
+%%-----------------------------------------------------------------------------%
+%% 布尔选项设置辅助函数
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \__nwpu_set_bool:Nn #1#2
+  {
+    \str_case:nnF {#2}
+      {
+        { true }  { \bool_set_true:N #1 }
+        { false } { \bool_set_false:N #1 }
+      }
+      {
+        \ClassError { nwputhesis }
+          { Invalid~value~`#2'~for~boolean~option }
+          { Boolean~options~only~support~true~and~false. }
+      }
+  }
+%%-----------------------------------------------------------------------------%
+%% 加载期选项校验
+%%-----------------------------------------------------------------------------%
+\prg_new_conditional:Npnn \nwpu_load_time_key_allowed:n #1 { T, F, TF }
+  {
+    \bool_if:NTF \l__nwpu_in_setup_bool
+      {
+        \bool_if:NTF \l__nwpu_class_loaded_bool
+          {
+            \ClassError { nwputhesis } { Option~`#1'~is~load-time~only }
+              {
+                Set~`#1'~in~\string\documentclass[...]~instead.~
+                This~option~affects~class~loading,~fonts,~or~layout.
+              }
+            \prg_return_false:
+          }
+          { \prg_return_true: }
+      }
+      { \prg_return_true: }
+  }
+%%-----------------------------------------------------------------------------%
+%% 各选项设置函数
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \nwpu_lang_set:n #1
+  {
+    \nwpu_load_time_key_allowed:nT { lang }
+      {
+        \str_case:nnF {#1}
+          {
+            { chs } { \bool_set_true:N \l__nwpu_lang_chs_bool }
+            { eng } { \bool_set_false:N \l__nwpu_lang_chs_bool }
+          }
+          {
+            \ClassError { nwputhesis } { Unsupported~language~`#1' }
+              { Supported~lang~values~are~chs~and~eng. }
+          }
+      }
+  }
+\cs_new_protected:Npn \nwpu_degree_set:n #1
+  {
+    \nwpu_load_time_key_allowed:nT { degree }
+      {
+        \str_case:nnF {#1}
+          {
+            { phd }      { \bool_set_true:N \l__nwpu_type_phd_bool  \bool_set_false:N \l__nwpu_type_mst_bool \bool_set_false:N \l__nwpu_type_bcl_bool }
+            { master }   { \bool_set_false:N \l__nwpu_type_phd_bool \bool_set_true:N \l__nwpu_type_mst_bool  \bool_set_false:N \l__nwpu_type_bcl_bool }
+            { bachelor } { \bool_set_false:N \l__nwpu_type_phd_bool \bool_set_false:N \l__nwpu_type_mst_bool \bool_set_true:N \l__nwpu_type_bcl_bool }
+          }
+          {
+            \ClassError { nwputhesis } { Unsupported~degree~`#1' }
+              { Supported~degree~values~are~phd,~master~and~bachelor. }
+          }
+      }
+  }
+\cs_new_protected:Npn \nwpu_bibstyle_set:n #1
+  {
+    \nwpu_load_time_key_allowed:nT { bibstyle }
+      {
+        \str_case:nnF {#1}
+          {
+            { 2015 } { \tl_set:Nn \l__nwpu_bibstyle_tl { gb7714-2015 } }
+            { 2025 } { \tl_set:Nn \l__nwpu_bibstyle_tl { gb7714-2025 } }
+          }
+          {
+            \ClassError { nwputhesis } { Unsupported~bibstyle~`#1' }
+              { Supported~bibstyle~values~are~2015~and~2025. }
+          }
+      }
+  }
+\cs_new_protected:Npn \nwpu_bibindent_set:n #1
+  {
+    \str_case:nnF {#1}
+      {
+        { firstline } { \tl_set:Nn \l__nwpu_bibindent_tl { firstline } }
+        { none }      { \tl_set:Nn \l__nwpu_bibindent_tl { none } }
+        { hanging }   { \tl_set:Nn \l__nwpu_bibindent_tl { hanging } }
+      }
+      {
+        \ClassError { nwputhesis } { Unsupported~bibindent~`#1' }
+          { Supported~bibindent~values~are~firstline,~none~and~hanging. }
+      }
+  }
+\cs_new_protected:Npn \nwpu_fontset_set:n #1
+  {
+    \nwpu_load_time_key_allowed:nT { fontset }
+      {
+        \bool_set_true:N \l__nwpu_fontset_explicit_bool
+        \bool_set_false:N \l__nwpu_font_winfonts_bool
+        \bool_set_false:N \l__nwpu_font_fandol_bool
+        \bool_set_false:N \l__nwpu_font_local_bool
+        \str_case:nnF {#1}
+          {
+            { fandol }  { \bool_set_true:N \l__nwpu_font_fandol_bool }
+            { windows } { \bool_set_true:N \l__nwpu_font_winfonts_bool }
+            { local }   { \bool_set_true:N \l__nwpu_font_local_bool }
+          }
+          {
+            \ClassError { nwputhesis } { Unsupported~fontset~`#1' }
+              { Supported~fontset~values~are~fandol,~windows~and~local. }
+          }
+      }
+  }
+\cs_new_protected:Npn \nwpu_colorcover_set:n #1
+  {
+    \__nwpu_set_bool:Nn \l__nwpu_colorcover_bool {#1}
+    \bool_if:NT \l__nwpu_type_bcl_bool
+      {
+        \bool_if:NT \l__nwpu_colorcover_bool
+          {
+            \ClassWarningNoLine { nwputhesis }
+              { Option~`colorcover'~is~not~supported~for~bachelor~theses;~ignoring~it }
+            \bool_set_false:N \l__nwpu_colorcover_bool
+          }
+      }
+  }
+\cs_new_protected:Npn \nwpu_printmode_set:n #1
+  {
+    \nwpu_load_time_key_allowed:nT { printmode }
+      {
+        \bool_if:NT \l__nwpu_type_bcl_bool
+          { \__nwpu_set_bool:Nn \l__nwpu_printmode_bool {#1} }
+        \bool_if:NF \l__nwpu_type_bcl_bool
+          {
+            \ClassWarningNoLine { nwputhesis }
+              { Option~`printmode'~is~only~applicable~to~bachelor~theses;~ignoring~it }
+          }
+      }
+  }
+\cs_new_protected:Npn \nwpu_unknown_key:n #1
+  {
+    \bool_if:NTF \l__nwpu_in_setup_bool
+      {
+        \ClassError { nwputhesis } { Unknown~metadata~key~`\l_keys_key_str' }
+          {
+            The~key~`\l_keys_key_str'~is~not~defined~for~\string\nwputhesissetup.~
+            Check~the~key~name~or~set~load-time~options~in~\string\documentclass[...].
+          }
+      }
+      { \PassOptionsToClass { \CurrentOption } { book } }
+  }
+\DeclareKeys [ nwputhesis ]
+  {
+    lang        .code:n    = { \nwpu_lang_set:n {#1} },
+    language    .code:n    = { \nwpu_lang_set:n {#1} },
+    degree      .code:n    = { \nwpu_degree_set:n {#1} },
+    bibstyle    .code:n    = { \nwpu_bibstyle_set:n {#1} },
+    bib-style   .code:n    = { \nwpu_bibstyle_set:n {#1} },
+    bibindent   .code:n    = { \nwpu_bibindent_set:n {#1} },
+    bib-indent  .code:n    = { \nwpu_bibindent_set:n {#1} },
+    blindreview .code:n    = { \__nwpu_set_bool:Nn \l__nwpu_blindreview_bool {#1} },
+    blindreview .default:n = true,
+    blind-review .code:n   = { \__nwpu_set_bool:Nn \l__nwpu_blindreview_bool {#1} },
+    blind-review .default:n = true,
+    fontset     .code:n    = { \nwpu_fontset_set:n {#1} },
+    font-set    .code:n    = { \nwpu_fontset_set:n {#1} },
+    academic    .code:n    = { \nwpu_load_time_key_allowed:nT { academic } { \__nwpu_set_bool:Nn \l__nwpu_academic_bool {#1} } },
+    academic    .default:n = true,
+    colorcover  .code:n    = { \nwpu_colorcover_set:n {#1} },
+    colorcover  .default:n = true,
+    color-cover .code:n    = { \nwpu_colorcover_set:n {#1} },
+    color-cover .default:n = true,
+    listfigures .code:n    = { \__nwpu_set_bool:Nn \l__nwpu_listfigures_bool {#1} },
+    listfigures .default:n = true,
+    printmode   .code:n    = { \nwpu_printmode_set:n {#1} },
+    printmode   .default:n = true,
+    print-mode  .code:n    = { \nwpu_printmode_set:n {#1} },
+    print-mode  .default:n = true,
+    unknown     .code:n    = { \nwpu_unknown_key:n {#1} },
+  }
+\ProcessKeyOptions [ nwputhesis ]
+%%-----------------------------------------------------------------------------%
+%% expl3 条件谓词
+%%-----------------------------------------------------------------------------%
+\prg_new_conditional:Npnn \nwpu_if_bachelor: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_type_bcl_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_graduate: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_type_bcl_bool { \prg_return_false: } { \prg_return_true: } }
+\prg_new_conditional:Npnn \nwpu_if_phd: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_type_phd_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_master: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_type_mst_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_chinese: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_lang_chs_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_academic: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_academic_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_blindreview: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_blindreview_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_colorcover: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_colorcover_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_listfigures: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_listfigures_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_printmode: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_printmode_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_fandol: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_font_using_fandol_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_local_fonts: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_font_local_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_winfonts: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_font_winfonts_bool { \prg_return_true: } { \prg_return_false: } }
+\prg_new_conditional:Npnn \nwpu_if_fontset_explicit: { T, F, TF }
+  { \bool_if:NTF \l__nwpu_fontset_explicit_bool { \prg_return_true: } { \prg_return_false: } }
+\ExplSyntaxOff

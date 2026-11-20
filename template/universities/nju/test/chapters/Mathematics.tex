@@ -1,0 +1,63 @@
+\chapter{数学公式与定理}
+
+\section{符号示例}
+
+Caligraphic letters: $\mathcal{A}$
+
+Mathbb letters: $\mathbb{A}$
+
+Mathfrak letters: $\mathfrak{A}$
+
+Math Sans serif letters: $\mathsf{A}$
+
+Math bold letters: $\mathbf{A},\symbf{A}$
+
+Math bold italic letters: $\mathbi{A}$
+
+\section{公式示例}
+
+% Thanks to github.com/YuanshengZhao/Garamond-Math
+公式字体示例
+\[
+    \displaystyle \ointctrclockwise\mathcal{D}[x(t)]\sqrt{\frac{\displaystyle3\uppi^2-\sum_{q=0}^{\infty}(z+\hat L)^{q}\exp(\symrm{i}q^2 \hbar x)}{\displaystyle (\symsfup{Tr}\symbfcal{A})\left(\symbf\Lambda_{j_1j_2}^{i_1i_2}\Gamma_{i_1i_2}^{j_1j_2}\hookrightarrow\vec D\cdot \symbf P  \right)}}
+    =\underbrace{\widetilde{\left\langle \frac{\notin \emptyset}{\varpi\alpha_{k\uparrow}}\middle\vert \frac{\partial_\mu T_{\mu\nu}}{2}\right\rangle}}_{\mathrm{K}_3\mathrm{Fe}(\mathrm{CN})_6} ,\forall z \in \mathbb{R}
+\]
+
+你可以使用\verb|equation|环境插入公式，如\cref{eq:dewitt}
+
+\begin{equation}\label{eq:dewitt}
+    \int \mathrm{e}^{ax} \tanh {bx} \, \mathrm{d}x =
+    \begin{dcases}
+        \begin{multlined}
+            \frac{\mathrm{e}^{(a+2b)x}}{(a + 2b)} \,
+            {{}_2F_1} \left( 1 + \frac{a}{2b}, 1, 2+\frac{a}{2b}, -\mathrm{e}^{2bx} \right) \\
+            - \frac{1}{a} \mathrm{e}^{ax} \, {{}_2F_1} \left( 1, \frac{a}{2b}, 1 + \frac{a}{2b}, -\mathrm{e}^{2bx} \right)
+        \end{multlined}
+        & a \ne b \\
+    \frac{e^{ax} - 2 \tan^{-1}(\mathrm{e}^{ax})}{a} & a = b
+  \end{dcases}
+\end{equation}
+
+\section{定理环境}
+
+\cref{pf:me1}，\cref{pf:me1}，\cref{def:others1}，\cref{def:others1}，\cref{thm:sleep}
+
+\begin{proof}\label{pf:me1}
+    证明我是我
+\end{proof}
+
+\begin{definition}[他人]\label{def:others1}
+    定义他人即地狱
+\end{definition}
+
+\begin{proof}\label{pf:me2}
+    证明我是我
+\end{proof}
+
+\begin{definition}[他人]\label{def:others2}
+    定义他人即地狱
+\end{definition}
+
+\begin{theorem}[睡觉]\label{thm:sleep}
+    管他呢先睡觉吧！
+\end{theorem}

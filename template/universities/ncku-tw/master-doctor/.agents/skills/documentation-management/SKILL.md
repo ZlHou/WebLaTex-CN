@@ -1,0 +1,275 @@
+---
+name: documentation-management
+description: Use for repository documentation lifecycle and consolidation.
+---
+
+# Documentation management
+
+## When to use
+
+Use for creating, reorganizing, consolidating, or validating repository
+documentation; creating requirements or todos; documenting shipped behavior; and
+repairing documentation paths after a source or release change.
+
+Load the sibling [`idsd-workflow`](../idsd-workflow/SKILL.md) first. Load
+[`repo-maintenance`](../repo-maintenance/SKILL.md) when source, tests, packaging,
+CI, releases, or public distribution are involved.
+Load [`student-first-run`](../student-first-run/SKILL.md) when the change
+touches a page, default, teaching chapter, or release note that a student sees
+before their first build; it supplies the audience lens the pair and voice
+gates cannot check.
+
+## Canonical surfaces
+
+| Surface | Role |
+| --- | --- |
+| [`docs/README.md`](../../../docs/README.md) | Current documentation index and student/maintainer navigation. |
+| [`docs/v1-to-v2-migration.md`](../../../docs/v1-to-v2-migration.md) | Current 1.x to 2.x user migration contract. |
+| [`docs/features/`](../../../docs/features/) | Current feature descriptions, usage, architecture, validation procedures, limitations and recovery. |
+| `docs/requirements/<NN>-<slug>.md` | Active owner-approved what/why promise only. |
+| `todos/<NN>-<slug>.md` | Active implementation progress only. |
+| [`thesis/README.md`](../../../thesis/README.md) | Instructions that ship inside the student ZIP. |
+| [`CHANGELOG.md`](../../../CHANGELOG.md) | Traditional-Chinese default changelog with complete release history. |
+| [`CHANGELOG.en.md`](../../../CHANGELOG.en.md) | English companion with complete release history. |
+| [`README.md`](../../../README.md) | Public project overview and audience routing. |
+
+Current source, tests, scripts, and immutable release assets win on drift.
+Historical commits and removed implementation notes explain decisions but do not
+reopen work.
+
+## Requirements and todos
+
+1. Start from an owner-approved Intent; do not convert ideas or deferred
+   experiments into active requirements.
+2. Read `docs/README.md` and the relevant current feature record.
+3. If a real promise is active, create the next
+   `docs/requirements/<NN>-<slug>.md` with Intent, constraints, failure
+   conditions, acceptance boundary, and links to active todos.
+4. Use root `todos/<NN>-<slug>.md` for implementation sequence and progress. Keep
+   requirement and todo backlinks synchronized.
+5. When no active requirement exists, keep `docs/requirements/` empty except for
+   `.gitkeep`; do not add a README just to explain emptiness.
+
+## Completion lifecycle
+
+When all acceptance and validation gates pass:
+
+1. update every current user surface reached by the change;
+2. consolidate durable knowledge into an existing topical file under
+   `docs/features/` whenever possible;
+3. create a new feature record only for a genuinely new capability family, not
+   for each branch, commit, parser, or bugfix;
+4. update `docs/features/README.md` and `docs/README.md`;
+5. remove completed requirement and todo files;
+6. let Git history retain checklists, temporary branch boundaries, per-commit run
+   IDs, and superseded implementation narratives.
+
+## Current-state documentation contract
+
+Keep every current document under `docs/` focused on the latest feature behavior,
+usage, architecture, supported validation procedure, limitations and recovery.
+Do not retain release-by-release read-backs, completed plans, patch chronology,
+dated benchmark narratives, commit/run identifiers, checksum receipts, local
+scratch paths or agent-session reports there. Do not move removed chronology to
+another docs archive: Git history is the record. Preserve current compatibility,
+migration/recovery steps, official-source authority and safety boundaries even
+when a past defect originally motivated them. Root changelogs remain the separate
+release ledger; this contract does not authorize rewriting Git history.
+
+After accepted work, graduate the current capability description to its feature
+owner and remove the completed todo/requirement. Keep `todos/` free of completed
+items and `docs/requirements/` at exactly `.gitkeep` when no promise is active.
+An empty queue is not permission to discard genuinely unfinished work. Do not
+recreate a tracker solely to narrate documentation cleanup.
+
+## Heavy consolidation
+
+Classify every source document before deleting it:
+
+- **current user contract** — preserve in student README, migration guide, or
+  changelog;
+- **current project contract** — preserve in a topical feature/operation
+  record and repo-maintenance skill;
+- **current validation and limitations** — describe the supported checks and
+  present boundaries in the owning feature record, without execution receipts;
+- **historical measurements and rejected experiments** — retain their chronology
+  in Git; preserve only still-applicable operating limits as current contracts;
+- **implementation chronology** — leave to Git history after durable knowledge is
+  promoted;
+- **stale duplicate** — remove after repairing backlinks.
+
+Do not create one giant catch-all file merely to reduce file count. Prefer a
+small topical set with one owner per fact. Do not retain the same release command,
+compatibility number, or publication status in several active documents unless
+one is a short link/routing sentence.
+
+## Public routes and audience
+
+For student defaults, journeys, human/agent guidance and audience review, load
+[student-first-run](../student-first-run/SKILL.md#human-and-agent-guidance).
+For exact student-package topology and action authority, follow mandatory
+[repository maintenance](../repo-maintenance/SKILL.md#student-package-topology).
+Do not duplicate those detailed instructions here.
+
+Root README provides the project overview; `docs/README.md` is the public
+project-documentation index. Order public indexes by reader tasks and student
+routes before technical records. Keep active-work state, branch mechanics,
+release promotion narration and implementation chronology in internal governance.
+`docs/v1-to-v2-migration.md` owns the complete migration guide; the packaged
+`thesis/README.md` retains concise offline steps and `thesis/conf/README.md`
+explains each configuration field. Keep their actions consistent.
+
+Student/public pages must be usable without repository-only tools. Packaged
+customization guidance retains direct `latexmk`, A4/output checks, runtime
+errors and recovery; omit repository test commands, `.fls` assertions, expected
+counts, manifest upkeep and commit rollback mechanics. Public landing pages
+retain GitHub Release and Overleaf entry points, not branch/PR or review-state
+procedures. Current source/tests win on drift; a deferred experiment is not an
+active requirement without a new owner-approved Intent.
+
+GitHub Release state and Overleaf state are independent. Describe source,
+local validation and publication accurately; never turn submitted into approved
+without live public read-back.
+
+### Protected root README contract
+
+The Traditional-Chinese/default root README preserves this historical name as
+one H1 rendered on exactly two visual lines, English first:
+
+```text
+National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex
+台灣國立成功大學碩博士用畢業論文 LaTex 模版
+```
+
+The historical `LaTex` spelling is allowed only inside that exact title. Do not
+reorder, translate, split it into three lines, or normalize its spelling without
+explicit owner direction; all current prose still uses `LaTeX`.
+
+Agent routers, skills and references use English only. Human guides follow the
+bilingual model below.
+
+Root `README.md` and `README.en.md` must retain equivalent student sections for:
+
+- historical acceptance (`Available to use 已被學校負責單位接受`), clearly
+  distinguished from current approval;
+- current thesis upload and printing guidance, sourced from the live NCKU ETDS
+  page with a checked date;
+- the template-versus-degree-examination-system defense-certificate FAQ, which
+  directs students to the current official system file and keeps generated
+  certificates legacy/example only.
+
+The public root README keeps Overleaf and GitHub Release entry points, but not
+branch/PR workflow, release promotion narration, machine-audit inventories, or
+Overleaf review-state instructions. Packaged customization guidance keeps direct
+`latexmk`, A4/output checks, and actionable profile runtime errors; it excludes
+repository-only `just`/test commands, `.fls` assertions, expected counts,
+compatibility-manifest maintenance, and commit rollback workflow.
+
+## Bilingual documentation model
+
+- Student/public journeys are complete in formal Taiwan Traditional Chinese
+  (`zh-Hant-TW`) and natural technical English. Use one predominant language per
+  file and a top-of-page text switcher to the equivalent page. Default `*.md`
+  user journeys are Traditional Chinese; English companions use `*.en.md`.
+- Do not repeat visible `繁體中文` / `English` labels inside every section and do
+  not use flags as language controls. Each language link uses its native name.
+- Paired guides carry one hidden `doc-pair`, `lang`, and stable `topics` marker.
+  The deterministic checker requires pair metadata, reciprocal switchers,
+  equivalent topic IDs, valid local links, and identical fenced code blocks.
+- Project feature records use a canonical English `*.en.md` technical record plus
+  a Traditional-Chinese default `*.md` executive-summary companion. This is
+  intentionally not a line-by-line translation of hashes, run IDs, benchmarks,
+  or evidence transcripts.
+- `CHANGELOG.md` and `CHANGELOG.en.md` both contain the complete release
+  history. Traditional Chinese owns the default path; historical mixed-language
+  entries are retained rather than rewritten solely for translation.
+- Keep mutable release identity centralized. Public guides and feature summaries
+  link to GitHub Releases and the complete changelog instead of repeating a
+  "current" or "latest" tag that must change after every publication. Exact tags
+  remain appropriate in changelog entries, version-specific migration facts,
+  immutable checksum/read-back evidence, and release artifact names.
+- Apply the same filename rule to every paired documentation surface: Traditional
+  Chinese owns `<name>.md`, English owns `<name>.en.md`, and `*.zh-TW.md` paths are
+  forbidden. Locale identifiers such as `zh-Hant-TW` remain valid in metadata.
+- Documentation language, institution profile, cover language, degree, and
+  content mode are independent. An English reader can use `ncku`; a
+  Traditional-Chinese reader can maintain another profile.
+- Public project actions use third-person `本模版` / `本專案` and `the template` /
+  `the project` wording; general workflow remains role-neutral. Refer to Chinese
+  cross-institution readers as `其他學校的同學` and English readers as `students
+  from other institutions`.
+- These operational-guide voice rules do not authorize rewriting the original
+  teaching PDF's personal prose. Preserve that author's voice under
+  [student-first-run](../student-first-run/SKILL.md#preserve-the-teaching-authors-voice).
+- Use exact `LaTeX`, `XeLaTeX`, `BibTeX`, `latexmk`, and `SyncTeX` casing outside
+  the exact protected historical root title above. Use `論文範本` in new Chinese
+  prose. Avoid Cantonese-only wording in shipped docs.
+- Keep `thesis/conf/conf.tex` unchanged unless a fix is deliberate: the student
+  guides cite its line numbers and `scripts/test/check-conf-line-references.py`
+  fails when a cited line moves. Its bilingual companion is
+  `thesis/conf/README.md`; never edit the file merely to translate comments, and
+  never regenerate the V1 migration manifest from current files — it records
+  the v1.8.2 tag.
+- Mechanical checks prove structure, links, casing, and selected terminology
+  only. Human review must still verify that warnings, actions, defaults, and
+  exceptions mean the same thing in both languages. The checker prints a
+  non-failing pair-drift warning when one side of a pair has changed in two or
+  more commits since its companion last changed; treat it as a prompt to
+  re-read both files, not as proof either way (shallow CI checkouts cannot see
+  enough history to warn).
+
+- Stable topic/H2 parity is necessary but cannot protect content deleted from
+  both companions. Add positive checker anchors for the protected title, the
+  three student sections, their current official routes, and public/internal
+  audience boundaries.
+
+This model follows authoritative public patterns:
+
+- [W3C internationalization techniques](https://www.w3.org/International/techniques/authoring-html)
+  recommend linking users to each localized page even when language negotiation
+  exists.
+- [USWDS two-language guidance](https://designsystem.digital.gov/patterns/select-a-language/two-languages/)
+  uses a prominent text language selector that opens an equivalent page and
+  explicitly advises against flags.
+- [GitHub Docs translation guidance](https://docs.github.com/en/contributing/writing-for-github-docs/writing-content-to-be-translated)
+  treats translations as locale-specific documentation and recommends clear,
+  translation-friendly source prose.
+- [WCAG 2.2 language-of-page guidance](https://www.w3.org/WAI/WCAG22/Understanding/language-of-page.html)
+  requires a programmatically determinable predominant page language; separate
+  Markdown files approximate that model better than paragraph-by-paragraph
+  alternation.
+
+## Validation
+
+For documentation-only changes:
+
+```bash
+python3 scripts/test/check-bilingual-docs.py
+git diff --check
+git status --short
+```
+
+Also validate mechanically:
+
+- every relative Markdown link resolves from its owning file;
+- every removed/renamed path has zero stale first-party references;
+- `docs/requirements/` contains exactly `.gitkeep` when no requirement is active;
+- `docs/features/README.md` indexes every current feature record;
+- repo instructions and local skills name the new canonical paths;
+- student-package links point to public repository paths that exist on `main`;
+- no generated artifact, secret-like file, or local tool state is staged.
+
+Run `just test`/`just ci` when repository policy requires the exact committed tree
+or when package-facing paths, scripts, tests, or source are touched. If a gate
+reads `HEAD`, it requires the intended source to be checkpointed before it can
+validate those bytes. Follow the explicit Git authorization rules in maintenance;
+a temporary commit/worktree also needs that authorization. Do not weaken the gate
+or report an old HEAD archive as validation of uncommitted changes.
+
+## Non-blocking reminder
+
+[`hooks/check-documentation.sh`](hooks/check-documentation.sh) is wired through
+`.agents/hooks/check-documentation.sh` and `.claude/settings.json`. It emits one
+non-blocking reminder when a new template source file is added without a docs,
+requirements, or todo update. It is a prompt, not proof that documentation is
+complete.

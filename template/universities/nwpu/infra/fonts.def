@@ -1,0 +1,165 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn
+\RequirePackage{fontspec}                                   % 设置字体（提前加载以支持字体检测）
+%% 定义默认字体（Windows 字体）
+\cs_new:Npn \defaultSog {SimSun}                            % 宋体，用于正文
+\cs_new:Npn \defaultHei {SimHei}                            % 黑体，用于标题
+\cs_new:Npn \defaultEngFont {Times~New~Roman}               % 英文文本默认字体
+\cs_new:Npn \defaultEngSansFont {TeX~Gyre~Heros}             % 英文 Sans 字体
+%%-----------------------------------------------------------------------------%
+% 根据系统和字体可用性设置字体
+\cs_new_protected:Npn \npu@set@fandol@fonts
+  {
+    \typeout{[nwputhesis]~Using~Fandol~fonts~(TeX~Live~built-in).}
+    \bool_set_true:N \l__nwpu_font_using_fandol_bool
+    \cs_set:Npn \defaultSog {FandolSong}
+    \cs_set:Npn \defaultHei {FandolHei}
+    \cs_set:Npn \defaultEngFont {TeX~Gyre~Termes}
+    \cs_set:Npn \defaultEngSansFont {TeX~Gyre~Heros}
+  }
+\cs_new_protected:Npn \npu@set@local@fonts
+  {
+    \typeout{[nwputhesis]~Using~local~fonts~from~fonts/~directory.}
+    \cs_set:Npn \defaultSog {SimSun}
+    \cs_set:Npn \defaultHei {SimHei}
+    \cs_set:Npn \defaultEngFont {Times~New~Roman}
+    \bool_set_true:N \l__nwpu_font_local_bool
+  }
+\cs_new_protected:Npn \npu@set@windows@fonts
+  {
+    \typeout{[nwputhesis]~Using~Windows~fonts.}
+    \cs_set:Npn \defaultSog {SimSun}
+    \cs_set:Npn \defaultHei {SimHei}
+    \cs_set:Npn \defaultEngFont {Times~New~Roman}
+    \cs_set:Npn \defaultEngSansFont {\defaultHei}             % Windows 无 TeX Gyre，用黑体代替
+  }
+\bool_new:N \l__nwpu_windows_fonts_available_bool
+\bool_new:N \l__nwpu_local_fonts_available_bool
+\cs_new_protected:Npn \npu@check@local@fonts
+  {
+    \file_if_exist:nT { fonts/simsun.ttc }
+      { \bool_set_true:N \l__nwpu_local_fonts_available_bool }
+  }
+\cs_new_protected:Npn \__nwpu_check_windows_font:n #1
+  {
+    \IfFontExistsTF {#1}
+      { }
+      { \bool_set_false:N \l__nwpu_windows_fonts_available_bool }
+  }
+\cs_new_protected:Npn \npu@set@windows@fonts@with@fallback
+  {
+    \bool_set_true:N \l__nwpu_windows_fonts_available_bool
+    \__nwpu_check_windows_font:n { SimSun }
+    \__nwpu_check_windows_font:n { SimHei }
+    \__nwpu_check_windows_font:n { Times~New~Roman }
+    \bool_if:NTF \l__nwpu_windows_fonts_available_bool
+      { \npu@set@windows@fonts }
+      {
+        \ClassWarningNoLine { nwputhesis }
+          { Windows~fonts~not~found;~falling~back~to~Fandol~fonts }
+        \bool_set_false:N \l__nwpu_font_winfonts_bool
+        \npu@set@fandol@fonts
+      }
+  }
+% 字体自动检测：fonts/ > Windows 系统字体 > Fandol
+\cs_new_protected:Npn \npu@auto@detect@fonts
+  {
+    \npu@check@local@fonts
+    \bool_if:NTF \l__nwpu_local_fonts_available_bool
+      { \npu@set@local@fonts }
+      {
+        \npu@set@windows@fonts@with@fallback
+      }
+  }
+% 字体选择主逻辑：显式指定走原有逻辑，否则自动检测
+\nwpu_if_fontset_explicit:TF
+  {
+    \nwpu_if_local_fonts:TF
+      { \npu@set@local@fonts }
+      {
+        \nwpu_if_winfonts:TF
+          { \npu@set@windows@fonts@with@fallback }
+          { \npu@set@fandol@fonts }
+      }
+  }
+  { \npu@auto@detect@fonts }
+\RequirePackage[SlantFont, BoldFont, CJKchecksingle]{xeCJK} % 设置中文字体
+\defaultfontfeatures{Ligatures=TeX}                        % 启用 TeX Ligatures
+% 根据 Fandol 字体标记决定加载方式
+\nwpu_if_fandol:TF
+  {%
+    % Fandol 字体需要使用 Extension = .otf 来从 TeX Live 目录加载
+    \setCJKmainfont{FandolSong}[
+        Extension   = .otf,
+        UprightFont = *-Regular,
+        BoldFont    = *-Bold,
+    ]
+    \setCJKsansfont{FandolHei}[
+        Extension   = .otf,
+        UprightFont = *-Regular,
+        BoldFont    = *-Bold,
+    ]
+    \setCJKfamilyfont{song}{FandolSong}[
+        Extension   = .otf,
+        UprightFont = *-Regular,
+        BoldFont    = *-Bold,
+    ]
+    \setCJKfamilyfont{hei}{FandolHei}[
+        Extension   = .otf,
+        UprightFont = *-Regular,
+        BoldFont    = *-Bold,
+    ]
+    \newfontfamily\engfont{TeX~Gyre~Termes}[
+        UprightFont    = texgyretermes-regular.otf,
+        BoldFont       = texgyretermes-bold.otf,
+        ItalicFont     = texgyretermes-italic.otf,
+        BoldItalicFont = texgyretermes-bolditalic.otf,
+    ]
+    \cs_new_protected:Npn \fEng {\engfont}                 % 英文: fEng
+    \setsansfont{TeX~Gyre~Heros}[
+        UprightFont    = texgyreheros-regular.otf,
+        BoldFont       = texgyreheros-bold.otf,
+        ItalicFont     = texgyreheros-italic.otf,
+        BoldItalicFont = texgyreheros-bolditalic.otf,
+    ]
+    \setmainfont{TeX~Gyre~Termes}[
+        UprightFont    = texgyretermes-regular.otf,
+        BoldFont       = texgyretermes-bold.otf,
+        ItalicFont     = texgyretermes-italic.otf,
+        BoldItalicFont = texgyretermes-bolditalic.otf,
+    ]
+  }
+  {
+    \nwpu_if_local_fonts:TF
+      {
+        \setCJKmainfont[Path=fonts/, AutoFakeBold]{simsun.ttc}
+        \setCJKsansfont[Path=fonts/, AutoFakeBold]{simhei.ttf}
+        \setCJKfamilyfont{song}[Path=fonts/, AutoFakeBold]{simsun.ttc}
+        \setCJKfamilyfont{hei}[Path=fonts/, AutoFakeBold]{simhei.ttf}
+        \setCJKfamilyfont{eng}[Path=fonts/, BoldFont=timesbd.ttf]{times.ttf}
+        \cs_new_protected:Npn \fEng {\CJKfamily{eng}}
+        \setsansfont[Path=fonts/, AutoFakeBold]{simhei.ttf}
+        \setmainfont[Path=fonts/, BoldFont=timesbd.ttf]{times.ttf}
+      }
+      {
+        \setCJKmainfont[AutoFakeBold]{\defaultSog}
+        \setCJKsansfont[AutoFakeBold]{\defaultHei}
+        \setCJKfamilyfont{song}[AutoFakeBold]{\defaultSog}
+        \setCJKfamilyfont{hei}[AutoFakeBold]{\defaultHei}
+        \setCJKfamilyfont{eng}{\defaultEngFont}
+        \cs_new_protected:Npn \fEng {\CJKfamily{eng}}
+        \setsansfont[AutoFakeBold]{\defaultEngSansFont}
+        \setmainfont{\defaultEngFont}
+      }
+  }
+\cs_new_protected:Npn \fSong {\CJKfamily{song}}               % 宋体: fSong
+\cs_new_protected:Npn \fHei  {\CJKfamily{hei}}                % 黑体: fHei
+\nwpu_if_bachelor:TF                                           % 本科论文需要 CJKnumb
+  { \RequirePackage{CJKnumb} }                                 % 中文数字
+  {}
+\XeTeXlinebreaklocale "zh"                                  % 使用中文的换行风格
+\XeTeXlinebreakskip = \nwpuCJKLineBreakSkip                 % 换行逻辑的弹性大小
+\ExplSyntaxOff

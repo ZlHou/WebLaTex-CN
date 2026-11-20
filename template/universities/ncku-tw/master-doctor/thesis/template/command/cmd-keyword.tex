@@ -1,0 +1,86 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+
+% Some common helper function
+
+% ----------------------------------------------------------------------------
+
+% Common function
+\def\AppendKeywordString#1#2{\edef#1{#1#2}}
+\newcommand{\AppendOptionalKeywords}[9]
+{%
+  \ifthenelse{\equal{#2}{\empty}}{}{\AppendKeywordString{#1}{, #2}}%
+  \ifthenelse{\equal{#3}{\empty}}{}{\AppendKeywordString{#1}{, #3}}%
+  \ifthenelse{\equal{#4}{\empty}}{}{\AppendKeywordString{#1}{, #4}}%
+  \ifthenelse{\equal{#5}{\empty}}{}{\AppendKeywordString{#1}{, #5}}%
+  \ifthenelse{\equal{#6}{\empty}}{}{\AppendKeywordString{#1}{, #6}}%
+  \ifthenelse{\equal{#7}{\empty}}{}{\AppendKeywordString{#1}{, #7}}%
+  \ifthenelse{\equal{#8}{\empty}}{}{\AppendKeywordString{#1}{, #8}}%
+  \ifthenelse{\equal{#9}{\empty}}{}{\AppendKeywordString{#1}{, #9}}%
+}
+
+% --- 關鍵字 Keyword ---
+\def\VarPDFKeywords{\empty} % initialize
+\def\GetPDFKeywords{\VarPDFKeywords} % initialize
+\def\AppendPDFKeyword#1{\AppendKeywordString{\VarPDFKeywords}{#1}}
+
+\DeclareDocumentCommand{\SetKeywords}{
+  m G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}}
+{
+  \AppendPDFKeyword{#1}
+  \AppendOptionalKeywords{\VarPDFKeywords}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}
+} % End of \newcommand{}
+
+\def\VarAbstractChiKeywords{\empty} % initialize
+\def\GetAbstractChiKeywords{\VarAbstractChiKeywords} % initialize
+\DeclareDocumentCommand{\SetAbstractChiKeywords}{
+  m G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}}
+{
+  \AppendKeywordString{\VarAbstractChiKeywords}{#1}
+  \AppendOptionalKeywords{\VarAbstractChiKeywords}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}
+} % End of \newcommand{}
+
+\def\VarAbstractEngKeywords{\empty} % initialize
+\def\GetAbstractEngKeywords{\VarAbstractEngKeywords} % initialize
+\DeclareDocumentCommand{\SetAbstractEngKeywords}{
+  m G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}}
+{
+  \AppendKeywordString{\VarAbstractEngKeywords}{#1}
+  \AppendOptionalKeywords{\VarAbstractEngKeywords}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}
+} % End of \newcommand{}
+
+\def\VarAbstractExtKeywords{\empty} % initialize
+\def\GetAbstractExtKeywords{\VarAbstractExtKeywords} % initialize
+\DeclareDocumentCommand{\SetAbstractExtKeywords}{
+  m G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}
+  G{\empty} G{\empty} G{\empty}}
+{
+  \AppendKeywordString{\VarAbstractExtKeywords}{#1}
+  \AppendOptionalKeywords{\VarAbstractExtKeywords}{#2}{#3}{#4}{#5}{#6}{#7}{#8}{#9}
+} % End of \newcommand{}
+
+% ----------------------------------------------------------------------------

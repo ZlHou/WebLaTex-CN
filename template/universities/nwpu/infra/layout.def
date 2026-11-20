@@ -1,0 +1,302 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn
+\RequirePackage{indentfirst}                                % 段首空格设置
+\dim_set:Nn \parindent { \nwpuParIndent }
+\skip_set:Nn \parskip { \nwpuParSkip }
+\linespread{\nwpuBodyLineSpread}                            % 行距
+%%-----------------------------------------------------------------------------%
+\RequirePackage{ulem}                                       % 下划线
+\NewDocumentCommand \coverunderline { O{\nwpuUnderlineDefaultWidth} m }
+    {
+      \hspace{\nwpuUnderlineLeftSpace}
+      \underline{ \hb@xt@ #1 { \hss #2 \hss } }
+      \hspace{\nwpuUnderlineRightSpace}
+    }
+%%-----------------------------------------------------------------------------%
+\RequirePackage[sf]{titlesec}                               % 章节标题格式
+\RequirePackage{titletoc}                                   % 目录格式
+\setcounter{secnumdepth}{5}                                 % 标题计数器深度
+\setcounter{tocdepth}{2}                                    % 目录中标题深度
+%% 正文章节格式（可复用命令，abstract.def 退出时调用恢复）
+\cs_new_protected:Npn \nwpu@apply@chapter@format {
+  \nwpu_if_bachelor:TF {
+    \titleformat{\chapter}[hang]{\normalfont\nwpuChapterFont\filcenter}%
+      {第\CJKnumber{\thechapter}章}{\nwpuChapterLabelSep}{\nwpuChapterFont}
+  } {
+    \titleformat{\chapter}[hang]{\normalfont\nwpuChapterFont\filcenter}%
+      {\nwpuChapterFont{\chaptertitlename}}{\nwpuGraduateChapterLabelSep}{\nwpuChapterFont}
+  }
+}
+%% 摘要章节格式（本科 \chapter* 无编号标题）
+\cs_new_protected:Npn \nwpu@apply@abstract@chs@format {
+  \titleformat{\chapter}[hang]{\normalfont\nwpuChapterFont\filcenter}%
+    {\nwpuChapterFont}{\nwpuChapterLabelSep}{\nwpuChapterFont}
+}
+\cs_new_protected:Npn \nwpu@apply@abstract@eng@format {
+  \titleformat{\chapter}[hang]{\normalfont\fEng\fontsize{\nwpuFontPointSanhao}{\nwpuBachelorLineHeight}\selectfont\filcenter}%
+    {}{0pt}{}
+}
+%%-----------------------------------------------------------------------------
+\nwpu_if_bachelor:TF                                        % 本科论文章节格式
+{
+    \cs_gset:Npn \thechapter { \arabic{chapter} }            % 章节编号保持数字
+    \cs_gset_protected:Npn \chaptername { 第\CJKnumber{\thechapter}章 }% 章节名称（中文数字）
+    \nwpu@apply@chapter@format
+    \titleformat{\section}[hang]{\nwpuSectionFont}%
+      {\nwpuSectionFont\thesection}{\nwpuSectionLabelSep}{}{}
+    \titleformat{\subsection}[hang]{\nwpuSubsectionFont}%
+      {\nwpuSubsectionFont\thesubsection}{\nwpuSectionLabelSep}{}{}
+    \titleformat{\subsubsection}[runin]{\nwpuSubsubsectionFont}{（\arabic{subsubsection}）}{0pt}{}{}
+    \titleformat{\paragraph}[runin]{\nwpuParagraphFont}{\arabic{paragraph}）}{0pt}{}[：\hspace{0.5em}]
+    \titleformat{\subparagraph}[runin]{\nwpuSubparagraphFont}{\roman{subparagraph}）}{0pt}{}[：\hspace{0.5em}]
+    \titlespacing{\chapter}{0pt}{\nwpuChapterBeforeSkip}{\nwpuChapterAfterSkip}
+    \titlespacing{\section}{0pt}{\nwpuSectionBeforeSkip}{\nwpuSectionAfterSkip}
+    \titlespacing{\subsection}{0pt}{\nwpuSubsecBeforeSkip}{\nwpuSubsecAfterSkip}
+    \titlespacing{\subsubsection}{2em}{0pt}{0pt}
+    \titlespacing{\paragraph}{2em}{0pt}{0pt}
+    \titlespacing{\subparagraph}{2em}{0pt}{0pt}
+}
+{                                                           % 硕博论文章节格式
+    \nwpu@apply@chapter@format
+    \titleformat{\section}[hang]{\nwpuSectionFont}{%
+      \nwpuSectionFont\thesection}{\nwpuSectionLabelSep}{}{}
+    \titleformat{\subsection}[hang]{\nwpuSubsectionFont}{%
+      \nwpuSubsectionFont\thesubsection}{\nwpuSectionLabelSep}{}{}
+    \titleformat{\subsubsection}[runin]{\nwpuSubsubsectionFont}{(\arabic{subsubsection})}{0pt}{}{}
+    \titleformat{\paragraph}[runin]{\nwpuParagraphFont}{\arabic{paragraph}）}{0pt}{}[：\hspace{0.5em}]
+    \titleformat{\subparagraph}[runin]{\nwpuSubparagraphFont}{\roman{subparagraph}）}{0pt}{}[：\hspace{0.5em}]
+    \titlespacing{\chapter}{0pt}{\nwpuChapterBeforeSkip}{\nwpuChapterAfterSkip}
+    \titlespacing{\section}{0pt}{\nwpuSectionBeforeSkip}{\nwpuSectionAfterSkip}
+    \titlespacing{\subsection}{0pt}{\nwpuSubsecBeforeSkip}{\nwpuSubsecAfterSkip}
+    \titlespacing{\subsubsection}{2em}{0pt}{0pt}
+    \titlespacing{\paragraph}{2em}{0pt}{0pt}
+    \titlespacing{\subparagraph}{2em}{0pt}{0pt}
+}
+\dottedcontents{section}[\nwpuTocSectionIndent]{}{\nwpuTocSectionLabelWidth}{\nwpuBachelorTocDotSep}              % 定义目录中各级标题
+\dottedcontents{subsection}[\nwpuTocSubsectionIndent]{}{\nwpuTocSubsectionLabelWidth}{\nwpuBachelorTocDotSep}      % 之间的格式以及缩进
+\cs_new:Npn \nwpu@chs@chaptercname #1 { 第 ~ #1 ~ 章 }     % 目录章节中文标题（硕博）
+\cs_new:Npn \nwpu@eng@chaptercname #1 { Chapter ~ #1 }     % 目录章节英文标题
+\nwpu_if_bachelor:TF                                        % 本科论文目录章节格式
+{
+    \contentsmargin{0pt}
+    \cs_new:Npn \nwpu@bcl@chaptercname #1 { 第 \CJKnumber{#1} 章 }% 本科目录章节中文标题
+    \titlecontents{section}[\nwpuTocSectionIndent]{\nwpuTOCEntryFont}%
+    {\contentslabel{\nwpuTocSectionLabelWidth}}{}%
+    {\titlerule*[\nwpuGraduateTocDotSep]{\raisebox{0.35ex}{.}}\thecontentspage}[\vspace{0em}]%
+    \titlecontents{subsection}[\nwpuTocSubsectionIndent]{\nwpuTOCEntryFont}%
+    {\contentslabel{\nwpuTocSubsectionLabelWidth}}{}%
+    {\titlerule*[\nwpuGraduateTocDotSep]{\raisebox{0.35ex}{.}}\thecontentspage}[\vspace{0em}]%
+    \titlecontents{chapter}[0pt]{\nwpuTOCEntryFont\vspace{\nwpuTocChapterBeforeSkip}}%
+    {\nwpuTOCEntryFont\bfseries\makebox[0pt][l]{\nwpu@bcl@chaptercname{\thecontentslabel}}\hspace{\nwpuBachelorTocChapterLabelOffset}}%
+    {\nwpuTOCEntryFont\bfseries}%
+    {\nwpuTOCEntryFont\normalfont\titlerule*[\nwpuTocLeaderSep]{\raisebox{0.35ex}{.}}\thecontentspage}[\vspace{0em}]
+}
+{
+    \cs_set:Npn \@pnumwidth { 0.5em }                             % 页码预留宽度（匹配实际数字宽度）
+    \cs_set:Npn \contentspage { \thecontentspage }                % 导引点延伸至页码
+    \dottedcontents{section}[\nwpuTocSectionIndent]{\nwpuTOCEntryFont}{\nwpuTocSectionLabelWidth}{\nwpuGraduateTocDotSep}   %
+    \dottedcontents{subsection}[\nwpuTocSubsectionIndent]{\nwpuTOCEntryFont}{\nwpuTocSubsectionLabelWidth}{\nwpuGraduateTocDotSep}%
+    \nwpu_if_chinese:TF                                      % 硕博中文本地化显示
+    {
+        \titlecontents{chapter}[0pt]{\nwpuTOCEntryFont}{\contentsmargin{1em}\nwpuTOCEntryFont\makebox[0pt  %
+            ][l]{\nwpu@chs@chaptercname{\thecontentslabel}}\hspace{%
+                \nwpuGraduateTocChapterLabelOffset}}{\nwpuTOCEntryFont}{\titlerule*[%
+                \nwpuTocLeaderSep]{.}\contentspage}[\vspace{0em}]            %
+    }
+    {                                                           % 硕博英文
+        \dim_new:N \l__nwpu_contents_title_dim
+        \settowidth{\l__nwpu_contents_title_dim}{\nwpuTOCEntryFont Chapter~000} %
+        \titlecontents{chapter}[0pt]{\nwpuTOCEntryFont}{\contentsmargin{1em}\nwpuTOCEntryFont\makebox[0pt  %
+            ][l]{\nwpu@eng@chaptercname{\thecontentslabel}}\hspace{%
+                \l__nwpu_contents_title_dim}}{\nwpuTOCEntryFont}{
+            \titlerule*[\nwpuTocLeaderSep]{.}\contentspage}[\vspace{0em}]    %
+    }
+}
+\titlecontents{figure}[\nwpuTocFigureTableLabelWidth]{\nwpuTOCEntryFont}{\contentslabel{\nwpuTocFigureTableLabelWidth}}{}{\titlerule*[\nwpuTocLeaderSep]{\raisebox{0.35ex}{.}}\contentspage}[\vspace{0em}]
+\titlecontents{table}[\nwpuTocFigureTableLabelWidth]{\nwpuTOCEntryFont}{\contentslabel{\nwpuTocFigureTableLabelWidth}}{}{\titlerule*[\nwpuTocLeaderSep]{\raisebox{0.35ex}{.}}\contentspage}[\vspace{0em}]
+%%-----------------------------------------------------------------------------%
+\RequirePackage{fancyhdr}                                   % 页眉设置
+\cs_new_protected:Npn \npu@headrule
+{
+    \rlap{\rule[\nwpuHeaderTopRuleRaise]{\headwidth}{\nwpuGraduateHeaderTopRuleWidth}}%
+    \vspace{\nwpuGraduateHeaderTopRuleVSkip}                 %
+    \rule[\nwpuGraduateHeaderBottomRuleRaise]{\headwidth}{\nwpuGraduateHeaderBottomRuleWidth}%
+    \vspace{\nwpuHeaderAfterRuleVSkip}                       %
+}
+\cs_new_protected:Npn \npu@bcl@headrule                     % 本科页眉线
+{
+    \makebox[0pt][l]{\rule[\nwpuHeaderTopRuleRaise]{\headwidth}{\nwpuBachelorHeaderRuleWidth}}%
+    \vskip\nwpuHeaderAfterRuleVSkip                         %
+}
+\cs_gset_protected:Npn \headrule {                           %
+    \if@fancyplain \cs_set_eq:NN \headrulewidth \plainheadrulewidth \fi  %
+    \nwpu_if_bachelor:TF                                    % 本科页眉线
+        { \npu@bcl@headrule }                               %
+        { \npu@headrule }                                   %
+}
+\graphicspath{{content/figures/}{figures/}{infra/assets/}}           % 定义图片文件搜索目录
+\nwpu_if_bachelor:TF                                        % 本科论文页眉设置
+{
+    \pagestyle{fancyplain}                                  %
+    \fancyhf{}                                              % 清空原有页眉页脚
+    \fancyfoot[C,C]{\nwpuHeaderFooterSize~\thepage~}           % 页脚中央显示页码
+    \lhead{\hspace{10em}\raisebox{-3pt}{\includegraphics[width=2.99cm,height=0.61cm]{nwpu-name.png}}\hspace{2pt}{\fSong\fontsize{15.75pt}{21pt}\bfseries\selectfont 本科毕业设计（论文）\vspace*{1pt}}}%
+}
+{                                                           % 硕博论文页眉设置
+    \nwpu_if_chinese:TF                                     % 中英文章节页眉设置
+    {
+        \cs_gset_protected:Npn \chaptermark #1 {             %
+            \markboth{\nwpu@chs@chaptercname{\thechapter}\quad #1}{}}
+    }
+    {                                                       %
+        \cs_gset_protected:Npn \chaptermark #1 {             %
+            \markboth{\nwpu@eng@chaptercname{\thechapter}\quad #1}{}}
+    }
+    \pagestyle{fancyplain}                                  %
+    \fancyhf{}                                              % 清空原有页眉页脚
+    \fancyfoot[C, C]{\nwpuHeaderFooterSize{\thepage}}          % 页脚中央显示页码
+    \fancyhead[COH]{\raisebox{\nwpuHeaderRaise}{\nwpuHeaderFooterSize{\leftmark}}}%
+    \nwpu_if_chinese:TF                                     % 中文论文环境
+        { \fancyhead[CEH]{\raisebox{\nwpuHeaderRaise}{\nwpuHeaderFooterSize{\nwpu@chs@header}}} }
+        { \fancyhead[CEH]{\raisebox{\nwpuHeaderRaise}{\nwpuHeaderFooterSize{\nwpu@eng@header}}} }
+}
+%%-----------------------------------------------------------------------------%
+\RequirePackage[
+    backend=biber,
+    style=\l__nwpu_bibstyle_tl,
+    gbpunctin = false,
+    sorting=none
+]{biblatex}                                                 % 参考文献
+\str_if_eq:VnT \l__nwpu_bibstyle_tl { gb7714-2025 } {
+    \nwpu_if_bachelor:TF
+        {
+            \ExecuteBibliographyOptions{gbpunctwidth=bylan}
+            \cs_set:Npn \CharParenLeft {(}
+            \cs_set:Npn \CharParenRight {)\allowbreak}
+        }
+        { \ExecuteBibliographyOptions{gbpunctwidth=half} }
+}
+\nwpu_if_graduate:TF{%
+    \DefineBibliographyStrings{english}{in={}}%
+    \DefineBibliographyStrings{english}{incn={}}%
+}{%
+    \DefineBibliographyStrings{english}{in={见\addcolon\space}}%
+    \DefineBibliographyStrings{english}{in={In\addcolon\space}}%
+}
+%%-----------------------------------------------------------------------------%
+\RequirePackage{enumitem}                                   % 列表格式控制
+\setlist{nosep}                                             % 消除间距
+%%-----------------------------------------------------------------------------%
+\RequirePackage{graphicx}                                   % 插图功能
+\RequirePackage[final]{pdfpages}                            % 插入其他 pdf 文件
+\RequirePackage{xcolor}                                     % 颜色库
+\RequirePackage[labelsep=quad]{caption}                     % 浮动体标题控制
+\RequirePackage{subcaption}                                 % 子图
+\RequirePackage{wrapfig}                                    % 文字环绕
+\RequirePackage{multirow, makecell}                         % 合并单元格
+\RequirePackage{longtable}                                  % 长表格（跨页表格）
+\RequirePackage{booktabs}                                   % 三线表
+\RequirePackage{tabularx}                                   % 定宽表格
+\DeclareCaptionFont{nwpuTableCaption}{\nwpuTableCaptionFont}
+\DeclareCaptionFont{nwpuFigureCaption}{\nwpuFigureCaptionFont}
+\DeclareCaptionFont{nwpuSubcaption}{\nwpuCaptionSize}
+\nwpu_if_bachelor:TF
+{
+    \setlength{\textfloatsep}{\nwpuFloatSep}           %
+    \setlength{\floatsep}{\nwpuFloatSep}                   %
+    \setlength{\intextsep}{\nwpuFloatSep}                  %
+    \DeclareCaptionLabelFormat{nwpubcllabel}{#1\kern0.1em#2}
+    \DeclareCaptionLabelSeparator{nwpubclsep}{\hspace{0.5em}}
+    \DeclareCaptionLabelSeparator{nwpubclfigsep}{\hspace{1em}}
+    \captionsetup[table]{%
+        font=nwpuTableCaption,
+        labelformat=nwpubcllabel,
+        labelsep=nwpubclsep,
+        aboveskip=\nwpuBachelorTableCaptionAboveSkip,
+        belowskip=\nwpuBachelorTableCaptionBelowSkip}
+    \captionsetup[figure]{%
+        font=nwpuFigureCaption,
+        labelformat=nwpubcllabel,
+        labelsep=nwpubclfigsep,
+        aboveskip=\nwpuBachelorFigureCaptionAboveSkip,
+        belowskip=\nwpuBachelorFigureCaptionBelowSkip}
+    \captionsetup[algorithm]{%
+        font=nwpuTableCaption,
+        labelformat=nwpubcllabel,
+        labelsep=nwpubclsep,
+        aboveskip=\nwpuBachelorTableCaptionAboveSkip,
+        belowskip=\nwpuBachelorTableCaptionBelowSkip}
+    \captionsetup[subfigure]{labelformat=simple, font=nwpuSubcaption, aboveskip=\nwpuBachelorSubcaptionAboveSkip, belowskip=\nwpuBachelorSubcaptionBelowSkip}
+    \AddToHook{env/figure/begin}{\vspace{\nwpuBachelorFigureTopSkip}}
+}
+{
+    \setlength{\textfloatsep}{\nwpuFloatSep}           %
+    \setlength{\floatsep}{\nwpuFloatSep}                   %
+    \setlength{\intextsep}{\nwpuFloatSep}                  %
+    \captionsetup[table]{font=nwpuTableCaption, aboveskip=\nwpuCaptionAboveSkip, belowskip=\nwpuCaptionBelowSkip}
+    \captionsetup[figure]{font=nwpuFigureCaption, aboveskip=\nwpuCaptionAboveSkip, belowskip=\nwpuCaptionBelowSkip}
+    \captionsetup[subfigure]{%
+        labelformat=simple,
+        font=nwpuSubcaption,
+        aboveskip=\nwpuCaptionAboveSkip,
+        belowskip=\nwpuCaptionBelowSkip}
+}
+\captionsetup[subtable]{labelformat=simple, aboveskip=\nwpuCaptionAboveSkip, belowskip=\nwpuSubcaptionBelowSkip}
+\nwpu_if_graduate:T
+  {
+    \AddToHook{env/tabular/begin}{\linespread{\nwpuGraduateTableLineSpread}\selectfont}  % 研究生表格为单倍行距
+    \AddToHook{env/tabularx/begin}{\linespread{\nwpuGraduateTableLineSpread}\selectfont} %
+    \AddToHook{env/longtable/begin}{\linespread{\nwpuGraduateTableLineSpread}\selectfont}%
+  }
+\nwpu_if_bachelor:T
+  {
+    \AddToHook{env/algorithm/begin}{\linespread{1.5}\selectfont} % 本科算法环境行距
+  }
+\nwpu_if_graduate:T
+  {
+    \AddToHook{env/algorithm/begin}{\linespread{1.3}\selectfont} % 研究生算法环境行距
+  }
+\bool_new:N \g__nwpu_table_content_font_hook_bool
+\cs_new_protected:Npn \nwpu_enable_table_content_font:       % 正文表格内容为五号
+  {
+    \bool_if:NF \g__nwpu_table_content_font_hook_bool
+      {
+        \AddToHook{env/tabular/begin}{\fontsize{\nwpuFontPointWuhao}{\nwpuGraduateTableLineHeight}\selectfont}
+        \AddToHook{env/tabularx/begin}{\fontsize{\nwpuFontPointWuhao}{\nwpuGraduateTableLineHeight}\selectfont}
+        \bool_gset_true:N \g__nwpu_table_content_font_hook_bool
+      }
+  }
+\newcolumntype{C}{>{\centering\arraybackslash}X}            % 等宽居中
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}          % 等宽左对齐
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}           % 等宽右对齐
+\newcolumntype{Q}[1]{>{\raggedleft\let\newline\\%           % 指定宽度右对齐
+        \arraybackslash\hspace{0pt}}p{#1}}                  %
+\newcolumntype{O}[1]{>{\centering\let\newline\\%            % 指定宽度居中
+        \arraybackslash\hspace{0pt}}p{#1}}                  %
+\newcolumntype{P}[1]{>{\raggedright\let\newline\\%          % 指定宽度左对齐
+        \arraybackslash\hspace{0pt}}p{#1}}                  %
+\cs_gset:Npn \arraystretch {\nwpuTableArrayStretch}          % 表格行高
+\dim_set:Nn \arrayrulewidth { \nwpuTableRuleWidth }          % 表格框线宽
+\dim_set:Nn \heavyrulewidth { \nwpuHeavyRuleWidth }          % 表格上下线宽
+\dim_set:Nn \lightrulewidth { \nwpuLightRuleWidth }          % 表格中线宽
+%%-----------------------------------------------------------------------------%
+\RequirePackage{algorithm}                                  % 算法流程
+\cs_set_protected:Npn \fs@ruled {                           %
+    \cs_set:Npn \@fs@cfont { \bfseries }                    %
+    \cs_set_eq:NN \@fs@capt \floatc@ruled                   %
+    \cs_set:Npn \@fs@pre { \hrule height \nwpuHeavyRuleWidth depth 0pt \kern \nwpuAlgorithmRuleKern }%
+    \cs_set:Npn \@fs@post { \kern \nwpuAlgorithmRuleKern \hrule height \nwpuHeavyRuleWidth depth 0pt \relax }%
+    \cs_set:Npn \@fs@mid { \kern \nwpuAlgorithmRuleKern \hrule height \nwpuLightRuleWidth depth 0pt \kern \nwpuAlgorithmRuleKern }%
+    \cs_set_eq:NN \@fs@iftopcapt \iftrue                    %
+}                                                           %
+\restylefloat{algorithm}                                    %
+\RequirePackage{algpseudocode}                              % 伪代码
+%%-----------------------------------------------------------------------------%
+\RequirePackage{appendix}                                   % 添加附录功能
+\ExplSyntaxOff
+%%-----------------------------------------------------------------------------%
+\g@addto@macro\@floatboxreset\centering
+%%=============================================================================%

@@ -1,0 +1,622 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+\ExplSyntaxOn
+%%-----------------------------------------------------------------------------%
+%% 模块级变量（由封面页和内封页共享）
+%%-----------------------------------------------------------------------------%
+\dim_new:N \l__nwpu_chstitle_hwidtha_dim
+\dim_new:N \l__nwpu_chstitle_hwidthb_dim
+\dim_new:N \l__nwpu_author_dim
+\dim_new:N \l__nwpu_advisor_dim
+\dim_new:N \l__nwpu_major_dim
+\dim_new:N \l__nwpu_maxname_dim
+\dim_new:N \l__nwpu_chs_inner_title_value_dim
+\dim_new:N \l__nwpu_chs_inner_info_value_dim
+\dim_new:N \l__nwpu_title_split_width_dim
+\dim_new:N \l__nwpu_title_split_target_dim
+\int_new:N \l__nwpu_hbadness_save_int
+\int_new:N \l__nwpu_vbadness_save_int
+\box_new:N \l__nwpu_title_measure_box
+\bool_new:N \l__nwpu_title_split_overflow_bool
+\bool_new:N \l__nwpu_title_break_seen_bool
+\tl_new:N \l__nwpu_title_source_tl
+\tl_new:N \l__nwpu_title_probe_tl
+\tl_new:N \l__nwpu_title_best_line_tl
+\tl_new:N \l__nwpu_title_since_break_tl
+\tl_new:N \l__nwpu_cover_title_line_a_tl
+\tl_new:N \l__nwpu_cover_title_line_b_tl
+\tl_new:N \l__nwpu_chs_inner_title_line_a_tl
+\tl_new:N \l__nwpu_chs_inner_title_line_b_tl
+\tl_new:N \l__nwpu_bachelor_title_line_a_tl
+\tl_new:N \l__nwpu_bachelor_title_line_b_tl
+%%-----------------------------------------------------------------------------%
+%% 单元格排版辅助
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \__nwpu_cover_cell:nnnnn #1#2#3#4#5
+  { \parbox[#1][#3][#2]{#4}{\centering #5\par} }
+\cs_new_protected:Npn \__nwpu_cover_bottom_cell:nnn #1#2#3
+  { \__nwpu_cover_cell:nnnnn { b } { b } {#2} {#1} {#3} }
+\cs_new_protected:Npn \__nwpu_cover_visual_bottom_cell:nnn #1#2#3
+  {
+    \__nwpu_cover_cell:nnnnn { c } { b } {#2} {#1}
+      { #3 \vspace{ \nwpuCoverVisualBottomRaise } }
+  }
+\cs_new_protected:Npn \__nwpu_cover_center_cell:nnn #1#2#3
+  { \__nwpu_cover_cell:nnnnn { c } { c } {#2} {#1} {#3} }
+\cs_new_protected:Npn \__nwpu_cover_title_row:nn #1#2
+  {
+    #1 & \__nwpu_cover_visual_bottom_cell:nnn
+      { \nwpuCoverTitleValueWidth }
+      { \nwpuCoverTitleRowHeight }
+      {#2}
+    \tabularnewline \cline{2-2}
+  }
+\cs_new_protected:Npn \__nwpu_cover_author_row:n #1
+  {
+    \__nwpu_cover_visual_bottom_cell:nnn
+      { \nwpuCoverAuthorLabelWidth }
+      { \nwpuCoverAuthorRowHeight }
+      { \bfseries 作者 }
+    & \__nwpu_cover_visual_bottom_cell:nnn
+      { \nwpuCoverAuthorValueWidth }
+      { \nwpuCoverAuthorRowHeight }
+      { \bfseries #1 }
+    \tabularnewline \cline{2-2}
+  }
+\cs_new_protected:Npn \__nwpu_cover_info_row:nn #1#2
+  {
+    \__nwpu_cover_visual_bottom_cell:nnn
+      { \nwpuCoverInfoLabelWidth }
+      { \nwpuCoverInfoRowHeight }
+      { \bfseries #1 }
+    & \__nwpu_cover_visual_bottom_cell:nnn
+      { \nwpuCoverInfoValueWidth }
+      { \nwpuCoverInfoRowHeight }
+      { \bfseries #2 }
+    \tabularnewline \cline{2-2}
+  }
+%%-----------------------------------------------------------------------------%
+%% 标题自动拆行
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \__nwpu_title_tl_put_right:Nnnn #1#2#3#4
+  { \tl_put_right:Nx #1 {#2} }
+\prg_new_conditional:Npnn \__nwpu_title_if_break_token:nnn #1#2#3
+  { T , F , TF }
+  {
+    \str_if_eq:nnTF {#3} { A }
+      { \prg_return_true: }
+      { \prg_return_false: }
+  }
+\cs_new_protected:Npn \__nwpu_title_split:NnNN #1#2#3#4
+  { \exp_args:No \__nwpu_title_split:nnNN {#1} {#2} #3 #4 }
+\cs_new_protected:Npn \__nwpu_title_split:nnNN #1#2#3#4
+  {
+    \tl_set:Nn \l__nwpu_title_source_tl {#1}
+    \tl_clear:N #3
+    \tl_clear:N #4
+    \tl_clear:N \l__nwpu_title_best_line_tl
+    \tl_clear:N \l__nwpu_title_since_break_tl
+    \bool_set_false:N \l__nwpu_title_split_overflow_bool
+    \bool_set_false:N \l__nwpu_title_break_seen_bool
+    \hbox_set:Nn \l__nwpu_title_measure_box { \tl_use:N \l__nwpu_title_source_tl }
+    \dim_compare:nNnTF { \box_wd:N \l__nwpu_title_measure_box } > {#2}
+      {
+        \tl_analysis_map_inline:Nn \l__nwpu_title_source_tl
+          {
+            \bool_if:NTF \l__nwpu_title_split_overflow_bool
+              { \__nwpu_title_tl_put_right:Nnnn #4 {##1} {##2} {##3} }
+              {
+                \tl_set_eq:NN \l__nwpu_title_probe_tl #3
+                \__nwpu_title_tl_put_right:Nnnn
+                  \l__nwpu_title_probe_tl {##1} {##2} {##3}
+                \hbox_set:Nn \l__nwpu_title_measure_box
+                  { \tl_use:N \l__nwpu_title_probe_tl }
+                \dim_compare:nNnTF
+                  { \box_wd:N \l__nwpu_title_measure_box } > {#2}
+                  {
+                    \bool_set_true:N \l__nwpu_title_split_overflow_bool
+                    \bool_if:NTF \l__nwpu_title_break_seen_bool
+                      {
+                        \tl_set_eq:NN #3 \l__nwpu_title_best_line_tl
+                        \tl_set_eq:NN #4 \l__nwpu_title_since_break_tl
+                        \__nwpu_title_tl_put_right:Nnnn #4 {##1} {##2} {##3}
+                      }
+                      { \__nwpu_title_tl_put_right:Nnnn #4 {##1} {##2} {##3} }
+                  }
+                  {
+                    \__nwpu_title_tl_put_right:Nnnn #3 {##1} {##2} {##3}
+                    \__nwpu_title_if_break_token:nnnTF {##1} {##2} {##3}
+                      {
+                        \bool_set_true:N \l__nwpu_title_break_seen_bool
+                        \tl_set_eq:NN \l__nwpu_title_best_line_tl #3
+                        \tl_clear:N \l__nwpu_title_since_break_tl
+                      }
+                      {
+                        \bool_if:NT \l__nwpu_title_break_seen_bool
+                          {
+                            \__nwpu_title_tl_put_right:Nnnn
+                              \l__nwpu_title_since_break_tl {##1} {##2} {##3}
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      { \tl_set_eq:NN #3 \l__nwpu_title_source_tl }
+  }
+\cs_new_protected:Npn \__nwpu_prepare_cover_title:
+  {
+    \nwpuCoverTitleFont
+    \exp_args:No \tl_if_empty:nTF { \nwpu@chs@title@lineA }
+      {
+        \hbox_set:Nn \l__nwpu_title_measure_box { \nwpu@chs@title }
+        \dim_compare:nNnTF { \box_wd:N \l__nwpu_title_measure_box } >
+          { \nwpuCoverTitleValueWidth }
+          {
+            \dim_set:Nn \l__nwpu_title_split_target_dim
+              { .5 \box_wd:N \l__nwpu_title_measure_box }
+            \__nwpu_title_split:NnNN \nwpu@chs@title
+              { \l__nwpu_title_split_target_dim }
+              \l__nwpu_cover_title_line_a_tl
+              \l__nwpu_cover_title_line_b_tl
+          }
+          {
+            \tl_set:No \l__nwpu_cover_title_line_a_tl { \nwpu@chs@title }
+            \tl_clear:N \l__nwpu_cover_title_line_b_tl
+          }
+      }
+      {
+        \tl_set:No \l__nwpu_cover_title_line_a_tl { \nwpu@chs@title@lineA }
+        \tl_set:No \l__nwpu_cover_title_line_b_tl { \nwpu@chs@title@lineB }
+      }
+  }
+\cs_new_protected:Npn \__nwpu_prepare_chs_inner_title:
+  {
+    \dim_set:Nn \l__nwpu_chs_inner_title_value_dim
+      { \nwpuChsInnerTitleValueMinWidth }
+    \nwpuChsInnerTitleFont
+    \exp_args:No \tl_if_empty:nTF { \nwpu@chs@title@lineA }
+      {
+        \__nwpu_title_split:NnNN \nwpu@chs@title
+          { \l__nwpu_chs_inner_title_value_dim }
+          \l__nwpu_chs_inner_title_line_a_tl
+          \l__nwpu_chs_inner_title_line_b_tl
+      }
+      {
+        \tl_set:No \l__nwpu_chs_inner_title_line_a_tl { \nwpu@chs@title@lineA }
+        \tl_set:No \l__nwpu_chs_inner_title_line_b_tl { \nwpu@chs@title@lineB }
+      }
+    \hbox_set:Nn \l__nwpu_title_measure_box
+      { \tl_use:N \l__nwpu_chs_inner_title_line_a_tl }
+    \dim_set:Nn \l__nwpu_title_split_width_dim
+      { \box_wd:N \l__nwpu_title_measure_box }
+    \hbox_set:Nn \l__nwpu_title_measure_box
+      { \tl_use:N \l__nwpu_chs_inner_title_line_b_tl }
+    \dim_compare:nNnT { \box_wd:N \l__nwpu_title_measure_box } >
+      { \l__nwpu_title_split_width_dim }
+      {
+        \dim_set:Nn \l__nwpu_title_split_width_dim
+          { \box_wd:N \l__nwpu_title_measure_box }
+      }
+    \dim_compare:nNnT { \l__nwpu_title_split_width_dim } >
+      { \l__nwpu_chs_inner_title_value_dim }
+      {
+        \dim_set:Nn \l__nwpu_chs_inner_title_value_dim
+          { \l__nwpu_title_split_width_dim }
+      }
+  }
+\cs_new_protected:Npn \__nwpu_chs_inner_title_row:nn #1#2
+  {
+    #1 & \__nwpu_cover_visual_bottom_cell:nnn
+      { \l__nwpu_chs_inner_title_value_dim }
+      { \nwpuChsInnerTitleRowHeight }
+      {#2}
+    \tabularnewline \cline{2-2}
+  }
+\cs_new_protected:Npn \__nwpu_chs_inner_title:
+  {
+    \begin{tabular}[b]{@{}c@{}c@{}}
+      \__nwpu_chs_inner_title_row:nn
+        {
+          \__nwpu_cover_visual_bottom_cell:nnn
+            { \nwpuChsInnerTitleLabelWidth }
+            { \nwpuChsInnerTitleRowHeight }
+            { 题目： }
+        }
+        { \tl_use:N \l__nwpu_chs_inner_title_line_a_tl }
+      \__nwpu_chs_inner_title_row:nn
+        { }
+        { \tl_use:N \l__nwpu_chs_inner_title_line_b_tl }
+    \end{tabular}
+  }
+%%-----------------------------------------------------------------------------%
+%% 本科封面题目自动换行
+%%-----------------------------------------------------------------------------
+\cs_new_protected:Npn \__nwpu_prepare_bachelor_title:
+  {
+    \nwpuBachelorTitleFont
+    \exp_args:No \tl_if_empty:nTF { \nwpu@chs@title@lineA }
+      {
+        \__nwpu_title_split:NnNN \nwpu@chs@title
+          { \nwpuBachelorTitleUnderlineWidth }
+          \l__nwpu_bachelor_title_line_a_tl
+          \l__nwpu_bachelor_title_line_b_tl
+      }
+      {
+        \tl_set:No \l__nwpu_bachelor_title_line_a_tl { \nwpu@chs@title@lineA }
+        \tl_set:No \l__nwpu_bachelor_title_line_b_tl { \nwpu@chs@title@lineB }
+      }
+    \normalfont
+  }
+\cs_new_protected:Npn \__nwpu_bachelor_title:
+  {
+    {
+      \renewcommand{\arraystretch}{1}
+      \setlength{\extrarowheight}{10pt}
+      \begin{tabular}[b]{@{}c@{}>{\centering\arraybackslash}p{12cm}@{}}
+        \makebox[\nwpuBachelorTitleLabelWidth][c]{题\ 目}
+        & \mdseries \tl_use:N \l__nwpu_bachelor_title_line_a_tl
+        \tabularnewline \cline{2-2}
+        &
+        \tl_if_empty:NF \l__nwpu_bachelor_title_line_b_tl
+          {
+            \mdseries \tl_use:N \l__nwpu_bachelor_title_line_b_tl
+            \tabularnewline \cline{2-2}
+          }
+      \end{tabular}
+    }
+  }
+\cs_new_protected:Npn \__nwpu_chs_inner_info_row:nn #1#2
+  {
+    \__nwpu_cover_visual_bottom_cell:nnn
+      { \nwpuChsInnerInfoLabelWidth }
+      { \nwpuChsInnerInfoRowHeight }
+      {#1}
+    & \__nwpu_cover_visual_bottom_cell:nnn
+      { \l__nwpu_chs_inner_info_value_dim }
+      { \nwpuChsInnerInfoRowHeight }
+      {#2}
+    \tabularnewline \cline{2-2}
+  }
+\cs_new_protected:Npn \__nwpu_chs_inner_info:
+  {
+    \begin{tabular}[b]{@{}c@{}c@{}}
+      \__nwpu_chs_inner_info_row:nn
+        { \nwpu@chs@innerCoverFirstOption： }
+        { \nwpu@chs@major }
+      \__nwpu_chs_inner_info_row:nn
+        { 作{\qquad}者： }
+        { \makebox[\l__nwpu_maxname_dim][s]{\nwpu@chs@author} }
+      \__nwpu_chs_inner_info_row:nn
+        { 指导教师： }
+        { \makebox[\l__nwpu_maxname_dim][s]{\nwpu@chs@advisor} }
+    \end{tabular}
+  }
+
+%% 封皮页
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \make@nwpu@coverpage {                          % 设置封皮页
+    \thispagestyle{empty}                                   % 清空页面格式
+    \setlength{\tabcolsep}{0pt}                             % 封皮表格列内边距
+    \begin{titlepage}                                       %
+        % 彩色封面背景图
+        \nwpu_if_colorcover:TF {
+            \begin{tikzpicture}[remember~picture,overlay]
+                \node[at=(current~page.center),inner~sep=\nwpuCoverBackgroundInnerSep] {
+                    \nwpu_if_phd:TF {
+                        \includegraphics[width=\paperwidth,height=\paperheight]{cover-phd.jpg}
+                    } {
+                        \nwpu_if_academic:TF {
+                            \includegraphics[width=\paperwidth,height=\paperheight]{cover-master-academic.jpg}
+                        } {
+                            \includegraphics[width=\paperwidth,height=\paperheight]{cover-master-professional.jpg}
+                        }
+                    }
+                };
+            \end{tikzpicture}
+        }
+        \bfseries                                           %
+        \begin{center}                                      %
+            \__nwpu_prepare_cover_title:
+            \hfill \nwpuCoverDetailFont                     %
+            \begin{tabular}{
+                |>{\centering\arraybackslash}p{\nwpuCoverDetailLabelWidth}|
+                 >{\centering\arraybackslash}p{\nwpuCoverDetailValueWidth}|
+              }\hline %
+                \makebox[\nwpuCoverDetailLabelTextWidth][s]{学\hfil 校\hfil 代\hfil 码} & \nwpu@schoolcode    \\ \hline
+                \makebox[\nwpuCoverDetailLabelTextWidth][s]{分\hfil 类\hfil 号}          & \nwpu@classnumber   \\ \hline
+                \makebox[\nwpuCoverDetailLabelTextWidth][s]{密\hfil 级}                  & \nwpu@securitylevel \\ \hline
+                \makebox[\nwpuCoverDetailLabelTextWidth][s]{学\hfil 号}                  & \nwpu@uid           \\ \hline
+            \end{tabular}\par                               % 排版基本信息表
+            \vspace{\nwpuCoverAfterDetailSkip}               %
+            \nwpuCoverTitleFont
+            \begin{tabular}[b]{@{}c@{}c@{}}
+                \__nwpu_cover_title_row:nn
+                    {
+                      \__nwpu_cover_visual_bottom_cell:nnn
+                        { \nwpuCoverTitleLabelWidth }
+                        { \nwpuCoverTitleRowHeight }
+                        { 题目 }
+                    }
+                    { \tl_use:N \l__nwpu_cover_title_line_a_tl }
+                \__nwpu_cover_title_row:nn
+                    { }
+                    { \tl_use:N \l__nwpu_cover_title_line_b_tl }
+            \end{tabular}\par                                   % 排版结束
+            \vspace{\nwpuCoverAfterTitleSkip}                    %
+            \nwpuCoverAuthorFont                            %
+            \begin{tabular}[b]{@{}c@{}c@{}}
+                \__nwpu_cover_author_row:n { \nwpu@chs@author }
+            \end{tabular}\par                               % 排版作者信息
+            \vspace{\nwpuCoverAfterAuthorSkip}                %
+            \nwpuCoverInfoFont
+            \begin{tabular}[t]{@{}c@{}c@{}}
+                \__nwpu_cover_info_row:nn
+                    { \nwpu@chs@outerCoverFirstOption }
+                    { \nwpu@chs@major }
+                \__nwpu_cover_info_row:nn
+                    { 指{\enspace}导{\enspace}教{\enspace}师 }
+                    { \nwpu@chs@advisor\nwpu@chs@advisorAcademicRank }
+                \__nwpu_cover_info_row:nn
+                    { 培{\enspace}养{\enspace}单{\enspace}位 }
+                    { \nwpu@chs@school }
+                \__nwpu_cover_info_row:nn
+                    { 申{\enspace}请{\enspace}日{\enspace}期 }
+                    { \nwpu@chs@date }
+            \end{tabular}                                   % 排版结束
+        \end{center}                                        %
+    \end{titlepage} \fSong \normalsize \newpage \clearpage  %
+}                                                           %
+%%-----------------------------------------------------------------------------%
+%% 中文内封
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \make@nwpu@chs@title {                          % 设置中文内封
+    \thispagestyle{empty}                                   % 清空页面格式
+    \settowidth{\l__nwpu_chstitle_hwidtha_dim}{\nwpuChsInnerSchoolNameFont\nwpu@chs@schoolname}
+    \settowidth{\l__nwpu_chstitle_hwidthb_dim}{\nwpuChsInnerDocTitleFont\nwpu@chs@doctitle}
+    % 测量宽度时使用与实际排版一致的字体
+    \settowidth{\l__nwpu_author_dim}{\nwpuChsInnerInfoFont\nwpu@chs@author}
+    \settowidth{\l__nwpu_advisor_dim}{\nwpuChsInnerInfoFont\nwpu@chs@advisor}
+    \settowidth{\l__nwpu_major_dim}{\nwpuChsInnerInfoFont\nwpu@chs@major}
+    % 取最大值
+    \dim_set:Nn \l__nwpu_maxname_dim { \l__nwpu_author_dim }
+    \dim_compare:nNnT \l__nwpu_advisor_dim > \l__nwpu_maxname_dim
+        { \dim_set:Nn \l__nwpu_maxname_dim { \l__nwpu_advisor_dim } }
+    \__nwpu_prepare_chs_inner_title:
+    \dim_set:Nn \l__nwpu_chs_inner_info_value_dim
+        { \nwpuChsInnerInfoValueMinWidth }
+    \dim_compare:nNnT \l__nwpu_major_dim > \l__nwpu_chs_inner_info_value_dim
+        { \dim_set:Nn \l__nwpu_chs_inner_info_value_dim { \l__nwpu_major_dim } }
+    \dim_compare:nNnT \l__nwpu_maxname_dim > \l__nwpu_chs_inner_info_value_dim
+        { \dim_set:Nn \l__nwpu_chs_inner_info_value_dim { \l__nwpu_maxname_dim } }
+    \begin{titlepage}                                       %
+        \linespread{\nwpuChsInnerLineSpread}\selectfont      %
+        \begin{center}                                      %
+            \nwpuChsInnerSchoolNameFont \par \vspace*{\nwpuChsInnerTopSkip}%
+            \makebox[\nwpuChsInnerSchoolTitleStretch\l__nwpu_chstitle_hwidtha_dim][s]{\nwpuChsInnerSchoolNameFont\nwpu@chs@schoolname} \par
+            \vspace*{\nwpuChsInnerAfterSchoolSkip}           %
+            \makebox[\nwpuChsInnerSchoolTitleStretch\l__nwpu_chstitle_hwidthb_dim][s]{\nwpuChsInnerDocTitleFont\nwpu@chs@doctitle} \par
+            \vspace{\nwpuChsInnerBeforeTitleSkip}            %
+            \nwpuChsInnerTitleFont                          % 排版标题
+            \__nwpu_chs_inner_title: \par                    % 排版结束
+            \vspace{\nwpuChsInnerAfterTitleSkip}             %
+            \nwpuChsInnerInfoFont \__nwpu_chs_inner_info: \\
+            \par                                             %
+            \vspace{\nwpuChsInnerAfterInfoSkip}              %
+            \nwpuChsInnerDateFont \nwpu@chs@date            %
+        \end{center}                                        %
+    \end{titlepage} \fSong \normalsize \newpage \clearpage  %
+}                                                           %
+%%-----------------------------------------------------------------------------%
+%% 英文内封
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \make@nwpu@eng@title {                          % 设置英文内封
+    \thispagestyle{empty}                                   % 清空页面格式
+    \begin{titlepage}                                       %
+        \begin{center}                                      %
+            \vspace*{\nwpuEngInnerTopSkip}                   %
+            \nwpuEngInnerTitleFont \textbf{Title:}~\nwpuEngInnerTitleValueFont \nwpu@eng@title \par %
+            \vspace{\nwpuEngInnerAfterTitleSkip}              %
+            \nwpuEngInnerTextFont \textbf{By} \par          %
+            \nwpuEngInnerTextFont \nwpu@eng@author \par     %
+            \nwpuEngInnerTextFont \textbf{Under~the~Supervision~of~\nwpu@eng@advisorAcademicRank} \\
+            \nwpuEngInnerTextFont \nwpu@eng@advisor \par    %
+            \vspace{\nwpuEngInnerAfterAdvisorSkip}           %
+            \nwpuEngInnerTextFont A~Dissertation~Submitted~to \\ %
+            \nwpuEngInnerTextFont {\nwpu@eng@schoolname} \\  %
+            \vspace{\nwpuEngInnerBeforeDegreeSkip}           %
+            \nwpuEngInnerTextFont {In~Partial~Fulfillment~of~The~Requirement} \\
+            \nwpuEngInnerTextFont {For~The~Degree~of} \\    %
+            \nwpuEngInnerTextFont {{\nwpu@eng@degree}~of~\nwpu_if_master:TF{\nwpu@eng@major}{\textbf{\nwpu@eng@major}}}
+            \par \vspace{\nwpuEngInnerAfterDegreeSkip}       %
+            \nwpuEngInnerTextFont Xi'an,~P.R.~China \\      %
+            \nwpuEngInnerTextFont {\nwpu@eng@date}          %
+        \end{center}                                        %
+    \end{titlepage} \fSong \normalsize \newpage             %
+    \thispagestyle{empty} \cleardoublepage                  %
+}                                                           %
+%%-----------------------------------------------------------------------------%
+%% 本科封面
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \make@nwpu@bachelor@cover {                       % 设置本科封面
+    \thispagestyle{empty}                                   % 清空页面格式
+    \__nwpu_prepare_bachelor_title:
+    \begin{titlepage}                                       %
+        \begin{center}                                      %
+            \vspace*{\nwpuBachelorTopSkip}                   %
+            \includegraphics[width=1.64cm,height=1.64cm]{nwpu-logo.png}%
+            \hspace{15pt}%
+            \raisebox{5pt}{\includegraphics[width=6.25cm,height=1.24cm]{nwpu-name.png}}%
+            \vskip \nwpuBachelorAfterLogoSkip                %
+            \nwpuBachelorDocTitleFont {\bfseries 本科毕业设计（论文）}%
+            \vskip \nwpuBachelorAfterDocTitleSkip            %
+                {                                               %
+                    \nwpuBachelorTitleFont \__nwpu_bachelor_title: %
+                }                                               %
+            \vskip \nwpuBachelorAfterTitleSkip               %
+                {                                               %
+                    \nwpuBachelorInfoFont 专业名称\coverunderline[\nwpuBachelorInfoUnderlineWidth]{\nwpu@chs@major} %
+                    \vskip \nwpuBachelorInfoRowSkip              %
+                    \nwpuBachelorInfoFont 学生姓名\coverunderline[\nwpuBachelorInfoUnderlineWidth]{\nwpu@chs@author} %
+                    \vskip \nwpuBachelorInfoRowSkip              %
+                    \nwpuBachelorInfoFont 指导教师\coverunderline[\nwpuBachelorInfoUnderlineWidth]{\nwpu@chs@advisor} %
+                    \vskip \nwpuBachelorInfoRowSkip              %
+                    \nwpuBachelorInfoFont 毕业时间\coverunderline[\nwpuBachelorInfoUnderlineWidth]{\nwpu@chs@date} %
+                    \vfill                                      %
+                }                                               %
+        \end{center}                                        %
+    \end{titlepage} \fSong \normalsize \thispagestyle{empty} \cleardoublepage %
+}                                                           %
+%%-----------------------------------------------------------------------------%
+%% 生成标题页
+%%-----------------------------------------------------------------------------%
+\cs_gset_protected:Npn \maketitle {
+    \int_set:Nn \l__nwpu_hbadness_save_int { \hbadness }
+    \int_set:Nn \l__nwpu_vbadness_save_int { \vbadness }
+    \hbadness=10000
+    \vbadness=10000
+    \nwpu_if_bachelor:TF {                                      % 本科封面
+        \make@nwpu@bachelor@cover                           %
+    } {                                                      % 硕博封面
+        \make@nwpu@coverpage                                % 封皮页
+        \make@nwpu@chs@title                                % 中文内封
+        \make@nwpu@eng@title                                % 英文内封
+    }
+    \hbadness=\l__nwpu_hbadness_save_int
+    \vbadness=\l__nwpu_vbadness_save_int
+}                                                           %
+%%-----------------------------------------------------------------------------%
+%% 彩色封底
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \make@nwpu@backcover {                          % 彩色封底
+    \nwpu_if_colorcover:TF {
+        \clearpage
+        \thispagestyle{empty}
+        \tracinglostchars=0
+        \begin{tikzpicture}[remember~picture,overlay]
+            \node[at=(current~page.center),inner~sep=\nwpuCoverBackgroundInnerSep] {
+                \nwpu_if_phd:TF {
+                    \includegraphics[width=\paperwidth,height=\paperheight]{backcover-phd.jpg}
+                } {
+                    \nwpu_if_academic:TF {
+                        \includegraphics[width=\paperwidth,height=\paperheight]{backcover-master-academic.jpg}
+                    } {
+                        \includegraphics[width=\paperwidth,height=\paperheight]{backcover-master-professional.jpg}
+                    }
+                }
+            };
+        \end{tikzpicture}
+    }
+}
+\AtEndDocument{\make@nwpu@backcover}
+%%=============================================================================%
+%% 学位论文评阅人和答辩委员会名单
+%%-----------------------------------------------------------------------------%
+%%-----------------------------------------------------------------------------%
+\int_new:N \l__nwpu_expert_count_int
+\tl_new:N \l__nwpu_expert_rows_tl
+\bool_new:N \l__nwpu_reviewers_mode_bool
+\bool_new:N \l__nwpu_reviewers_called_bool
+\bool_new:N \g__nwpu_reviewers_called_aux_bool
+\cs_new_protected:Npn \__nwpu_reviewers_write_aux:
+  {
+    \bool_gset_true:N \g__nwpu_reviewers_called_aux_bool
+    \protected@write \@auxout { }
+      { \token_to_str:N \nwpu@reviewers@called@aux }
+  }
+\cs_new_protected:Npn \nwpu@reviewers@called@aux
+  { \bool_gset_true:N \g__nwpu_reviewers_called_aux_bool }
+\cs_new_protected:Npn \npu@text #1 {\relax\nwpuCommitteeBodyFont{#1}}
+\cs_new_protected:Npn \expert #1 #2 #3 {%
+    \bool_if:NTF \l__nwpu_reviewers_mode_bool
+      {
+        \int_incr:N \l__nwpu_expert_count_int
+        \tl_put_right:Nn \l__nwpu_expert_rows_tl
+          { \npu@text{#1} & \npu@text{#2} & \npu@text{#3} \\ }
+      }
+      { \npu@text{#1} & \npu@text{#2} & \npu@text{#3} \\ }
+}
+\cs_new_protected:Npn \expertBlindReview {\expert{全盲评阅}{无}{无}}
+\cs_new_protected:Npn \fullBlindReview #1 {%
+    \prg_replicate:nn {#1} {\expertBlindReview}%
+}
+\cs_new_protected:Npn \defenseDate #1 {\nwpuCommitteeBodyFont\textbf{答辩日期}%
+    & \multicolumn{3}{c}{\nwpuCommitteeBodyFont{\blindreview{#1}}} \\ }
+\cs_new_protected:Npn \defenseChair #1 #2 #3 {\nwpuCommitteeBodyFont\textbf{主席} & \expert{\blindreview{#1}}{\blindreview{#2}}{\blindreview{#3}} }
+\cs_new_protected:Npn \committeeMember #1 #2 #3 {\nwpuCommitteeBodyFont\textbf{委员} & \expert{\blindreview{#1}}{\blindreview{#2}}{\blindreview{#3}} }
+\cs_new_protected:Npn \defenseSecretary #1 #2 #3 {\nwpuCommitteeBodyFont\textbf{秘书} & \expert{\blindreview{#1}}{\blindreview{#2}}{\blindreview{#3}} }
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \makeCommitteePage #1 {                         %
+    \thispagestyle{empty}                                   % 清空页面格式
+    \begin{titlepage}                                       %
+        \linespread{\nwpuCommitteeLineSpread} \nwpuCommitteePageFont \par % 评阅与答辩页行距
+        \vspace*{\nwpuCommitteeTopSkip}                      %
+        \begin{center}                                      %
+            \nwpuCommitteeMainTitleFont {学位论文评阅人和答辩委员会名单} \par
+            \bool_set_false:N \l__nwpu_reviewers_called_bool
+            \bool_if:NF \g__nwpu_reviewers_called_aux_bool
+              { \__nwpu_reviewers_default: }
+            #1\relax
+        \end{center}                                        %
+    \end{titlepage} \normalsize \newpage             %
+    \thispagestyle{empty} \cleardoublepage}                 %
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \__nwpu_reviewers_default:
+  {
+    \par \nwpuCommitteeBodyFont \vspace{\nwpuCommitteeBeforeReviewersSkip}
+    \makebox[\linewidth][c]{\nwpuCommitteeSectionTitleFont 学位论文评阅人名单} \par
+    \vspace{\nwpuCommitteeReviewersTableBeforeSkip}
+    \begin{tabular}{
+        O{\nwpuCommitteeReviewNameWidth}
+        O{\nwpuCommitteeReviewRankWidth}
+        O{\nwpuCommitteeReviewOrgWidth}
+      }
+        \npu@text{\textbf{姓名}} & \npu@text{\textbf{职称}} & \npu@text{\textbf{工作单位}} \\
+        \expertBlindReview
+        \expertBlindReview
+        \npu@text{} & \npu@text{} & \npu@text{} \\
+        \npu@text{} & \npu@text{} & \npu@text{} \\
+        \npu@text{} & \npu@text{} & \npu@text{} \\
+    \end{tabular}\par
+  }
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \reviewers #1 {                                 %
+    \__nwpu_reviewers_write_aux:
+    \bool_set_true:N \l__nwpu_reviewers_called_bool
+    \par \nwpuCommitteeBodyFont \vspace{\nwpuCommitteeBeforeReviewersSkip}%
+    \makebox[\linewidth][c]{\nwpuCommitteeSectionTitleFont 学位论文评阅人名单} \par%
+    \vspace{\nwpuCommitteeReviewersTableBeforeSkip}         %
+    \int_zero:N \l__nwpu_expert_count_int
+    \tl_clear:N \l__nwpu_expert_rows_tl
+    \bool_set_true:N \l__nwpu_reviewers_mode_bool
+    #1\relax                                            %
+    \bool_set_false:N \l__nwpu_reviewers_mode_bool
+    \begin{tabular}{
+        O{\nwpuCommitteeReviewNameWidth}
+        O{\nwpuCommitteeReviewRankWidth}
+        O{\nwpuCommitteeReviewOrgWidth}
+      }
+        \npu@text{\textbf{姓名}} & \npu@text{\textbf{职称}} & \npu@text{\textbf{工作单位}} \\
+        \tl_use:N \l__nwpu_expert_rows_tl
+        \prg_replicate:nn { \int_max:nn { 5 - \l__nwpu_expert_count_int } { 0 } }
+          { \npu@text{} & \npu@text{} & \npu@text{} \\ }
+    \end{tabular}\par}                                     %
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \committee #1 #2 #3 #4 {                            %
+    \par \nwpuCommitteeBodyFont \vspace{\nwpuCommitteeBeforeDefenseSkip}%
+    \makebox[\linewidth][c]{\nwpuCommitteeSectionTitleFont 答辩委员会名单} \par%
+    \vspace{\nwpuCommitteeDefenseTableBeforeSkip}            %
+    \begin{tabular}{
+        O{\nwpuCommitteeRoleWidth}
+        O{\nwpuCommitteeNameWidth}
+        O{\nwpuCommitteeRankWidth}
+        O{\nwpuCommitteeOrgWidth}
+      }
+        \defenseDate{#1 年 #2 月 #3 日} \nwpuCommitteeBodyFont\textbf{答辩委员会} & %
+        \expert{\textbf{姓名}}{\textbf{职称}}{\textbf{工作单位}}
+        #4\relax                                            %
+    \end{tabular}\par}
+%%=============================================================================%
+
+\ExplSyntaxOff

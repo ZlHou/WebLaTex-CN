@@ -1,0 +1,321 @@
+This is a generated file for the l3build validation system.
+Don't change this file in any respect.
+============================================================
+TEST 1: Chinese fullwidth equation parentheses
+============================================================
+============================================================
+============================================================
+TEST 2: Chinese halfwidth equation parentheses
+============================================================
+============================================================
+============================================================
+TEST 3: English equation parentheses
+============================================================
+============================================================
+Completed box being shipped out [1]
+\vbox(722.98453+0.0)x435.04271
+.\hbox(0.0+0.0)x0.0
+..\kern -72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil
+...\kern -72.26999
+...\hbox(0.0+0.0)x0.0
+....\hbox(0.0+0.0)x0.0, shifted 845.04684
+.....\kern 0.0
+.....\glue 0.0 plus 1.0fil minus 1.0fil
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\glue -29.59128
+.\vbox(752.5758+0.0)x417.11752, shifted 17.92519
+..\vbox(13.942+0.0)x417.11752, glue set 13.942fil
+...\glue 0.0 plus 1.0fil
+...\hbox(0.0+0.0)x417.11752
+....\special{color push  Black}
+....\hbox(0.0+0.0)x417.11752
+....\special{color pop}
+..\glue 15.6491
+..\glue(\lineskip) 0.0
+..\vbox(700.50723+0.0)x417.11752, glue set 505.16455fil
+...\write-{}
+...\glue(\topskip) 2.364
+...\hbox(9.636+2.40898)x417.11752, glue set 373.56282fil
+....\hbox(0.0+0.0)x0.0
+....\TU/FandolSong(0)/m/n/12.045 式
+....\glue 0.0 plus 0.61353
+....\glue 7.63654 minus 6.0225
+....\rule(0.0+0.0)x-7.63654
+....\TU/FandolSong(0)/m/n/12.045 （
+....\penalty 10000
+....\glue 0.0
+....\TU/texgyretermes(0)/m/n/12.045 3.1
+....\penalty 10000
+....\TU/FandolSong(0)/m/n/12.045 ）
+....\rule(0.0+0.0)x-7.63654
+....\kern 0.00047
+....\kern -0.00047
+....\kern -0.99623
+....\kern 0.99623
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 8.03001
+...\hbox(9.636+2.40898)x417.11752, glue set 380.98253fil
+....\hbox(0.0+0.0)x0.0
+....\TU/FandolSong(0)/m/n/12.045 式
+....\kern -0.00017
+....\kern 0.00017
+....\penalty 10000
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(9.636+2.40898)x24.09
+.....\kern 0.0
+.....\glue 7.63654 minus 6.0225
+.....\rule(0.0+0.0)x-7.63654
+.....\TU/FandolSong(0)/m/n/12.045 （
+.....\kern 0.00009
+.....\kern -0.00009
+.....\kern -0.99622
+.....\kern 0.99622
+.....\penalty 10000
+.....\glue 0.0
+.....\hbox(0.0+0.0)x0.0
+.....\penalty 10000
+.....\TU/FandolSong(0)/m/n/12.045 ）
+.....\rule(0.0+0.0)x-7.63654
+.....\kern 0.00047
+.....\kern -0.00047
+.....\kern -0.99623
+.....\kern 0.99623
+.....\glue 7.63654 minus 6.0225
+.....\penalty 0
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 8.03001
+...\hbox(9.636+2.40898)x417.11752, glue set 380.98253fil
+....\hbox(0.0+0.0)x0.0
+....\TU/FandolSong(0)/m/n/12.045 式
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(9.636+2.40898)x24.09
+.....\kern 0.0
+.....\glue 7.63654 minus 6.0225
+.....\rule(0.0+0.0)x-7.63654
+.....\TU/FandolSong(0)/m/n/12.045 （
+.....\kern 0.00009
+.....\kern -0.00009
+.....\kern -0.99622
+.....\kern 0.99622
+.....\penalty 10000
+.....\glue 0.0
+.....\hbox(0.0+0.0)x0.0
+.....\penalty 10000
+.....\TU/FandolSong(0)/m/n/12.045 ）
+.....\rule(0.0+0.0)x-7.63654
+.....\kern 0.00047
+.....\kern -0.00047
+.....\kern -0.99623
+.....\kern 0.99623
+.....\glue 7.63654 minus 6.0225
+.....\penalty 0
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 8.03001
+...\hbox(9.636+2.40898)x417.11752, glue set 380.98253fil
+....\hbox(0.0+0.0)x0.0
+....\TU/FandolSong(0)/m/n/12.045 式
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(9.636+2.40898)x24.09
+.....\kern 0.0
+.....\glue 7.63654 minus 6.0225
+.....\rule(0.0+0.0)x-7.63654
+.....\TU/FandolSong(0)/m/n/12.045 （
+.....\kern 0.00009
+.....\kern -0.00009
+.....\kern -0.99622
+.....\kern 0.99622
+.....\penalty 10000
+.....\glue 0.0
+.....\hbox(0.0+0.0)x0.0
+.....\penalty 10000
+.....\TU/FandolSong(0)/m/n/12.045 ）
+.....\rule(0.0+0.0)x-7.63654
+.....\kern 0.00047
+.....\kern -0.00047
+.....\kern -0.99623
+.....\kern 0.99623
+.....\glue 7.63654 minus 6.0225
+.....\penalty 0
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 8.36728
+...\hbox(9.29874+2.13194)x417.11752, glue set 394.0393fil
+....\hbox(0.0+0.0)x0.0
+....\TU/FandolSong(0)/m/n/12.045 式
+....\kern -0.00017
+....\kern 0.00017
+....\penalty 10000
+....\glue 3.01125 plus 1.50562 minus 1.00374
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(8.14243+2.13194)x8.02197
+.....\TU/texgyretermes(0)/m/n/12.045 (
+.....\hbox(0.0+0.0)x0.0
+.....\TU/texgyretermes(0)/m/n/12.045 )
+.....\kern -0.0002
+.....\kern 0.0002
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 8.64432
+...\hbox(9.29874+2.13194)x417.11752, glue set 394.0393fil
+....\hbox(0.0+0.0)x0.0
+....\TU/FandolSong(0)/m/n/12.045 式
+....\glue 3.01125 plus 1.50562 minus 1.00374
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(8.14243+2.13194)x8.02197
+.....\TU/texgyretermes(0)/m/n/12.045 (
+.....\hbox(0.0+0.0)x0.0
+.....\TU/texgyretermes(0)/m/n/12.045 )
+.....\kern -0.0002
+.....\kern 0.0002
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 8.64432
+...\hbox(9.29874+2.13194)x417.11752, glue set 394.0393fil
+....\hbox(0.0+0.0)x0.0
+....\TU/FandolSong(0)/m/n/12.045 式
+....\glue 3.01125 plus 1.50562 minus 1.00374
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(8.14243+2.13194)x8.02197
+.....\TU/texgyretermes(0)/m/n/12.045 (
+.....\hbox(0.0+0.0)x0.0
+.....\TU/texgyretermes(0)/m/n/12.045 )
+.....\kern -0.0002
+.....\kern 0.0002
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 9.80063
+...\hbox(8.14243+2.61375)x417.11752, glue set 364.72179fil
+....\hbox(0.0+0.0)x0.0
+....\TU/texgyretermes(0)/m/n/12.045 equation
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue 3.01125 plus 1.50562 minus 1.00374
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(8.14243+2.13194)x8.02197
+.....\TU/texgyretermes(0)/m/n/12.045 (
+.....\hbox(0.0+0.0)x0.0
+.....\TU/texgyretermes(0)/m/n/12.045 )
+.....\kern -0.0002
+.....\kern 0.0002
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 9.31882
+...\hbox(8.14243+2.61375)x417.11752, glue set 364.72179fil
+....\hbox(0.0+0.0)x0.0
+....\TU/texgyretermes(0)/m/n/12.045 equation
+....\glue 3.01125 plus 1.50562 minus 1.00374
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(8.14243+2.13194)x8.02197
+.....\TU/texgyretermes(0)/m/n/12.045 (
+.....\hbox(0.0+0.0)x0.0
+.....\TU/texgyretermes(0)/m/n/12.045 )
+.....\kern -0.0002
+.....\kern 0.0002
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\parskip) 0.0
+...\glue(\baselineskip) 9.31882
+...\hbox(8.14243+2.61375)x417.11752, glue set 367.73303fil
+....\hbox(0.0+0.0)x0.0
+....\TU/texgyretermes(0)/m/n/12.045 equation
+....\write1{\MT@newlabel{eq:example}}
+....\hbox(8.14243+2.13194)x8.02197
+.....\TU/texgyretermes(0)/m/n/12.045 (
+.....\hbox(0.0+0.0)x0.0
+.....\TU/texgyretermes(0)/m/n/12.045 )
+.....\kern -0.0002
+.....\kern 0.0002
+....\kern -0.0002
+....\kern 0.0002
+....\penalty 10000
+....\glue(\parfillskip) 0.0 plus 1.0fil
+....\glue(\rightskip) 0.0
+...\glue 0.0 plus 1.0fil
+...\glue 0.0
+...\glue 0.0 plus 0.0001fil
+..\glue(\baselineskip) 22.47748
+..\hbox(0.0+0.0)x417.11752
+...\special{color push  Black}
+...\hbox(0.0+0.0)x417.11752
+...\special{color pop}
+.\kern -722.98453
+.\hbox(0.0+0.0)x0.0
+..\kern -72.26999
+..\vbox(0.0+0.0)x0.0, glue set 72.26999fil
+...\kern -72.26999
+...\hbox(0.0+0.0)x0.0
+....\hbox(0.0+0.0)x0.0, shifted 845.04684
+.....\kern 0.0
+.....\glue 0.0 plus 1.0fil minus 1.0fil
+....\glue 0.0 plus 1.0fil minus 1.0fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+.\kern 722.98453
+.\kern 0.0
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(1)/m/n' will be
+(Font)              scaled to size 9.03375pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(1)/m/n' will be
+(Font)              scaled to size 7.227pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 12.0461pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 9.03458pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(2)/m/n' will be
+(Font)              scaled to size 7.22766pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 12.0437pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 9.03278pt on input line ....
+LaTeX Font Info:    Font shape `TU/XITSMath-Regular(3)/m/n' will be
+(Font)              scaled to size 7.22623pt on input line ....
+LaTeX Font Info:    Font shape `TU/STIXTwoMath-Regular(0)/m/n' will be
+(Font)              scaled to size 8.59444pt on input line ....
+LaTeX Font Info:    Font shape `TU/STIXTwoMath-Regular(0)/m/n' will be
+(Font)              scaled to size 6.87555pt on input line ....

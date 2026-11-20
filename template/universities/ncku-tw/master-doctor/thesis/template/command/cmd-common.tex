@@ -1,0 +1,135 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+
+% Some common helper function
+
+% ----------------------------------------------------------------------------
+
+% Some helper functions
+
+\newcommand{\GetMonthInEng}[1]
+{%
+  \ifcase\numexpr#1\relax%
+  \or January%
+  \or February%
+  \or March%
+  \or April%
+  \or May%
+  \or June%
+  \or July%
+  \or August%
+  \or September%
+  \or October%
+  \or November%
+  \or December%
+  \fi%
+} % End of \newcommand{}
+
+% Use the floating-point evaluator provided by the LaTeX programming layer
+% already loaded by the template. This preserves decimal input and truncation
+% semantics without loading the legacy fp package and its full arithmetic suite.
+\ExplSyntaxOn
+\cs_new:Npn \NCKUPrivateEvaluateNumber #1 { \fp_eval:n {#1} }
+\ExplSyntaxOff
+
+% 計算出台灣民國幾年
+% Get the year using Taiwans' year
+\newcommand{\SetOralTaiwanYear}[1]%
+{%
+  \edef\OralTaiwanYearResult{\NCKUPrivateEvaluateNumber{#1 - 1911}}%
+} % End of \newcommand{}
+
+% 計算出台灣民國幾年
+% Get the year using Taiwans' year
+\newcommand{\SetThesisTaiwanYear}[1]%
+{%
+  \edef\ThesisTaiwanYearResult{\NCKUPrivateEvaluateNumber{#1 - 1911}}%
+} % End of \newcommand{}
+
+% ----------------------------------------------------------------------------
+
+% In the minimal example below the macro \modulo{<a>}{<b>} stores the result of <a> mod <b> in the macro \result
+\newcommand{\modulo}[2]{%
+  \edef\result{\NCKUPrivateEvaluateNumber{%
+    trunc(#1-(#2*trunc(#1/#2,0)),0)}}%
+}
+
+% ----------------------------------------------------------------------------
+
+% 定義了 fmpage: 一個加框的展示區 framed minipage
+% http://brunoj.wordpress.com/2009/10/08/latex-the-framed-minipage/
+\newsavebox{\fmbox}
+\newenvironment{fmpage}[1]
+{\begin{lrbox}{\fmbox}\begin{minipage}{#1}}
+{\end{minipage}\end{lrbox}\fbox{\usebox{\fmbox}}}
+
+% ----------------------------------------------------------------------------
+
+\newcommand{\EmptyLine}{\ \\ \par}
+
+% ----------------------------------------------------------------------------
+
+% Freeze caption text before later parser reuse or subfigure scope invalidates
+% the temporary macro that supplied it to caption/nameref metadata.
+\makeatletter
+\newcommand{\NCKUPrivateFreezeCurrentLabelName}[1]
+{%
+  \protected@edef\@currentlabelname{#1}%
+} % End of \newcommand{}
+\makeatother
+
+% Shared full-width, zero-line frame for figure and table content.
+\newcommand{\NCKUPrivateDisplayFramedFloatContent}[2]
+{%
+  \begin{minipage}[c]{\textwidth}%
+  \begin{mdframed}[skipabove=0pt, skipbelow=0pt, leftmargin=0pt, rightmargin=0pt,
+    innerleftmargin=0pt, innerrightmargin=0pt, innertopmargin=0pt,
+    innerbottommargin=0pt, linewidth=0pt, apptotikzsetting={%
+    \tikzset{mdfbackground/.append style={opacity=#1}}}]%
+  #2%
+  \end{mdframed}%
+  \end{minipage}%
+} % End of \newcommand{}
+
+% Shared implementation for public figure/table caption-and-label wrappers.
+\DeclareDocumentCommand{\SetFloatCaptionAndLabel}{+m +m}
+{%
+  \ifthenelse{\equal{#1}{\empty}}{}%
+  {%
+    \ifthenelse{\equal{%
+      \GetStartExtendedAbstractFigureTableControl}{%
+      \ValueDisableExtendedAbstractFigureTableControl}}%
+      {\caption{#1}}{\caption[]{#1}}%
+    \NCKUPrivateFreezeCurrentLabelName{#1}%
+    \ifthenelse{\equal{#2}{\empty}}{}{\label{#2}}%
+  }%
+}
+
+% ----------------------------------------------------------------------------
+
+\global\mdfdefinestyle{DescriptionFrameStyle}{%
+  linewidth=1pt, apptotikzsetting={%
+    \tikzset{mdfbackground/.append style={opacity=0.75}}}%
+} % End of \mdfdefinestyle{}
+\newenvironment{DescriptionFrame}%
+{\begin{mdframed}[style=DescriptionFrameStyle]}%
+{\end{mdframed}}
+
+% ----------------------------------------------------------------------------

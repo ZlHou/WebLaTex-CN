@@ -1,0 +1,102 @@
+
+\documentclass{NUDTproposal}
+%使用说明：
+% 1. 开题报告的格式要求没那么严格，若提交没有格式异议则不用改。
+% 2. 若需修改，可以直接在cls中做修改，或在github上提问题，关键是提供最新的word模板。
+% 3. 字体若要更换，自行在cls文件中切换
+% 4. 参考文献使用biblatex，需要用biber编译。
+% 5. 图、表、公式，正常用figure,table,equation写即可。
+
+%其他：
+%添加想用的其他宏包，比如数学定理环境等等。
+%设置参考文献数据库
+
+%方正小标宋简体,用于首页"国防科技大学"和扉页"说明"
+\setCJKfamilyfont{MyCJKfzxbs}{FZXBS_GBK.ttf} 
+%思源黑体heavy，用于首页加粗黑体字体
+\setCJKfamilyfont{MyCJKsyht}{SourceHanSansSC-Heavy.otf} 
+%楷体_GB2312，用于正文二级标题
+\setCJKfamilyfont{MyCJKkati}{simkai_GBK.ttf} 
+\newcommand{\fzxbs}{\CJKfamily{MyCJKfzxbs}}
+\newcommand{\syht}{\CJKfamily{MyCJKsyht}}
+\newcommand{\kaiti}{\CJKfamily{MyCJKkati}}
+
+%过滤溢出警告，强迫症专属
+\hbadness 99999 % 滤除“Underfull \hbox (badness 10000)”警告
+\hfuzz=25pt % 滤除“Overfull \hbox (3.26999pt too wide)”警告
+% 滤除“Package fancyhdr: \headheight is too small (21.9086pt)...”警告
+\RequirePackage{silence}
+\WarningFilter{fancyhdr}{\headheight}
+
+\addbibresource{ref.bib} % 参考文献文件
+
+
+\begin{document}
+
+%设置论文信息
+\NUDTvalueset
+{
+    author={张~~~~三},                % 作者
+    title={这是一个很长的很长的学位论文题目这是一个很长的学位论文XXX大学开题报告\LaTeX{} 模板},                          % 论文标题
+    schoollogo={\includegraphics[scale=0.13]{nudt_logo_new}},
+    schooltext={},
+    proposaltype={博士研究生学位论文}, % 研究生类别：硕士，博士
+    classification={\underline{\qquad 公开\qquad}},          % 密级：公开，秘密，机密或者绝密
+    proposalnumber={\underline{\makebox[3cm][c]{~~}}},  % 编号：默认是下划线
+    authorid={},            % 学号
+    major={},         % 一级学科
+    field={},               % 研究方向
+    advisor={},               % 导师
+    advisortitle={教~~~~授},        % 职称
+    institute={}, % 学院
+    dateyear={2025},      % 开题日期\年
+    datemonth={01},      % 开题日期\月
+    dateday={02},      % 开题日期\日
+    mark={国防科技大学研究生院制},  % 制表单位信息
+}
+
+%绘制封面
+\makecover
+
+
+%正文内容
+\zihao{5}
+
+%各节可以在各个文件中给出，也可以直接在本文件中写。
+\input{1_background}%
+\clearpage
+
+\input{2_referenceSummary.tex}%
+\clearpage
+
+\input{3_researchContent}%
+\clearpage
+
+\input{4_researchCondition.tex}%
+\clearpage
+
+\input{5_schedule.tex}%
+\clearpage
+
+
+%参考文献使用biblatex，用biber编译
+%参考文献的表格若行高不够，则利用命令\setlength\tabrowheight{1cm}设置更大的行高
+\section{主要参考文献}
+\renewcommand{\bibfont}{\footnotesize}
+\printbibtabular[heading=none]
+
+\clearpage
+
+
+%导师评价，可以先签字后替换或者利用电子签名
+\input{7_advisorComments.tex}%
+\clearpage
+
+%评审意见直接插进来就行，最终版用签字扫描版替代
+\includepdf[pages=-]{研究生学位论文开题报告评议表.pdf}
+\clearpage
+
+
+
+
+\end{document} 

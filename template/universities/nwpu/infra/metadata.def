@@ -1,0 +1,320 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+%%=============================================================================%
+%% 论文元数据填写
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn
+\cs_new:Npn \chs@space { \char"3000 }                         % 全角空格
+%%-----------------------------------------------------------------------------%
+\cs_new:Npn \nwpu@chs@title { \chs@space }                    % 标题（中文）
+\cs_new:Npn \nwpu@chs@title@lineA {}                         % 本科题目第一行（手动）
+\cs_new:Npn \nwpu@chs@title@lineB {}                         % 本科题目第二行（手动）
+\cs_new:Npn \nwpu@chs@author { \chs@space }                   % 作者（中文）
+\cs_new:Npn \nwpu@chs@school { \chs@space }                   % 学院（中文）
+\cs_new:Npn \nwpu@chs@major { \chs@space }                    % 专业（中文）
+\cs_new:Npn \nwpu@chs@advisor { \chs@space }                  % 导师（中文）
+\cs_new:Npn \nwpu@chs@advisorAcademicRank { \chs@space }      % 导师职称（中文）
+\cs_new:Npn \nwpu@chs@funding { \chs@space }                  % 基金赞助（中文）
+%%-----------------------------------------------------------------------------%
+\cs_new:Npn \nwpu@eng@title { \chs@space }                    % 标题（英文）
+\cs_new:Npn \nwpu@eng@author { \chs@space }                   % 作者（英文）
+\cs_new:Npn \nwpu@eng@major { \chs@space }                    % 专业（英文）
+\cs_new:Npn \nwpu@eng@advisor { \chs@space }                  % 导师（英文）
+\cs_new:Npn \nwpu@eng@advisorAcademicRank { \chs@space }      % 导师职称（英文）
+\cs_new:Npn \nwpu@eng@funding { \chs@space }                  % 基金赞助（英文）
+%%-----------------------------------------------------------------------------%
+\int_new:N \l__nwpu_month_int                                  % 月份计数器
+\int_set:Nn \l__nwpu_month_int { 1 }                           % 默认1月
+\cs_new:Npn \nwpu@year { 2026 }                               % 默认年份
+\cs_new:Npn \nwpu@eng@monthname                               % 英文月份名称
+  {
+    \int_case:nn { \l__nwpu_month_int }
+      {
+        {  1 } { January }
+        {  2 } { February }
+        {  3 } { March }
+        {  4 } { April }
+        {  5 } { May }
+        {  6 } { June }
+        {  7 } { July }
+        {  8 } { August }
+        {  9 } { September }
+        { 10 } { October }
+        { 11 } { November }
+        { 12 } { December }
+      }
+  }
+\cs_new:Npn \nwpu@chs@date { \nwpu@year{} 年 \int_use:N \l__nwpu_month_int{} 月 } % 日期（中文）
+\cs_new:Npn \nwpu@eng@date { \nwpu@eng@monthname/\nwpu@year } % 日期（英文）
+%%-----------------------------------------------------------------------------%
+\cs_new:Npn \nwpu@uid { 2000123456 }                          % default 学号
+\cs_new:Npn \nwpu@schoolcode { 10699 }                        % default 学校代码
+\cs_new:Npn \nwpu@classnumber { O242 }                        % default 分类号
+\cs_new:Npn \nwpu@securitylevel { 公开 }                      % default 密级
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \nwpu@set@chs@title #1
+  { \cs_gset:Npn \nwpu@chs@title {#1} }
+\cs_new_protected:Npn \nwpu@set@chs@title@lineA #1
+  { \cs_gset:Npn \nwpu@chs@title@lineA {#1} }
+\cs_new_protected:Npn \nwpu@set@chs@title@lineB #1
+  { \cs_gset:Npn \nwpu@chs@title@lineB {#1} }
+\cs_new_protected:Npn \nwpu@set@eng@title #1
+  { \cs_gset:Npn \nwpu@eng@title {#1} }
+\cs_new_protected:Npn \nwpu@set@chs@author #1
+  { \cs_gset:Npn \nwpu@chs@author { \blindreview{#1} } }
+\cs_new_protected:Npn \nwpu@set@eng@author #1
+  { \cs_gset:Npn \nwpu@eng@author { \blindreview{#1} } }
+\cs_new_protected:Npn \nwpu@set@chs@date #1
+  { \cs_gset:Npn \nwpu@chs@date {#1} }
+\cs_new_protected:Npn \nwpu@set@eng@date #1
+  { \cs_gset:Npn \nwpu@eng@date {#1} }
+\cs_new_protected:Npn \nwpu@set@year #1
+  { \cs_gset:Npn \nwpu@year {#1} }
+\cs_new_protected:Npn \nwpu_set_month:n #1
+  {
+    \regex_match:nnTF { \A \s* \d+ \s* \Z } {#1}
+      {
+        \int_compare:nNnTF {#1} < { 1 }
+          { \nwpu_month_error:n {#1} }
+          {
+            \int_compare:nNnTF {#1} > { 12 }
+              { \nwpu_month_error:n {#1} }
+              { \int_set:Nn \l__nwpu_month_int {#1} }
+          }
+      }
+      { \nwpu_month_error:n {#1} }
+  }
+\cs_new_protected:Npn \nwpu_month_error:n #1
+  {
+    \ClassError { nwputhesis } { Invalid~month~`#1' }
+      { Set~month~to~an~integer~from~1~to~12. }
+  }
+\cs_new_protected:Npn \nwpu@set@month #1
+  { \nwpu_set_month:n {#1} }
+\cs_new_protected:Npn \nwpu@set@school #1
+  { \cs_gset:Npn \nwpu@chs@school {#1} }
+\bool_new:N \l__nwpu_major_en_explicit_bool                    % 是否手动指定英文专业
+\prop_new:N \l__nwpu_major_en_prop                             % 学科专业中英文对照表
+\prop_set_from_keyval:Nn \l__nwpu_major_en_prop
+  {
+    应用经济学 = Applied~Economics,
+    统计学 = Statistics,
+    法学 = Science~of~Law,
+    马克思主义理论 = Theory~of~Marxism,
+    教育学 = Education,
+    教育技术学 = Education~Technology,
+    体育学 = Physical~Education~and~Sport~Science,
+    外国语言文学 = Foreign~Languages~and~Literatures,
+    英语语言文学 = English~Language~and~Literature,
+    德语语言文学 = German~Language~and~Literature,
+    外国语言学及应用语言学 = Linguistics~and~Applied~Linguistics~in~Foreign~Languages,
+    数学 = Mathematics,
+    物理学 = Physics,
+    凝聚态物理 = Condensed~Matter~Physics,
+    声学 = Acoustics,
+    光学 = Optics,
+    化学 = Chemistry,
+    有机化学 = Organic~Chemistry,
+    物理化学 = Physical~Chemistry,
+    高分子化学与物理 = Chemistry~and~Physics~of~Polymers,
+    生物学 = Biology,
+    生态学 = Ecology,
+    力学 = Mechanics,
+    机械工程 = Mechanical~Engineering,
+    机械制造及其自动化 = Mechanical~Manufacture~and~Automation,
+    机械电子工程 = Mechatronic~Engineering,
+    机械设计及理论 = Mechanical~Design~and~Theory,
+    车辆工程 = Vehicle~Engineering,
+    光学工程 = Optical~Engineering,
+    材料物理与化学 = Materials~Physics~and~Chemistry,
+    材料学 = Materialogy,
+    材料加工工程 = Materials~Processing~Engineering,
+    动力工程及工程热物理 = Power~Engineering~and~Engineering~Thermophysics,
+    工程热物理 = Engineering~Thermophysics,
+    热能工程 = Thermal~Power~Engineering,
+    动力机械及工程 = Power~Machinery~and~Engineering,
+    流体机械及工程 = Fluid~Machinery~and~Engineering,
+    电气工程 = Electrical~Engineering,
+    电子科学与技术 = Electronic~Science~and~Technology,
+    信息与通信工程 = Information~and~Communication~Engineering,
+    通信与信息系统 = Communication~and~Information~Systems,
+    信号与信息处理 = Signal~and~Information~Processing,
+    控制科学与工程 = Control~Science~and~Engineering,
+    计算机科学与技术 = Computer~Science~and~Technology,
+    建筑学 = Architecture,
+    土木工程 = Civil~Engineering,
+    交通运输工程 = Transportation~Engineering,
+    船舶与海洋工程 = Naval~Architecture~and~Ocean~Engineering,
+    航空宇航科学与技术 = Aerospace~Science~and~Technology,
+    航空宇航推进理论与工程 = Aerospace~Propulsion~Theory~and~Engineering,
+    兵器科学与技术 = Armament~Science~and~Technology,
+    环境工程 = Environmental~Engineering,
+    生物医学工程 = Biomedical~Engineering,
+    软件工程 = Software~Engineering,
+    网络空间安全 = Cyberspace~Security,
+    化学工程 = Chemical~Engineering,
+    化学工艺 = Chemical~Technology,
+    应用化学 = Applied~Chemistry,
+    药学 = Pharmaceutical~Science,
+    管理科学与工程 = Management~Science~and~Engineering,
+    工商管理学 = Business~Administration,
+    公共管理学 = Public~Administration,
+    集成电路科学与工程 = Integrated~Circuit~Science~and~Engineering,
+    设计学 = Design~Science,
+    应用统计 = Applied~Statistics,
+    教育 = Education,
+    文物 = Cultural~Heritage,
+    工商管理 = Business~Administration,
+    公共管理 = Public~Administration,
+    会计 = Professional~Accounting,
+    工程管理 = Engineering~Management,
+    新一代电子信息技术（含量子技术等） = New~Generation~Electronic~Information~Technology,
+    新一代电子信息技术 = New~Generation~Electronic~Information~Technology,
+    通信工程（含宽带网络、移动通信等） = Communication~Engineering,
+    通信工程 = Communication~Engineering,
+    集成电路工程 = Integrated~Circuit~Engineering,
+    计算机技术 = Computer~Technology,
+    控制工程 = Control~Engineering,
+    仪器仪表工程 = Instrument~and~Meter~Engineering,
+    光电信息工程 = Optoelectronic~Information~Engineering,
+    人工智能 = Artificial~Intelligence,
+    网络与信息安全 = Network~and~Information~Security,
+    航空工程 = Aeronautical~Engineering,
+    航天工程 = Astronautical~Engineering,
+    船舶工程 = Ship~Engineering,
+    兵器工程 = Arms~Engineering,
+    工业设计工程 = Industrial~Design~Engineering,
+    智能制造技术 = Intelligent~Manufacturing~Technology,
+    机器人工程 = Robotics~Engineering,
+    材料工程 = Materials~Engineering,
+    动力工程 = Power~Engineering,
+    航空发动机工程 = Aero~Engine~Engineering,
+    航天动力工程 = Aerospace~Power~Engineering,
+    清洁能源技术 = Clean~Energy~Technology,
+    生物技术与工程 = Biotechnology~and~Bioengineering,
+    道路交通运输 = Road~Transportation,
+    航空交通运输 = Air~Transportation,
+    微机电系统及纳米技术 = MEMS~and~Nanotechnology,
+    工业设计 = Industrial~Design,
+    工业工程 = Industrial~Engineering,
+    柔性电子学 = Flexible~Electronics,
+    无人系统科学与技术 = Unmanned~Systems~Science~and~Technology,
+    低空技术与工程 = Low~Altitude~Technology~and~Engineering,
+    智能科学与工程 = Intelligent~Science~and~Engineering,
+    航空宇航制造工程 = Aerospace~Manufacturing~Engineering,
+    风能和太阳能系统及工程 = Wind~and~Solar~Energy~Systems~and~Engineering,
+    工业工程与管理 = Industrial~Engineering~and~Management,
+    英语笔译 = English~Translation,
+    英语口译 = English~Interpreting,
+  }
+\cs_new_protected:Npn \nwpu@set@chs@major #1
+  {
+    \cs_gset:Npn \nwpu@chs@major {#1}
+    \bool_if:NF \l__nwpu_major_en_explicit_bool
+      {
+        \prop_get:NnNTF \l__nwpu_major_en_prop {#1} \l_tmpa_tl
+          { \cs_gset:Npx \nwpu@eng@major { \l_tmpa_tl } }
+          { \cs_gset:Npn \nwpu@eng@major { \chs@space } }
+      }
+  }
+\cs_new_protected:Npn \nwpu@set@eng@major #1
+  {
+    \bool_set_true:N \l__nwpu_major_en_explicit_bool
+    \cs_gset:Npn \nwpu@eng@major {#1}
+  }
+\cs_new_protected:Npn \nwpu@set@chs@advisor #1
+  { \cs_gset:Npn \nwpu@chs@advisor { \blindreview{#1} } }
+\cs_new_protected:Npn \nwpu@set@eng@advisor #1
+  { \cs_gset:Npn \nwpu@eng@advisor { \blindreview{#1} } }
+\bool_new:N \l__nwpu_rank_en_explicit_bool                    % 是否手动指定英文职称
+\prop_new:N \l__nwpu_rank_en_prop                             % 职称中英文对照表
+\prop_set_from_keyval:Nn \l__nwpu_rank_en_prop
+  {
+    教授 = Professor,
+    副教授 = Associate~Professor,
+    研究员 = Researcher,
+    讲师 = Lecturer,
+  }
+\cs_new_protected:Npn \nwpu@set@chs@advisor@rank #1
+  {
+    \cs_gset:Npn \nwpu@chs@advisorAcademicRank { \blindreview{\nobreakspace\nobreakspace #1} }
+    \bool_if:NF \l__nwpu_rank_en_explicit_bool
+      {
+        \prop_get:NnNTF \l__nwpu_rank_en_prop {#1} \l_tmpa_tl
+          { \cs_gset:Npx \nwpu@eng@advisorAcademicRank { \exp_not:N \blindreview { \l_tmpa_tl } } }
+          { \cs_gset:Npn \nwpu@eng@advisorAcademicRank { \blindreview{\chs@space} } }
+      }
+  }
+\cs_new_protected:Npn \nwpu@set@eng@advisor@rank #1
+  {
+    \bool_set_true:N \l__nwpu_rank_en_explicit_bool
+    \cs_gset:Npn \nwpu@eng@advisorAcademicRank { \blindreview{#1} }
+  }
+\cs_new_protected:Npn \nwpu@set@chs@funding #1
+  { \cs_gset:Npn \nwpu@chs@funding {#1} }
+\cs_new_protected:Npn \nwpu@set@eng@funding #1
+  { \cs_gset:Npn \nwpu@eng@funding {#1} }
+\cs_new_protected:Npn \nwpu@set@chs@schoolname #1
+  { \cs_gset:Npn \nwpu@chs@schoolname {#1} }
+\cs_new_protected:Npn \nwpu@set@eng@schoolname #1
+  { \cs_gset:Npn \nwpu@eng@schoolname {#1} }
+\cs_new_protected:Npn \nwpu@set@studentnumber #1
+  { \cs_gset:Npn \nwpu@uid { \blindreview{#1} } }
+\cs_new_protected:Npn \nwpu@set@schoolcode #1
+  { \cs_gset:Npn \nwpu@schoolcode {#1} }
+\cs_new_protected:Npn \nwpu@set@classnumber #1
+  { \cs_gset:Npn \nwpu@classnumber {#1} }
+\cs_new_protected:Npn \nwpu@set@securitylevel #1
+  { \cs_gset:Npn \nwpu@securitylevel {#1} }
+%%-----------------------------------------------------------------------------%
+\DeclareKeys [ nwputhesis ]
+  {
+    title                 .code:n = \nwpu@set@chs@title {#1},
+    title-line-a          .code:n = \nwpu@set@chs@title@lineA {#1},
+    title-line-b          .code:n = \nwpu@set@chs@title@lineB {#1},
+    title*                .code:n = \nwpu@set@eng@title {#1},
+    title-en              .code:n = \nwpu@set@eng@title {#1},
+    author                .code:n = \nwpu@set@chs@author {#1},
+    author*               .code:n = \nwpu@set@eng@author {#1},
+    author-en             .code:n = \nwpu@set@eng@author {#1},
+    date                  .code:n = \nwpu@set@chs@date {#1},
+    date*                 .code:n = \nwpu@set@eng@date {#1},
+    date-en               .code:n = \nwpu@set@eng@date {#1},
+    year                  .code:n = \nwpu@set@year {#1},
+    month                 .code:n = \nwpu@set@month {#1},
+    school                .code:n = \nwpu@set@school {#1},
+    major                 .code:n = \nwpu@set@chs@major {#1},
+    major*                .code:n = \nwpu@set@eng@major {#1},
+    major-en              .code:n = \nwpu@set@eng@major {#1},
+    advisor               .code:n = \nwpu@set@chs@advisor {#1},
+    advisor*              .code:n = \nwpu@set@eng@advisor {#1},
+    advisor-en            .code:n = \nwpu@set@eng@advisor {#1},
+    advisor-rank          .code:n = \nwpu@set@chs@advisor@rank {#1},
+    advisor-rank*         .code:n = \nwpu@set@eng@advisor@rank {#1},
+    advisor-rank-en       .code:n = \nwpu@set@eng@advisor@rank {#1},
+    advisor-title         .code:n = \nwpu@set@chs@advisor@rank {#1},
+    advisor-title*        .code:n = \nwpu@set@eng@advisor@rank {#1},
+    advisor-title-en      .code:n = \nwpu@set@eng@advisor@rank {#1},
+    funding               .code:n = \nwpu@set@chs@funding {#1},
+    funding*              .code:n = \nwpu@set@eng@funding {#1},
+    funding-en            .code:n = \nwpu@set@eng@funding {#1},
+    school-name           .code:n = \nwpu@set@chs@schoolname {#1},
+    school-name*          .code:n = \nwpu@set@eng@schoolname {#1},
+    school-name-en        .code:n = \nwpu@set@eng@schoolname {#1},
+    student-number        .code:n = \nwpu@set@studentnumber {#1},
+    studentnumber         .code:n = \nwpu@set@studentnumber {#1},
+    school-code           .code:n = \nwpu@set@schoolcode {#1},
+    schoolcode            .code:n = \nwpu@set@schoolcode {#1},
+    class-number          .code:n = \nwpu@set@classnumber {#1},
+    classnumber           .code:n = \nwpu@set@classnumber {#1},
+    security-level        .code:n = \nwpu@set@securitylevel {#1},
+    securitylevel         .code:n = \nwpu@set@securitylevel {#1},
+  }
+\NewDocumentCommand \nwputhesissetup { m }
+  {
+    \bool_set_true:N \l__nwpu_in_setup_bool
+    \SetKeys [ nwputhesis ] {#1}
+    \bool_set_false:N \l__nwpu_in_setup_bool
+  }
+\ExplSyntaxOff

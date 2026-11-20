@@ -1,0 +1,161 @@
+\frontmatter
+\begin{innovations}
+  学术博士学位论文应当体现作者具有独立从事科学研究工作的能力，并在所学领域做出创造性的成果。
+  故在此须说明本学位论文的创新性，确保符合学术博士学位论文的创新要求，字数要求在200至400字之间。
+\end{innovations}
+
+\ustcsetup{
+  keywords  = {学位论文, 关键词 2, 关键词 3, 关键词 4, 关键词 5, 关键词 6, 关键词 7, 关键词 8},
+  keywords* = {Dissertation, Keyword 2, Keyword 3, Keyword 4, Keyword 5, Keyword 6, Keyword 7, Keyword 8},
+}
+
+\begin{abstract}
+  研究生学位论文是研究生在研究工作中所取得成果的集中反映，代表着研究生研究工作的水平，也是申请和授予相应学位的主要依据。\par
+  ……
+\end{abstract}
+
+\begin{abstract*}
+  Graduate dissertation is a graduate student in research results of concentrated reflection, represents the level of the graduate research work, is also the main basis of application and corresponding degree granted.\par
+  \dots
+\end{abstract*}
+
+\tableofcontents
+
+\listoffiguresandtables
+
+\begin{notation}
+  \begin{notationlist}{2.8cm}
+    \item[$a$, $c_1$, $c_2$] 临时替换变量
+    \item[$D_{\text{m}}$] 预混通道外径 (mm)
+    \item[$G_{\text{a}}$] 空气质量流量 (kg/s)
+    \item[$\mathit{Ma}$] 进口空气马赫数，$\mathit{Ma} = \nu_2 / \gamma R T_2$
+    \item[$\gamma$] 比热比=1.4
+  \end{notationlist}
+\end{notation}
+
+\mainmatter
+
+\chapter{引言}
+
+研究生学位论文质量是反应了研究生培养质量，是授予相应学位的主要依据。
+要能代表研究生研究工作的水平，也是申请和授予相应学位的主要依据。
+提高学位论文的质量和水平是研究生教育最重要的任务，需要学生和导师的共同努力。
+通常学位论文只能有一个主题，该主题应针对某学科领域中的一个具体问题展开深入、系统的研究，
+并得出有价值的研究结论。
+
+\section{学位论文中的常见问题分析}
+
+从问题的分类上来看主要存在内容上的问题和格式上的问题，
+很多时候这两方面的问题又是相互交叉和影响的。
+
+\subsection{常见内容问题}
+
+文章缺乏逻辑性，结构不合理。
+有些研究生甚至不知道学位论文应该如何写，如有的摘要与正文内容不一致，
+摘要中出现参考文献和非公知公认的符号、缩写，甚至出现摘要、引言、结论等部分内容一样的情况；
+有的方法与结果混乱，方法中提到的而在结果中没有出现，或在结果中出现的内容而方法中没有提及；
+有的结果并非客观描述，其中夹杂着大量的讨论，而在讨论部分又与结果有大段的重复等等。
+
+
+\chapter{内容要素}
+
+\section{有关图、表和表达式}
+
+图、表和表达式按章连续编号，用两个阿拉伯数字表示，前一数字为章的序号，
+后一数字为本章内图、表或表达式的顺序号。
+两数字间用半角小数点“.”连接。
+例如“图~\ref{fig:example}”、“表~\ref{tab:example}”、“式\eqref{eq:example}”等等。
+
+\subsection{插图}
+
+插图一般由图、图题、图注构成。
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.3\textwidth]{figures/ustc-logo.pdf}
+  \caption{图题置于图的下方}
+  \label{fig:example}
+  \figurenote{若有图注，图注置于图题下方。
+    注文的字数较少且是短语时，末尾不可加标点，多个图注可以在同一行通过自由选取字符空格将各个图注间隔开来；
+    注文的字数较多或者甚至需要用句子说明时，该图注可以独立成行。
+  }
+\end{figure}
+
+不宜将多个插图连续排版，插图与文字论述段落应穿插排版。
+
+\subsection{表格}
+
+表格一般由表、表题、表注构成。
+
+\begin{table}
+  \centering
+  \caption{表题置于表的上方}
+  \label{tab:example}
+  \begin{tabular}{cl}
+    \toprule
+    类型   & 描述                                       \\
+    \midrule
+    挂线表 & 挂线表也称系统表、组织表，用于表现系统结构 \\
+    无线表 & 无线表一般用于设备配置单、技术参数列表等   \\
+    卡线表 & 卡线表有完全表，不完全表和三线表三种       \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+不宜将多个表格连续排版，表格与文字论述段落应穿插排版。
+
+\clearpage
+
+\subsection{表达式}
+
+表达式主要是指分章连续编有序号的数字表达式。
+\begin{equation}
+  w_1 = u_{11} - u_{12} u_{21}
+  \label{eq:example}
+\end{equation}
+表达式的行距根据需要采用，段前6磅、段后6磅。
+
+\chapter{引用}
+\ustcsetup{cite-style=super}
+\cite{knuth86a}
+
+\begin{thebibliography}{1}
+\bibitem[Knuth(1986)]{knuth86a}
+KNUTH~D~E.
+\newblock Computers and typesetting: volume~A\quad The
+  {\TeX}book\allowbreak[M].
+\newblock Reading, MA, USA: Addison-Wesley, 1986.
+\end{thebibliography}
+
+\appendix
+\chapter{附录章节}
+附录内容。
+
+\backmatter
+\begin{acknowledgments}
+  致谢内容。
+\end{acknowledgments}
+
+\begin{achievements}
+
+  \begin{theachievements}[已发表论文]
+    \item xx. 中国科学技术大学研究生学位论文撰写规范. 中国科学技术大学学报，2024,1.
+    \item ……
+  \end{theachievements}
+
+  \begin{theachievements}[发明专利]
+    \item xx. 一种温热外敷药制备方案. 授权号：CN123456789B，2023-08-12.
+    \item ……
+  \end{theachievements}
+
+  \begin{theachievements}[会议论文]
+    \item xx. 关于人工智能在学位授予工作的应用，人工智能国际研讨会，2023,12.
+    \item ……
+  \end{theachievements}
+
+  \begin{theachievements}[参与的科研项目]
+    \item 智能计算板卡与整机，科技委重点项目-课题，2018-2020.
+    \item ……
+  \end{theachievements}
+
+\end{achievements}

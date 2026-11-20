@@ -1,0 +1,14 @@
+\input{regression-test}
+\documentclass[degree=bachelor, language=english, fontset=fandol]{ustcthesis}
+
+\usepackage{booktabs}
+
+\begin{document}
+\START
+\showoutput
+
+\include{chapters}
+
+\clearpage
+\OMIT
+\end{document}

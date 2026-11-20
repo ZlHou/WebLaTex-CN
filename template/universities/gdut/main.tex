@@ -1,0 +1,149 @@
+%*********************************************************************
+% gdutthesis: 广东工业大学论文模板
+% 2024/01/19 v0.1f
+%
+% 重要提示：
+%   1. 请确保使用 UTF-8 编码保存
+%   2. 请使用 XeLaTeX 或 LuaLaTeX 编译
+%   3. 请仔细阅读用户文档和 Wiki
+%   4. 修改、使用、发布本文档请务必遵循 LaTeX Project Public License
+%   5. 不需要的注释可以尽情删除
+%   6. 请使用最新版本的模板并在打印前检查输入信息与学校要求是否一致
+%*********************************************************************
+\documentclass[
+  % type=doctor
+  type=master
+  % type=promaster
+]{gdutthesis}
+
+% 宏包在这里加载
+\usepackage{siunitx}[=v2]
+\usepackage{zhlipsum,lipsum}
+
+\gdutsetup{
+  style = {
+    % cover           = {true},
+    cover           = {false},
+    open            = {true},
+    % open            = {false},
+    free-float      = {true},
+    % free-float      = {false},
+    % font            = {garamond},
+    % font            = {libertinus},
+    % font            = {lm},
+    % font            = {palatino},
+    font            = {times},
+    % font            = {times*},
+    % math-font       = {garamond},
+    % math-font       = {libertinus},
+    % math-font       = {lm},
+    % math-font       = {palatino},
+    math-font       = {times},
+    % math-font       = {times*},
+    cjk-font        = {fandol},
+    % cjk-font        = {founder},
+    % cjk-font        = {mac},
+    % cjk-font        = {sourcehan},
+    % cjk-font        = {noto},
+    % cjk-font        = {windows},
+    % cjk-font        = {none},
+    bib-backend     = {bibtex},
+    % bib-backend     = {biblatex},
+    bib-resource    = {ref/gdutthesis-template.bib, ref/reference.bib},
+    bib-style       = {numerical},
+    % bib-style       = {author-year},
+    % fullwidth-stop  = {mapping},
+    % fullwidth-stop  = {catcode},
+    fullwidth-stop  = {false},
+    hyperlink       = {color},
+    % hyperlink       = {border},
+    % hyperlink       = {none},
+    hyperlink-color = {default},
+    % hyperlink-color = {autumn},
+    % hyperlink-color = {business},
+    % hyperlink-color = {classic},
+    % hyperlink-color = {elegant},
+    % hyperlink-color = {fantasy},
+    % hyperlink-color = {material},
+    % hyperlink-color = {science},
+    % hyperlink-color = {summer},
+    % hyperlink-color = {graylevel},
+    % hyperlink-color = {prl},
+  },
+  theorem = {
+    header-font = bf,
+    % header-font = sf,
+    body-font   = rm,
+    % body-font   = kai,
+    indent      = cn,
+    % indent      = en,
+    interval    = dash,
+    % interval    = dot,
+    braces      = paren,
+    % braces      = bracket,
+    punct       = colon,
+    % punct       = quad,
+    qed         = \qedsymbol,
+    % qed         = \QED,
+  },
+  info = {
+    title             = {标题},
+    title*            = {Title},
+    date              = {2020/5/25},
+    author            = {张三},
+    author*           = {ZHANG San},
+    supervisor        = {李四, 教授},
+    supervisor*       = {LI Si},
+    supervisor-two    = {none},
+    supervisor-two*   = {none},
+    supervisor-three  = {none},
+    supervisor-three* = {none},
+    department        = {自动化学院},
+    department*       = {Automation},
+    major             = {控制科学与工程},
+    student-id        = {2112101234},
+    chairman          = {赵六\quad 教授},
+    degree            = {工学硕士},
+    degree*           = {Master of Engineering Science},
+    keywords          = {关键词1, 关键词2, 关键词3, 关键词4},
+    keywords*         = {keywords 1, keywords 2, keywords 3, keywords 4},
+    secret-level      = {none},
+    delay-time        = {none},
+  }
+}
+
+
+\begin{document}
+
+\gdutstatement% 空白声明页
+% \gdutstatement[日期][作者签名][导师签名]% 签名为图片
+% \gdutstatement*[扫描件]% 扫描件为 A4 大小的 pdf 文件
+
+\input{data/abstract}
+
+\input{data/notation.tex}
+
+\printnoidxglossaries
+
+\gduttableofcontents
+
+\mainmatter
+
+\input{data/chap01.tex}
+
+\input{data/conclusion.tex}
+
+\gdutbackmatter
+
+\nocite{*}% 列出 bib 文件中的全部参考文献
+\printbibliography
+
+\input{data/result.tex}
+
+\input{data/acknowledgement.tex}
+
+\gdutappendix
+
+\input{data/appendix.tex}
+
+\end{document}

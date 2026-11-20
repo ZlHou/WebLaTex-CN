@@ -1,0 +1,61 @@
+%% 第二章
+
+\chapter{图表示例}
+\chaptermark{图表示例}
+
+\section{表格}
+如\autoref{tab:undergraduate-example} 所示，该表展示了两个变量的加法与乘法结果，可作为表格排版与引用的示例。
+\begin{table}[!h]
+    \caption{表格标题}
+    \label{tab:undergraduate-example}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        $A$ & $B$ & $A+B$ & $A\times B$ \\ \hline
+        1   & 6   & 7     & 6           \\ \hline
+        2   & 7   & 9     & 14          \\ \hline
+        3   & 8   & 11    & 24          \\ \hline
+    \end{tabular}
+\end{table}
+
+\section{插图}
+测试下文章内的图片引用。如\autoref{fig:undergraduate-example} 和\autoref{fig:undergraduate-example2} 所示，
+这是两幅插图。在这其中\autoref{subfig:undergraduate-example2-subfig1} 是第一幅子图，
+\autoref{subfig:undergraduate-example2-subfig2} 是第二幅子图。
+
+\begin{figure}[htb]
+    \includegraphics[scale=0.2]{QQ交流群.png}
+    \caption{这里是个普通的标题}
+    \label{fig:undergraduate-example}
+\end{figure}
+
+\begin{figure}[htb]
+    \begin{subfigure}[t]{0.49\textwidth}\centering
+        \includegraphics[scale=0.2]{QQ交流群.png}
+        \caption{这是第一个子图标题}
+        \label{subfig:undergraduate-example2-subfig1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.49\textwidth}\centering
+        \includegraphics[scale=0.2]{QQ交流群.png}
+        \caption{这是第二个子图标题}
+        \label{subfig:undergraduate-example2-subfig2}
+    \end{subfigure}
+    \caption{这里是另一个普通的标题}
+    \label{fig:undergraduate-example2}
+\end{figure}
+
+\section{公式示例}
+这里给出正文中的公式引用示例。行内公式可写为 $E=mc^2$，独立编号公式如\autoref{eq:undergraduate-quadratic-formula} 所示，多行推导公式如\autoref{eq:undergraduate-gaussian-sum} 所示。
+
+\begin{equation}
+    x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+    \label{eq:undergraduate-quadratic-formula}
+\end{equation}
+
+\begin{equation}
+    \begin{aligned}
+        \sum_{i=1}^{n} i &= 1 + 2 + \cdots + n \\
+                         &= \frac{n(n+1)}{2}
+    \end{aligned}
+    \label{eq:undergraduate-gaussian-sum}
+\end{equation}

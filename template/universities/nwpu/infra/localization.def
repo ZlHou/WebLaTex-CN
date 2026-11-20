@@ -1,0 +1,116 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+\ExplSyntaxOn
+%%-----------------------------------------------------------------------------%
+\nwpu_if_chinese:TF                                        % 中文引用提示文字
+  {
+    \renewcommand{\figurename}{图}                          %
+    \renewcommand{\figureautorefname}{图}                   %
+    \renewcommand{\tablename}{表}                           %
+    \renewcommand{\tableautorefname}{表}                    %
+    \renewcommand{\bibname}{参考文献}                       %
+    \nwpu_if_bachelor:TF                                    % 本科论文目录标题
+      {
+        \renewcommand{\contentsname}{\texorpdfstring{\nwpuTOCTitleFont 目\hspace{0.5em}录}{目\hspace{0.5em}录}} %
+        \renewcommand{\listfigurename}{插图列表}            %
+        \renewcommand{\listtablename}{表格列表}             %
+      }
+      {                                                    % 硕博论文目录标题
+        \renewcommand{\contentsname}{目{\quad}录}           %
+        \renewcommand{\listfigurename}{图目录}              %
+        \renewcommand{\listtablename}{表目录}               %
+      }
+    \renewcommand{\appendixautorefname}{附录}               %
+    \nwpu_if_bachelor:TF
+      { \def\equationautorefname#1#2\null{式#1（#2\null）} }% ~(\def required: delimited args, no expl3 equivalent)
+      { \def\equationautorefname#1#2\null{式#1(#2\null)}   }% ~(\def required: delimited args, no expl3 equivalent)
+    \def\sectionautorefname#1#2\null{#2\null{ }节}          % (\def required: delimited args, no expl3 equivalent)
+    \def\subsectionautorefname#1#2\null{#2\null{ }小节}     % (\def required: delimited args, no expl3 equivalent)
+    \cs_new_protected:Npn \algorithmname {算法}             %
+    \cs_new_protected:Npn \algorithmautorefname {算法}      %
+    \floatname{algorithm}{算法}                             %
+  }
+  {                                                        % 英文引用提示文字
+    \renewcommand{\figureautorefname}{Fig.}                 %
+    \renewcommand{\tableautorefname}{Table}                 %
+    \def\equationautorefname#1#2\null{Eq.#1(#2\null)}       % (\def required: delimited args, no expl3 equivalent)
+  }
+%%-----------------------------------------------------------------------------%
+\renewcommand{\chaptername}{第\thechapter{}章}              % 章节名
+\renewcommand{\thefigure}{\thechapter-\arabic{figure}}      % 图编号格式
+\renewcommand{\thesubfigure}{（\alph{subfigure}）}           % 子图编号格式
+\renewcommand{\thetable}{\thechapter-\arabic{table}}        % 表编号格式
+\renewcommand{\thealgorithm}{\thechapter-\arabic{algorithm}}% 算法编号格式
+\counterwithin*{algorithm}{chapter}                          % 按章节编号
+\renewcommand{\theequation}{\thechapter-\arabic{equation}}  % 公式编号格式
+\nwpu_if_bachelor:TF                                        % 本科公式编号样式
+  { \def\tagform@#1{\maketag@@@{\fSong （#1）}} }            % (\def required: amsmath internal)
+  {}
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \nwpu@chs@schoolname {西北工业大学}   % 文档字符串设置
+\cs_new_protected:Npn \nwpu@eng@schoolname {Northwestern~Polytechnical~University}
+\nwpu_if_phd:TF                                             % 博士学位名
+  {
+    \cs_new_protected:Npn \nwpu@chs@degree {博士}           %
+    \cs_new_protected:Npn \nwpu@eng@degree {Doctor}         %
+  }
+  {
+    \nwpu_if_master:TF                                       % 硕士学位名
+      {
+        \cs_new_protected:Npn \nwpu@chs@degree {硕士}       %
+        \cs_new_protected:Npn \nwpu@eng@degree {Master}     %
+      }
+      {                                                     % 学士学位名
+        \cs_new_protected:Npn \nwpu@chs@degree {学士}       %
+        \cs_new_protected:Npn \nwpu@eng@degree {Bachelor}   %
+      }
+  }
+\nwpu_if_bachelor:TF                                        % 本科特殊设置
+  {
+    \cs_new_protected:Npn \nwpu@chs@doctitle {本科毕业设计论文} % 文档名和页眉
+    \cs_new_protected:Npn \nwpu@chs@header {{\nwpu@chs@schoolname}本科毕业设计论文}
+  }
+  {                                                         % 其他页眉统一设置
+    \cs_new_protected:Npn \nwpu@chs@doctitle {{\nwpu@chs@degree}学位论文}
+    \cs_new_protected:Npn \nwpu@chs@header {\nwpu@chs@schoolname\nwpu@chs@doctitle}
+  }
+\nwpu_if_academic:TF                                        % 控制内封模板的首项名称
+  {
+    \cs_new_protected:Npn \nwpu@chs@innerCoverFirstOption {学科专业}  % 学术学位
+    \cs_new_protected:Npn \nwpu@chs@outerCoverFirstOption {学{\enspace}科{\enspace}专{\enspace}业}
+  }
+  {
+    \cs_new_protected:Npn \nwpu@chs@innerCoverFirstOption {专业领域}  % 专业学位
+    \cs_new_protected:Npn \nwpu@chs@outerCoverFirstOption {专{\enspace}业{\enspace}领{\enspace}域}
+  }
+\cs_new_protected:Npn \nwpu@eng@doctitle {\nwpu@eng@degree~Thesis} % 英文文档名和页眉
+\cs_new_protected:Npn \nwpu@eng@header {\nwpu@eng@doctitle~of~\nwpu@eng@schoolname}
+
+%%-----------------------------------------------------------------------------%
+\nwpu_if_chinese:TF                                        % 定制中文特殊页面
+  {
+    \nwpu_if_bachelor:TF                                    % 本科致谢标题
+      { \cs_new_protected:Npn \nwpu@page@ack {致\hspace{0.5em}谢}        }
+      { \cs_new_protected:Npn \nwpu@page@ack {致{\quad}谢}  }
+    \cs_new:Npn \nwpu@page@ack@pdf {致谢}
+    \nwpu_if_bachelor:TF                                    % 本科附录标题
+      { \cs_new_protected:Npn \nwpu@page@app {附\hspace{0.5em}录}        }
+      { \cs_new_protected:Npn \nwpu@page@app {附{\quad}录}  }
+    \cs_new:Npn \nwpu@page@app@pdf {附录}
+    \cs_new_protected:Npn \nwpu@page@acp {在学期间取得的学术成果和参加%
+        科研情况}                                          %
+    \cs_new:Npn \nwpu@page@acp@pdf {在学期间取得的学术成果和参加科研情况}
+  }
+  {                                                         % 定制英文特殊页面
+    \cs_new_protected:Npn \nwpu@page@ack {Acknowledgements} %
+    \cs_new:Npn \nwpu@page@ack@pdf {Acknowledgements}
+    \cs_new_protected:Npn \nwpu@page@app {Appendix}         %
+    \cs_new:Npn \nwpu@page@app@pdf {Appendix}
+    \cs_new_protected:Npn \nwpu@page@acp {Published~Papers~and~%
+        Participated~in~Scientific~Research~During~the~Study%
+        ~for~\nwpu@eng@degree~Degree}                       %
+    \cs_new:Npn \nwpu@page@acp@pdf
+      {Published~Papers~and~Participated~in~Scientific~Research~During~the~Study~for~\nwpu@eng@degree~Degree}
+  }
+\ExplSyntaxOff

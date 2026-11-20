@@ -1,0 +1,478 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+%% 参考文献处理
+%%-----------------------------------------------------------------------------%
+\ExplSyntaxOn
+% 中文全角标点支持（gb7714-2025 提供，此处为 gb7714-2015 提供降级）
+\cs_if_exist:cF { gbpunctcomma } { \cs_new:Npn \gbpunctcomma { \addcomma\addspace } }
+\cs_if_exist:cF { gbpunctcommalanen } { \cs_new:Npn \gbpunctcommalanen { \addcomma\addspace } }
+\cs_if_exist:cF { gbpunctcolon } { \cs_new:Npn \gbpunctcolon { \addcolon\addspace } }
+\cs_if_exist:cF { gbpunctcolonlanen } { \cs_new:Npn \gbpunctcolonlanen { \addcolon\addspace } }
+\cs_if_exist:cF { gbpunctdot } { \cs_new:Npn \gbpunctdot { \adddot\addspace } }
+\cs_if_exist:cF { gbpunctdotlanen } { \cs_new:Npn \gbpunctdotlanen { \adddot\addspace } }
+\cs_new:Npn \nwpucolon { \iffieldequalstr{userd}{chinese}{\gbpunctcolon}{\gbpunctcolonlanen} }
+\cs_new:Npn \nwp comma { \iffieldequalstr{userd}{chinese}{\gbpunctcomma}{\gbpunctcommalanen} }
+\cs_new:Npn \nwpudot { \iffieldequalstr{userd}{chinese}{\gbpunctdot}{\gbpunctdotlanen} }
+% 本科参考文献中文标点使用全角
+\nwpu_if_bachelor:T {
+  \cs_gset:Npn \gbpunctcomma { \mbox{，}\allowbreak }
+  \cs_gset:Npn \gbpunctcolon { \mbox{：}\allowbreak }
+  \cs_gset:Npn \gbpunctdot { \mbox{．}\allowbreak }
+  % 本科：将 biblatex 底层半角标点命令统一重定义为全角（\cs_gset 全局生效，突破本科条件组的分组限制），覆盖所有条目类型与标准宏
+  \cs_gset_protected:Npn \addcomma { \mbox{，}\allowbreak }
+  \cs_gset_protected:Npn \addcolon { \mbox{：}\allowbreak }
+  \cs_gset_protected:Npn \addsemicolon { \mbox{；}\allowbreak }
+  % 本科统一全角：英文（lanen）标点同样使用全角，不区分中英文文献
+  \cs_gset:Npn \gbpunctcommalanen { \mbox{，}\allowbreak }
+  \cs_gset:Npn \gbpunctcolonlanen { \mbox{：}\allowbreak }
+  \cs_gset:Npn \gbpunctdotlanen { \mbox{．}\allowbreak }
+  \cs_gset:Npn \nwpu_bib_comma: { \iffieldequalstr{userd}{chinese}{\gbpunctcomma}{\gbpunctcommalanen} }
+  \cs_gset:Npn \newunitpunct { \iffieldequalstr{userd}{chinese}{\gbpunctdot}{\gbpunctdotlanen}}
+  \cs_gset:Npn \pubdatadelim { \setunit*{\nwpu_bib_comma:}}
+  \cs_gset:Npn \locnopubdelim { \setunit*{\nwpu_bib_comma:}}
+  \DeclareFieldFormat{title}{%
+    \iffieldequalstr{userd}{chinese}{#1}{#1}}
+  \DeclareFieldFormat[article,patent,thesis,unpublished]{title}{%
+    \iffieldequalstr{userd}{chinese}{#1}{#1}}
+  % 英文姓名 Family,Given 之间的逗号统一为全角
+  \cs_gset:Npn \revsdnamepunct { \gbpunctcomma }
+  \renewbibmacro*{name:gbuppercase}[4]{\bibauthorfont%
+    \gbcaselocalset%
+    \ifuseprefix%
+      {\usebibmacro{name:delim}{#3#1}%
+       \usebibmacro{name:hook}{#3#1}%
+       \ifdefvoid{#3}{}{%
+         \ifcapital%
+           {\mkbibnameprefix{\MakeCapital{#3}}\isdot}%
+           {\mkbibnameprefix{#3}\isdot}%
+         \ifprefchar{}{\bibnamedelimc}}%
+       \mkbibnamefamily{\MakeCapital{#1}}\isdot%
+       \ifdefvoid{#2}{}{\revsdnamepunct\bibnamedelimd\mkbibnamegiven{\MakeUppercase{#2}}\isdot}%
+       \ifdefvoid{#4}{}{\gbpunctcomma\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}%
+      {\usebibmacro{name:delim}{#1}%
+       \usebibmacro{name:hook}{#1}%
+       \mkbibnamefamily{\MakeCapital{#1}}\isdot%
+       \ifboolexpe{%
+         test {\ifdefvoid{#2}}
+         and
+         test {\ifdefvoid{#3}}}
+         {}{\revsdnamepunct}%
+       \ifdefvoid{#2}{}{\bibnamedelimd\mkbibnamegiven{\MakeUppercase{#2}}\isdot}%
+       \ifdefvoid{#3}{}{\bibnamedelimd\mkbibnameprefix{#3}\isdot}%
+       \ifdefvoid{#4}{}{\gbpunctcomma\bibnamedelimd\mkbibnamesuffix{#4}\isdot}}}
+  \renewbibmacro*{journal+issuetitle}{\bibpubfont%
+    \usebibmacro{journal}%
+    \iffieldundef{journaltitle}{}{\setunit*{\nwpu_bib_comma:}}%
+    \iffieldundef{series}
+      {}
+      {\newunit
+       \printfield{series}%
+       \setunit{\addspace}}%
+    \printtext{\usebibmacro{issue+date}}%
+    \iffieldundef{volume}{}{\setunit*{\nwpu_bib_comma:}}%
+    \usebibmacro{issue}%
+    \usebibmacro{volume+number+eid}}
+  \cs_gset:Npn \subtitlepunct { \iffieldequalstr{userd}{chinese}{\gbpunctcolon}{\gbpunctcolonlanen}}
+  \cs_gset:Npn \publocpunct { \iffieldequalstr{userd}{chinese}{\gbpunctcolon}{\gbpunctcolonlanen}}
+  \cs_gset:Npn \finentrypunct { \mbox{．}\allowbreak }
+  \DeclareDelimFormat[bib,biblist]{multinamedelim}{%
+    \iffieldequalstr{userd}{chinese}{\gbpunctcomma}{\gbpunctcomma}}
+  \DeclareDelimFormat[bib,biblist]{finalnamedelim}{%
+    \iffieldequalstr{userd}{chinese}{\gbpunctcomma}{\gbpunctcomma}}
+  \DeclareDelimFormat[bib,biblist]{nameyeardelim}{%
+    \iffieldequalstr{userd}{chinese}{\gbpunctcomma}{\gbpunctcommalanen}}
+  \DeclareDelimFormat[bib,biblist]{andothersdelim}{%
+    \iffieldequalstr{userd}{chinese}{\gbpunctcomma}{\gbpunctcommalanen}}
+  \DeclareDelimFormat{bibpagespunct}{%
+    \iffieldequalstr{userd}{chinese}{\unspace\gbpunctcolon}{\unspace\gbpunctcolonlanen}}
+}
+\renewcommand*{\bibfont}{\nwpuBodyFont}
+\str_if_eq:VnF \l__nwpu_bibindent_tl { hanging } {
+    \dim_set:Nn \biblabelsep { \nwpuBibLabelSep }
+}
+\dim_new:N \l__nwpu_bib_firstline_indent_dim
+\dim_set:Nn \l__nwpu_bib_firstline_indent_dim { 24pt }
+\dim_new:N \l__nwpu_bib_label_dim
+\dim_new:N \l__nwpu_bib_firstline_reserve_dim
+\dim_set:Nn \l__nwpu_bib_firstline_reserve_dim { \nwpuBibFirstLineReserve }%
+\tl_new:N \l__nwpu_patent_number_tl
+\cs_new_protected:Npn \nwpu_patent_number_allowbreaks:n #1
+  {
+    \tl_set:Nn \l__nwpu_patent_number_tl {#1}
+    \regex_replace_all:nnN {([A-Za-z])([0-9])} {\1\c{allowbreak}\2} \l__nwpu_patent_number_tl
+    \regex_replace_all:nnN {([0-9])([A-Za-z])} {\1\c{allowbreak}\2} \l__nwpu_patent_number_tl
+    \tl_use:N \l__nwpu_patent_number_tl
+  }
+\cs_new_protected:Npn \nwpuPatentNumberAllowBreaks #1
+  {
+    \nwpu_patent_number_allowbreaks:n {#1}
+  }
+\DeclareFieldFormat[patent]{title}{#1}
+\DeclareFieldFormat[patent]{number}{\nwpuPatentNumberAllowBreaks{#1}}
+\renewcommand*{\multiciterangedelim}{\textasciitilde}
+\renewcommand*{\multicitesubentryrangedelim}{\multiciterangedelim}
+\renewcommand*{\superciterangedelim}{\textasciitilde}
+\renewcommand*{\supercitesubentryrangedelim}{\superciterangedelim}
+\renewbibmacro*{title}{%
+\ifboolexpr{%
+    test{\iffieldundef{title}}%
+    and
+    test{\iffieldundef{subtitle}}}%
+    {}%
+    {\printtext[title]{\bibtitlefont%
+       \iffieldequalstr{entrysubtype}{standard}{%
+            \iffieldundef{number}{}{\printtext{\thefield{number}}\setunit{\nwp comma}}%
+       }{}%
+       \printfield[titlecase]{title}%
+       \ifboolexpr{test {\iffieldundef{subtitle}}}%
+            {}{\setunit{\subtitlepunct}\printfield[titlecase]{subtitle}}%
+       \iffieldundef{titleaddon}{}{\setunit{\subtitlepunct}\printfield{titleaddon}}%
+       \ifboolexpr{test{\ifentrytype{book}} and (not test{\iffieldundef{volume}})}%
+            {\setunit{\subtitlepunct}\printfield{volume}}{}%
+       \ifboolexpr{(test{\ifentrytype{archive}} or  test{\ifentrytype{online}}) and (not test{\iffieldundef{number}})}%
+            {\setunit{\subtitlepunct}\printfield{number}}{}%
+       \iftoggle{bbx:gbtype}%
+            {\iffieldundef{entrysubtype}{\printfield[gbtypeflag]{usera}}%
+            {\iffieldequalstr{entrysubtype}{standard}{\printfield[gbtypeflags]{usera}}%
+                  {\iffieldequalstr{entrysubtype}{news}{\printfield[gbtypeflagn]{usera}}%
+                  {\printfield[gbtypeflag]{usera}}}}}{}%
+       }%
+    }%
+}
+\DeclareBibliographyDriver{patent}{%
+    \usebibmacro{bibindex}%
+    \usebibmacro{begentry}%
+    \usebibmacro{author/translator+others}%
+    \ifnameundef{author}{}{\setunit{\labelnamepunct}\newblock}%
+    \printtext[title]{\bibtitlefont\printfield[titlecase]{title}}%
+    \mbox{[P]}%
+    \newunit\newblock%
+    \printlist{location}%
+    \iffieldundef{number}{}{%
+        \setunit{\nwpucolon}%
+        \printfield{number}%
+    }%
+    \ifboolexpr{
+        not test {\iffieldundef{year}}
+        or
+        not test {\iffieldundef{month}}
+        or
+        not test {\iffieldundef{day}}
+    }{%
+        \setunit{\nwp comma}%
+        \usebibmacro{newsdate}%
+    }{}%
+    \usebibmacro{finentry}%
+}
+\newbibmacro*{nwpu:miscfullinstitution+location+date}{%
+  \bibpubfont%
+  \iflistundef{institution}
+    {}
+    {\printlist{institution}\setunit*{\nwpudot}}%
+  {\printlist{location}%
+   \iflistundef{location}
+     {}
+     {\iflistundef{institution}
+        {\setunit*{\nwpudot}}
+        {\setunit*{\nwpucolon}}}%
+   \ifboolexpr{
+        not test {\iffieldundef{year}}
+        or
+        not test {\iffieldundef{month}}
+        or
+        not test {\iffieldundef{day}}
+   }
+     {\usebibmacro{newsdate}}
+     {}}}
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%
+  \usebibmacro{title}%
+  \iftoggle{bbx:gbstrict}{}{%
+    \newunit
+    \printlist{language}%
+    \newunit\newblock
+    \usebibmacro{byauthor}%
+    \newunit\newblock
+    \usebibmacro{byeditor+others}}%
+  \newunit\newblock
+  \printfield{howpublished}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit
+  \printfield{version}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{nwpu:miscfullinstitution+location+date}%
+  \usebibmacro{chapter+pages}%
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}\usebibmacro{related}}
+    {}%
+  \usebibmacro{annotation}\usebibmacro{finentry}}
+\newbibmacro*{nwpu:standardlocation+publisher+date}{%
+  \bibpubfont%
+  \iflistundef{location}{}{%
+    \printlist{location}%
+    \iflistundef{publisher}{}{\setunit*{\nwpucolon}}%
+  }%
+  \iflistundef{publisher}{}{\printlist{publisher}}%
+  \ifboolexpr{
+      not test {\iffieldundef{year}}
+      or
+      not test {\iffieldundef{month}}
+      or
+      not test {\iffieldundef{day}}
+  }{
+    \setunit*{\nwp comma}%
+    \usebibmacro{newsdate}%
+  }{}%
+}
+\DeclareBibliographyDriver{standard}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \ifnameundef{author}{}{\setunit{\labelnamepunct}\newblock}%
+  \usebibmacro{title}%
+  \newunit\newblock
+  \usebibmacro{nwpu:standardlocation+publisher+date}%
+  \usebibmacro{chapter+pages}%
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}\usebibmacro{related}}
+    {}%
+  \usebibmacro{annotation}\usebibmacro{finentry}%
+}
+\newbibmacro*{nwpu:otherdate}{%
+  \iffieldundef{year}
+    {}
+    {\thefield{year}%
+     \iffieldundef{month}
+       {}
+       {-\ifnum\thefield{month}<10 0\fi\thefield{month}%
+        \iffieldundef{day}
+          {}
+          {-\ifnum\thefield{day}<10 0\fi\thefield{day}}}}%
+}
+\newbibmacro*{nwpu:otherurldate}{%
+  \iffieldundef{urlyear}
+    {}
+    {\thefield{urlyear}%
+     \iffieldundef{urlmonth}
+       {}
+       {-\ifnum\thefield{urlmonth}<10 0\fi\thefield{urlmonth}%
+        \iffieldundef{urlday}
+          {}
+          {-\ifnum\thefield{urlday}<10 0\fi\thefield{urlday}}}}%
+}
+\newbibmacro*{nwpu:otherdate+urldate}{%
+  \ifboolexpr{
+      test {\iffieldundef{year}}
+      and
+      test {\iffieldundef{urlyear}}
+  }{}{%
+    \printtext{%
+      \begingroup
+      \xeCJKsetup{CJKecglue={}}%
+      \usebibmacro{nwpu:otherdate}%
+      \ifboolexpr{
+          test {\iffieldundef{year}}
+          and
+          test {\iffieldundef{month}}
+          and
+          test {\iffieldundef{day}}
+      }{}{\iffieldundef{urlyear}{}{／}}%
+      \usebibmacro{nwpu:otherurldate}%
+      \endgroup
+    }%
+  }%
+}
+\DeclareBibliographyDriver{other}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \ifnameundef{namea}{}{\setunit{\labelnamepunct}\newblock}%
+  \usebibmacro{title}%
+  \iftoggle{bbx:gbstrict}{}{%
+    \newunit
+    \printlist{language}%
+    \newunit\newblock
+    \usebibmacro{byauthor}%
+    \newunit\newblock
+    \usebibmacro{byeditor+others}}%
+  \newunit\newblock
+  \printfield{howpublished}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit
+  \printfield{version}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{nwpu:otherdate+urldate}%
+  \usebibmacro{chapter+pages}%
+  \newunit\newblock
+  \printfield{url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}\usebibmacro{related}}
+    {}%
+  \usebibmacro{annotation}\usebibmacro{finentry}}
+\nwpu_if_bachelor:TF{%
+    \DeclareStyleSourcemap{
+        \maps[datatype=bibtex]{
+            \map{
+                \step[fieldsource=journal, fieldtarget=journaltitle]
+            }
+            \map[overwrite]{
+                \pertype{conference}
+                \step[fieldset=usera, fieldvalue={A}]
+            }
+            \map[overwrite]{
+                \pertype{inproceedings}
+                \step[fieldset=usera, fieldvalue={A}]
+            }
+        }
+    }
+    \DeclareDriverSourcemap[datatype=bibtex]{
+        \map{
+            \step[typesource=conference, typetarget=nwpubachelorconf]
+        }
+        \map{
+            \step[typesource=inproceedings, typetarget=nwpubachelorconf]
+        }
+    }
+    \DeclareFieldFormat[nwpubachelorconf]{title}{#1}
+    \DeclareFieldFormat[nwpubachelorconf]{booktitle}{#1}
+    \DeclareFieldFormat[nwpubachelorconf]{volume}{#1}
+    \newbibmacro*{nwpu:bachelorconfvolume}{%
+        \iffieldundef{volume}
+            {}
+            {%
+                \iffieldequalstr{userd}{chinese}
+                    {：第~\printfield{volume}~卷}
+                    {\mbox{：}\allowbreak vol.\space\printfield{volume}}%
+            }%
+    }
+    \newbibmacro*{nwpu:bachelorbooktitle}{%
+        \ifboolexpr{
+            test {\iffieldundef{booktitle}}
+            and
+            test {\iffieldundef{booksubtitle}}
+        }
+            {}
+            {\printtext[booktitle]{\bibtitlefont%
+                \printfield[booktitlecase]{booktitle}%
+                \iffieldundef{booksubtitle}{}{\setunit{\subtitlepunct}\printfield[booktitlecase]{booksubtitle}}%
+                \usebibmacro{nwpu:bachelorconfvolume}%
+                \printtext{[C]}%
+            }}%
+    }
+    \newbibmacro*{nwpu:bachelorin}{%
+        \setunit{\nwpudot}%
+        \iffieldequalstr{userd}{chinese}
+            {\printtext{见；}}
+            {\printtext{In\mbox{；}\allowbreak}}%
+    }
+    \DeclareBibliographyDriver{nwpubachelorconf}{%
+        \usebibmacro{bibindex}%
+        \usebibmacro{begentry}%
+        \usebibmacro{author/translator+others}%
+        \ifnameundef{author}{}{\setunit{\labelnamepunct}\newblock}%
+        \usebibmacro{title}%
+        \usebibmacro{nwpu:bachelorin}%
+        \usebibmacro{bybookauthor}%
+        \ifnameundef{bookauthor}{%
+            \ifnameundef{editor}{}{\newunit}%
+        }{\newunit}%
+        \iffieldundef{series}{}{\usebibmacro{series+number}\setunit{\nwpucolon}}%
+        \usebibmacro{nwpu:bachelorbooktitle}%
+        % \iffieldundef{volume}{}{\setunit{\nwpucolon}\printfield{volume}}%
+        \iffieldundef{number}{}{\setunit{\nwpucolon}\printfield{number}}%
+        \newunit\newblock%
+        \printfield{edition}%
+        \newunit\newblock%
+        \usebibmacro{publisher+location+date}%
+        \usebibmacro{chapter+pages}%
+        \usebibmacro{doi+eprint+url}%
+        \newunit\newblock%
+        \iftoggle{bbx:isbn}
+            {\printfield{isbn}}
+            {}%
+        \newunit\newblock%
+        \usebibmacro{addendum+pubstate}%
+        \setunit{\bibpagerefpunct}\newblock%
+        \usebibmacro{pageref}%
+        \newunit\newblock%
+        \iftoggle{bbx:related}
+            {\usebibmacro{related:init}\usebibmacro{related}}
+            {}%
+        \usebibmacro{annotation}\usebibmacro{finentry}%
+    }
+}{}
+\ExplSyntaxOff
+\ExplSyntaxOn
+\cs_new_protected:Npn \nwpu@bibitemcmd {%
+    \addvspace{\bibitemsep}%
+    \leavevmode
+    \str_case:Vn \l__nwpu_bibindent_tl
+      {
+        { firstline } { \hspace*{\l__nwpu_bib_firstline_indent_dim} }
+        { none }      { \hspace*{0pt} }
+      }
+    \mkgbnumlabel{\printfield{labelnumber}}\hspace{\nwpuBibLabelNumberGap}}
+% hanging 模式不覆盖环境，使用 gb7714-2015 默认的 list 环境
+\str_if_eq:VnF \l__nwpu_bibindent_tl { hanging } {
+    \defbibenvironment{bibliography}
+        {\begingroup\setlength{\parindent}{\nwpuBibParIndent}\setlength{\emergencystretch}{\nwpuBibEmergencyStretch}\sloppy}
+        {\endgroup}
+        {\nwpu@bibitemcmd}
+}
+\AtBeginBibliography{                                        %
+    \nwpuBodyFont                                           %
+    \str_if_eq:VnF \l__nwpu_bibindent_tl { hanging } {
+        \setlength{\bibitemsep}{\nwpuBibItemSep}                %
+    }
+}                                                           %
+\cs_set_eq:NN \nwpu@oldprintbibliography \printbibliography            %
+\RenewDocumentCommand{\printbibliography}{O{}}{             %
+    \cleardoublepage                                        %
+    \nwpu@oldprintbibliography[                             %
+        heading=bibintoc,                                   %
+        title={参考文献},                                     %
+        #1                                                  %
+    ]                                                       %
+    \cleardoublepage                                        %
+}                                                           %
+\DeclareBibliographyCategory{accomplishments}
+\clist_new:N \l__nwpu_pub_keys_clist
+\NewDocumentCommand{\addpub}{m}{%
+    \clist_put_right:Nn \l__nwpu_pub_keys_clist {#1}%
+}
+\NewDocumentCommand{\printaccomplishments}{}{%
+    \begin{accomplishments}
+    \begin{refsection}
+        \clist_map_inline:Nn \l__nwpu_pub_keys_clist {\nocite{##1}}%
+        \nwpu@oldprintbibliography[heading=none]%
+    \end{refsection}
+    \end{accomplishments}
+}
+\ExplSyntaxOff

@@ -1,0 +1,47 @@
+
+\item[{{$a, b, c, \ldots$}}] 标量
+\item[{{$\vec{a}, \vec{b}, \vec{c}, \ldots$}}] 向量
+\item[{{$\mat{A}, \mat{B}, \mat{C}, \ldots$}}] 矩阵
+\item[{{$\mathbb{Q}, \mathbb{R}, \mathbb{C}, \ldots$}}] 集合
+\item[{{$\mathcal{D}, \mathcal{E}, \mathcal{F}, \ldots$}}] 概率分布
+
+\item % 隔开一行
+
+% 标量操作
+\item[{{$\im$}}] 虚数单位
+\item[{{$\Re(x)$}}] 复实部
+\item[{{$\Im(x)$}}] 复虚部 
+\item[{{$\overline{x}$}}] 复共轭
+\item[{{$\ceil{x}$}}] 向上取整
+\item[{{$\floor{x}$}}] 向下取整
+\item[{{$x \bmod T$}}] 取余（模）：$a - T\floor{\frac{a}{T}}$
+
+% 矩阵操作
+\item[{{$\mat{I}_{N}$}}] $N$~阶单位矩阵
+\item[{{$\norm{\mat{A}}$}}] 矩阵范数
+\item[{{$\mat{A}\tr$}}] 矩阵的转置
+\item[{{$\mat{A}\ct$}}] 矩阵的共轭转置
+\item[{{$\mat{A}^\dagger$}}] 矩阵的 Moore-Penrose~伪逆
+
+% 集合操作
+\item[{{$\#\mathbb{S}$}}] 集合的势，对于有限集合即为元素的个数
+
+% 函数操作
+\item[{{$\delta(t)$}}] Kronecker delta~函数：$\delta(t) = \begin{cases}
+    1, & t = 0 \\
+    0, & t \neq 0
+\end{cases}$
+\item[{{$f\sps[(n)](x)$}}] 函数的 $n$~阶导数
+\item[{{$\mathcal{F}_{f}(k)$}}] 连续时域、周期函数的 Fourier~级数：$\frac{1}{T}\int_T{f(t)\e^{-\im\frac{2\pi}{T}k t}\dint t}$
+\item[{{$\mathfrak{F}_{f}(\e^{\im\omega T})$}}] 离散时域函数的 Fourier~变换：$\sum_{n=-\infty}^{\infty}{f(n)\e^{-\im n\omega T}}$
+\item[{{$(f \circledast g)(t)$}}] 函数 $f(\tau)$ 与 $f(\tau)$ 的卷积
+
+% 概率分布操作
+\item[{{$\E\mathcal{D}$}}] 概率分布的数学期望
+\item[{{$\Var\mathcal{D}$}}] 概率分布的方差
+
+\item % 隔开一行
+
+\item[{{SISO}}] 单输入单输出（Single-Input Single-Output）
+\item[{{MIMO}}] 多输入多输出（Multi-Input Multi-Output）
+\item[{{LTI}}] 线性时不变（Linear Time-Invariant）

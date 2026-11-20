@@ -1,0 +1,78 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+
+% Some helper function about watermark
+
+% ----------------------------------------------------------------------------
+
+% Generic watermark storage is institution-neutral. The active profile owns
+% any text policy or figure asset and fills these variables explicitly.
+\newcommand{\VarWatermaskTextStyle}{}
+\newcommand{\VarWatermaskFigureStyle}{}
+
+% Prodive re-define APIs
+\newcommand{\SetWatermaskTextStyle}[1]{%
+  \renewcommand{\VarWatermaskTextStyle}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\SetWatermaskFigureStyle}[1]{%
+  \renewcommand{\VarWatermaskFigureStyle}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\UseWatermarkFigureStyle}{%
+  \AddToShipoutPicture{%
+    \put(0,0){%
+    \parbox[b][\paperheight]{\paperwidth}{%
+      \VarWatermaskFigureStyle%
+  }}}%
+} % End of \newcommand{}
+
+\newcommand{\UseWatermarkTextStyle}{%
+  \AddToShipoutPicture{%
+    \put(0,0){%
+    \parbox[b][\paperheight]{\paperwidth}{%
+      \VarWatermaskTextStyle%
+  }}}%
+} % End of \newcommand{}
+
+\newcommand{\ClearWatermarkStyle}{\ClearShipoutPicture}
+
+\newcommand{\ShowDOI}[1]{
+  \SetWatermarkText{\textbf{#1}}
+  \SetWatermarkColor{black}
+  \SetWatermarkFontSize{0.5 cm}
+  \SetWatermarkScale{0.58}
+  \SetWatermarkAngle{0}
+  \SetWatermarkLightness{0}
+  \SetWatermarkHorCenter{18 cm}
+  \SetWatermarkVerCenter{28.4 cm}
+} % End of \newcommand{}
+
+% The draftwatermark package defaults its text to `DRAFT` as soon as it is
+% loaded. Clear that independent text layer explicitly; \DisplayDraft controls
+% only the cover marker, while figure/text watermark APIs remain opt-ins below.
+\SetWatermarkText{}
+
+% Watermarks are explicit opt-ins. Student/final output must not receive an
+% institutional logo merely by loading the template. Use one of the public
+% \UseWatermark... APIs only when a current requirement explicitly calls for it.
+%\UseWatermarkFigureStyle
+
+% ----------------------------------------------------------------------------

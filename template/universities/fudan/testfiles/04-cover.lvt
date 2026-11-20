@@ -1,0 +1,28 @@
+% Copyright (C) 2018 by Xiangdong Zeng <xdzeng96@gmail.com>
+
+\input{fduthesis-regression-test}
+
+\documentclass{fduthesis}
+
+\MAKECOVERFALSE
+\DEFAULTSETUP
+
+\begin{document}
+
+\START
+
+\OMIT
+\EMPTYPAGE
+\TIMO
+
+\loggingoutput
+
+\begin{titlepage}
+  \makecoveri
+  \newpage
+  \makecoverii
+\end{titlepage}
+
+\END
+
+\end{document}

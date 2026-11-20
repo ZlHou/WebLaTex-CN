@@ -1,0 +1,44 @@
+\input{regression-test}
+\documentclass[degree=doctor, fontset=fandol]{ustcthesis}
+
+\begin{document}
+\START
+\showoutput
+
+\listoffigures
+
+\clearpage
+\OMIT
+
+\mainmatter
+\chapter{Foo}
+
+\begin{figure}
+  \caption{Figure foo}
+\end{figure}
+
+\begin{figure}
+  \caption{Figure A long long long long long long long long long caption}
+\end{figure}
+
+\begin{figure}
+  \caption{Figure foo}
+\end{figure}
+
+
+
+\chapter{Bar}
+
+\begin{figure}
+  \caption{Figure foo}
+\end{figure}
+
+\begin{figure}
+  \caption{Figure bar}
+\end{figure}
+
+\begin{figure}
+  \caption{Figure foo}
+\end{figure}
+
+\end{document}

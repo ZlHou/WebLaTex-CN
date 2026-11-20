@@ -1,0 +1,127 @@
+%% -*- mode: LaTeX Memoir; tab-width: 4;
+
+%% DLUTThesis.tex    The Main File for DLUT Doctor Thesis
+%%
+%% Created by Dazhi Jiang, 2016-05-27 13:15:22 +0800 (Fri, 27 May 2016)
+%% Copyright (c) 2016 Dazhi Jiang All Rights Reserved.
+
+%% TextMate Settings
+% !TEX TS-program = xelatex
+% !TEX encoding = UTF-8 Unicode
+% !TEX TS-options = -shell-escape -interaction=nonstopmode -file-line-error
+
+%% TeXstudio/ATOM Setftings
+% !TEX encoding = utf8
+% !TEX program = xelatex
+% !TEX root = DLUTThesis.tex
+
+
+\documentclass[a4paper, oneside, openany, extrafontsizes]{dlutthesis}
+
+\usepackage{lipsum}
+
+\dlutset{%
+	%% - Title page
+	titlepagestyle=dlut,
+	%% - Chapter heading
+	chapterheading=dlut,
+	%% - Section heading
+	sectionheading=dlut,
+	%% - Section numbering
+	maxsecnumdepth=subsection,
+	%% - Pgf/TikZ
+	pgf/externalmainfile=DLUTThesis,
+	pgf/externalprefix={Figs/pdf/pgf-}
+}
+
+%% * Define the elements of title page
+\dlutset{%
+        thesis={大连理工大学本科毕业设计（论文）},
+        title={大连理工大学本科毕业设计（论文）题目},
+       	etitle={The Subject of Undergraduate Graduation Project (Thesis) of DUT},
+       	department={信息与通信工程学院},
+       	major={电子信息工程英语强化},
+       	author={王~大~锤},
+    	authorid={3.14159265},
+		supervisor={某某某~教授},
+		reviewer={某某某~教授},
+        date={\today},
+}
+
+\usepackage{mathtools}
+\usepackage{esvect}
+%%
+\usetikzlibrary{circuits,%
+	circuits.logic,%
+	intersections,%
+	scopes, arrows, fadings, patterns,%
+	decorations.pathreplacing,%
+	decorations.pathmorphing,%
+	positioning,
+	shadows,
+	shadings,%
+	shapes.misc,%
+	shapes.geometric,%
+	external,
+	calc,
+	mindmap,
+	chains,
+}
+
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+
+\begin{document}
+
+%% * The title page
+\maketitle
+
+%% * Plagiarism declaration
+\cleardoublepage
+
+
+%% * The front matter
+\frontmatter
+
+%%   - Chinese abstract
+\cleardoublepage
+
+\input{body/abstract}
+
+%%   - ToC, LoF and LoT
+%%     - Chinese ToC
+\cleardoublepage
+\tableofcontents*
+
+%% * The main matter
+\mainmatter
+
+%%   - Chapter I
+\input{body/chapter1}
+
+%%   - Chapter II
+\input{body/chapter2}
+
+
+%% if endnotes then
+\printpagenotes
+
+
+%% if a bibliography then
+\renewcommand\bibname{参~考~文~献}
+\bibliographystyle{gbt-7714-2015-numerical}
+\bibliography{}
+
+%% if appendices, then
+\appendix
+% \chapterstyle{dlutappendix}
+\chapter{附录1}{Example 1}
+...
+
+\backmatter
+%% if Biographical sketch then
+% \begin{biosketch} ... \end{biosketch}
+
+\end{document}

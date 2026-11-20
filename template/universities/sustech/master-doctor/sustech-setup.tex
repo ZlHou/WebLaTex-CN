@@ -1,0 +1,214 @@
+% !TeX root = ./sustechthesis-example.tex
+
+% 论文基本信息配置
+
+\thusetup{
+  %******************************
+  % 注意：
+  %   1. 配置里面不要出现**空行**
+  %   2. 不需要的配置信息可以删除
+  %   3. 建议先阅读文档中所有关于选项的说明
+  %******************************
+  %
+  % 输出格式
+  %   选择打印版（print）或用于提交的电子版（electronic），前者会插入空白页以便直接双面打印
+  %
+  output = print,
+  %
+  % 文档类型
+  %   选择开题报告（proposal）、年度考核报告（progress）、专业学位研究生实践计划（practice）或学位论文（thesis）【默认值】。
+  %
+  type = thesis,
+  %
+  % 标题
+  %   可使用“\\”命令手动控制换行
+  %   如果需要使用副标题，取消 subtitle 和 subtitle* 的注释即可。
+  %   特别字符允许小写，例如行内公式，其他所有字词全部大写。
+  %
+  title  = {南方科技大学学位论文 \LaTeX{} 模板 (Support English and $\text{lower-case}$) 使用示例文档 v\version{}},
+  title* = {An Introduction to \LaTeX{} Thesis Template (Support $\text{lower-case}$) of Southern University of Science and Technology v\version{}},
+  % subtitle = {可选的副标题可选的副标题可选的副标题可选的副标题可选的副标题可选的副标题},
+  % subtitle* = {optional subtitle optional subtitle optional subtitle optional subtitle optional subtitle optional subtitle},
+  %
+  % 学位
+  %
+  degree-domain = {工学}, % 【中文】学科门类：可选理学、工学、医学
+  degree-domain* = {Engineering}, % 【英文】学位等级：可选Science, Engineering, Medicine
+  degree-type = {academic},  % 学位类型：可选学术型（academic）【默认值】、专业型（professional）。
+  %
+  % 培养单位
+  %   填写所属院系的全名
+  %   超长英文系名可以手动换行
+  department = {计算机科学与工程系},
+  department* = {School of System Design and \\Intelligent Manufacturing},
+  %
+  % 学科
+  %   1. 学术型学位
+  %      获得一级学科授权的学科填写一级学科名称，其他填写二级学科名称
+  %   2. 工程硕士
+  %      工程领域名称
+  %
+  discipline  = {计算机科学与技术},
+  discipline* = {Computer Science and Technology},
+  %
+  % 姓名
+  %   英文用全拼，姓在前，名在后，姓和名的首字母大写，其余小写
+  %
+  author-id  = {11900000},
+  author  = {李子强},
+  author* = {Li Ziqiang},
+  %
+  % 指导教师
+  %   一般情况下，只写一名指导教师。
+  %   填写导师姓名，后衬导师职称“教授”，“副教授”，“研究员”等
+  %
+  supervisor  = {爱丽丝鲍勃助理教授},
+  supervisor* = {Assistant Prof. Alice Bob},
+  % 副指导教师
+  %   一般无需启用该项，留空或者注释掉即可。
+  %   如需启用限填写一名，且需要向学位办确认和备案，职称要求同指导教师。
+  % associate-supervisor  = {大卫查理助理教授},
+  % associate-supervisor* = {Assistant Prof. David Charlie},
+  %
+  % 专业学位研究生实践计划（type = practice）专用
+  %   业界导师：填写姓名及职称
+  %   培养层次：默认按 degree 显示“硕士”或“博士”，一般无需设置
+  %
+  industrial-supervisor  = {某某某高级工程师},
+  industrial-supervisor* = {Senior Engineer Carol Dave},
+  % training-level  = {硕士},
+  % training-level* = {Master},
+  %
+  % 日期
+  %   使用 ISO 格式；默认为当前时间
+  %   date 为第一页全中文大写日期，defense-date 为第二、三页的答辩日期。
+  %   需要按 {年-月-日} 格式填写，如不显示“日”，可以随意填一个日期，但是不能为空。
+  %
+  date = {2020-12-20},
+  defense-date = {2020-12-20},
+  %
+  % 密级
+  %   公开, 秘密, 机密, 绝密
+  %
+  statesecrets={公开},
+  %
+  % 国内图书分类号：查询网址：https://ztflh.xhma.com/
+  %   国内图书分类号可先参考知网上类似学位论文的分类号，再进行确认。
+  % 国际图书分类号，查询网址：https://udcsummary.info/php/index.php?lang=chi
+  %
+  natclassifiedindex={XXxxx.x},
+  intclassifiedindex={xx-x},
+}
+
+\thusetup{
+  %
+  % 数学字体
+  % math-style = GB,  % GB （中文默认） | TeX （英文默认）
+  math-font  = cambria,  % cambria （默认，同 Word 默认数学字体一致） ｜ times （Times New Roman 的TeX克隆版）｜ xits ｜ stix
+}
+
+% 载入所需的宏包
+
+% 可以使用 nomencl 生成符号和缩略语说明
+% \usepackage{nomencl}
+% \makenomenclature
+
+% 表格加脚注
+\usepackage{threeparttable}
+
+% 表格中支持跨行
+\usepackage{multirow}
+
+% 量和单位
+\usepackage{siunitx}
+
+% 定理类环境宏包
+\usepackage{amsthm}
+% 也可以使用 ntheorem
+% \usepackage[amsmath,thmmarks,hyperref]{ntheorem}
+
+%%%%%% 顺序编码制的文献引用形式
+%%%%%% 参考文献编译方式二选一，不要同时开启。
+%%%% 选择一：使用 BibTeX + natbib 宏包
+\usepackage[sort&compress]{natbib}
+% 全局上标数字模式
+\bibliographystyle{sustechthesis-numeric}
+% 全局著者-出版年制模式
+% \bibliographystyle{sustechthesis-author-year}
+
+%%%% 选择二：使用 BibLaTeX 宏包（兼容性不佳，不太推荐）
+% 全局上标数字模式，按照文献引用顺序排序
+% \usepackage[backend=biber,style=gb7714-2015,gbalign=left]{biblatex}
+% 全局上标数字模式，按照语言、作者、年份、标题、升序排列
+% \usepackage[backend=biber,style=gb7714-2015,sorting=gb7714-2015,gbalign=left]{biblatex}
+% 全局著者-出版年制模式
+% \usepackage[backend=biber,style=gb7714-2015ay]{biblatex}
+% \addbibresource{ref/refs.bib} % 声明 BibLaTeX 的数据库
+
+% 定义所有的图片文件在 figures 子目录下
+\graphicspath{{figures/}}
+
+% \enabledraftmode % 启用图片草稿模式，会以文字占位符替代图片，加快大量插入大尺寸图片时的编译速度，用于学位论文的调试，默认不启用
+
+% 数学命令
+\newcommand\dif{\mathop{}\!\mathrm{d}}  % 微分符号
+
+% hyperref 宏包在最后调用
+\usepackage{hyperref}
+\usepackage{ragged2e}
+
+% 固定宽度的表格。放在 hyperref 之前的话，tabularx 里的 footnote 显示不出来。
+\usepackage{tabularx}
+
+% 跨页表格，必须在 hyperref 之后使用否则会报错。
+\usepackage{longtable}
+
+% % 源代码 minted 高亮，二选一即可。【不再推荐，会有兼容性问题：导致图表间距异常】
+% %% 使用 minted 包有内置高亮颜色，需要 Python 环境编译，并安装 Pygement 包。
+% \usepackage{minted}
+
+% 源代码 listings 高亮，二选一即可。
+\usepackage{listings}
+%% 使用 listings 包需要自行定义高亮颜色，此处给出 Java 的例子。
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\lstset{language=Java,
+  keywordstyle=\color{javapurple}\bfseries,
+  stringstyle=\color{javared},
+  commentstyle=\color{javagreen},
+  morecomment=[s][\color{javadocblue}]{/**}{*/},
+  numbers=left,
+  numberstyle=\tiny\color{black},
+  stepnumber=1,
+  numbersep=10pt,
+  tabsize=4,
+  showspaces=false,
+  showstringspaces=false
+}
+
+% 伪代码环境
+\usepackage[ruled,linesnumbered]{algorithm2e}
+% 定义伪代码的continue
+\SetKw{Continue}{continue}
+\SetKw{Break}{break}
+% 定义算法注释
+\SetKwComment{Comment}{/* }{ */}
+\SetKwComment{SingleComment}{// }{}
+\SetKwComment{TriComment}{$\triangleright$\ }{}
+
+% tabular 扩展命令
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}} % 定义R为表格左右居左，用于自定义表格列宽度
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}} % 定义L为表格左右居右，用于自定义表格列宽度
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}} % 定义C为表格左右居中，用于自定义表格列宽度
+
+% tabularx 扩展命令，会对单元格内容进行单元格内自动换行
+% X 默认就是两端对齐
+% Y 左对齐
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+% Z 右对齐
+\newcolumntype{Z}{>{\raggedleft\arraybackslash}X}
+% A 居中对齐
+\newcolumntype{A}{>{\centering\arraybackslash}X}

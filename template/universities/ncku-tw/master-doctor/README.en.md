@@ -1,0 +1,153 @@
+<!-- doc-pair: root-readme; lang: en; topics: project-overview,start-by-need,quick-start,choose-the-correct-setup,downloads-and-examples,migrate-from-1-x,other-institution-profiles,historical-acceptance,thesis-upload-and-printing,defense-certificate-faq,documentation-and-project-work,other-community-alternatives,licence -->
+
+[繁體中文](README.md) | [English](README.en.md)
+
+# NCKU Thesis and Dissertation Template for LaTeX
+
+[Open as Template in Overleaf](https://www.overleaf.com/latex/templates/national-cheng-kung-university-thesis-and-dissertation-template-xelatex/kzgwjvvptktn)
+
+## Project overview
+
+This XeLaTeX template supports Chinese, English, and mixed-language NCKU master's theses and doctoral dissertations. It generates the cover, contents, figure/table lists, and other front matter. Thesis data goes into one configuration file; figure, table, equation, and citation commands are ready to use; a thesis started with a 1.x release can move to 2.x without renaming commands; and students from other institutions can build a style for their own school.
+
+This is not official NCKU software and does not represent current endorsement by the university, library, degree-examination system, or any department. Verify the current rules before use; official requirements always take precedence.
+
+Official guidance last checked on `2026-07-12`:
+
+- [NCKU thesis system](https://thesis.lib.ncku.edu.tw/)
+- [Submission guidance](https://thesis.lib.ncku.edu.tw/help/aboutedit/)
+- [Curriculum Division thesis-format guidance](https://cid-acad.ncku.edu.tw/p/412-1042-1378.php?Lang=zh-tw)
+
+## Start by need
+
+| What you want to do | Start here |
+| --- | --- |
+| Start writing a thesis now | [Quick start](#quick-start) and the student-package [`README.en.md`](thesis/README.en.md) |
+| Enter names, titles, degree, and department | [`conf/README.en.md`](thesis/conf/README.en.md) |
+| Find teaching or use a writing agent | [Content and agent entry](thesis/context/README.en.md) |
+| Upgrade a 1.x project | [1.x-to-2.x migration guide](docs/v1-to-v2-migration.en.md) |
+| Create a style for another institution | [`Customization.en.md`](thesis/template/style/Customization.en.md) |
+| Upload, print, and choose the official certificate | [Thesis upload and printing](#thesis-upload-and-printing) |
+| Understand architecture, validation, distribution, and writing features | [`docs/README.en.md`](docs/README.en.md) |
+
+## Quick start
+
+There are three ways to build; pick one. Use [Overleaf](https://www.overleaf.com/latex/templates/national-cheng-kung-university-thesis-and-dissertation-template-xelatex/kzgwjvvptktn) to avoid installing anything; run the command below in a terminal if TeX Live, MacTeX, or MiKTeX is installed; or set Texmaker or TeXstudio to compile with `latexmk` and `thesis.tex` as the main document. The student package [`README.en.md`](thesis/README.en.md) gives the steps for all three.
+
+1. Download `ncku-thesis-template-latex-<version>.zip` from [GitHub Releases](https://github.com/wengan-li/ncku-thesis-template-latex/releases).
+2. Extract it and read [`README.en.md`](thesis/README.en.md) at the package root, then edit `conf/conf.tex` by its must-change table; [`conf/README.en.md`](thesis/conf/README.en.md) explains every field.
+3. Disable `\ExampleMode` in `conf/conf.tex` and enter thesis information.
+4. Select chapters in `context/context.tex` and write content under `context/`.
+5. Build with any of the three ways; the terminal command is:
+
+```bash
+latexmk -xelatex -synctex=1 -interaction=nonstopmode thesis.tex
+```
+
+Use `thesis.tex` as the root/master document. `latexmk` handles XeLaTeX, BibTeX, and required reruns automatically.
+
+## Choose the correct setup
+
+NCKU students do not choose an institution style: extract the package and fill in `conf/conf.tex`; cover language, degree, and content mode are all selected in that file. Students from other institutions first build a style for their own school by following [`Customization.en.md`](thesis/template/style/Customization.en.md), then enter their thesis data.
+
+| Decision | Where to choose |
+| --- | --- |
+| Cover language | `conf/conf.tex`: `\DisplayCoverInChi` or `\DisplayCoverInEng` |
+| Degree | `conf/conf.tex`: `\MasterDegree` or `\PhdDegree` |
+| Content | `conf/conf.tex`: comment out `\ExampleMode` to use your own `context/context.tex` |
+| Institution style | NCKU students keep the default; students from other institutions see `Customization.en.md` |
+
+## Downloads and examples
+
+Each release provides two downloads:
+
+```text
+ncku-thesis-template-latex-<version>.zip
+ncku-thesis-template-latex-examples-<version>.zip
+```
+
+The first is the student package: extracted, it is a thesis project ready to build, without the tests and release tooling. Download this one to write a thesis. The second is the examples package, six PDFs built from the same version for previewing the output:
+
+```text
+README.md
+LICENSE
+cover.pdf
+thesis-chi.pdf
+thesis-eng.pdf
+thesis-full.pdf
+defense-certificate-master.pdf
+defense-certificate-phd.pdf
+```
+
+The certificate PDFs in the examples package are demonstrations only; use the official documents from the university system for submission. GitHub's automatic "Source code" ZIP is the complete repository including tests and release tooling, which most students do not need.
+
+## Migrate from 1.x
+
+Back up the complete old project and latest PDF, then extract the 2.x student package into a new directory. Copy in your configuration, content, figures, bibliography and official certificates while keeping the new `template/`. Restore added fonts and carefully merge edits to `thesis.tex` and `cover.tex`. Build, compare with the old PDF, and retain the old project for recovery. Existing 1.x commands need no renaming. Follow the [1.x-to-2.x migration guide](docs/v1-to-v2-migration.en.md) for the steps.
+
+## Other institution profiles
+
+Students from other institutions keep every writing feature of the template and only add a style for their own school. The template keeps NCKU's layout, university names, date rules, and wording under `template/style/ncku/`, while thesis data always stays in `conf/conf.tex`; a new style starts as a copy of the neutral skeleton `template/style/custom/` with the school's own data filled in. `custom` is not the official format of any school, and the repository currently has no ready-made style for another institution. See [`Customization.en.md`](thesis/template/style/Customization.en.md) for the steps; NCKU students can also browse the [`9-college / 110-department command catalogue`](thesis/template/style/ncku/README.en.md).
+
+## Available to use / historical acceptance
+
+According to records preserved by the project, the template's format/design was checked by the NCKU Library's digital-thesis team in 2015. The Curriculum Division also checked the Chinese and English defense certificates generated at that time. In 2018, the Division separately stated that the template-generated Chinese certificate was unauthorized.
+
+These are historical checks, not evidence that the university, library, degree-examination system, or any department currently accepts every template setting. CSIE is the only department for which the project preserves documented historical use, and that record is not current approval. Verify the rules for the current year and department before use.
+
+## Thesis upload and printing
+
+The following summary follows the NCKU thesis system's [submission guidance](https://thesis.lib.ncku.edu.tw/help/aboutedit/) (last checked by the project on `2026-07-19`). The process may change; follow the current official system and department notices when submitting.
+
+1. Create the PDF from the final version that meets department requirements and has the advisor's approval for printing.
+2. Combine the cover, defense certificate, Chinese and English abstracts, contents, figure/table lists, main text, references, and appendices into one PDF. Check pagination, figures, tables, and layout.
+3. Do not add a watermark or security restrictions to the uploaded PDF; the system processes the approved full-text copy.
+4. Sign in to the [NCKU thesis system](https://thesis.lib.ncku.edu.tw/), complete the metadata and upload steps, and submit the record for review.
+5. After receiving the approval email, sign in again and use step 5 to print the authorization form and download the approved full-text PDF. Confirm paper-copy counts, signatures, and graduation procedures with the department and library.
+
+## FAQ: template and degree-examination-system defense certificates
+
+Project records show that the relevant Chinese and English certificates were checked by the Curriculum Division in 2015; the response at that time was not formal university approval. In 2018, the Division stated that the template-generated Chinese certificate was unauthorized. See [Issue #30: the template certificate differs from the NCKU degree-examination-system certificate](https://github.com/wengan-li/ncku-thesis-template-latex/issues/30) for the historical discussion.
+
+Current usage principles:
+
+1. Prefer the official Chinese defense certificate generated by the degree-examination system, and follow the current university and department requirements.
+2. Template-generated certificates are for legacy/example use and layout preview only; they are not official documents or evidence of current authorization.
+3. Departments may set separate requirements for an English certificate. Confirm its version, wording, and signature requirements before use.
+4. If anything is uncertain before the defense, signature collection, or submission, obtain the current official system version rather than relying only on a template-generated certificate.
+
+Policy record: [release, certificate, and watermark policy](docs/features/release-and-distribution.en.md#draft-and-watermark-policy).
+
+## Documentation and project work
+
+If you only need to write a thesis, start from the packaged README and configuration guide. Current architecture, validation, distribution, and writing features are described in [`docs/README.en.md`](docs/README.en.md); contributors over the years are listed in [`CONTRIBUTE`](CONTRIBUTE). The full repository uses [`just`](https://just.systems/) for project commands; the student package does not depend on `just`.
+
+```bash
+just          # list commands
+just thesis   # build canonical PDF and SyncTeX
+just watch    # continuous incremental rebuild, no extra viewer
+just test     # full regression gate
+just ci       # canonical CI gate
+just clean    # remove rebuildable artifacts
+```
+
+Version history: [`CHANGELOG.en.md`](CHANGELOG.en.md)
+
+## Other community alternatives
+
+The following community projects are maintained by their respective authors and are neither affiliated with nor endorsed by this project. Verify their versions, licences, and current university rules before use.
+
+- [`Haouo/NCKU-Thesis-Typst`](https://github.com/Haouo/NCKU-Thesis-Typst) — Typst
+- [`lycsjm/nckuthesis`](https://github.com/lycsjm/nckuthesis) — LaTeX
+- [`windwalker661/Thesis-NCKU`](https://github.com/windwalker661/Thesis-NCKU) — LaTeX
+- [`nckuasrlab/ASRLab_Thesis_Template`](https://github.com/nckuasrlab/ASRLab_Thesis_Template) — LaTeX
+
+## Licence
+
+This project is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International licence; see [`LICENSE`](LICENSE). NCKU watermarks, logos, official certificates, and other institution assets may remain owned by their respective rights holders, and the repository-wide licence does not automatically authorize unrelated use or redistribution. Verify provenance and rights before reuse.
+
+The copy on the Overleaf Gallery is offered under CC BY 4.0, the only choice Overleaf's publish form allows; the project on GitHub and the release packages stay under CC BY-NC-SA 4.0. The licence covers the template's own files only. A thesis written with the template, including its text, figures, data, and the generated PDF, belongs to its author; the project claims no rights in it and does not require the thesis to carry the same licence. Submit and publish it under the university's rules.
+
+<p align="center">
+  <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons BY-NC-SA 4.0" />
+</p>

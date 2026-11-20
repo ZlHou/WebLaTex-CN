@@ -1,0 +1,69 @@
+% !TeX root = ../main.tex
+
+\xchapter{算法与代码}{Algorithm and Code}
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
+  学校并未对 算法 或 代码 的排版格式作出限定，因此可以自行修改。
+\end{tcolorbox}
+
+\xsection{算法}{Algorithm}
+
+考虑到实际使用需求，即长算法分段和注释功能，模板不再使用 \clist[columbiablue]{algorithm2e} 作为默认算法排版工具，改为调用 \clist[columbiablue]{algpseudocode}。注意，这两个宏包相互冲突。算法的具体编写方式请自行查阅宏包，即\clist{texdoc algpseudocode}。
+
+\begin{texcode}[]{}
+\begin{algorithm}[H]
+  \caption{How to write algorithms}
+  \begin{algorithmic}[1]
+      \State \textbf{Input:} this text
+      \State \textbf{Output:} how to write algorithm with \LaTeX2e \Comment{Just a comment}
+      \State initialization
+      \While{not at end of this document}
+        \State read current
+        \If{understand}
+          \State go to next section
+          \State current section becomes this one
+        \Else{$k\geq k^\text{max}$}
+          \State go back to the beginning of current section
+        \EndIf
+      \EndWhile
+  \end{algorithmic}
+\end{algorithm}
+\end{texcode}
+
+\begin{texcode}[]{}
+  \begin{algorithm}[H]
+    \caption{Simulation-optimization heuristic}\label{algorithm:SOH}
+    \begin{algorithmic}[1]
+        \State \textbf{Data:} current period $t$, initial inventory $I_{t-1}$, initial capital $B_{t-1}$, demand samples
+        \State \textbf{Output:} Optimal order quantity $Q^{\ast}_{t}$
+        \State $r\leftarrow t$
+        \State $\Delta B^{\ast}\leftarrow -\infty$
+        \While{$\Delta B\leq \Delta B^{\ast}$ and $r\leq T$}
+          \State $Q\leftarrow\arg\max_{Q\geq 0}\Delta B^{Q}_{t,r}(I_{t-1},B_{t-1})$
+          \State $\Delta B\leftarrow \Delta B^{Q}_{t,r}(I_{t-1},B_{t-1})/(r-t+1)$
+          \If{$\Delta B\geq \Delta B^{\ast}$}
+            \State $Q^{\ast}\leftarrow Q$
+            \State $\Delta B^{\ast}\leftarrow \Delta B$
+          \EndIf
+          \State $r\leftarrow r+1$
+        \EndWhile
+    \end{algorithmic}
+  \end{algorithm}
+\end{texcode}
+
+
+
+\xsection{导入代码}{Input codes}
+
+从现有文件导入源码，使用 \clist[columbiablue]{lstlisting} 宏包，本模板预先定义了一基本格式 \clist{sty_basic} 以供使用，可以自定义新的样式。
+
+\begin{texcodeonly}
+\lstinputlisting[style=sty_basic,
+  language=matlab,
+  caption={标准粒子群算法},
+  label={listing:a_label}]{./Codes/pso.m}
+\end{texcodeonly}
+\lstinputlisting[style=sty_basic,
+                    language=matlab,
+                    caption={标准粒子群算法},
+                    label={listing:a_label}]{./Codes/pso.m}

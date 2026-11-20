@@ -1,0 +1,39 @@
+%% 第三章
+
+\chapter{算法示例}
+\chaptermark{算法示例}
+
+\section{基于二分查找的有序数组检索}
+
+本章给出一个算法环境的使用示例。假设输入为一个按升序排列的数组
+$A = \{a_1, a_2, \ldots, a_n\}$，目标是在数组中查找给定元素 $x$ 的位置。
+如\autoref{alg:undergraduate-binary-search}所示，二分查找每一步都将搜索区间缩小为原来的一半，
+因此具有较高的检索效率。
+
+\begin{algorithm}[htbp]
+    \caption{二分查找算法示例}
+    \label{alg:undergraduate-binary-search}
+    \begin{algorithmic}[1]
+        \Require 升序数组 $A$，数组长度 $n$，待查找元素 $x$
+        \Ensure 若查找成功则返回元素下标，否则返回 $-1$
+        \State $left \gets 1$
+        \State $right \gets n$
+        \While{$left \leq right$}
+            \State $mid \gets \lfloor (left + right) / 2 \rfloor$
+            \If{$A[mid] = x$}
+                \State \Return $mid$
+            \ElsIf{$A[mid] < x$}
+                \State $left \gets mid + 1$
+            \Else
+                \State $right \gets mid - 1$
+            \EndIf
+        \EndWhile
+        \State \Return $-1$
+    \end{algorithmic}
+\end{algorithm}
+
+\section{复杂度分析}
+
+对于长度为 $n$ 的有序数组，\autoref{alg:undergraduate-binary-search} 在最坏情况下需要进行
+$O(\log n)$ 次比较，空间复杂度为 $O(1)$。该示例可用于展示模板中算法标题、
+编号、交叉引用以及伪代码排版效果。

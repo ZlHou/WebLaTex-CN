@@ -1,0 +1,66 @@
+%% This file is part of nwputhesis.
+%% It is loaded internally by nwputhesis.cls.
+
+\ExplSyntaxOn
+%% 用户级条件命令（可在 \ExplSyntaxOff 模式下使用）
+\NewDocumentCommand{\ifbachelor}{mm}{\nwpu_if_bachelor:TF{#1}{#2}}
+\NewDocumentCommand{\ifgraduate}{mm}{\nwpu_if_graduate:TF{#1}{#2}}
+\NewDocumentCommand{\iflistfigures}{mm}{\nwpu_if_listfigures:TF{#1}{#2}}
+\NewDocumentCommand{\ifblindreview}{mm}{\nwpu_if_blindreview:TF{#1}{#2}}
+\NewDocumentCommand{\ifprintmode}{mm}{\nwpu_if_printmode:TF{#1}{#2}}
+%%-----------------------------------------------------------------------------%
+\RequirePackage{amsmath}                                    % AMS 数学公式
+\RequirePackage{amssymb}                                    % AMS 数学符号
+\RequirePackage{tikz}                                        % 彩色封面封底背景图定位
+%%=============================================================================%
+%% 盲评版本的文字替换功能
+%%-----------------------------------------------------------------------------%
+\cs_new_protected:Npn \__nwpu_replace_blank:n #1 { \strut }
+\cs_new_protected:Npn \__nwpu_replace_black:n #1
+  {
+    \setlength{\fboxsep}{0pt}
+    \colorbox{black}{\phantom{#1}}
+  }
+\cs_new_protected:Npn \__nwpu_replace_stars: { ~***~ }
+\cs_new_protected:Npn \blindreview #1
+  {
+    \nwpu_if_blindreview:TF
+      { \__nwpu_replace_stars: }
+      { #1 }
+  }
+\cs_new_protected:Npn \blackbox #1
+  {
+    \nwpu_if_blindreview:TF
+      { \__nwpu_replace_black:n {#1} }
+      { #1 }
+  }
+\cs_new_protected:Npn \markname #1
+  {
+    \nwpu_if_blindreview:TF
+      { \__nwpu_replace_stars: }
+      { #1 }
+  }
+%%=============================================================================%
+%% 格式控制及组件控制
+%%-----------------------------------------------------------------------------%
+\RequirePackage{geometry}                                   % 纸张尺寸及页边距
+\geometry{a4paper,
+    left=\nwpuMarginLeft,
+    right=\nwpuMarginRight,
+    top=\nwpuMarginTop,
+    bottom=\nwpuMarginBottom,
+    headheight=\nwpuHeadHeight,
+    headsep=\nwpuHeadSep,
+    footskip=\nwpuFootSkip}
+\setlength{\topmargin}{\nwpuTopMargin}                        % 页眉到页面顶部距离
+\addtolength{\footskip}{\nwpuBottomMargin}                     % 页脚基线到页面底部距离
+%%-----------------------------------------------------------------------------%
+\raggedbottom                                               % 避免分页时拉伸竖直空白
+\cs_set_eq:NN \nwpu@oldmainmatter \mainmatter
+\cs_gset_protected:Npn \mainmatter
+  {
+    \nwpu@oldmainmatter
+    \nwpu_enable_table_content_font:
+    \nwpuBodyFont
+  }
+\ExplSyntaxOff

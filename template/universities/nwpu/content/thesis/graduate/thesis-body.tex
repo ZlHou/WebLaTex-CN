@@ -1,0 +1,50 @@
+% 个人信息设置
+\input{content/thesis/graduate/info}
+\addbibresource{content/thesis/graduate/reference.bib}
+\addbibresource{content/thesis/graduate/accomplishments.bib}
+
+\begin{document}
+
+\frontmatter
+
+% 封皮页及标题页
+\maketitle
+
+% 答辩委员会
+\input{content/thesis/graduate/committee}
+
+% 摘要
+\input{content/thesis/graduate/abstract}
+
+% 目录
+\tableofcontents
+
+% 图目录和表目录
+\iflistfigures{
+    \listoffigures
+    \listoftables
+}{}
+
+\mainmatter
+
+% 各章节
+\input{content/thesis/graduate/chapters}
+
+% 参考文献
+\printbibliography
+
+% 附录（在致谢之前）
+\input{content/thesis/graduate/appendix}
+
+\backmatter
+
+% 致谢（盲审模式下自动隐藏）
+\ifblindreview{}{\input{content/thesis/graduate/acknowledgements}}
+
+% 参加科研情况
+\input{content/thesis/graduate/accomplishments}
+
+% 知识产权与原创性声明
+\includepdf[pages=-]{content/figures/研究生学位论文使用授权声明.pdf}
+
+\end{document}

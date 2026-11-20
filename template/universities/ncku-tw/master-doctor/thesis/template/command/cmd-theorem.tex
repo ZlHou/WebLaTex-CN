@@ -1,0 +1,601 @@
+%
+% This file is part of the project of
+% National Cheng Kung University (NCKU) Thesis/Dissertation Template in LaTex.
+% This project is hosted at
+%     <https://github.com/wengan-li/ncku-thesis-template-latex>
+% by Wen-Gan Li.
+%
+% This project is distributed in the hope that it will be useful to someone,
+% you can redistribute it and/or modify it under the terms of the
+% Attribution-NonCommercial-ShareAlike 4.0 International.
+%
+% You should have received a copy of the
+% Attribution-NonCommercial-ShareAlike 4.0 International
+% along with this project.
+% If not, see <http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt>.
+%
+% Please feel free to fork it, modify it, and try it.
+% Have fun !!!
+%
+
+% ----------------------------------------------------------------------------
+
+% Reference from:
+%   <https://www.sharelatex.com/learn/Theorems_and_proofs>
+
+%    Definition       (定義)
+%    Condition        (條件)
+%    Theorem          (定理)
+%    Lemma            (引理)
+%    Example          (例子)
+%    Corollary        (推論)
+%    Proposition      (主張)
+%    Remark           (備註)
+%    Proof            (證明)
+%    Conjecture       (猜想)
+%    Note             (附註)
+%    Annotation       (註解)
+%    Claim            (主張)
+%    Case             (情況)
+%    Acknowledgment   (確認)
+%    Conclusion       (結論)
+%    Criterion        (標準)
+%    Assertion        (斷言)
+%    Problem          (問題)
+%    Question         (問題)
+%    Hypothesis       (假設)
+%    Summary          (總結)
+
+% ----------------------------------------------------------------------------
+
+% Shared functions
+
+\ExplSyntaxOn
+\keys_define:nn { ncku / insert-theorem }
+  {
+    title .tl_set_e:N = \TmpValueTitle,
+    label .tl_set_e:N = \TmpValueLabel,
+  }
+
+\cs_new_protected:Npn \ncku_insert_theorem_keys_set:n #1
+  {
+    \tl_set:Nn \TmpValueTitle { \empty }
+    \tl_set:Nn \TmpValueLabel { \empty }
+    \tl_if_eq:nnF {#1} { \empty }
+      { \keys_set:nn { ncku / insert-theorem } {#1} }
+  }
+\cs_new_eq:NN \NCKUPrivateSetInsertTheoremKeys
+  \ncku_insert_theorem_keys_set:n
+\ExplSyntaxOff
+
+\newcommand{\SetTheoremContentLabel}[1][\empty]
+{%
+  \ifthenelse{\equal{#1}{\empty}}{}{\IfNoValueF{#1}{\label{#1}}}%
+} % End of \DeclareDocumentCommand{}
+
+\newcommand{\InsertTheoremContent}[3][\empty]
+{%
+  % Parse the input
+  \NCKUPrivateSetInsertTheoremKeys{#1}%
+  %
+  \ifthenelse{\equal{\TmpValueTitle}{\empty}}%
+  {%
+    \begin{#2}%
+  }%
+  {%
+    \begin{#2}[\TmpValueTitle]%
+  }%
+  % Freeze the optional title before \label writes nameref metadata. Without this
+  % copy the auxiliary file stores the mutable \TmpValueTitle control sequence,
+  % which is reset by the next insertion.
+  \ifthenelse{\equal{\TmpValueTitle}{\empty}}{}%
+    {\expandafter\let\csname @currentlabelname\endcsname\TmpValueTitle}%
+  %
+  \SetTheoremContentLabel[\TmpValueLabel]%
+  %
+  #3%
+  %
+  \ifthenelse{\equal{#2}{\GetTheoremProofFormatEnvironmentName}}%
+    {$\quad\blacksquare$}{}%
+  %
+  \end{#2}%
+} % End of \newcommand{}
+
+% Declarative theorem registry. Public per-type commands remain explicit, while
+% this table owns order, style/numbering policy, defaults, key storage, and
+% membership used by aggregate and counter-routing helpers.
+\newcommand{\NCKUPrivateForEachTheoremFormat}[1]
+{%
+  #1{Definition}{definition}{numbered}{EnvDefinition}{Definition}{Section}{\GetTheoremDefinitionFormatEnvironmentName}{\GetTheoremDefinitionFormatShowText}{\GetTheoremDefinitionFormatFollowCounter}%
+  #1{Condition}{definition}{numbered}{EnvCondition}{Condition}{Section}{\GetTheoremConditionFormatEnvironmentName}{\GetTheoremConditionFormatShowText}{\GetTheoremConditionFormatFollowCounter}%
+  #1{Problem}{definition}{numbered}{EnvProblem}{Problem}{Section}{\GetTheoremProblemFormatEnvironmentName}{\GetTheoremProblemFormatShowText}{\GetTheoremProblemFormatFollowCounter}%
+  #1{Example}{definition}{numbered}{EnvExample}{Example}{Section}{\GetTheoremExampleFormatEnvironmentName}{\GetTheoremExampleFormatShowText}{\GetTheoremExampleFormatFollowCounter}%
+  #1{Theorem}{plain}{numbered}{EnvTheorem}{Theorem}{Section}{\GetTheoremTheoremFormatEnvironmentName}{\GetTheoremTheoremFormatShowText}{\GetTheoremTheoremFormatFollowCounter}%
+  #1{Lemma}{plain}{numbered}{EnvLemma}{Lemma}{Section}{\GetTheoremLemmaFormatEnvironmentName}{\GetTheoremLemmaFormatShowText}{\GetTheoremLemmaFormatFollowCounter}%
+  #1{Corollary}{plain}{numbered}{EnvCorollary}{Corollary}{Section}{\GetTheoremCorollaryFormatEnvironmentName}{\GetTheoremCorollaryFormatShowText}{\GetTheoremCorollaryFormatFollowCounter}%
+  #1{Proposition}{plain}{numbered}{EnvProposition}{Proposition}{Section}{\GetTheoremPropositionFormatEnvironmentName}{\GetTheoremPropositionFormatShowText}{\GetTheoremPropositionFormatFollowCounter}%
+  #1{Conjecture}{plain}{numbered}{EnvConjecture}{Conjecture}{Section}{\GetTheoremConjectureFormatEnvironmentName}{\GetTheoremConjectureFormatShowText}{\GetTheoremConjectureFormatFollowCounter}%
+  #1{Proof}{definition}{optional}{EnvProof}{Proof}{\empty}{\GetTheoremProofFormatEnvironmentName}{\GetTheoremProofFormatShowText}{\GetTheoremProofFormatFollowCounter}%
+  #1{Note}{definition}{optional}{EnvNote}{Note}{\empty}{\GetTheoremNoteFormatEnvironmentName}{\GetTheoremNoteFormatShowText}{\GetTheoremNoteFormatFollowCounter}%
+  #1{Annotation}{definition}{optional}{EnvAnnotation}{Annotation}{\empty}{\GetTheoremAnnotationFormatEnvironmentName}{\GetTheoremAnnotationFormatShowText}{\GetTheoremAnnotationFormatFollowCounter}%
+  #1{Claim}{definition}{optional}{EnvClaim}{Claim}{\empty}{\GetTheoremClaimFormatEnvironmentName}{\GetTheoremClaimFormatShowText}{\GetTheoremClaimFormatFollowCounter}%
+  #1{Case}{definition}{optional}{EnvCase}{Case}{\empty}{\GetTheoremCaseFormatEnvironmentName}{\GetTheoremCaseFormatShowText}{\GetTheoremCaseFormatFollowCounter}%
+  #1{Acknowledgment}{definition}{optional}{EnvAcknowledgment}{Acknowledgment}{\empty}{\GetTheoremAcknowledgmentFormatEnvironmentName}{\GetTheoremAcknowledgmentFormatShowText}{\GetTheoremAcknowledgmentFormatFollowCounter}%
+  #1{Conclusion}{definition}{optional}{EnvConclusion}{Conclusion}{\empty}{\GetTheoremConclusionFormatEnvironmentName}{\GetTheoremConclusionFormatShowText}{\GetTheoremConclusionFormatFollowCounter}%
+  #1{Criterion}{plain}{numbered}{EnvCriterion}{Criterion}{Section}{\GetTheoremCriterionFormatEnvironmentName}{\GetTheoremCriterionFormatShowText}{\GetTheoremCriterionFormatFollowCounter}%
+  #1{Assertion}{plain}{numbered}{EnvAssertion}{Assertion}{Section}{\GetTheoremAssertionFormatEnvironmentName}{\GetTheoremAssertionFormatShowText}{\GetTheoremAssertionFormatFollowCounter}%
+  #1{Question}{definition}{numbered}{EnvQuestion}{Question}{Section}{\GetTheoremQuestionFormatEnvironmentName}{\GetTheoremQuestionFormatShowText}{\GetTheoremQuestionFormatFollowCounter}%
+  #1{Hypothesis}{definition}{numbered}{EnvHypothesis}{Hypothesis}{Section}{\GetTheoremHypothesisFormatEnvironmentName}{\GetTheoremHypothesisFormatShowText}{\GetTheoremHypothesisFormatFollowCounter}%
+  #1{Summary}{definition}{optional}{EnvSummary}{Summary}{\empty}{\GetTheoremSummaryFormatEnvironmentName}{\GetTheoremSummaryFormatShowText}{\GetTheoremSummaryFormatFollowCounter}%
+} % End of \newcommand{}
+
+% Literal compatibility declarations retained for the 13 v1 numbered-counter
+% getters. The registry-owned parser populates their values before use.
+\providecommand{\GetTheoremDefinitionFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremConditionFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremProblemFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremExampleFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremTheoremFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremLemmaFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremCorollaryFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremPropositionFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremConjectureFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremCriterionFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremAssertionFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremQuestionFormatFollowCounter}{\empty}
+\providecommand{\GetTheoremHypothesisFormatFollowCounter}{\empty}
+
+\ExplSyntaxOn
+\tl_new:N \l__ncku_theorem_format_type_tl
+\keys_define:nn { ncku / theorem-format }
+  {
+    EnvironmentName .code:n =
+      { \tl_set:ce { GetTheorem\l__ncku_theorem_format_type_tl FormatEnvironmentName } {#1} },
+    ShowText .code:n =
+      { \tl_set:ce { GetTheorem\l__ncku_theorem_format_type_tl FormatShowText } {#1} },
+    FollowCounter .code:n =
+      { \tl_set:ce { GetTheorem\l__ncku_theorem_format_type_tl FormatFollowCounter } {#1} },
+  }
+
+\cs_new_protected:Npn \ncku_theorem_format_keys_set:nn #1#2
+  {
+    \tl_set:Nn \l__ncku_theorem_format_type_tl {#1}
+    \tl_set:ce { GetTheorem#1FormatEnvironmentName }
+      { \use:c { NCKUPrivateTheoremDefaultEnvironment@#1 } }
+    \tl_set:ce { GetTheorem#1FormatShowText }
+      { \use:c { NCKUPrivateTheoremDefaultShowText@#1 } }
+    \tl_set:ce { GetTheorem#1FormatFollowCounter }
+      { \use:c { NCKUPrivateTheoremDefaultFollowCounter@#1 } }
+    \tl_if_eq:nnF {#2} { \empty }
+      { \keys_set:nn { ncku / theorem-format } {#2} }
+  }
+\ExplSyntaxOff
+
+\newcommand{\NCKUPrivateDeclareTheoremFormat}[9]
+{%
+  \expandafter\def\csname NCKUPrivateTheoremStyle@#1\endcsname{#2}%
+  \expandafter\def\csname NCKUPrivateTheoremPolicy@#1\endcsname{#3}%
+  \expandafter\def\csname NCKUPrivateTheoremFormatRegistered@#1\endcsname{}%
+  \expandafter\def\csname NCKUPrivateTheoremDefaultEnvironment@#1\endcsname{#4}%
+  \expandafter\def\csname NCKUPrivateTheoremDefaultShowText@#1\endcsname{#5}%
+  \expandafter\def\csname NCKUPrivateTheoremDefaultFollowCounter@#1\endcsname{#6}%
+} % End of \newcommand{}
+
+\NCKUPrivateForEachTheoremFormat{\NCKUPrivateDeclareTheoremFormat}
+
+% Counter values can form chains (for example Problem -> Theorem -> Definition
+% -> empty). Resolve the complete chain before redefining the source getter so
+% forward references and self-lookups never leave mutable aliases behind.
+\newcount\NCKUPrivateTheoremCounterDepth
+
+\newcommand{\NCKUPrivateResolveTheoremCounter}[1]
+{%
+  \def\NCKUPrivateTheoremCounterOrigin{#1}%
+  \def\NCKUPrivateResolvedTheoremCounter{#1}%
+  \NCKUPrivateTheoremCounterDepth=0\relax
+  \NCKUPrivateResolveTheoremCounterStep
+} % End of \newcommand{}
+
+\newcommand{\NCKUPrivateResolveTheoremCounterStep}
+{%
+  \ifthenelse{\equal{\NCKUPrivateResolvedTheoremCounter}{Section}}%
+  {%
+    \def\NCKUPrivateResolvedTheoremCounter{section}%
+  }%
+  {%
+    \ifthenelse{\equal{\NCKUPrivateResolvedTheoremCounter}{section}}%
+    {}%
+    {%
+      \ifthenelse{\equal{\NCKUPrivateResolvedTheoremCounter}{\empty}}%
+      {}%
+      {%
+        \ifcsname NCKUPrivateTheoremFormatRegistered@\NCKUPrivateResolvedTheoremCounter\endcsname
+          \advance\NCKUPrivateTheoremCounterDepth by 1\relax
+          \ifnum\NCKUPrivateTheoremCounterDepth>21\relax
+            \PackageError{ncku-thesis-template}{Cyclic theorem counter configuration starting at `\NCKUPrivateTheoremCounterOrigin'}{Use Section, empty, or an acyclic registered theorem type.}%
+            \def\NCKUPrivateResolvedTheoremCounter{\empty}%
+          \else
+            \expandafter\let\expandafter\NCKUPrivateResolvedTheoremCounter
+              \csname GetTheorem\NCKUPrivateResolvedTheoremCounter FormatFollowCounter\endcsname
+            \NCKUPrivateResolveTheoremCounterStep
+          \fi
+        \else
+          % Preserve arbitrary existing LaTeX counters as terminal values. Only
+          % registered theorem names are traversed recursively.
+        \fi
+      }%
+    }%
+  }%
+} % End of \newcommand{}
+
+\newcommand{\MappingTheoremCounterResetCounter}[2][\empty]
+{%
+  \ifcsname NCKUPrivateTheoremFormatRegistered@#1\endcsname
+    \expandafter\edef\csname GetTheorem#1FormatFollowCounter\endcsname{#2}%
+  \fi
+} % End of \newcommand{}
+
+\newcommand{\MappingTheoremCounter}[2][\empty]
+{%
+  \ifthenelse{\equal{#2}{Section}}%
+  {%
+    \NCKUPrivateResolveTheoremCounter{#2}%
+    \MappingTheoremCounterResetCounter[#1]{\NCKUPrivateResolvedTheoremCounter}%
+  }%
+  {%
+    \ifcsname NCKUPrivateTheoremFormatRegistered@#2\endcsname
+      \NCKUPrivateResolveTheoremCounter{#2}%
+      \MappingTheoremCounterResetCounter[#1]{\NCKUPrivateResolvedTheoremCounter}%
+    \fi
+  }%
+} % End of \newcommand{}
+
+\newcommand{\NCKUPrivateLoadTheoremFormatState}[1]
+{%
+  \expandafter\let\expandafter\NCKUPrivateTheoremStyle
+    \csname NCKUPrivateTheoremStyle@#1\endcsname
+  \expandafter\let\expandafter\NCKUPrivateTheoremPolicy
+    \csname NCKUPrivateTheoremPolicy@#1\endcsname
+  \expandafter\let\expandafter\NCKUPrivateTheoremEnvironmentName
+    \csname GetTheorem#1FormatEnvironmentName\endcsname
+  \expandafter\let\expandafter\NCKUPrivateTheoremShowText
+    \csname GetTheorem#1FormatShowText\endcsname
+  \expandafter\let\expandafter\NCKUPrivateTheoremFollowCounter
+    \csname GetTheorem#1FormatFollowCounter\endcsname
+} % End of \newcommand{}
+
+\newcommand{\NCKUPrivateCreateNumberedTheorem}
+{%
+  % Freeze registry state into the environment definition. Reusing the private
+  % scratch getters directly would make every heading follow the final row.
+  \ifthenelse{\equal{\NCKUPrivateTheoremFollowCounter}{\empty}}%
+  {%
+    \edef\NCKUPrivateCreateTheoremCommand{%
+      \noexpand\newtheorem{\NCKUPrivateTheoremEnvironmentName}{\NCKUPrivateTheoremShowText}}%
+  }%
+  {%
+    \edef\NCKUPrivateCreateTheoremCommand{%
+      \noexpand\newtheorem{\NCKUPrivateTheoremEnvironmentName}{\NCKUPrivateTheoremShowText}[\NCKUPrivateTheoremFollowCounter]}%
+  }%
+  \NCKUPrivateCreateTheoremCommand
+} % End of \newcommand{}
+
+\newcommand{\NCKUPrivateCreateUnnumberedTheorem}
+{%
+  \edef\NCKUPrivateCreateTheoremCommand{%
+    \noexpand\newtheorem*{\NCKUPrivateTheoremEnvironmentName}{\NCKUPrivateTheoremShowText}}%
+  \NCKUPrivateCreateTheoremCommand
+} % End of \newcommand{}
+
+\newcommand{\NCKUPrivateInitRegisteredTheoremFormat}[1]
+{%
+  \NCKUPrivateLoadTheoremFormatState{#1}%
+  \expandafter\theoremstyle\expandafter{\NCKUPrivateTheoremStyle}%
+  \ifthenelse{\equal{\NCKUPrivateTheoremFollowCounter}{\empty}}%
+  {%
+    \ifthenelse{\equal{\NCKUPrivateTheoremPolicy}{optional}}%
+    {%
+      \NCKUPrivateCreateUnnumberedTheorem
+    }%
+    {%
+      \NCKUPrivateCreateNumberedTheorem
+    }%
+  }%
+  {%
+    \MappingTheoremCounter[#1]{\NCKUPrivateTheoremFollowCounter}%
+    \NCKUPrivateLoadTheoremFormatState{#1}%
+    \NCKUPrivateCreateNumberedTheorem
+  }%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertTheorem}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremTheoremFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremTheoremFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Theorem}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertDefinition}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremDefinitionFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremDefinitionFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Definition}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertCondition}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremConditionFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremConditionFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Condition}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertProblem}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremProblemFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremProblemFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Problem}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertExample}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremExampleFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremExampleFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Example}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertLemma}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremLemmaFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremLemmaFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Lemma}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertCorollary}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremCorollaryFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremCorollaryFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Corollary}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertProposition}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremPropositionFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremPropositionFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Proposition}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertConjecture}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremConjectureFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremConjectureFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Conjecture}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertHypothesis}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremHypothesisFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremHypothesisFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Hypothesis}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertQuestion}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremQuestionFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremQuestionFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Question}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertAssertion}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremAssertionFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremAssertionFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Assertion}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertCriterion}[2][\empty]
+{%
+  \InsertTheoremContent[#1]{\GetTheoremCriterionFormatEnvironmentName}{#2}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremCriterionFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Criterion}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertProof}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremProofFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremProofFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Proof}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertNote}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremNoteFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremNoteFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Note}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertAnnotation}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremAnnotationFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremAnnotationFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Annotation}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertClaim}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremClaimFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremClaimFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Claim}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertCase}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremCaseFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremCaseFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Case}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertAcknowledgment}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremAcknowledgmentFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremAcknowledgmentFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Acknowledgment}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertConclusion}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremConclusionFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremConclusionFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Conclusion}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+\newcommand{\InsertSummary}[1]
+{%
+  \InsertTheoremContent[\empty]{%
+    \GetTheoremSummaryFormatEnvironmentName}{#1}%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremSummaryFormat}
+{%
+  \NCKUPrivateInitRegisteredTheoremFormat{Summary}%
+} % End of \newcommand{}
+
+% ---------------------------------------------------------
+
+% Aggregate operations consume the same declarative registry.
+\newcommand{\NCKUPrivateInitTheoremFormat}[9]
+{%
+  \csname InitTheorem#1Format\endcsname%
+} % End of \newcommand{}
+
+\newcommand{\InitTheoremFormats}
+{%
+  \NCKUPrivateForEachTheoremFormat{\NCKUPrivateInitTheoremFormat}%
+} % End of \newcommand{}
+
+\ExplSyntaxOn
+\cs_new_protected:Npn \NCKUPrivateSetTheoremFormatKeys #1#2
+  { \ncku_theorem_format_keys_set:nn {#1} {#2} }
+\ExplSyntaxOff
+
+\newcommand{\SetTheoremFormat}[2][\empty]
+{%
+  \ifcsname NCKUPrivateTheoremFormatRegistered@#1\endcsname
+    \NCKUPrivateSetTheoremFormatKeys{#1}{#2}%
+  \fi
+} % End of \newcommand{}
+
+\newcommand{\NCKUPrivateSetDefaultTheoremFormat}[9]
+{%
+  \SetTheoremFormat[#1]{}%
+} % End of \newcommand{}
+
+\NCKUPrivateForEachTheoremFormat{\NCKUPrivateSetDefaultTheoremFormat}

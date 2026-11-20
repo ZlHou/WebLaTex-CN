@@ -1,0 +1,184 @@
+<p align="center">
+  <img src="figures/tongjithesis.png" alt="TongjiThesis" width="550">
+</p>
+
+<p align="center">
+  <a href="https://github.com/TJ-CSCCG/TongjiThesis/actions/workflows/test.yaml"><img src="https://github.com/TJ-CSCCG/TongjiThesis/actions/workflows/test.yaml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/TJ-CSCCG/TongjiThesis/releases"><img src="https://img.shields.io/github/v/release/TJ-CSCCG/TongjiThesis?label=Release" alt="Release"></a>
+  <a href="https://www.overleaf.com/latex/templates/tongjithesis-tongji-university-thesis-template/tfvdvyggqybn"><img src="https://img.shields.io/badge/Overleaf-Template-138A07" alt="Overleaf"></a>
+  <a href="https://www.latex-project.org/lppl/lppl-1-3c/"><img src="https://img.shields.io/badge/License-LPPL--1.3c-blue" alt="License"></a>
+  <a href="https://github.com/TJ-CSCCG/TongjiThesis/stargazers"><img src="https://img.shields.io/github/stars/TJ-CSCCG/TongjiThesis?style=flat" alt="Stars"></a>
+  <img src="https://img.shields.io/badge/TeX%20Live-2026-blue" alt="TeX Live 2026">
+</p>
+
+<p align="center">
+  中文 | <a href="README-EN.md">English</a>
+</p>
+
+同济大学本科毕业设计（论文）LaTeX 模板。
+
+> [!NOTE]
+> 完整样例 PDF 可在 [Release 页](https://github.com/TJ-CSCCG/TongjiThesis/releases) 下载，或查看 [Overleaf 模板 PDF](https://www.overleaf.com/latex/templates/tongjithesis-tongji-university-thesis-template/tfvdvyggqybn.pdf)。各选项的详细用法见编译后的模板使用指南（第 1 章）。
+
+---
+
+## 快速开始
+
+| 方式               | 说明                                                                                                                                            |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Overleaf**       | 通过 [Overleaf 模板链接](https://www.overleaf.com/latex/templates/tongjithesis-tongji-university-thesis-template/tfvdvyggqybn) 直接使用，零配置 |
+| **本地编译**       | 安装 [TeX Live 2026+](https://tug.org/texlive/quickinstall.html)，克隆仓库，运行 `make`                                                         |
+| **GitHub Actions** | Fork 本仓库，push 即可触发自动编译，在 Artifacts 中下载 PDF                                                                                     |
+
+> [!TIP]
+> 本模板的 CI 在 **TeX Live 2026** 上测试。本地编译遇到难以解释的错误时，请先检查 TeX Live 版本，并升级到 2026。
+>
+> 参考文献样式遵循 GB/T 7714-2025。若编译报 `gb7714-2025` 样式或 `gbt7714-2025-numeric.bst` 未找到，说明本地 `biblatex-gb7714-2015` / `gbt7714` 宏包版本过旧，尚未包含 2025 样式，更新即可（需 TeX Live ≥ 2026）：
+>
+> ```bash
+> tlmgr update --self                         # tlmgr 提示需自更新时先执行
+> tlmgr update gbt7714 biblatex-gb7714-2015
+> ```
+>
+> macOS / Linux 系统级安装需在命令前加 `sudo`；Windows 用户请在**管理员权限**的命令行中运行（无需 `sudo`）。若使用 MiKTeX，请改用 MiKTeX Console 更新上述宏包。
+
+## 使用方法
+
+### 在线使用
+
+#### 通过 Overleaf 模板直接使用
+
+> [!IMPORTANT]
+> 在使用 Overleaf 模板时，请检查编译器和主入口的设置：
+>
+> - 将 `main.tex` 文件设为主入口文件，而不是项目中的其他文件（如 `tongjithesis.cls`）；
+> - 推荐使用 `XeLaTeX` 或 `LuaLaTeX` 编译器；本模板不支持 `pdfLaTeX` 等编译器。
+
+#### 在 Overleaf 上导入本仓库
+
+通过 `Code | Download ZIP` 下载本仓库的 ZIP 文件，拖拽上传至 [Overleaf](https://www.overleaf.com/) 即可。
+
+#### 在 GitHub Actions 中编译
+
+Fork 本仓库后，首次需在 `Settings | Actions | General` 中启用 Actions；之后 push 即可触发 CI，在 workflow run 的 `Summary | Artifacts` 下载 PDF。
+
+### 本地使用
+
+#### 安装 TeX 发行版
+
+我们建议参照[官方快速安装指南](https://tug.org/texlive/quickinstall.html)安装 TeX Live（Windows、Linux）或 MacTeX（macOS）。
+
+#### 构建项目
+
+我们推荐使用命令行构建项目，也支持通过 VS Code 的 LaTeX Workshop 插件构建。
+
+##### 通过命令行
+
+###### Makefile (Linux/macOS)
+
+```shell
+make all                # compile main.pdf
+make ENGINE=$ENGINE all # use $ENGINE (where $ENGINE=-xelatex or -lualatex) to compile main.pdf
+make clean              # rm intermediate files
+make cleanall           # rm all intermediate files (including .pdf)
+make wordcount          # wordcount
+make taskbook           # compile taskbook.pdf (任务书)
+make proposal           # compile proposal.pdf (开题报告)
+make midterm            # compile midterm.pdf (中期报告)
+make forms              # compile taskbook.pdf, proposal.pdf, and midterm.pdf
+```
+
+###### Batchfile (Windows)
+
+```bat
+.\make.bat                # the same to "make.bat thesis"
+.\make.bat thesis         # compile main.pdf
+.\make.bat thesis $ENGINE # use $ENGINE (where $ENGINE=-xelatex or -lualatex) to compile main.pdf
+.\make.bat clean          # clean all work files by latexmk -c
+.\make.bat cleanall       # clean all work files and all output PDFs by latexmk -C
+.\make.bat wordcount      # wordcount
+.\make.bat taskbook       # compile taskbook.pdf (任务书)
+.\make.bat proposal       # compile proposal.pdf (开题报告)
+.\make.bat midterm        # compile midterm.pdf (中期报告)
+.\make.bat forms          # compile taskbook.pdf, proposal.pdf, and midterm.pdf
+.\make.bat help           # read the manual
+```
+
+##### 通过 VS Code 及 LaTeX Workshop 插件
+
+安装 LaTeX Workshop 插件后，**直接打开本项目根目录**（即 `TongjiThesis` 文件夹）；打开其他目录时 `.vscode/settings.json` 不会生效。项目已预配置编译方案：打开 `main.tex`，在侧栏 TeX 面板中选择 `Recipe: latexmk (xelatex)` 即可编译，保存时也会自动编译。
+
+##### 在 Docker 中使用
+
+详细使用方法见 [TongjiThesis-env](https://github.com/TJ-CSCCG/TongjiThesis-env)。
+
+### 模板配置
+
+#### 文档类选项
+
+在 `main.tex` 的 `\documentclass` 中配置：
+
+```latex
+\documentclass[
+  doctype=thesis,       % 文档类型：thesis 论文正文（默认）；taskbook/proposal/midterm 见下方“任务书/开题报告/中期报告”
+  oneside,              % 单面打印（默认），使用 twoside 可启用双面打印
+  degree=bachelor,      % 学位类型：bachelor（默认），master/doctor 留作扩展
+  field=science,        % 专业类别：science 理工科（默认）/ humanities 文科
+  algo=algpseudocode,   % algpseudocode（默认）：algorithm+algorithmicx；algorithm2e：独立 algorithm2e 宏包
+  minted=false,         % true：minted 代码高亮（需 Python+Pygments）；false：listings（默认）
+  biblatex=true,        % true：biblatex+biber（默认）；false：bibtex+gbt7714
+  fontset=fandol,       % 字体集，传递给 ctex，默认为 fandol
+  times=false,          % true：使用系统 Times New Roman；false：使用 newtx（默认）
+  fullwidthstop=circle, % 句号样式：circle 保留“。”（默认）/ dot 替换为“．”
+]{tongjithesis}
+
+\tjbibresource{bib/note.bib}  % 参考文献数据库（支持多文件，逗号分隔）；样式遵循 GB/T 7714-2025
+```
+
+> [!NOTE]
+> 经管类属社科类。26 届为过渡期，可选 `field=science`（推荐）或 `field=humanities`；自 27 届起统一使用 `field=science`。
+
+### 任务书 / 开题报告 / 中期报告
+
+除正文 `main.tex` 外，模板还提供 3 份可独立编译的官方表格，与正文共用 `chapters/metadata.tex` 中的学院/专业/学生/课题信息（指导教师在 3 份表格中均为手写签字位，不预填）：
+
+| 文档     | 入口文件        | 构建命令                                |
+| -------- | --------------- | --------------------------------------- |
+| 任务书   | `taskbook.tex`  | `make taskbook` / `.\make.bat taskbook`  |
+| 开题报告 | `proposal.tex`  | `make proposal` / `.\make.bat proposal`  |
+| 中期报告 | `midterm.tex`   | `make midterm` / `.\make.bat midterm`    |
+
+一次性构建全部 3 个文档：`make forms` / `.\make.bat forms`。任务书的起讫周数由 `\taskbookperiod{起始年}{起始月}{起始日}{截止年}{截止月}{截止日}` 自动换算，无需手动填写。详见编译后的模板使用指南。
+
+### 字体选择
+
+- **Windows 用户**：可直接使用 `fontset=windows`（系统自带 SimSun / SimHei / KaiTi / FangSong，覆盖更广）。
+- **macOS 用户**：可直接使用 `fontset=mac`（系统自带 Songti SC / Heiti SC / STFangsong / Kaiti SC，零配置）。
+- **跨平台用户**：推荐默认的 `fontset=fandol`（随 TeX Live 安装，零配置）。如需更广的字符覆盖，可从 [cjk-fonts-for-ctex](https://github.com/TJ-CSCCG/cjk-fonts-for-ctex) 下载 `adobe`、`founder`、`windows` 等字体集对应的字体并安装到系统，然后切换 `fontset`。
+
+> [!NOTE]
+> 安装新字体后请运行 `fc-cache -fv` 刷新字体缓存。
+
+### 代码高亮与算法排版
+
+#### 代码高亮
+
+1. **`listings`**（默认）：纯 LaTeX 实现，无外部依赖。适合大多数场景。
+2. **`minted`**：基于 Python Pygments，语法高亮更丰富。在 `main.tex` 中设置 `minted=true` 即可启用。需要安装 Python 3.11–3.13 并确保 `pygments` 可用（`pip install pygments`）。若系统安装了多个 Python 版本，可通过 `\renewcommand{\MintedPython}{/path/to/python}` 指定 minted 使用的 Python 解释器。
+
+#### 算法排版
+
+1. **`algpseudocode`**（默认）：基于 `algorithm` + `algorithmicx` + `algpseudocode` 宏包，使用 `\State`、`\If`、`\For` 等命令编写伪代码。
+2. **`algorithm2e`**：使用独立 `algorithm2e` 宏包，语法与默认方案不同。在 `main.tex` 中设置 `algo=algorithm2e` 即可切换。
+
+## 贡献与项目历史
+
+详见 [CONTRIBUTING.md](CONTRIBUTING.md)。面向 AI 编码代理的架构说明与开发约定见 [AGENTS.md](AGENTS.md)。
+
+## 开源协议
+
+该项目使用 [LPPL-1.3c 许可证](https://www.latex-project.org/lppl/lppl-1-3c/)。详见 [LICENSE](https://github.com/TJ-CSCCG/TongjiThesis/blob/master/LICENSE)。
+
+## 联系方式
+
+如有问题，请通过 [Discussions](https://github.com/TJ-CSCCG/TongjiThesis/discussions) 提问。

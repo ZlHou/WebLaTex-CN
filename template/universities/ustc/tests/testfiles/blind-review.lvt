@@ -1,0 +1,54 @@
+\input{regression-test}
+\documentclass[degree=doctor, fontset=fandol, review=true]{ustcthesis}
+
+\usepackage{booktabs}
+
+\input{info}
+
+
+\begin{document}
+\START
+\showoutput
+
+\maketitle
+
+\backmatter
+\begin{acknowledgments}
+  致谢内容。
+\end{acknowledgments}
+
+\begin{achievements}
+
+  \begin{theachievements}[已发表论文]
+    \item xx. 中国科学技术大学研究生学位论文撰写规范. 中国科学技术大学学报，2024,1.
+    \item ……
+  \end{theachievements}
+
+\end{achievements}
+
+\begin{achievements*}
+  \begin{theachievements}[已发表论文]
+    \item 2020 年以第一作者在 \emph{ACS Applied Materials \& Interfaces} 发表论文一篇。
+  \end{theachievements}
+
+  \begin{theachievements}[待发表期刊论文]
+    \item 一篇第一作者论文 submitted.
+    \item 一篇第一作者论文 In preparation.
+  \end{theachievements}
+
+  \begin{theachievements}[会议论文]
+    \item 第一作者会议论文 The 19th International Conference on the Science
+      and Application of Nanotubes and Low-Dimensional Materials (NT19)
+    \item 第一作者会议论文 10th A3 Symposium on Emerging Materials and
+      Devices: Nanomaterials for Energy and Electronics
+    \item 第一作者会议论文\ 中国材料大会 2021，厦门，2021 年 7 月 8 日—7 月 12 日
+  \end{theachievements}
+
+  \begin{theachievements}[口头报告]
+    \item 中国材料大会 2021，厦门，作口头报告。
+  \end{theachievements}
+\end{achievements*}
+
+\clearpage
+\OMIT
+\end{document}

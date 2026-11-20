@@ -1,0 +1,18 @@
+\input{regression-test}
+\documentclass[degree=doctor, degree-type=engineering, fontset=fandol]{ustcthesis}
+
+\input{info}
+
+\ustcsetup{
+  practice-supervisor = {洪专~教授, 李实~教授},
+}
+
+\begin{document}
+\START
+\showoutput
+
+\maketitle
+
+\clearpage
+\OMIT
+\end{document}

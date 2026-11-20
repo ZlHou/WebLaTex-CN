@@ -1,0 +1,215 @@
+% !TEX program = latexmk
+% !TEX encoding = UTF-8 Unicode
+
+% 注意：请使用 TeXLive 2023 及以上版本
+% WARNING: Please use TeXLive version >= 2023
+
+% 注意：请确保自己已经完整阅读了 README.md 这一 markdown 文档，部分功能的使用方法并未在 .tex 中直接给出；如果仍有使用问题，请在 Github 上提出 issue
+% WARNING: Pleans read README.md first cause some usages are not given in .tex files.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% select the basic style of this thesis/dissertation (this document will use thesis for convenience)
+%% 选择论文的基本类型
+
+\documentclass[
+    doctor,     % 必选项：   {master, doctor} 此处不区分专业/学术学位，在下面学位类型处区分
+                % Mandatory: {master, doctor} No difference between Academic degree and Professional degree,
+                %                             but be careful about arguments in `\degree' and `\subject'
+    % english,  % 可选项：   英文正文请选择此项
+                % Optional:  For english main content, It will change some auto-generated matter into English
+    % blind,    % 可选项：   论文用于盲审请选择此项，将隐去致谢页内容(但保留标题)、答辩委员会会议决议页内容(同前)、
+                %            常规评阅人名单页内容(同前)，将隐去题名页、答辩委员会页所有人名，
+                %            注意：如果非自动读取成果数据库，请自行修改 `攻读学位期间取得的研究成果' 内的内容格式
+                % Optional:  For blind review, It will not generate Acknowledgements(Content), Decision of Defense
+                %            Committee(Content), General Reviewers List(Content), hide all names.
+                %            NOTICE: CHANGE THE STYLE of Achievements BY YOURSELF
+    % plgck,    % 可选项：   论文用于查重请选择此项，将只产生从摘要到附录(含)的内容，且所有图片均不显示
+                % Optional:  For plagiarism check, It will only produce content from abstract to appendicies, 
+                %            meanwhile all figures will not be displayed.
+    % fancyemptypage,   % 可选项：   开启后，为确保章节在奇数页开始而插入的空白页，将显示页眉与页码
+                        %            (*根据要求，标题页与答辩委员页会始终不显示页眉与页码)
+                        % Optional:  Controlling whether the inserted empty page will show header and page number.
+                        %            Title page and Defense Committee page will not be affected by this option, 
+                        %            they will always not show header and page number.
+]{XJTU-thesis}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% fill the each blank for auto-generate contents
+%% 填写以下信息用以自动生成
+
+% 论文标题（不超过35个字，英文注意大小写规律）
+% Title, Make sure you have an acceptable capitalization
+\title{这是一个不超过三十五个字的名字比较长的关于如何开展XXX的研究}{English Title and English Title and English Title}
+
+% 学位类型
+% 考虑到专业学位的学位名称的少数特例(如专业型法学硕士不是 Master of Juris 而是 Juris Master)，此处学位类型请按照案例和文件填写
+% 同时为了前向兼容，可选项「A/P」（实际必须正确选择）代表「学术/专业」型学位，默认为学术型
+% Type of your degree, Translate it from documents in `Materials/Requirements/2021/01 中英文题名页示例/英文标准翻译/'
+% \degree[A]{硕士}{Master of Engineering} % 学术型(Academic)硕士请基于 '学术学位名称.txt' 填写
+% \degree[P]{工程硕士}{Master of Engineering} % 专业型(Professional)硕士请基于 '专业学位（领域）英文标准翻译.pdf' 填写
+%\degree[A]{博士}{Doctor of Philosophy}  % 学术型(Academic Doc)博士请填写 '{博士}{Philosophy}'
+\degree[P]{工程博士}{Doctor of Engineering} % 专业型(Professional Doc)博士请基于 '专业学位（领域）英文标准翻译.pdf' 填写
+
+% 作者姓名（注意：所有人名英文均为「名在前，姓在后」，如果只有外文名，请在两个参数都填写外文名称）
+% If you have only foreign name, put it as both first and second argument
+\author{郑正正}{Zhengzheng Zheng}
+
+% 指导老师姓名（注意：同作者姓名）
+% Name of supervisor, It have the same requirments as the author
+\advisor{冯峰}{教授}{Feng Feng}{Prof.}
+
+% 合作指导老师姓名 或 老师团队（合作指导老师指：1.与招生简章中一致的合作导师，2.CSC项目的合作导师）
+%（校方模板要求只能选择一个，都有则显示合作导师）
+% Name of associate advisor or adviror's team, You can use only one of them, and advisorassociate has a higher priority.
+% \advisorassociate{陈尘}{副教授}{Chen Chen}{Asscociate Prof.}
+% \advisorteam{团队中文名}{English Name of the Team}
+
+% 学科名称，请基于 '学科（专业）英文标准翻译.pdf' 填写
+% Name of the subject, also get it from that file
+% \subject{航空宇航科学与技术}{Aeronautical and Astronautical Science and Technology}
+\subject{航空工程}{Aeronautical Engineering}
+
+% 论文提交日期，不输入参数则默认使用当前日期，如手动指明年月，请在第一个可选参数内填写年份，第二个可选参数填写月份（均为阿拉伯数字）
+% Submission date of this thesis, if you not put it manually, it will use the current time
+% \submitdate[2021][06]
+\submitdate
+
+% 答辩委员会委员 显示的顺序和这里的一样 第一个人是主席
+% Committee member of your defence, notice that the order shows in the thesis is same as here, and the first one is the chairperson
+% each member should be put as {Organization,Name,Title} split by comma
+\addcommitteemember{西安交通大学,张长长,教授}
+\addcommitteemember{西安理工大学,王旺旺,教授}
+\addcommitteemember{国网陕西经济技术研究院,李力,高工}
+\addcommitteemember{西安交通大学,东方不败,副教授}
+\addcommitteemember{西安交通大学,赵照,研究员}
+
+% 答辩时间（手动指定）
+% Defence date, input manually
+\defensedate{2021}{06}{22}
+
+% 答辩地点（涉密论文请手动设置为「西安交通大学」）
+% Defence location, default value is 「西安交通大学」
+\defenseloc{西安交通大学主楼E座303室}
+
+% 常规审阅人 要求和答辩委员会委员一样
+% General reviewer list, same requirements as the committee member
+\addgeneralreviewer{西安交通大学,张长长,教授}
+\addgeneralreviewer{西安理工大学,王旺旺,教授}
+\addgeneralreviewer{国网陕西经济技术研究院,李力,高工}
+\addgeneralreviewer{西安交通大学,东方不败,副教授}
+\addgeneralreviewer{西安交通大学,赵照,研究员}
+
+% 学院
+% School or Faculty, unused now
+% \school{电气工程学院}{School of Electrical Engineering}
+
+% 专业[学士学位使用]
+% Major, unused now
+% \stumajor{计算机科学与计数}{Computer Science}
+
+% 学号[学士学位使用]
+% Student ID, unused now
+% \stuid{}
+
+% 班级[学士学位使用]
+% Administrative class, unused now
+% \adminclass{电气7xx班}{}
+
+% 参考文献源 参数中不要添加 .bib
+% 请使用 \addreferenceresource 添加数据库(可导入多个参考文献数据库)
+% 若自动化导入攻读学位期间的成果则使用 \addachivementresource
+\addreferenceresource{References/reference}
+\addachivementresource{References/achievement}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 如果有使用其他包，请在这里添加
+%% If you need other packages, use them here
+
+% \usepackage{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 注意：根据校方要求，以下所有页面顺序不可调整
+%% Notice: The order of these pages are defined in the requirements of the University.
+
+%% 但在最终提交前，可以通过注释所有 \thesis 开始的命令设置是否生成各个部分
+%% 或根据说明调整 latexmkrc 文件，使用 \includeonly 命令导入部分章节。
+
+% \includeonly{
+%   Main_Spine/c1,
+%   Main_Spine/c2,
+%   Main_Spine/c3,
+%   Main_Spine/c4,
+%   Main_Spine/c5,
+%   Main_Spine/c6,
+% }
+
+\begin{document}
+% [自动生成] 中英题名页
+% [Auto Generate] Chinese English Title Page
+\thesistitles
+
+% [自动生成] 答辩委员会页
+% [Auto Generate] Defense Committee Pages
+\thesiscommittes
+
+% 生成摘要页 修改 Main_Miscellaneous/abstract_chs/eng.tex 中的内容
+% Abstract, Rewrite your content in Main_Miscellaneous/abstract_chs/eng.tex
+\thesisabstract
+
+% [自动生成] 中英目录页
+% [Auto Generate] Table of Contents
+\thesistableofcontens
+
+% 主要符号表 修改 Main_Miscellaneous/glossary.tex 中的内容
+% Glossaries Page, Rewrite your content in Main_Miscellaneous/glossary.tex
+\thesisglossarylist
+
+% 正文 使用 \thesisbodybegin & \include & \thesisbodyend 组合导入正文
+\thesisbodybegin
+\include{Main_Spine/c1}
+\include{Main_Spine/c2}
+\include{Main_Spine/c3}
+\include{Main_Spine/c4}
+\include{Main_Spine/c5}
+\include{Main_Spine/c6}
+\thesisbodyend
+
+% 致谢 修改 Main_Miscellaneous/acknowledegment.tex 中的内容
+% Acknowledgement, Rewrite your content in Main_Miscellaneous/acknowledegment.tex
+\thesisacknowledegment
+
+% [自动生成] 参考文献
+%    默认使用 References/reference.bib，手动指定请在导言区 \addbibresource 处指定数据库。
+%    任意可选参数会在参考文献后生成一个非常大的页面显示所有参考文献条目，可以直接复制粘贴到学位论文提交系统中
+% [Auto Generate] Bibliography, Default file is References/reference.bib, change argument in \addbibresource for manual specification
+\thesisbibliography
+% \thesisbibliography[onepage]
+
+% 附录（有几个附录就导入几个文件（不加.tex后缀）），
+% Appendi(x/ies), argument should not have the .tex suffix
+\thesisappendix{Main_Miscellaneous/appendix_a,
+                Main_Miscellaneous/appendix_b}
+
+% 攻读学位期间取得的研究成果
+% 添加 [auto] 参数则读取通过 \addachivementresource 添加的数据库，否则读取 Main_Miscellaneous/achievement.tex 的内容 注意盲审时需要手动修改格式
+% 自动读取的数据库中 若条目含有 AUTHOR+an = {X=highlight} 则第 X 位作者会被加粗
+% Achievement, argument [auto] will load data from database added by \addachivementresource, or the data from Main_Miscellaneous/achievement.tex
+% \thesisachivements
+\thesisachivements[auto]
+
+% 答辩委员会决议 修改 Main_Miscellaneous/decision.tex 中的内容
+% Decision, Rewrite your content in Main_Miscellaneous/decision.tex
+\thesisdecision
+
+% [自动生成] 常规评阅人名单 需要手动指定两个数字作为'本学位论文共接受 {#1} 位专家评阅，其中常规评阅人 {2}名'内容参数
+% [Auto Generate] Reviewer List, set two number as the content in this page 
+\thesisreviewers{7}{5}
+
+% [自动生成] 独创性声明
+% [Auto Generate] Originality Declaration
+\thesisdeclarations
+
+\end{document}

@@ -1,0 +1,15 @@
+\input{regression-test}
+\documentclass[degree=master, fontset=fandol]{ustcthesis}
+
+\input{info}
+
+
+\begin{document}
+\START
+\showoutput
+
+\maketitle
+
+\clearpage
+\OMIT
+\end{document}

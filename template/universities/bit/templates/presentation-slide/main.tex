@@ -1,0 +1,130 @@
+%%
+% BIThesis 毕业设计演示文稿模板 —— 使用 XeLaTeX 编译 The BIThesis Template for Presentation
+% This file has no copyright assigned and is placed in the Public Domain.
+% Compile with: xelatex -> biber -> xelatex -> xelatex
+%%
+
+% 请勿删除下面两行注释，以免影响编译。
+% !TeX program = xelatex
+% !BIB program = biber
+
+\documentclass[
+  %% ====== 这一部分选项将传递给 ctexbeamer，你也可以添加其他的选项 ====
+  % 修改 `aspectratio` 可以修改画布比例 比如 `43` 或者 `169`
+  aspectratio=169,
+  presentation,
+  %% ============================================================
+  % 设置封面的图片
+  titlegraphic=./images/bit_logo.pdf,
+  % 设置每页标题的 logo
+  framelogo=./images/bit_logo.pdf
+]{bitbeamer}
+
+%% --> 基本信息设置
+\title{键入你的标题}
+\author{Feng Kaiyu \and Jiang Yingqi}
+\institute{北京理工大学}
+\date{\zhtoday}
+
+\usefonttheme{serif}              % 使用衬线字体
+\usefonttheme{professionalfonts}  % 数学公式字体
+
+% 引入你需要使用的包
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{color}
+
+\setbeamertemplate{caption}[numbered]
+
+% 使用 bibtex
+\usepackage[
+  backend=biber,
+  style=gb7714-2015,
+  gbalign=gb7714-2015,
+  gbnamefmt=lowercase,
+  gbpub=false,
+  doi=false,
+  url=false,
+  eprint=false,
+  isbn=false,
+]{biblatex}
+
+\addbibresource{ref.bib}
+
+% 设置段落间距
+\parindent2em
+
+\begin{document}
+
+% 封面
+\frame{\titlepage}
+
+%
+%% --> 目录结构
+%
+\begin{frame}{目录}
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+%% 每一节开头显示目录，并高亮当前节的主题
+\AtBeginSection[]{\frame{\tableofcontents[currentsection,hideallsubsections]}}
+
+%% --> 正式内容开始
+%
+\section{使用示例}    % 第 1 节
+
+\begin{frame}[t] % 第一页
+  \frametitle{使用示例}
+
+  % 关于 `\CJKunderline{}` `\CJKunderline*{}` 等更多用法，请参见 https://mirrors.ibiblio.org/CTAN/macros/xetex/latex/xecjk/xeCJK.pdf 的 xeCJKfntef 用法说明 一节
+
+  苏子愀然，\textbf{正襟危坐}，而问客曰：“\CJKunderline{何为其然也}？”客曰：“‘月明星稀，乌鹊南飞。’此非曹孟德之诗乎？西望夏口，东望武昌，山川相缪，\CJKunderdot[textformat=\bfseries]{郁乎苍苍}，此非孟德之困于周郎者乎？方其破荆州，下江陵，顺流而东也，舳舻千里，旌旗蔽空，酾酒临江，横槊赋诗，固一世之雄也，而今安在哉？况吾与子渔樵于江渚之上，侣鱼虾而友麋鹿，驾一叶之扁舟，举匏樽以相属。\textsl{寄蜉蝣于天地，渺沧海之一粟。}哀吾生之\footnote{之：助词，取独。}须臾，羡长江之无穷。挟飞仙以遨游，抱明月而长终。\CJKhl{yellow}{知不可乎骤得，托遗响于悲风。}”
+
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{使用示例}
+  \framesubtitle{定义引理并引用}
+
+\begin{lemma}\label{lemma:1}
+在不诚实节点最多仅能领先一块的情况下，不诚实节点利用抢先广播，可以获得不少于原有策略的收益。
+\end{lemma}
+
+引理\ref{lemma:1}。引用\cite{eyal_majority_2013}。
+\end{frame}
+
+\begin{frame}[t]
+  \frametitle{使用示例}
+  \framesubtitle{插入图片}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.47\textwidth}
+      \includegraphics[width=\textwidth]{example-image-a}
+      \caption{Image A}\label{fig:1-1}
+  \end{subfigure}
+  \begin{subfigure}{0.47\textwidth}
+      \includegraphics[width=\textwidth]{example-image-b}
+      \caption{Image B}\label{fig:1-2}
+  \end{subfigure}
+    \caption{No sea takimata sanctus est Lorem ipsum dolor sit amet.  }%
+    \label{fig:1}
+  \end{figure}
+
+\end{frame}
+
+\section{总结}
+
+\begin{frame}[t]
+  \frametitle{参考文献}
+
+  \printbibliography[heading=none]
+\end{frame}
+
+\begin{frame}[c]
+
+  谢谢!
+
+\end{frame}
+
+\end{document}
